@@ -2,5 +2,5 @@
 
 class Config
 {
-
+  private $id;
 }
