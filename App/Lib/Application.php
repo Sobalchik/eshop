@@ -2,6 +2,9 @@
 
 namespace App\Lib;
 
+
+use Exception;
+
 class Application
 {
 	public static function run(): ?Response
