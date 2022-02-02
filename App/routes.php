@@ -2,10 +2,6 @@
 
 \App\Lib\Router::add(
 	"GET",
-	"/public/index.php",
-	[\App\Controller\Controller::class,'view']);
+	"/Public/index",
+	[\App\Controller\MainController::class,'showAllExcursion']);
 
-\App\Lib\Router::add(
-	"GET",
-	"/Public/index.php",
-	[\App\Controller\Controller::	class,'view']);
