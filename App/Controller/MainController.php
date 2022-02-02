@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
-class Controller
-{
-	public static function view()
-	{
-		echo "Я работаю";
-	}
+use App\Lib\Render;
+use App\Service\ExcursionService;
 
+class MainController
+{
+	public static function showAllExcursion(): string
+	{
+		$excursions = ExcursionService::getExcursions();
+		return Render::render("excursions",[ 'excursions' => $excursions]);
+	}
 }
