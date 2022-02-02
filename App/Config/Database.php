@@ -22,12 +22,15 @@ class Database
 		$this->db_name = $ini['db_name'];
 	}
 
-	private static function getInstance()
+	public static function getInstance()
 	{
-		if(!self::$instance)
+		if(self::$instance)
 		{
-			self::$instance = new Database();
+			return  self::$instance;
 		}
+
+		self::$instance = new Database();
+
 		return self::$instance;
 	}
 
