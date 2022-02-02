@@ -1,10 +1,16 @@
 CREATE TABLE up_product
 (
     ID int not null auto_increment,
-    NAME varchar(500) not null,
+    NAME_CITY varchar(500) not null,
+	NAME_COUNTRY varchar(500) not null,
+	DATE_TRAVEL datetime,
     PRICE double,
     SHORT_DESCRIPTION varchar(500) not null,
     FULL_DESCRIPTION varchar(500) not null,
+    INTERNER_RATING double,
+	ENTERTAINMENT_RATING double,
+	SERVICE_RATING double,
+	RATING double,
     ACTIVE bool,
     DATE_CREATE timestamp,
     DATE_UPDATE timestamp,
