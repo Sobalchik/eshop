@@ -12,6 +12,40 @@ class Excursion
 	private $active;
 	private $dateCreate;
 	private $dateUpdate;
+	private $tagList;
+	private $imageList;
+
+	/**
+	 * @return mixed
+	 */
+	public function getTagList()
+	{
+		return $this->tagList;
+	}
+
+	/**
+	 * @param mixed $tagList
+	 */
+	public function setTagList($tagList)
+	{
+		$this->tagList = $tagList;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getImageList()
+	{
+		return $this->imageList;
+	}
+
+	/**
+	 * @param mixed $imageList
+	 */
+	public function setImageList($imageList)
+	{
+		$this->imageList = $imageList;
+	}
 
 	/**
 	 * @param $id
