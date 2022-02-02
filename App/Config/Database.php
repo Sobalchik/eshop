@@ -2,13 +2,15 @@
 
 namespace App\Config;
 
-class Config
+class Database
 {
 	protected $user;
 	protected $host;
 	protected $username;
 	protected $password;
 	protected $db_name;
+
+	private static $instance;
 
 	public function __construct()
 	{
@@ -20,8 +22,17 @@ class Config
 		$this->db_name = $ini['db_name'];
 	}
 
+	private static function getInstance()
+	{
+		if(!self::$instance)
+		{
+			self::$instance = new Database();
+		}
+		return self::$instance;
+	}
+
 	// получение соединения с базой данных
-	public function dbConnect()
+	public function connect()
 	{
 
 		$database = mysqli_init();
