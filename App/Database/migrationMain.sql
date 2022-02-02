@@ -88,6 +88,7 @@ CREATE TABLE up_order
     ID int not null auto_increment,
     EMAIL varchar(500) not null,
     PHONE varchar(500) not null,
+    DATE_ORDER datetime,
     COMMENT varchar(500) not null,
     STATUS_ID  int not null,
     PRODUCT_ID int not null,
