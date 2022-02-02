@@ -1,8 +1,8 @@
 <?php
 
-namespace Service;
+namespace App\Service;
 
-use Entity\Excursion;
+use App\Entity\Excursion;
 
 class ExcursionService
 {
