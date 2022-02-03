@@ -26,12 +26,6 @@ class ExcursionService
 			DATE_UPDATE as 'dateUpdate',
 			(
 			select
-			GROUP_CONCAT(up_product_tag.TAG_ID)
-			from up_product_tag
-			where up_product_tag.PRODUCT_ID = up_product.ID
-			) as 'tagList',
-			(
-			select
 				GROUP_CONCAT(up_product_image.IMAGE_ID)
 			from up_product_image
 			where up_product_image.PRODUCT_ID = up_product.ID
@@ -65,7 +59,6 @@ class ExcursionService
 				$excursion['active'],
 				$excursion['dateCreate'],
 				$excursion['dateUpdate'],
-				$excursion['tagList'],
 				$excursion['imageList']
 			);
 		}
