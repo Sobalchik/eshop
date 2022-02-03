@@ -29,6 +29,7 @@ class ExcursionService
 				and up_image.MAIN = '1'
 			) as 'imageList'
 			from up_product
+			limit 8;
 		";
 
 		$result = mysqli_query($db, $query);
