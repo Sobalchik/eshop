@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@500&family=Licorice&family=Open+Sans:wght@600&family=Raleway:ital,wght@1,300&family=Rambla:wght@700&display=swap');
+
+
+.header{
+    position: fixed;
+    min-height: 131px;
+    background: rgba(240, 255, 255, 0);
+    box-shadow: #000;
+    align-items: center;
+    width: 100%;
+}
+.menu{
+    display: flex;
+}
+.header-logo{
+    margin-left: 200px;
+    margin-top: 28px;
+    width: 140px;
+}
+
+.bloc-logo{
+
+}
+
+.menu-button{
+	font-family: 'Raleway', sans-serif;;
+	padding: 18px;
+}
+
+.menu-button:hover{
+	color: #6b6666;
+	font-weight: 600;
+	transition: 0.3s;
+	animation-name: Appearance;
+	animation-duration: 2s;
+	animation-timing-function: cubic-bezier(.1, -.6, .2, 0);
+
+}
+
+.bloc-menu{
+    margin-left: 250px;
+	margin-top: 65px;
+}
+
+.exit-log{
+	margin-left: 450px;
+	margin-top: 65px;
+}
+
+.exit-log a{
+	font-family: 'Raleway', sans-serif;;
+}
+
+
+
+
+.bloc1{
+    height: 100vh;
+    background-image: url("../Images/Rectangle 12.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.main-bloc{
+	display: flex;
+	padding-top: 700px;
+	justify-content: center;
+}
+
+.main-bloc-fix{
+	display: flex;
+	padding: 0 20px;
+}
+.main-bloc-img{
+	margin-right: 10px;
+	margin-top: 5px;
+}
+.main-bloc-img img{
+	width: 28px;
+}
+
+.main-bloc-text{
+	width: 200px;
+}
+.main-bloc-h1{
+	font-family: 'Raleway', sans-serif;;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 20px;
+	color: white;
+	width: 150px;
+	padding-bottom: 15px;
+}
+.main-bloc-p{
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 17px;
+	font-family: 'Raleway', sans-serif;;
+	color: white;
+	width: 200px;
+}
+
+
+.bloc2{
+
+}
+
+.bloc-2-contener{
+	padding-left: 250px;
+	padding-right: 250px;
+	text-align: center;
+}
+
+.bloc-2-box {
+	position: relative;
+	display: inline-block;
+	margin: 15px;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	animation-name: Appearance;
+	animation-duration: 2s;
+	animation-timing-function: cubic-bezier(.1, -.6, .2, 0);
+	background-image: url("../Images/буэнос-айрес 1.png");
+	width: 277px;
+	height: 256px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.box-date{
+	padding-left: 220px;
+	padding-top: 10px;
+	width:45px;
+	text-align:	center;
+	color: white;
+}
+.box-date-num{
+	font-family: 'Alegreya', serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 40px;
+	line-height: 12px;
+	text-transform: capitalize;
+	padding-bottom: 13px;
+}
+.box-date-text{
+	font-family: 'Alegreya', serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 12px;
+	text-transform: capitalize;
+}
+
+.box-h1-1{
+	font-family: 'Alegreya', serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 30px;
+	line-height: 41px;
+	text-transform: uppercase;
+}
+
+.box-h1-2{
+	font-family: 'Alegreya', serif;
+	font-size: 15px;
+	line-height: 25px;
+}
+
+.box-h1{
+	padding-top: 40px;
+	text-align: center;
+	color: white;
+}
+
+.box-bottom{
+	color: white;
+	display: flex;
+	padding-top: 45px;
+}
+
+.box-bottom-weather{
+	padding-top: 21px;
+	margin-left: -10px;
+
+	font-family: 'Rambla', sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 16px;
+	text-transform: capitalize;
+}
+
+.box-bottom-many{
+	padding-left: 130px;
+	padding-top: 21px;
+
+	font-family: 'Rambla', sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 16px;
+	text-transform: capitalize;
+}
+
+
+
+.bloc-2-box .overlay {
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	background: rgba(0, 0, 0, 0.7);
+	height: 100%;
+	width: 100%;
+	transition: visiblity 0s, opacity 0.3s;
+}
+
+
+.overlay {
+}
+
+.bloc-2-box:hover .overlay {
+	visibility: visible;
+	opacity: 1;
+}
+
+.asd {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.overlay-detailed{
+	color: white;
+	margin-top: 30px;
+	margin-left: 170px;
+}
+
+.overlay-like{
+	margin-left: -215px;
+	margin-top: 20px;
+}
+
+
+
+
+
+
+
+.overlay-progress-text{
+	color: white;
+}
+.loc{
+	display: flex;
+}
+.progress {
+	background: rgba(255,255,255,0.1);
+	justify-content: flex-start;
+	border-radius: 100px;
+	display: flex;
+	height: 18px;
+	width: 150px;
+	margin-left: 20px;
+}
+
+.progress-value {
+	animation: load 3s normal forwards;
+	box-shadow: 0 10px 40px -10px  #00C1D9;;
+	border-radius: 100px;
+	background:  #00C1D9;;
+	height: 18px;
+	width: 30%;
+}
+

@@ -10,6 +10,6 @@ class MainController
 	public static function showAllExcursion(): string
 	{
 		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect()); // НУЖНО ПЕРЕДЕЛАТЬ КАК ТО ?
-		return Render::render("excursions",[ 'excursions' => $excursions]);
+		return Render::render("layout",[ 'excursions' => $excursions]);
 	}
 }
