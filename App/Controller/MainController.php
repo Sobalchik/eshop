@@ -13,4 +13,11 @@ class MainController
 		$excursionListPages = Render::render("content-card",[ 'excursions' => $excursions]);
 		return Render::renderLayout($excursionListPages,['sth' => 1]);
 	}
+
+	public static function showPlaceHolder(): string
+	{
+		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect()); // НУЖНО ПЕРЕДЕЛАТЬ КАК ТО ?
+		return  Render::render("placeholder",[ 'excursions' => $excursions]);
+
+	}
 }
