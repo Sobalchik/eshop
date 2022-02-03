@@ -3,10 +3,11 @@
 namespace App\Service;
 
 use App\Entity\Excursion;
+use mysqli;
 
 class ExcursionService
 {
-	public static function getExcursions(\mysqli $db) : array
+	public static function getExcursions(mysqli $db) : array
 	{
 		$query = "
 			select
