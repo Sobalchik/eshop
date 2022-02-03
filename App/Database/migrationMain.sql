@@ -7,7 +7,7 @@ CREATE TABLE up_product
     PRICE double,
     SHORT_DESCRIPTION varchar(500) not null,
     FULL_DESCRIPTION varchar(500) not null,
-    INTERNER_RATING double,
+    INTERNET_RATING double,
 	ENTERTAINMENT_RATING double,
 	SERVICE_RATING double,
 	RATING double,
