@@ -12,4 +12,12 @@ class Render
 		return ob_get_clean();
 	}
 
+	public static function renderLayout(string $content, array $templateData = []): string
+	{
+		$data = array_merge($templateData, [
+			'content' => $content,
+		]);
+		return self::render("layout", $data);
+
+	}
 }

@@ -1,6 +1,9 @@
 <?php
+/** @var array $excursions */
+$i=0;
 ?>
 
+<?php foreach ($excursions as $excursion): ?>
 <div class="bloc-2-box">
 	<div class="asd">
 		<div class="box-date">
@@ -8,13 +11,13 @@
 			<p class="box-date-text">Марта</p>
 		</div>
 		<div class="box-h1">
-			<p class="box-h1-1">Буэнос-айрес</p>
-			<p class="box-h1-2">Аргентина</p>
+			<p class="box-h1-1"><?= $excursion->getNameCity()?></p>
+			<p class="box-h1-2"><?= $excursion->getNameCountry()?></p>
 		</div>
 		<div class="box-bottom">
 			<img src="../../Public/Resources/Images/солнечно%201.png">
 			<p class="box-bottom-weather">24°C</p>
-			<p class="box-bottom-many">₽ 53 000</p>
+			<p class="box-bottom-many">₽ <?= $excursion->getPrice()?></p>
 		</div>
 	</div>
 	<div class="overlay">
@@ -32,3 +35,6 @@
 		</div>
 	</div>
 </div>
+	<?php $i++;
+	if ($i==8)break;?>
+<?php endforeach; ?>
