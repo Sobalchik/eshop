@@ -25,26 +25,33 @@ class Excursion
 	private $imageList;
 
 	/**
-	 * @param $id
-	 * @param $nameCity
-	 * @param $nameCountry
-	 * @param $dateTravel
-	 * @param $price
-	 * @param $shortDescription
-	 * @param $fullDescription
-	 * @param $internetRating
-	 * @param $entertainmentRating
-	 * @param $serviceRating
-	 * @param $rating
-	 * @param $active
-	 * @param $dateCreate
-	 * @param $dateUpdate
-	 // * @param $tagList
-	 * @param $imageList
+	 * @param int $id
+	 * @param string $nameCity
+	 * @param string $nameCountry
+	 * @param string $dateTravel
+	 * @param float $price
+	 * @param string $shortDescription
+	 * @param string $fullDescription
+	 * @param float $internetRating
+	 * @param float $entertainmentRating
+	 * @param float $serviceRating
+	 * @param float $rating
+	 * @param bool $active
+	 * @param string $dateCreate
+	 * @param string $dateUpdate
+	 * @param string $imageList
 	 */
-	public function __construct($id, $nameCity, $nameCountry, $dateTravel, $price, $shortDescription, $fullDescription,
-		$internetRating, $entertainmentRating, $serviceRating, $rating, $active, $dateCreate, $dateUpdate,
-		$imageList)
+	public function __construct(
+		int $id,
+		string $nameCity, string $nameCountry,
+		string $dateTravel,
+		float $price,
+		string $shortDescription, string $fullDescription,
+		float $internetRating, float $entertainmentRating,
+		float $serviceRating, float $rating,
+		bool $active,
+		string $dateCreate, string $dateUpdate,
+		string $imageList)
 	{
 		$this->id = $id;
 		$this->nameCity = $nameCity;
@@ -64,9 +71,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return int
 	 */
-	public function getId()
+	public function getId(): int
 	{
 		return $this->id;
 	}
@@ -80,9 +87,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getNameCity()
+	public function getNameCity(): string
 	{
 		return $this->nameCity;
 	}
@@ -96,9 +103,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getNameCountry()
+	public function getNameCountry(): string
 	{
 		return $this->nameCountry;
 	}
@@ -112,9 +119,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getDateTravel()
+	public function getDateTravel(): string
 	{
 		return $this->dateTravel;
 	}
@@ -128,9 +135,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return float
 	 */
-	public function getPrice()
+	public function getPrice(): float
 	{
 		return $this->price;
 	}
@@ -144,9 +151,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getShortDescription()
+	public function getShortDescription(): string
 	{
 		return $this->shortDescription;
 	}
@@ -160,9 +167,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getFullDescription()
+	public function getFullDescription(): string
 	{
 		return $this->fullDescription;
 	}
@@ -176,9 +183,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return float
 	 */
-	public function getInternetRating()
+	public function getInternetRating(): float
 	{
 		return $this->internetRating;
 	}
@@ -192,9 +199,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return float
 	 */
-	public function getEntertainmentRating()
+	public function getEntertainmentRating(): float
 	{
 		return $this->entertainmentRating;
 	}
@@ -208,9 +215,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return float
 	 */
-	public function getServiceRating()
+	public function getServiceRating(): float
 	{
 		return $this->serviceRating;
 	}
@@ -224,9 +231,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return float
 	 */
-	public function getRating()
+	public function getRating(): float
 	{
 		return $this->rating;
 	}
@@ -240,9 +247,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return bool
 	 */
-	public function getActive()
+	public function getActive(): bool
 	{
 		return $this->active;
 	}
@@ -256,9 +263,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getDateCreate()
+	public function getDateCreate(): string
 	{
 		return $this->dateCreate;
 	}
@@ -272,9 +279,9 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getDateUpdate()
+	public function getDateUpdate(): string
 	{
 		return $this->dateUpdate;
 	}
@@ -288,33 +295,33 @@ class Excursion
 	}
 
 	/**
-	 * @return mixed
+	 * @return array
 	 */
-	public function getTagList()
+	public function getTagList(): array
 	{
 		return $this->tagList;
 	}
 
 	/**
-	 * @param mixed $tagList
+	 * @param array $tagList
 	 */
-	public function setTagList($tagList): void
+	public function setTagList(array $tagList): void
 	{
 		$this->tagList = $tagList;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getImageList()
+	public function getImageList(): string
 	{
 		return $this->imageList;
 	}
 
 	/**
-	 * @param mixed $imageList
+	 * @param string $imageList
 	 */
-	public function setImageList($imageList): void
+	public function setImageList(string $imageList): void
 	{
 		$this->imageList = $imageList;
 	}

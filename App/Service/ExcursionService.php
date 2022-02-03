@@ -15,20 +15,18 @@ class ExcursionService
 			NAME_COUNTRY as 'nameCountry',
 			DATE_TRAVEL as 'dateTravel',
 			PRICE as 'price',
-			SHORT_DESCRIPTION as 'shortDescription',
-			FULL_DESCRIPTION as 'longDescription',
 			INTERNET_RATING as 'internetRating',
 			ENTERTAINMENT_RATING as 'entertainmentRating',
 			SERVICE_RATING as 'serviceRating',
 			RATING as 'rating',
 			ACTIVE as 'active',
-			DATE_CREATE as 'dateCreate',
-			DATE_UPDATE as 'dateUpdate',
 			(
-			select
-				GROUP_CONCAT(up_product_image.IMAGE_ID)
-			from up_product_image
-			where up_product_image.PRODUCT_ID = up_product.ID
+				select
+					up_image.PATH
+				from up_product_image
+				left join up_image on up_product_image.IMAGE_ID = up_image.ID
+				where up_product_image.PRODUCT_ID = up_product.ID
+				and up_image.MAIN = '1'
 			) as 'imageList'
 			from up_product
 		";
@@ -50,15 +48,15 @@ class ExcursionService
 				$excursion['nameCountry'],
 				$excursion['dateTravel'],
 				$excursion['price'],
-				$excursion['shortDescription'],
-				$excursion['longDescription'],
+				'',
+				'',
 				$excursion['internetRating'],
 				$excursion['entertainmentRating'],
 				$excursion['serviceRating'],
 				$excursion['rating'],
 				$excursion['active'],
-				$excursion['dateCreate'],
-				$excursion['dateUpdate'],
+				'',
+				'',
 				$excursion['imageList']
 			);
 		}
