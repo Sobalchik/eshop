@@ -4,198 +4,322 @@ namespace App\Entity;
 
 class Excursion
 {
-	private $id;
-	private $name;
-	private $price;
-	private $shortDescription;
-	private $fullDescription;
-	private $active;
-	private $dateCreate;
-	private $dateUpdate;
-	private $tagList;
-	private $imageList;
+	// внимание: типы данных double изменены на float
+	// проверить вместимость
+
+	private int $id;
+	private string $nameCity;
+	private string $nameCountry;
+	private string $dateTravel;
+	private float $price;
+	private string $shortDescription;
+	private string $fullDescription;
+	private float $internetRating;
+	private float $entertainmentRating;
+	private float $serviceRating;
+	private float $rating;
+	private bool $active;
+	private string $dateCreate;
+	private string $dateUpdate;
+	private array $tagList;
+	private array $imageList;
 
 	/**
-	 * @return mixed
+	 * @param int $id
+	 * @param string $nameCity
+	 * @param string $nameCountry
+	 * @param string $dateTravel
+	 * @param float $price
+	 * @param string $shortDescription
+	 * @param string $fullDescription
+	 * @param float $internetRating
+	 * @param float $entertainmentRating
+	 * @param float $serviceRating
+	 * @param float $rating
+	 * @param bool $active
+	 * @param string $dateCreate
+	 * @param string $dateUpdate
+	 * @param array $tagList
+	 * @param array $imageList
 	 */
-	public function getTagList()
+	public function __construct(int $id, string $nameCity, string $nameCountry, string $dateTravel, float $price,
+		string $shortDescription, string $fullDescription, float $internetRating, float $entertainmentRating,
+		float $serviceRating, float $rating, bool $active, string $dateCreate, string $dateUpdate, array $tagList,
+		array $imageList)
 	{
-		return $this->tagList;
-	}
-
-	/**
-	 * @param mixed $tagList
-	 */
-	public function setTagList($tagList)
-	{
+		$this->id = $id;
+		$this->nameCity = $nameCity;
+		$this->nameCountry = $nameCountry;
+		$this->dateTravel = $dateTravel;
+		$this->price = $price;
+		$this->shortDescription = $shortDescription;
+		$this->fullDescription = $fullDescription;
+		$this->internetRating = $internetRating;
+		$this->entertainmentRating = $entertainmentRating;
+		$this->serviceRating = $serviceRating;
+		$this->rating = $rating;
+		$this->active = $active;
+		$this->dateCreate = $dateCreate;
+		$this->dateUpdate = $dateUpdate;
 		$this->tagList = $tagList;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getImageList()
-	{
-		return $this->imageList;
-	}
-
-	/**
-	 * @param mixed $imageList
-	 */
-	public function setImageList($imageList)
-	{
 		$this->imageList = $imageList;
 	}
 
 	/**
-	 * @param $id
-	 * @param $name
-	 * @param $price
-	 * @param $shortDescription
-	 * @param $fullDescription
-	 * @param $active
-	 * @param $dateCreate
-	 * @param $dateUpdate
+	 * @return int
 	 */
-	public function __construct($id, $name, $price, $shortDescription, $fullDescription, $active, $dateCreate,
-		$dateUpdate)
-	{
-		$this->id = $id;
-		$this->name = $name;
-		$this->price = $price;
-		$this->shortDescription = $shortDescription;
-		$this->fullDescription = $fullDescription;
-		$this->active = $active;
-		$this->dateCreate = $dateCreate;
-		$this->dateUpdate = $dateUpdate;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getId()
+	public function getId(): int
 	{
 		return $this->id;
 	}
 
 	/**
-	 * @param mixed $id
+	 * @param int $id
 	 */
-	public function setId($id)
+	public function setId(int $id): void
 	{
 		$this->id = $id;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getName()
+	public function getNameCity(): string
 	{
-		return $this->name;
+		return $this->nameCity;
 	}
 
 	/**
-	 * @param mixed $name
+	 * @param string $nameCity
 	 */
-	public function setName($name)
+	public function setNameCity(string $nameCity): void
 	{
-		$this->name = $name;
+		$this->nameCity = $nameCity;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getPrice()
+	public function getNameCountry(): string
+	{
+		return $this->nameCountry;
+	}
+
+	/**
+	 * @param string $nameCountry
+	 */
+	public function setNameCountry(string $nameCountry): void
+	{
+		$this->nameCountry = $nameCountry;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDateTravel(): string
+	{
+		return $this->dateTravel;
+	}
+
+	/**
+	 * @param string $dateTravel
+	 */
+	public function setDateTravel(string $dateTravel): void
+	{
+		$this->dateTravel = $dateTravel;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getPrice(): float
 	{
 		return $this->price;
 	}
 
 	/**
-	 * @param mixed $price
+	 * @param float $price
 	 */
-	public function setPrice($price)
+	public function setPrice(float $price): void
 	{
 		$this->price = $price;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getShortDescription()
+	public function getShortDescription(): string
 	{
 		return $this->shortDescription;
 	}
 
 	/**
-	 * @param mixed $shortDescription
+	 * @param string $shortDescription
 	 */
-	public function setShortDescription($shortDescription)
+	public function setShortDescription(string $shortDescription): void
 	{
 		$this->shortDescription = $shortDescription;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getFullDescription()
+	public function getFullDescription(): string
 	{
 		return $this->fullDescription;
 	}
 
 	/**
-	 * @param mixed $fullDescription
+	 * @param string $fullDescription
 	 */
-	public function setFullDescription($fullDescription)
+	public function setFullDescription(string $fullDescription): void
 	{
 		$this->fullDescription = $fullDescription;
 	}
 
 	/**
-	 * @return mixed
+	 * @return float
 	 */
-	public function getActive()
+	public function getInternetRating(): float
+	{
+		return $this->internetRating;
+	}
+
+	/**
+	 * @param float $internetRating
+	 */
+	public function setInternetRating(float $internetRating): void
+	{
+		$this->internetRating = $internetRating;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getEntertainmentRating(): float
+	{
+		return $this->entertainmentRating;
+	}
+
+	/**
+	 * @param float $entertainmentRating
+	 */
+	public function setEntertainmentRating(float $entertainmentRating): void
+	{
+		$this->entertainmentRating = $entertainmentRating;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getServiceRating(): float
+	{
+		return $this->serviceRating;
+	}
+
+	/**
+	 * @param float $serviceRating
+	 */
+	public function setServiceRating(float $serviceRating): void
+	{
+		$this->serviceRating = $serviceRating;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getRating(): float
+	{
+		return $this->rating;
+	}
+
+	/**
+	 * @param float $rating
+	 */
+	public function setRating(float $rating): void
+	{
+		$this->rating = $rating;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isActive(): bool
 	{
 		return $this->active;
 	}
 
 	/**
-	 * @param mixed $active
+	 * @param bool $active
 	 */
-	public function setActive($active)
+	public function setActive(bool $active): void
 	{
 		$this->active = $active;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getDateCreate()
+	public function getDateCreate(): string
 	{
 		return $this->dateCreate;
 	}
 
 	/**
-	 * @param mixed $dateCreate
+	 * @param string $dateCreate
 	 */
-	public function setDateCreate($dateCreate)
+	public function setDateCreate(string $dateCreate): void
 	{
 		$this->dateCreate = $dateCreate;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getDateUpdate()
+	public function getDateUpdate(): string
 	{
 		return $this->dateUpdate;
 	}
 
 	/**
-	 * @param mixed $dateUpdate
+	 * @param string $dateUpdate
 	 */
-	public function setDateUpdate($dateUpdate)
+	public function setDateUpdate(string $dateUpdate): void
 	{
 		$this->dateUpdate = $dateUpdate;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function getTagList(): array
+	{
+		return $this->tagList;
+	}
+
+	/**
+	 * @param array $tagList
+	 */
+	public function setTagList(array $tagList): void
+	{
+		$this->tagList = $tagList;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getImageList(): array
+	{
+		return $this->imageList;
+	}
+
+	/**
+	 * @param array $imageList
+	 */
+	public function setImageList(array $imageList): void
+	{
+		$this->imageList = $imageList;
+	}
+
 
 }
