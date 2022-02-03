@@ -6,7 +6,7 @@ use App\Entity\Excursion;
 
 class ExcursionService
 {
-	public static function getExcursions($db) : array
+	public static function getExcursions(\mysqli $db) : array
 	{
 		$query = "
 			select
@@ -26,12 +26,6 @@ class ExcursionService
 			DATE_UPDATE as 'dateUpdate',
 			(
 			select
-			GROUP_CONCAT(up_product_tag.TAG_ID)
-			from up_product_tag
-			where up_product_tag.PRODUCT_ID = up_product.ID
-			) as 'tagList',
-			(
-			select
 				GROUP_CONCAT(up_product_image.IMAGE_ID)
 			from up_product_image
 			where up_product_image.PRODUCT_ID = up_product.ID
@@ -48,12 +42,26 @@ class ExcursionService
 
 		$excursions = [];
 
-		// проверить на данных из бд
-
-		// while($excursion = mysqli_fetch_assoc($result))
-		// {
-		// 	$excursions[] = new Excursion($excursion);
-		// }
+		while($excursion = mysqli_fetch_assoc($result))
+		{
+			$excursions[] = new Excursion(
+				$excursion['id'],
+				$excursion['nameCity'],
+				$excursion['nameCountry'],
+				$excursion['dateTravel'],
+				$excursion['price'],
+				$excursion['shortDescription'],
+				$excursion['longDescription'],
+				$excursion['internetRating'],
+				$excursion['entertainmentRating'],
+				$excursion['serviceRating'],
+				$excursion['rating'],
+				$excursion['active'],
+				$excursion['dateCreate'],
+				$excursion['dateUpdate'],
+				$excursion['imageList']
+			);
+		}
 
 		return $excursions;
 	}
