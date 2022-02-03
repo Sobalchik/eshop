@@ -21,3 +21,19 @@ INSERT INTO `up_product_image`(`PRODUCT_ID`, `IMAGE_ID`) VALUES ('4','4');
 INSERT INTO `up_product_image`(`PRODUCT_ID`, `IMAGE_ID`) VALUES ('5','5');
 INSERT INTO `up_product_image`(`PRODUCT_ID`, `IMAGE_ID`) VALUES ('6','6');
 INSERT INTO `up_product_image`(`PRODUCT_ID`, `IMAGE_ID`) VALUES ('7','7');
+
+INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('Буэнос-Айрес','2022-02-03 17:00:00','2022-02-03 17:00:00');
+INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('Берлин','2022-02-03 17:00:00','2022-02-03 17:00:00');
+INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('Пхукет','2022-02-03 17:00:00','2022-02-03 17:00:00');
+INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('Лондон','2022-02-03 17:00:00','2022-02-03 17:00:00');
+INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('Прага','2022-02-03 17:00:00','2022-02-03 17:00:00');
+INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('Рига','2022-02-03 17:00:00','2022-02-03 17:00:00');
+INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('Афины','2022-02-03 17:00:00','2022-02-03 17:00:00');
+
+INSERT INTO `up_product_tag`(`PRODUCT_ID`, `TAG_ID`) VALUES ('1','1');
+INSERT INTO `up_product_tag`(`PRODUCT_ID`, `TAG_ID`) VALUES ('2','2');
+INSERT INTO `up_product_tag`(`PRODUCT_ID`, `TAG_ID`) VALUES ('3','3');
+INSERT INTO `up_product_tag`(`PRODUCT_ID`, `TAG_ID`) VALUES ('4','4');
+INSERT INTO `up_product_tag`(`PRODUCT_ID`, `TAG_ID`) VALUES ('5','5');
+INSERT INTO `up_product_tag`(`PRODUCT_ID`, `TAG_ID`) VALUES ('6','6');
+INSERT INTO `up_product_tag`(`PRODUCT_ID`, `TAG_ID`) VALUES ('7','7');
