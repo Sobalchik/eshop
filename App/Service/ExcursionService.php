@@ -6,7 +6,7 @@ use App\Entity\Excursion;
 
 class ExcursionService
 {
-	public static function getExcursions(mysqli $db) : array
+	public static function getExcursions($db) : array
 	{
 		$query = "
 			select
