@@ -6,7 +6,7 @@ use App\Entity\Excursion;
 
 class ExcursionService
 {
-	public static function getExcursions($db) : array
+	public static function getExcursions(\mysqli $db) : array
 	{
 		$query = "
 			select
@@ -48,12 +48,27 @@ class ExcursionService
 
 		$excursions = [];
 
-		// проверить на данных из бд
-
-		// while($excursion = mysqli_fetch_assoc($result))
-		// {
-		// 	$excursions[] = new Excursion($excursion);
-		// }
+		while($excursion = mysqli_fetch_assoc($result))
+		{
+			$excursions[] = new Excursion(
+				$excursion['id'],
+				$excursion['nameCity'],
+				$excursion['nameCountry'],
+				$excursion['dateTravel'],
+				$excursion['price'],
+				$excursion['shortDescription'],
+				$excursion['longDescription'],
+				$excursion['internetRating'],
+				$excursion['entertainmentRating'],
+				$excursion['serviceRating'],
+				$excursion['rating'],
+				$excursion['active'],
+				$excursion['dateCreate'],
+				$excursion['dateUpdate'],
+				$excursion['tagList'],
+				$excursion['imageList']
+			);
+		}
 
 		return $excursions;
 	}
