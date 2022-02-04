@@ -6,11 +6,11 @@ class Helper
 {
 	private static $instance;
 
-	public static function getInstance()
+	public static function getInstance(): Helper
 	{
-		if(self::$instance)
+		if (self::$instance)
 		{
-			return  self::$instance;
+			return self::$instance;
 		}
 
 		self::$instance = new self();
@@ -28,5 +28,10 @@ class Helper
 	{
 		$date = date_create($date);
 		return date_format($date, 'M');
+	}
+
+	public static function conversionCelsiusToFahrenheit($celsius)
+	{
+		return ($celsius * 9 / 5) + 32;
 	}
 }

@@ -24,9 +24,9 @@ class Database
 
 	public static function getInstance(): Database
 	{
-		if(self::$instance)
+		if (self::$instance)
 		{
-			return  self::$instance;
+			return self::$instance;
 		}
 
 		self::$instance = new Database();
@@ -37,7 +37,6 @@ class Database
 	// получение соединения с базой данных
 	public function connect()
 	{
-
 		$database = mysqli_init();
 		$connectionResult = mysqli_real_connect(
 			$database,

@@ -2,14 +2,12 @@
 
 namespace App\Lib;
 
-
 use Exception;
 
 class Application
 {
 	public static function run(): ?Response
 	{
-
 		$callback = \App\Lib\Router::route($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 		if ($callback === null)
@@ -23,7 +21,7 @@ class Application
 		{
 			$callbackReflection = new \ReflectionMethod($callback['callback'][0], $callback['callback'][1]);
 		}
-		else if (is_string($callback['callback']) || is_callable($callback['callback']))
+		elseif (is_string($callback['callback']) || is_callable($callback['callback']))
 		{
 			$callbackReflection = new \ReflectionFunction($callback['callback']);
 		}
@@ -65,6 +63,6 @@ class Application
 		{
 			return Response::text($result);
 		}
-		return Response::error('787','Ты дурачёк');
+		return Response::error('787', 'Ты дурачёк');
 	}
 }

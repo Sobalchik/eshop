@@ -7,7 +7,7 @@ use mysqli;
 
 class ExcursionService
 {
-	public static function getExcursions(mysqli $db) : array
+	public static function getExcursions(mysqli $db): array
 	{
 		$query = "
 			select
@@ -42,7 +42,7 @@ class ExcursionService
 
 		$excursions = [];
 
-		while($excursion = mysqli_fetch_assoc($result))
+		while ($excursion = mysqli_fetch_assoc($result))
 		{
 			$excursions[] = new Excursion(
 				$excursion['id'],
@@ -66,12 +66,12 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function getExcursionsByTag() : array
+	public static function getExcursionsByTag(): array
 	{
 		return [];
 	}
 
-	public static function addExcursion() : string
+	public static function addExcursion(): string
 	{
 		return "Excursion Added";
 	}

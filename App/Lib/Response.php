@@ -17,14 +17,14 @@ class Response
 		return $instance;
 	}
 
-	public static function text(string $text) : Response
+	public static function text(string $text): Response
 	{
 		$instance = new static();
 		$instance->body = $text;
 		return $instance;
 	}
 
-	public static function json(array $data) : Response
+	public static function json(array $data): Response
 	{
 		$instance = new static();
 		$instance->body = json_encode($data);

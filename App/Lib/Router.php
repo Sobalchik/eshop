@@ -19,14 +19,13 @@ class Router
 		static::$routes[] = [
 			'method' => $method,
 			'urlTemplate' => $urlTemplate,
-			'urlRegex' =>  static::makeRegexFromUrl($urlTemplate),
-			'callback' => $callback
+			'urlRegex' => static::makeRegexFromUrl($urlTemplate),
+			'callback' => $callback,
 		];
 	}
 
 	public static function route(string $method, string $url): ?array
 	{
-
 		foreach (static::$routes as $route)
 		{
 			$matches = [];
@@ -34,7 +33,7 @@ class Router
 			{
 				return [
 					'callback' => $route['callback'],
-					'params' => $matches
+					'params' => $matches,
 				];
 			}
 		}

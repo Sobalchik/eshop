@@ -80,7 +80,7 @@
 	<div class="bloc2" style="height: 500px">
 		<h1>Топ Экскурсий</h1>
 		<div class="bloc-2-contener">
-			<?= $content?>
+			<?= $content ?>
 		</div>
 	</div>
 </div>

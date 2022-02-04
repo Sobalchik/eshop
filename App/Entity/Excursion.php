@@ -326,6 +326,4 @@ class Excursion
 		$this->imageList = $imageList;
 	}
 
-
-
 }
