@@ -2,11 +2,11 @@
 
 \App\Lib\Router::add(
 	"GET",
-	"/Public/index",
+	"/home",
 	[\App\Controller\MainController::class, 'showTopExcursions']);
 
 \App\Lib\Router::add(
 	"GET",
-	"/Public/placeholder",
+	"/placeholder",
 	[\App\Controller\MainController::class, 'showPlaceHolder']);
 
