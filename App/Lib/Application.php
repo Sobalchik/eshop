@@ -63,6 +63,7 @@ class Application
 		{
 			return Response::text($result);
 		}
-		return Response::error('787', 'Ты дурачёк');
+
+		return Response::error('404', 'Not Found');
 	}
 }
