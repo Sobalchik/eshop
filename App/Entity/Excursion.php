@@ -18,6 +18,7 @@ class Excursion
 	private $entertainmentRating;
 	private $serviceRating;
 	private $rating;
+	private $degrees;
 	private $active;
 	private $dateCreate;
 	private $dateUpdate;
@@ -36,6 +37,7 @@ class Excursion
 	 * @param float $entertainmentRating
 	 * @param float $serviceRating
 	 * @param float $rating
+	 * @param float $degrees
 	 * @param bool $active
 	 * @param string $dateCreate
 	 * @param string $dateUpdate
@@ -48,7 +50,7 @@ class Excursion
 		float $price,
 		string $shortDescription, string $fullDescription,
 		float $internetRating, float $entertainmentRating,
-		float $serviceRating, float $rating,
+		float $serviceRating, float $rating, float $degrees,
 		bool $active,
 		string $dateCreate, string $dateUpdate,
 		string $imageList)
@@ -64,6 +66,7 @@ class Excursion
 		$this->entertainmentRating = $entertainmentRating;
 		$this->serviceRating = $serviceRating;
 		$this->rating = $rating;
+		$this->degrees = $degrees;
 		$this->active = $active;
 		$this->dateCreate = $dateCreate;
 		$this->dateUpdate = $dateUpdate;
@@ -236,6 +239,14 @@ class Excursion
 	public function getRating(): float
 	{
 		return $this->rating;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getDegrees(): float
+	{
+		return $this->degrees;
 	}
 
 	/**

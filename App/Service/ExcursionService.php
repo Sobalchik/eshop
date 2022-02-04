@@ -20,6 +20,7 @@ class ExcursionService
 			ENTERTAINMENT_RATING as 'entertainmentRating',
 			SERVICE_RATING as 'serviceRating',
 			RATING as 'rating',
+			DEGREES as 'degrees',
 			ACTIVE as 'active',
 			(
 				select
@@ -56,6 +57,7 @@ class ExcursionService
 				$excursion['entertainmentRating'],
 				$excursion['serviceRating'],
 				$excursion['rating'],
+				$excursion['degrees'],
 				$excursion['active'],
 				'',
 				'',
