@@ -1,10 +1,6 @@
 <?php
 /** @var array $excursions */
-
-$i = 0;
-
 $helper = App\Helper\Helper::getInstance();
-
 ?>
 
 <?php
@@ -40,11 +36,5 @@ foreach ($excursions as $excursion): ?>
 			</div>
 		</div>
 	</div>
-	<?php
-	$i++;
-	if ($i == 8)
-	{
-		break;
-	} ?>
 <?php
 endforeach; ?>
