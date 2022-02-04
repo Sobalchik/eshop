@@ -25,32 +25,34 @@ foreach ($excursions as $excursion): ?>
 			<div class="overlay-like">
 				<a><img src="../../Public/Resources/Images/2961957%201.svg"></a>
 			</div>
-			<div class="loc">
-				<p class="overlay-progress-text">Интернет</p>
-				<div class="progress">
-					<div class="progress-value" style="width: <?= $excursion->getInternetRating() * 10 ?>%;"></div>
+			<div class="overlay-progress-noa">
+				<div class="loc">
+					<p class="overlay-progress-text">Интернет</p>
+					<div class="progress">
+						<div class="progress-value" style="width: <?= $excursion->getInternetRating() * 10 ?>%;"></div>
+					</div>
 				</div>
-			</div>
-			<div class="loc">
-				<p class="overlay-progress-text">Развелчения</p>
-				<div class="progress">
-					<div class="progress-value" style="width: <?= $excursion->getEntertainmentRating() * 10 ?>%;"></div>
+				<div class="loc">
+					<p class="overlay-progress-text">Развелчения</p>
+					<div class="progress">
+						<div class="progress-value" style="width: <?= $excursion->getEntertainmentRating() * 10 ?>%;"></div>
+					</div>
 				</div>
-			</div>
-			<div class="loc">
-				<p class="overlay-progress-text">Обслуживание</p>
-				<div class="progress">
-					<div class="progress-value" style="width: <?= $excursion->getServiceRating() * 10 ?>%;"></div>
+				<div class="loc">
+					<p class="overlay-progress-text">Обслуживание</p>
+					<div class="progress">
+						<div class="progress-value" style="width: <?= $excursion->getServiceRating() * 10 ?>%;"></div>
+					</div>
 				</div>
-			</div>
-			<div class="loc">
-				<p class="overlay-progress-text">Оценка</p>
-				<div class="progress">
-					<div class="progress-value" style="width: <?= $excursion->getRating() * 10 ?>%;"></div>
+				<div class="loc">
+					<p class="overlay-progress-text">Оценка</p>
+					<div class="progress">
+						<div class="progress-value" style="width: <?= $excursion->getRating() * 10 ?>%;"></div>
+					</div>
 				</div>
 			</div>
 			<div class="overlay-detailed">
-				<a>Подробнее<img src="../../Public/Resources/Images/2989988%201.svg"></a>
+				<a href="#">Подробнее<img src="../../Public/Resources/Images/2989988%201.svg"></a>
 			</div>
 		</div>
 	</div>
