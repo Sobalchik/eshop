@@ -34,4 +34,17 @@ class Helper
 	{
 		return ($celsius * 9 / 5) + 32;
 	}
+
+	public static function priceInUsd($priceInRub)
+	{
+		static $rates;
+
+		if ($rates === null)
+		{
+			$rates = json_decode(file_get_contents('https://www.cbr-xml-daily.ru/daily_json.js'));
+		}
+		$data = $priceInRub / $rates->Valute->USD->Value;
+		return round($data, 2);
+	}
+
 }
