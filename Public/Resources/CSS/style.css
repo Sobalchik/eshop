@@ -54,18 +54,21 @@
 
 
 
-.bloc1{
-    height: 100vh;
-    background-image: url("../Images/Rectangle 12.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+.bloc1 {
+	height: 100vh;
+	background-image: url("../Images/Rectangle 12.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
 }
 
-.main-bloc{
+.main-bloc {
 	display: flex;
-	padding-top: 700px;
 	justify-content: center;
+	margin-bottom: 70px;
 }
 
 .main-bloc-fix{
@@ -123,7 +126,6 @@
 	animation-name: Appearance;
 	animation-duration: 2s;
 	animation-timing-function: cubic-bezier(.1, -.6, .2, 0);
-	background-image: url("../Images/буэнос-айрес 1.png");
 	width: 277px;
 	height: 256px;
 	background-repeat: no-repeat;
@@ -245,12 +247,6 @@
 	margin-top: 20px;
 }
 
-
-
-
-
-
-
 .overlay-progress-text{
 	color: white;
 }
@@ -274,5 +270,11 @@
 	background:  #00C1D9;;
 	height: 18px;
 	width: 30%;
+}
+
+
+
+.asdsss{
+	display: none;
 }
 

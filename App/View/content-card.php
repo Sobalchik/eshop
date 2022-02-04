@@ -5,7 +5,7 @@ $helper = App\Helper\Helper::getInstance();
 
 <?php
 foreach ($excursions as $excursion): ?>
-	<div class="bloc-2-box">
+	<div style="background-image: url(<?="../../Public" . $excursion->getImageList()?>)" class="bloc-2-box">
 		<div class="asd">
 			<div class="box-date">
 				<p class="box-date-num"><?= $helper::conversionDateToNumber($excursion->getDateTravel()) ?></p>
@@ -24,6 +24,24 @@ foreach ($excursions as $excursion): ?>
 		<div class="overlay">
 			<div class="overlay-like">
 				<a><img src="../../Public/Resources/Images/2961957%201.svg"></a>
+			</div>
+			<div class="loc">
+				<p class="overlay-progress-text"><?= $excursion->getInternetRating() ?></p>
+				<div class="progress">
+					<div class="progress-value" style="width: <?= $excursion->getInternetRating() * 10 ?>%;"></div>
+				</div>
+			</div>
+			<div class="loc">
+				<p class="overlay-progress-text"><?= $excursion->getInternetRating() ?></p>
+				<div class="progress">
+					<div class="progress-value" style="width: <?= $excursion->getInternetRating() * 10 ?>%;"></div>
+				</div>
+			</div>
+			<div class="loc">
+				<p class="overlay-progress-text"><?= $excursion->getInternetRating() ?></p>
+				<div class="progress">
+					<div class="progress-value" style="width: <?= $excursion->getInternetRating() * 10 ?>%;"></div>
+				</div>
 			</div>
 			<div class="loc">
 				<p class="overlay-progress-text"><?= $excursion->getInternetRating() ?></p>
