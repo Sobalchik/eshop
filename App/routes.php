@@ -3,7 +3,7 @@
 \App\Lib\Router::add(
 	"GET",
 	"/Public/index",
-	[\App\Controller\MainController::class, 'showAllExcursion']);
+	[\App\Controller\MainController::class, 'showTopExcursions']);
 
 \App\Lib\Router::add(
 	"GET",

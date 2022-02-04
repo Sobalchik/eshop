@@ -8,7 +8,7 @@ use App\Config\Database;
 
 class MainController
 {
-	public static function showAllExcursion(): string
+	public static function showTopExcursions(): string
 	{
 		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect()); // НУЖНО ПЕРЕДЕЛАТЬ КАК ТО ?
 		$excursionListPages = Render::render("content-card", ['excursions' => $excursions]);
