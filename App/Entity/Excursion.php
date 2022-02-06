@@ -12,7 +12,6 @@ class Excursion
 	private $nameCountry;
 	private $dateTravel;
 	private $price;
-	private $shortDescription;
 	private $fullDescription;
 	private $internetRating;
 	private $entertainmentRating;
@@ -31,7 +30,6 @@ class Excursion
 	 * @param string $nameCountry
 	 * @param string $dateTravel
 	 * @param float $price
-	 * @param string $shortDescription
 	 * @param string $fullDescription
 	 * @param float $internetRating
 	 * @param float $entertainmentRating
@@ -48,7 +46,7 @@ class Excursion
 		string $nameCity, string $nameCountry,
 		string $dateTravel,
 		float $price,
-		string $shortDescription, string $fullDescription,
+		string $fullDescription,
 		float $internetRating, float $entertainmentRating,
 		float $serviceRating, float $rating, float $degrees,
 		bool $active,
@@ -60,7 +58,6 @@ class Excursion
 		$this->nameCountry = $nameCountry;
 		$this->dateTravel = $dateTravel;
 		$this->price = $price;
-		$this->shortDescription = $shortDescription;
 		$this->fullDescription = $fullDescription;
 		$this->internetRating = $internetRating;
 		$this->entertainmentRating = $entertainmentRating;
@@ -151,22 +148,6 @@ class Excursion
 	public function setPrice($price): void
 	{
 		$this->price = $price;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getShortDescription(): string
-	{
-		return $this->shortDescription;
-	}
-
-	/**
-	 * @param mixed $shortDescription
-	 */
-	public function setShortDescription($shortDescription): void
-	{
-		$this->shortDescription = $shortDescription;
 	}
 
 	/**

@@ -52,7 +52,6 @@ class ExcursionService
 				$excursion['dateTravel'],
 				$excursion['price'],
 				'',
-				'',
 				$excursion['internetRating'],
 				$excursion['entertainmentRating'],
 				$excursion['serviceRating'],
