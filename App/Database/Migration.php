@@ -27,7 +27,7 @@ class Migration
 		{
 			mkdir($this->pathDir.$this->path);
 		}
-		$this->executeDB('CREATE TABLE IF NOT EXISTS ' . $this->table . ' (`ID` int not null auto_increment, `FILE_MIGRATION` varchar(500) not null, PRIMARY KEY (ID)) ENGINE=MyISAM DEFAULT CHARSET=utf8;');
+		$this->executeDB('CREATE TABLE IF NOT EXISTS ' . $this->table . ' (`ID` int not null auto_increment, `FILE_MIGRATION` varchar(500) not null, PRIMARY KEY (ID)) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
 	}
 
 	public function up()
