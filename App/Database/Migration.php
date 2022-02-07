@@ -2,15 +2,17 @@
 
 namespace App\Database;
 
+use App\Config\Database;
 use mysqli;
 
 class Migration
 {
-	public $table = 'up_migration';
-	public $path = 'Migrations';
+	protected $table = 'up_migration';
+	protected $path = 'Migrations';
+	protected $pathDir;
+	protected $db;
 
-	private $pathDir;
-	private $db;
+	const pathIniFile = '/App/Config/config.ini';
 
 	public function __construct(mysqli $db)
 	{
@@ -30,27 +32,56 @@ class Migration
 
 	public function up()
 	{
-		$this->getMigrationFiles();
-	}
-
-	private function getMigrationFiles()
-	{
-		$fileMigrationListInFolder = glob($this->pathDir.$this->path. '*.sql');
-		print_r($fileMigrationListInFolder);
-		$fileMigrationListInBD = $this->queryDB('SELECT FILE_MIGRATION FROM up_migration;');
-		if (!$fileMigrationListInBD)
+		$fileMigrationList = $this->getMigrationFiles();
+		if (!$fileMigrationList)
 		{
-
+			return false;
 		}
 		else
 		{
-
+			$this->executeCommandShell($fileMigrationList);
 		}
 	}
 
-	private function executeCommandShell()
+	private function getMigrationFiles():array
 	{
-		//
+		$fileMigrationListInFolder = $this->getFileMigrationListInFolder();
+		$fileMigrationListInBD = $this->queryDB('SELECT FILE_MIGRATION FROM up_migration;');
+		if (!$fileMigrationListInBD)
+		{
+			$fileMigrationList = $fileMigrationListInFolder;
+		}
+		else
+		{
+			$fileMigrationList = array_diff($fileMigrationListInFolder, $fileMigrationListInBD);
+		}
+		return $fileMigrationList;
+	}
+
+	private function getFileMigrationListInFolder():array
+	{
+		$filesMigration = array_diff( scandir( $this->pathDir.$this->path ), Array( ".", ".." ) );
+		$fileMigrationListInFolder = [];
+		foreach ($filesMigration as $fileMigration)
+		{
+			if (stripos($fileMigration,'.sql'))
+			{
+				$fileMigrationListInFolder[]=$fileMigration;
+			}
+		}
+		return $fileMigrationListInFolder;
+	}
+
+	private function executeCommandShell($fileMigrationList)
+	{
+		$ini = parse_ini_file($_SERVER['DOCUMENT_ROOT'].self::pathIniFile);
+		foreach ($fileMigrationList as $fileMigration)
+		{
+			$command = sprintf('mysql -u%s -p%s -h %s -D %s < %s', $ini['username'], $ini['password'], $ini['host'], $ini['db_name'], $this->pathDir.$this->path.'/'.$fileMigration);
+			shell_exec($command);
+			$this->executeDB("INSERT INTO up_migration (`FILE_MIGRATION`) VALUES ('".$fileMigration."')");
+		}
+
 	}
 
 	private function executeDB($query)
