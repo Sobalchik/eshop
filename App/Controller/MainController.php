@@ -10,14 +10,13 @@ class MainController
 {
 	public static function showTopExcursions(): string
 	{
-		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect()); // НУЖНО ПЕРЕДЕЛАТЬ КАК ТО ?
-		$excursionListPages = Render::render("content-card", ['excursions' => $excursions]);
-		return Render::renderLayout($excursionListPages, ['sth' => 1]);
+		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect());
+		return Render::render("content-card", ['excursions' => $excursions]);
 	}
 
 	public static function showPlaceHolder(): string
 	{
-		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect()); // НУЖНО ПЕРЕДЕЛАТЬ КАК ТО ?
+		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect());
 		return Render::render("placeholder", ['excursions' => $excursions]);
 	}
 }

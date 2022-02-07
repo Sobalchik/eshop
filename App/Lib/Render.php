@@ -4,7 +4,7 @@ namespace App\Lib;
 
 class Render
 {
-	public static function render(string $viewName, array $parameters = []): ?string
+	public static function renderContent(string $viewName, array $parameters = []): ?string
 	{
 		extract($parameters, EXTR_OVERWRITE);
 		ob_start();
@@ -17,6 +17,12 @@ class Render
 		$data = array_merge($templateData, [
 			'content' => $content,
 		]);
-		return self::render("layout", $data);
+		return self::renderContent("layout", $data);
 	}
+
+	public  static  function  render(string $viewName, array $parameters = [] ) : string
+		{
+			$content = self::renderContent($viewName, $parameters);
+			return self::renderLayout($content);
+		}
 }
