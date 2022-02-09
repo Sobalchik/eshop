@@ -7,6 +7,8 @@ use mysqli;
 
 class ExcursionService
 {
+	const mainPhoto = 1;
+
 	public static function getExcursions(mysqli $db): array
 	{
 		$query = "
@@ -28,7 +30,7 @@ class ExcursionService
 				from up_product_image
 				left join up_image on up_product_image.IMAGE_ID = up_image.ID
 				where up_product_image.PRODUCT_ID = up_product.ID
-				and up_image.MAIN = '1'
+				and up_image.MAIN = ".mainPhoto."
 			) as 'imageList'
 			from up_product
 			limit 8;
@@ -86,7 +88,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = '1'
+					  and up_image.MAIN = ".mainPhoto."
 				) as 'imageList',
 				(
 					select
@@ -156,7 +158,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = '1'
+					  and up_image.MAIN = ".mainPhoto."
 				) as 'imageList'
 			from up_product 
 			where up_product.ID in 
@@ -218,7 +220,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = '1'
+					  and up_image.MAIN = ".mainPhoto."
 				) as 'imageList'
 			from up_product 
 			where up_product.ID in 
@@ -280,7 +282,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = '1'
+					  and up_image.MAIN = ".mainPhoto."
 				) as 'imageList'
 			from up_product 
 			where up_product.ID in 
@@ -321,9 +323,63 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function getExcursionsByTag(): array
+	public static function getExcursionsByTag(mysqli $db, array $tagId): array
 	{
-		return [];
+		$query = "SELECT DISTINCT
+    up.ID as 'id',
+    up.NAME_CITY as 'nameCity',
+    up.NAME_COUNTRY as 'nameCountry',
+    up.DATE_TRAVEL as 'dateTravel',
+    up.PRICE as 'price',
+    up.INTERNET_RATING as 'internetRating',
+    up.ENTERTAINMENT_RATING as 'entertainmentRating',
+    up.SERVICE_RATING as 'serviceRating',
+    up.RATING as 'rating',
+    up.DEGREES as 'degrees',
+    up.ACTIVE as 'active',
+    (
+        SELECT
+            up_image.PATH
+        FROM up_product_image
+                 LEFT JOIN up_image on up_product_image.IMAGE_ID = up_image.ID
+        WHERE up_product_image.PRODUCT_ID = up.ID
+          AND up_image.MAIN = ".mainPhoto."
+    ) as 'imageList'
+FROM up_product_tag as upt
+INNER JOIN up_product up on upt.PRODUCT_ID = up.ID
+WHERE upt.TAG_ID IN (".implode(",",$tagId).");";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$excursions = [];
+
+		while ($excursion = mysqli_fetch_assoc($result))
+		{
+			$excursions[] = new Excursion(
+				$excursion['id'],
+				$excursion['nameCity'],
+				$excursion['nameCountry'],
+				$excursion['dateTravel'],
+				$excursion['price'],
+				'',
+				$excursion['internetRating'],
+				$excursion['entertainmentRating'],
+				$excursion['serviceRating'],
+				$excursion['rating'],
+				$excursion['degrees'],
+				$excursion['active'],
+				'',
+				'',
+				$excursion['imageList']
+			);
+		}
+
+		return $excursions;
 	}
 
 	public static function addExcursion(): string
