@@ -5,7 +5,7 @@ $helper = App\Helper\Helper::getInstance();
 
 <?php
 foreach ($excursions as $excursion): ?>
-	<div style="background-image: url(<?="../../Public" . $excursion->getImageList()?>)" class="bloc-2-box">
+	<div style="background-image: url(<?="./" . $excursion->getImageList()?>)" class="bloc-2-box">
 		<div class="asd">
 			<div class="box-date">
 				<p class="box-date-num"><?= $helper::conversionDateToNumber($excursion->getDateTravel()) ?></p>
@@ -16,14 +16,14 @@ foreach ($excursions as $excursion): ?>
 				<p class="box-h1-2"><?= $excursion->getNameCountry() ?></p>
 			</div>
 			<div class="box-bottom">
-				<img src="../../Public/Resources/Images/солнечно%201.png">
+				<img src="./Resources/Images/солнечно%201.png">
 				<p class="box-bottom-weather"><?= $excursion->getDegrees()?>°C</p>
 				<p class="box-bottom-many">₽ <?= $excursion->getPrice() ?></p>
 			</div>
 		</div>
 		<div class="overlay">
 			<div class="overlay-like">
-				<a><img src="../../Public/Resources/Images/2961957%201.svg"></a>
+				<a><img src="./Public/Resources/Images/2961957%201.svg"></a>
 			</div>
 			<div class="overlay-progress-noa">
 				<div class="loc">
@@ -52,7 +52,7 @@ foreach ($excursions as $excursion): ?>
 				</div>
 			</div>
 			<div class="overlay-detailed">
-				<a href="#">Подробнее<img src="../../Public/Resources/Images/2989988%201.svg"></a>
+				<a href="#">Подробнее<img src="./Public/Resources/Images/2989988%201.svg"></a>
 			</div>
 		</div>
 	</div>
