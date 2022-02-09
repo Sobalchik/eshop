@@ -7,7 +7,7 @@ use mysqli;
 
 class ExcursionService
 {
-	const mainPhoto = 1;
+	const MAIN_PHOTO = '1';
 
 	public static function getExcursions(mysqli $db): array
 	{
@@ -30,7 +30,7 @@ class ExcursionService
 				from up_product_image
 				left join up_image on up_product_image.IMAGE_ID = up_image.ID
 				where up_product_image.PRODUCT_ID = up_product.ID
-				and up_image.MAIN = ".mainPhoto."
+				and up_image.MAIN = '1'
 			) as 'imageList'
 			from up_product
 			limit 8;
@@ -88,7 +88,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = ".mainPhoto."
+					  and up_image.MAIN = '1'
 				) as 'imageList',
 				(
 					select
@@ -158,7 +158,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = ".mainPhoto."
+					  and up_image.MAIN = '1'
 				) as 'imageList'
 			from up_product 
 			where up_product.ID in 
@@ -220,7 +220,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = ".mainPhoto."
+					  and up_image.MAIN = '1'
 				) as 'imageList'
 			from up_product 
 			where up_product.ID in 
@@ -282,7 +282,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = ".mainPhoto."
+					  and up_image.MAIN = '1'
 				) as 'imageList'
 			from up_product 
 			where up_product.ID in 
@@ -343,7 +343,7 @@ class ExcursionService
         FROM up_product_image
                  LEFT JOIN up_image on up_product_image.IMAGE_ID = up_image.ID
         WHERE up_product_image.PRODUCT_ID = up.ID
-          AND up_image.MAIN = ".mainPhoto."
+          AND up_image.MAIN = '1'
     ) as 'imageList'
 FROM up_product_tag as upt
 INNER JOIN up_product up on upt.PRODUCT_ID = up.ID
