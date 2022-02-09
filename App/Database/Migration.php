@@ -12,8 +12,6 @@ class Migration
 	protected $pathDir;
 	protected $db;
 
-	const pathIniFile = '/App/Config/config.ini';
-
 	public function __construct(mysqli $db)
 	{
 		$this->pathDir = str_replace('\\', '/', realpath(dirname(__FILE__)) . '/');
@@ -21,7 +19,7 @@ class Migration
 		$this->checkEnvironment();
 	}
 
-	public function checkEnvironment()
+	private function checkEnvironment()
 	{
 		if (!file_exists($this->pathDir.$this->path))
 		{
@@ -39,7 +37,7 @@ class Migration
 		}
 		else
 		{
-			$this->executeCommandShell($fileMigrationList);
+			$this->executeMigration($fileMigrationList);
 		}
 	}
 
@@ -72,13 +70,15 @@ class Migration
 		return $fileMigrationListInFolder;
 	}
 
-	private function executeCommandShell($fileMigrationList)
+	private function executeMigration($fileMigrationList)
 	{
-		$ini = parse_ini_file($_SERVER['DOCUMENT_ROOT'].self::pathIniFile);
 		foreach ($fileMigrationList as $fileMigration)
 		{
-			$command = sprintf('mysql -u%s -p%s -h %s -D %s < %s', $ini['username'], $ini['password'], $ini['host'], $ini['db_name'], $this->pathDir.$this->path.'/'.$fileMigration);
-			shell_exec($command);
+			$streamFile = explode(';',file_get_contents($this->pathDir.$this->path.'/'.$fileMigration));
+			for ($streamFileString=0;$streamFileString<count($streamFile)-1;$streamFileString++)
+			{
+				$this->executeDB($streamFile[$streamFileString].';');
+			}
 			$this->executeDB("INSERT INTO up_migration (`FILE_MIGRATION`) VALUES ('".$fileMigration."')");
 		}
 
