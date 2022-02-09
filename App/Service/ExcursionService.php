@@ -9,6 +9,35 @@ class ExcursionService
 {
 	const MAIN_PHOTO = '1';
 
+	public static function getAllTags(mysqli $db) : array
+	{
+		$query = "
+			select
+				ID as 'id',
+				NAME as 'name'
+			from up_tag
+		";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$tags = [];
+
+		while ($tag = mysqli_fetch_assoc($result))
+		{
+			$tags[] = [
+				'id' => $tag['id'],
+				'name' => $tag['name']
+			];
+		}
+
+		return $tags;
+	}
+
 	public static function getExcursions(mysqli $db): array
 	{
 		$query = "
@@ -70,7 +99,7 @@ class ExcursionService
 
 	}
 
-	public static function getExcursionById(mysqli $db, int $id)
+	public static function getExcursionById(mysqli $db, int $id) : object
 	{
 		$query = "
 			select
