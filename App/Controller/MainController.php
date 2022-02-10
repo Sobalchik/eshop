@@ -10,7 +10,7 @@ class MainController
 {
 	public static function showTopExcursions(): string
 	{
-		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect());
+		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
 		return Render::render("content-card", ['excursions' => $excursions]);
 	}
 
