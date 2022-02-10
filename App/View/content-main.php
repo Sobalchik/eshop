@@ -51,6 +51,6 @@ use App\Lib\Render;
 <div class="bloc2">
 	<p class="bloc-2-text-top">Топ Экскурсий</p>
 	<div class="bloc-2-contener">
-		<?= Render::render("content-card",['excursions'=>$excursions])?>
+		<?= Render:: renderContent("content-card",['excursions'=>$excursions])?>
 	</div>
 </div>
