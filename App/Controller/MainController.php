@@ -11,7 +11,7 @@ class MainController
 	public static function showTopExcursions(): string
 	{
 		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect());
-		return Render::render("content-card", ['excursions' => $excursions]);
+		return Render::render("content-main", ['excursions' => $excursions]);
 	}
 
 	public static function showPlaceHolder(): string

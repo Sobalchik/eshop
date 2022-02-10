@@ -48,7 +48,6 @@
 				<li><a class="pading-3">Блог</a></li>
 				<li><a>О нас</a></li>
 			</ul>
-		</div>
 	</nav>
 	<div class="mobile-menu-2">
 		<div class="mobile-menu-2-none none-1">
@@ -73,23 +72,9 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
 <div class="content">
 	<?= $content?>
 </div>
-
-
-
-
-
-
-
-
-
 <div class="footer">
 
 </div>
