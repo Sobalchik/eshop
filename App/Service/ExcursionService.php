@@ -9,6 +9,7 @@ class ExcursionService
 {
 	const MAIN_PHOTO = '1';
 
+
 	public static function getAllTags(mysqli $db) : array
 	{
 		$query = "
@@ -98,8 +99,11 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function getAllExcursions(mysqli $db): array
+	public static function getAllExcursionsByPage(mysqli $db, int $page = 1): array
 	{
+		$EXCURSIONS_ON_PAGE = 9;
+		$startLine = ($page * $EXCURSIONS_ON_PAGE) - $EXCURSIONS_ON_PAGE;
+
 		$query = "
 			select
 			ID as 'id',
@@ -122,9 +126,13 @@ class ExcursionService
 				and up_image.MAIN = '1'
 			) as 'imageList'
 			from up_product
+			LIMIT ?, ?
 		";
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"ii", $startLine, $EXCURSIONS_ON_PAGE);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
@@ -155,6 +163,15 @@ class ExcursionService
 		}
 
 		return $excursions;
+	}
+
+	public static function getPagesCount(array $excursions) : int
+	{
+		$EXCURSIONS_ON_PAGE = 9;
+
+		$total = count($excursions);
+
+		return ceil($total / $EXCURSIONS_ON_PAGE);
 	}
 
 	public static function getExcursionById(mysqli $db, int $id) : object
@@ -222,7 +239,6 @@ class ExcursionService
 
 		return $result_excursion;
 	}
-
 
 	public static function sortExcursionsByPriceAsc(mysqli $db, array $idList) : array
 	{
