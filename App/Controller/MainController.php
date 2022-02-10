@@ -10,13 +10,13 @@ class MainController
 {
 	public static function showTopExcursions(): string
 	{
-		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect());
+		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
 		return Render::render("content-main", ['excursions' => $excursions]);
 	}
 
 	public static function showPlaceHolder(): string
 	{
-		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect());
+		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
 		return Render::render("placeholder", ['excursions' => $excursions]);
 	}
 }
