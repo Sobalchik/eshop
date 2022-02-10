@@ -11,4 +11,3 @@
 	"/placeholder",
 	[\App\Controller\MainController::class, 'showPlaceHolder']
 );
-
