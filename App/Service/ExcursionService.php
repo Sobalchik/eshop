@@ -9,6 +9,24 @@ class ExcursionService
 {
 	const MAIN_PHOTO = '1';
 
+	public static function getExcursionsCount(mysqli $db) : int
+	{
+		$query = "
+			select
+				count(ID)
+			from up_product
+		";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return mysqli_fetch_row($result);
+	}
+
 	public static function getAllTags(mysqli $db) : array
 	{
 		$query = "
