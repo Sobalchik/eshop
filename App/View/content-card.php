@@ -52,7 +52,7 @@ foreach ($excursions as $excursion): ?>
 				</div>
 			</div>
 			<div class="overlay-detailed">
-				<a href="#">Подробнее<img src="./Public/Resources/Images/2989988%201.svg"></a>
+				<a href="placeholder/<?=$excursion->getId() ?>">Подробнее<img src="./Public/Resources/Images/2989988%201.svg"></a>
 			</div>
 		</div>
 	</div>
