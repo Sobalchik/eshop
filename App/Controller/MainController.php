@@ -38,4 +38,16 @@ class MainController
 			return Render::render("content-more-excursion", ['excursion' => $excursion]);
 		}*/
 	}
+
+	public static function showExcursionById($id): string
+	{
+		$excursions = ExcursionService::getExcursionById(Database::getInstance()->connect(), $id);
+		return Render::render("placeholder", ['excursions' => $excursions]);
+	}
+
+	public static function showAllExcursions(): string
+	{
+		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect());
+		return Render::render("content-main", ['excursions' => $excursions]);
+	}
 }

@@ -1,5 +1,6 @@
 <?php
 /** @var string $content */
+var_dump($content)
 ?>
 
 

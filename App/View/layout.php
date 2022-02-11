@@ -20,7 +20,7 @@
 			<img class="header-logo" src="/Resources/Images/logo_template14%201.png">
 		</div>
 		<div class="bloc-menu">
-			<a href="/placeholder" class="menu-button">Экскурсии</a>
+			<a href="placeholder" class="menu-button">Экскурсии</a>
 			<a class="menu-button">Клиентам</a>
 			<a class="menu-button">Блог</a>
 			<a class="menu-button">Отзывы</a>
