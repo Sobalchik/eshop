@@ -56,18 +56,18 @@
 			</div>
 		</div>
 		<div class="mobile-menu-2-none none-2">
-			<div class="bloc2-menu">
-				\sdfssdfsdf
+			<div class="bloc1-menu">
+				<p class="bloc1-menu-text">привет</p>
 			</div>
 		</div>
 		<div class="mobile-menu-2-none none-3">
-			<div class="bloc3-menu">
-				\sdfssdfsdf
+			<div class="bloc1-menu">
+				<p class="bloc1-menu-text">пока</p>
 			</div>
 		</div>
 		<div class="mobile-menu-2-none none-4">
-			<div class="bloc4-menu">
-				\sdfssdfsdf
+			<div class="bloc1-menu">
+				<p class="bloc1-menu-text">я тут</p>
 			</div>
 		</div>
 	</div>
