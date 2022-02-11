@@ -547,7 +547,15 @@ html {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 	z-index: 9;
+}
+
+.bloc1-menu-text{
+	font-size: 40px;
+	font-family: 'Raleway', sans-serif;
 }
 
 
@@ -681,7 +689,7 @@ html {
 }
 
 .detailed-page-text-2{
-	font-family:'Alegreya', serif;
+	font-family: 'PT Sans', sans-serif;
 	font-weight: bold;
 	font-size: 36px;
 	line-height: 49px;
@@ -702,7 +710,7 @@ html {
 }
 
 .detailed-page-text-4{
-	font-family:'Alegreya', serif;
+	font-family: 'PT Sans', sans-serif;
 	font-weight: bold;
 	font-size: 18px;
 	line-height: 24px;
@@ -761,7 +769,7 @@ html {
 }
 
 .detailed-page-bloc-img{
-	height: 700px;
+	height: 400px;
 }
 
 
@@ -825,6 +833,7 @@ html {
 
 .detailed-page-button{
 	position: absolute;
+	border: none;
 	width: 260px;
 	height: 38px;
 	background: #00C1D9;
@@ -883,15 +892,17 @@ html {
 .modal-header-detailed-page{
 	text-align: right;
 	margin-top: 10px;
+	margin-right: 20px;
 	display: block;
 }
 
 .close-detailed-page{
 	width: 40px;
 	height: 40px;
-	background-color: #3a2d87;
+	background-color: #fff;
 	border-radius: 20px;
-	color: white;
+	border-color: black;
+	color: #000;
 }
 
 
@@ -935,6 +946,7 @@ html {
 .form-application-input{
 	width: 467px;
 	height: 41px;
+	padding-left: 20px;
 	background: #EBEBEB;
 	border: 1px solid #C7C7C7;
 	box-sizing: border-box;
@@ -956,9 +968,10 @@ html {
 
 
 
-
-
-
+.page-bloc-img{
+	display: flex;
+	justify-content: center;
+}
 
 
 

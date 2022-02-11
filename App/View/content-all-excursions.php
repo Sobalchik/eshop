@@ -49,6 +49,7 @@ use App\Lib\Render;
 	</div>
 </div>
 <div class="bloc2">
+	<button>asda</button>
 	<div class="bloc-2-contener">
 		<?= Render:: renderContent("content-card",['excursions'=>$excursions])?>
 	</div>

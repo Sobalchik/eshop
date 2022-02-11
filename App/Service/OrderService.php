@@ -12,9 +12,9 @@ class OrderService
 	{
 		$createDateOrder = new \DateTime('now');
 		$validateParamsOrder = array(
-			'fio'=>mysqli_real_escape_string($db, $paramsOrder['fio']),
+			'fio'=>mysqli_real_escape_string($db, $paramsOrder['name']),
 			'email'=>mysqli_real_escape_string($db, $paramsOrder['email']),
-			'phone'=>mysqli_real_escape_string($db, $paramsOrder['phone']),
+			'phone'=>mysqli_real_escape_string($db, $paramsOrder['telephone']),
 			'date_order'=> $createDateOrder->format("Y-m-d H:i:s"),
 			'comment'=>mysqli_real_escape_string($db, $paramsOrder['comment']),
 			'status_id'=>mysqli_real_escape_string($db, $paramsOrder['status_id']),

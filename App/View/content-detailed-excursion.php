@@ -51,9 +51,11 @@ $helper = App\Lib\Helper::getInstance();
 	</div>
 </div>
 <div class="detailed-page-bloc-img">
-
+	<div class="page-bloc-img">
+		<img src="/Resources/Images/прага-1 1.png">
+		<img src="/Resources/Images/image 6.png">
+	</div>
 </div>
-
 
 
 <div class="detailed-page-bloc-pop-up" id="pay-45">
@@ -68,13 +70,18 @@ $helper = App\Lib\Helper::getInstance();
 						<p class="detailed-page-application-text1">Оставьте заявку</p>
 						<p class="detailed-page-application-text2">и мы с вами свяжемся в удобное для вас время</p>
 					</div>
-					<form action="" method="post">
+					<form action="/createOrder" method="post">
+						<input class="form-application-input" style="display: none" type="hidden" name="product_id" value="<?=$excursions->getId()?>">
+						<input class="form-application-input" style="display: none" type="hidden" name="status_id" value="1">
+						<input class="form-application-input" style="display: none" type="hidden" name="csrf_token" value="<?=$helper::generateFormCsrfToken()?>">
 						<p class="form-application-text">Укажите ваше имя</p>
 						<input class="form-application-input" type="text" name="name" required="required" placeholder="     Имя...">
 						<p class="form-application-text">Укажите ваш телефон</p>
 						<input class="form-application-input" type="tel" name="telephone"  pattern="\+7[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}" required placeholder="     +79118550378">
 						<p class="form-application-text">Укажите ваш email</p>
 						<input class="form-application-input" type="text" name="email" placeholder="     Email...">
+						<p class="form-application-text">Укажите ваш комментарий</p>
+						<input class="form-application-input" type="text" name="comment" required="required" placeholder="     Комментарий...">
 						<div style="text-align: center; padding-top: 40px">
 							<input class="form-application-input-submit" type="submit" value="Отправить">
 						</div>

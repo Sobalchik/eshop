@@ -42,8 +42,8 @@
 
 	<nav class="mobile-menu">
 		<ul class="mobile-menu-bloc2">
-			<li><a href="/home" >Главная</a></li>
-			<li><a href="/placeholder" class="pading-1">Экскурсии</a></li>
+			<li><a href="http://eshop/" >Главная</a></li>
+			<li><a href="http://eshop/allExcursions/1" class="pading-1">Экскурсии</a></li>
 			<li><a class="pading-2">Клиентам</a></li>
 			<li><a class="pading-3">Блог</a></li>
 			<li><a>О нас</a></li>
@@ -52,7 +52,7 @@
 	<div class="mobile-menu-2">
 		<div class="mobile-menu-2-none none-1">
 			<div class="bloc1-menu">
-				<p>Путешествия, которые стоит совершить</p>
+				<p class="bloc1-menu-text">Путешествия, которые стоит совершить</p>
 			</div>
 		</div>
 		<div class="mobile-menu-2-none none-2">
