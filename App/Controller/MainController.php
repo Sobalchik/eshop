@@ -21,10 +21,10 @@ class MainController
 		return Render::render("content-detailed-excursion", ['excursions' => $excursions]);
 	}
 
-	public static function showAllExcursions($page): string
+	public static function showAllExcursions(int $page): string
 	{
 		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect(),$page);
-		return Render::render("content-all-excursions", ['excursions' => $excursions]);
+		return Render::render("content-all-excursions", ['excursions' => $excursions,'page' => $page]);
 	}
 
 
