@@ -11,3 +11,9 @@
 	"/placeholder",
 	[\App\Controller\MainController::class, 'showPlaceHolder']
 );
+
+\App\Lib\Router::add(
+	"POST",
+	"/createOrder",
+	[\App\Controller\MainController::class, 'createOrder']
+);
