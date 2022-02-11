@@ -52,5 +52,9 @@ use App\Lib\Render;
 	<button>asda</button>
 	<div class="bloc-2-contener">
 		<?= Render:: renderContent("content-card",['excursions'=>$excursions])?>
+		<div style="display: flex;justify-content: space-between;">
+			<a> < туда</a>
+			<a>назад > </a>
+		</div>
 	</div>
 </div>
