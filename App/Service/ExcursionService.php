@@ -200,7 +200,7 @@ class ExcursionService
 					from up_product_image
 							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
 					where up_product_image.PRODUCT_ID = up_product.ID
-					  and up_image.MAIN = '1'
+					  and up_image.MAIN = '0'
 				) as 'imageList',
 				(
 					select
