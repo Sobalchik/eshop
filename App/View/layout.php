@@ -20,7 +20,7 @@
 			<img class="header-logo" src="/Resources/Images/logo_template14%201.png">
 		</div>
 		<div class="bloc-menu">
-			<a href="placeholder" class="menu-button">Экскурсии</a>
+			<a href="/placeholder" class="menu-button">Экскурсии</a>
 			<a class="menu-button">Клиентам</a>
 			<a class="menu-button">Блог</a>
 			<a class="menu-button">Отзывы</a>
@@ -31,58 +31,58 @@
 		</div>
 	</div>
 </div>
+
+
+<div class="mobile-nav-button-block">
+	<div class="mobile-nav-button">
+		<div class="mobile-nav-button__line"></div>
+		<div class="mobile-nav-button__line"></div>
+		<div class="mobile-nav-button__line"></div>
+	</div>
+
+	<nav class="mobile-menu">
+		<ul class="mobile-menu-bloc2">
+			<li><a href="/home" >Главная</a></li>
+			<li><a href="/placeholder" class="pading-1">Экскурсии</a></li>
+			<li><a class="pading-2">Клиентам</a></li>
+			<li><a class="pading-3">Блог</a></li>
+			<li><a>О нас</a></li>
+		</ul>
+	</nav>
+	<div class="mobile-menu-2">
+		<div class="mobile-menu-2-none none-1">
+			<div class="bloc1-menu">
+				<p>Путешествия, которые стоит совершить</p>
+			</div>
+		</div>
+		<div class="mobile-menu-2-none none-2">
+			<div class="bloc2-menu">
+				\sdfssdfsdf
+			</div>
+		</div>
+		<div class="mobile-menu-2-none none-3">
+			<div class="bloc3-menu">
+				\sdfssdfsdf
+			</div>
+		</div>
+		<div class="mobile-menu-2-none none-4">
+			<div class="bloc4-menu">
+				\sdfssdfsdf
+			</div>
+		</div>
+	</div>
+</div>
 <div class="content">
+	<?= $content?>
+</div>
+<div class="footer">
 
-	<div class="bloc1">
-		<div class="main-bloc">
-			<div class="main-bloc-fix">
-				<div class="main-bloc-img">
-					<img src="/Resources/Images/1442912%201.png">
-				</div>
-				<div class="main-bloc-text">
-					<p class="main-bloc-h1">ВОЗМОЖНОСТИ ДЛЯ НАСТРОЙКИ</p>
-					<p class="main-bloc-p">Создайте индивидуальную поездку за меньшее время</p>
-				</div>
-			</div>
+</div>
 
-			<div class="main-bloc-fix">
-				<div class="main-bloc-img">
-					<img src="/Resources/Images/1442912%201.png">
-				</div>
-				<div class="main-bloc-text">
-					<p class="main-bloc-h1" style="margin-top: 10px">БОЛЬШЕ ОПЫТА</p>
-					<p class="main-bloc-p"  style="margin-top: 10px">Раздвиньте свои границы и испытайте приключение</p>
-				</div>
-			</div>
-
-			<div class="main-bloc-fix">
-				<div class="main-bloc-img">
-					<img src="/Resources/Images/1442912%201.png">
-				</div>
-				<div class="main-bloc-text" style="width: 260px">
-					<p class="main-bloc-h1" style="margin-top: 10px">БОЛЬШЕ УСЛУГ</p>
-					<p class="main-bloc-p"  style="margin-top: 10px">Чувствовать себя в безопасности и получать поддержку во время путешествия</p>
-				</div>
-			</div>
-
-			<div class="main-bloc-fix">
-				<div class="main-bloc-img">
-					<img src="/Resources/Images/1442912%201.png">
-				</div>
-				<div class="main-bloc-text" style="width: 240px">
-					<p class="main-bloc-h1" style="margin-top: 10px">БОЛЬШЕ ДОВЕРИЯ</p>
-					<p class="main-bloc-p"  style="margin-top: 10px">Получите открытую и честную консультацию. Всегда!</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="bloc2">
-		<p class="bloc-2-text-top">Топ Экскурсий</p>
-		<div class="bloc-2-contener">
-
-			<?= $content?>
-		</div>
-	</div>
+<div class="progress-wrap">
+	<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+	</svg>
 </div>
 
 

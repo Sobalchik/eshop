@@ -5,7 +5,7 @@ use App\Lib\Router;
 
 Router::add(
 	"GET",
-	"/home",
+	"/",
 	[MainController::class, 'showTopExcursions']
 );
 

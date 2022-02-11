@@ -9,7 +9,7 @@ use App\Lib\Render;
 	<div class="main-bloc">
 		<div class="main-bloc-fix">
 			<div class="main-bloc-img">
-				<img src="./Resources/Images/1442912%201.png">
+				<img src="/Resources/Images/1442912%201.png">
 			</div>
 			<div class="main-bloc-text">
 				<p class="main-bloc-h1">ВОЗМОЖНОСТИ ДЛЯ НАСТРОЙКИ</p>
@@ -19,7 +19,7 @@ use App\Lib\Render;
 
 		<div class="main-bloc-fix">
 			<div class="main-bloc-img">
-				<img src="./Resources/Images/1442912%201.png">
+				<img src="/Resources/Images/1442912%201.png">
 			</div>
 			<div class="main-bloc-text">
 				<p class="main-bloc-h1" style="margin-top: 10px">БОЛЬШЕ ОПЫТА</p>
@@ -29,7 +29,7 @@ use App\Lib\Render;
 
 		<div class="main-bloc-fix">
 			<div class="main-bloc-img">
-				<img src="./Resources/Images/1442912%201.png">
+				<img src="/Resources/Images/1442912%201.png">
 			</div>
 			<div class="main-bloc-text" style="width: 260px">
 				<p class="main-bloc-h1" style="margin-top: 10px">БОЛЬШЕ УСЛУГ</p>
@@ -39,7 +39,7 @@ use App\Lib\Render;
 
 		<div class="main-bloc-fix">
 			<div class="main-bloc-img">
-				<img src="./Resources/Images/1442912%201.png">
+				<img src="/Resources/Images/1442912%201.png">
 			</div>
 			<div class="main-bloc-text" style="width: 240px">
 				<p class="main-bloc-h1" style="margin-top: 10px">БОЛЬШЕ ДОВЕРИЯ</p>
