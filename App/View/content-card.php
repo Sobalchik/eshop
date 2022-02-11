@@ -16,14 +16,14 @@ foreach ($excursions as $excursion): ?>
 				<p class="box-h1-2"><?= $excursion->getNameCountry() ?></p>
 			</div>
 			<div class="box-bottom">
-				<img src="Resources/Images/солнечно%201.png">
+				<img src="./Resources/Images/солнечно%201.png">
 				<p class="box-bottom-weather"><?= $excursion->getDegrees()?>°C</p>
 				<p class="box-bottom-many">₽ <?= $excursion->getPrice() ?></p>
 			</div>
 		</div>
 		<div class="overlay">
 			<div class="overlay-like">
-				<a><img src="Resources/Images/2961957%201.svg"></a>
+				<a><img src="./Resources/Images/2961957%201.svg"></a>
 			</div>
 			<div class="overlay-progress-noa">
 				<div class="loc">

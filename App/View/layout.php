@@ -75,8 +75,24 @@
 <div class="content">
 	<?= $content?>
 </div>
-<div class="footer">
 
+
+<div class="footer">
+	<div class="footer-bloc1">
+		<img class="footer-logo" src="/Resources/Images/logo2_template14%201.png">
+		<div class="footer-bloc1-text">
+			<p class="footer-text">Свяжитесь с нами</p>
+			<p class="footer-text">Положение о конфиденциальности</p>
+		</div>
+	</div>
+	<div class="footer-bloc2">
+		<p class="footer-text-2">Следите за нами</p>
+		<p><img src="/Resources/Images/вк.png"></p>
+		<p><img src="/Resources/Images/инста.png"></p>
+		<p><img src="/Resources/Images/твитер.png"></p>
+		<p><img src="/Resources/Images/фейсбук.png"></p>
+		<p><img src="/Resources/Images/4846401.png"></p>
+	</div>
 </div>
 
 <div class="progress-wrap">
@@ -88,6 +104,6 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script type="text/javascript" async src="./Resources/JS/some.js"></script>
+<script type="text/javascript" async src="/Resources/JS/some.js"></script>
 </body>
 </html>

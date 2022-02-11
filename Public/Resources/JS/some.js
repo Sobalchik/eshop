@@ -33,10 +33,21 @@ $(window).on('scroll', function() {
 });
 
 
+
+
+$("#pay").click(function() {
+	$("#pay-45").fadeIn();
+})
+$("#pil2").click(function() {
+	$("#pay-45").fadeOut();
+})
+
+
+
+
 $('.mobile-nav-button').on('change', function() {
 	$('body').css('overflow', $(this).prop('checked') === true ? 'hidden' : '');
 });
-
 
 $( ".pading-1" ).hover(function(){
 	$( ".none-1" ).fadeIn().toggleClass('mobile-menu-2-block');е
