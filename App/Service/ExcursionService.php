@@ -9,7 +9,7 @@ class ExcursionService
 {
 	const MAIN_PHOTO = '1';
 
-	public static function getExcursionsCount(mysqli $db) : int
+	public static function getExcursionsCount(mysqli $db) :array
 	{
 		$query = "
 			select

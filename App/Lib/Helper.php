@@ -2,6 +2,10 @@
 
 namespace App\Lib;
 
+use App\Config\Database;
+use App\Config\Settings;
+use App\Service\ExcursionService;
+
 class Helper
 {
 	private static $instance;
@@ -61,14 +65,18 @@ class Helper
 		return $_SESSION['csrf_token'] = substr( str_shuffle( 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM' ), 0, 10 );
 	}
 
-	public static function getPagesCount(array $excursions) : int
+	public static function getPagesCount() : int
 	{
-		$EXCURSIONS_ON_PAGE = 9;
+		$database = Database::getInstance();
+		$settings = Settings::getInstance();
 
-		$total = count($excursions);
+		$EXCURSIONS_ON_PAGE = $settings->getExcursionOnPage();
 
-		return ceil($total / $EXCURSIONS_ON_PAGE);
+		$excursionsCount = ExcursionService::getExcursionsCount($database->connect());
+
+		return ceil($excursionsCount[0] / $EXCURSIONS_ON_PAGE);
 	}
+
 
 	public static function generateUserHash(int $length = 6): string
 	{
