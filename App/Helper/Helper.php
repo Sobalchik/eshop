@@ -30,6 +30,14 @@ class Helper
 		return date_format($date, 'M');
 	}
 
+	public static function conversionDateToTime($date): string
+	{
+		$date = date_create($date);
+		$hours = date_format($date, 'H');
+		$minutes = date_format($date, 'i');
+		return "{$hours}ч:{$minutes}мин";
+	}
+
 	public static function conversionCelsiusToFahrenheit($celsius)
 	{
 		return ($celsius * 9 / 5) + 32;

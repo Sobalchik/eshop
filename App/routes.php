@@ -17,7 +17,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/excursionById/:id",
+	"/excursion-by-id/:id",
 	[MainController::class, 'showExcursionById']
 );
 
