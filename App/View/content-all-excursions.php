@@ -50,16 +50,15 @@ use App\Lib\Render;
 	</div>
 </div>
 <div class="bloc2">
-	<button>asda</button>
 	<div class="bloc-2-contener">
 		<?= Render:: renderContent("content-card",['excursions'=>$excursions])?>
 		<div style="display: flex;justify-content: space-between;">
 			<a class="cta" href="http://eshop/allExcursions/<?= ($page-1) > 1 ?($page-1): 1 ?>">
 				<img src="/Resources/Images/icons8-стрелка,-указывающая-влево-30.png">
-				<span>Hover me</span>
+				<span>назад</span>
 			</a>
 			<a class="cta" href="http://eshop/allExcursions/<?= ($page+1) < 2 ?($page+1): 2 ?>">
-				<span>Hover me</span>
+				<span>вперед</span>
 				<img src="/Resources/Images/icons8-длинная-стрелка-вправо-30.png">
 			</a>
 		</div>

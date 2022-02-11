@@ -961,7 +961,8 @@ html {
 	width: 355.79px;
 	height: 41px;
 	background: #00C1D9;
-	border-radius: 20px
+	border-radius: 20px;
+	border: none;
 }
 
 
@@ -982,6 +983,7 @@ html {
 	transition: all 0.2s ease;
 	border: none;
 	background: none;
+	align-items: center;
 }
 
 .cta:before {
@@ -1004,19 +1006,6 @@ html {
 	font-weight: 700;
 	letter-spacing: 0.05em;
 	color: #234567;
-}
-
-.cta svg {
-	position: relative;
-	top: 0;
-	margin-left: 10px;
-	fill: none;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke: #234567;
-	stroke-width: 2;
-	transform: translateX(-5px);
-	transition: all 0.3s ease;
 }
 
 .cta img{
