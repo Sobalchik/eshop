@@ -1,6 +1,6 @@
 <?php
 /** @var array $excursions */
-/** @var int $page */
+/** @var int  $page */
 use App\Lib\Render;
 ?>
 
@@ -54,8 +54,14 @@ use App\Lib\Render;
 	<div class="bloc-2-contener">
 		<?= Render:: renderContent("content-card",['excursions'=>$excursions])?>
 		<div style="display: flex;justify-content: space-between;">
-			<a href="http://eshop/allExcursions/<?= ($page-1) > 1 ?($page-1): 1 ?>">< туда </a>
-			<a href="http://eshop/allExcursions/<?= ($page+1) < 2 ?($page+1): 2 ?>">назад ></a>
+			<a class="cta" href="http://eshop/allExcursions/<?= ($page-1) > 1 ?($page-1): 1 ?>">
+				<img src="/Resources/Images/icons8-стрелка,-указывающая-влево-30.png">
+				<span>Hover me</span>
+			</a>
+			<a class="cta" href="http://eshop/allExcursions/<?= ($page+1) < 2 ?($page+1): 2 ?>">
+				<span>Hover me</span>
+				<img src="/Resources/Images/icons8-длинная-стрелка-вправо-30.png">
+			</a>
 		</div>
 	</div>
 </div>
