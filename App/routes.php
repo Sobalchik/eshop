@@ -12,12 +12,6 @@ Router::add(
 Router::add(
 	"GET",
 	"/excursion/:id",
-	[MainController::class, 'showPlaceHolder']
-);
-
-Router::add(
-	"GET",
-	"/excursion-by-id/:id",
 	[MainController::class, 'showExcursionById']
 );
 

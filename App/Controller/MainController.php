@@ -14,6 +14,17 @@ class MainController
 		return Render::render("content-top-excursions", ['excursions' => $excursions]);
 	}
 
+	public static function showExcursionById($id): string
+	{
+		$excursions = ExcursionService::getExcursionById(Database::getInstance()->connect(), $id);
+		return Render::render("content-detailed-excursion", ['excursions' => $excursions]);
+	}
+
+	public static function showAllExcursions($page): string
+	{
+		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect(),$page);
+		return Render::render("content-top-excursions", ['excursions' => $excursions]);
+	}
 
 	public static function showPlaceHolder(): string
 	{
@@ -40,15 +51,4 @@ class MainController
 		}*/
 	}
 
-	public static function showExcursionById($id): string
-	{
-		$excursions = ExcursionService::getExcursionById(Database::getInstance()->connect(), $id);
-		return Render::render("content-detailed-excursion", ['excursions' => $excursions]);
-	}
-
-	public static function showAllExcursions($page): string
-	{
-		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect(),$page);
-		return Render::render("content-top-excursions", ['excursions' => $excursions]);
-	}
 }

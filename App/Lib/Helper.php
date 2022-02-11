@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace App\Lib;
 
 class Helper
 {
@@ -59,6 +59,15 @@ class Helper
 	{
 		session_start();
 		return $_SESSION['csrf_token'] = substr( str_shuffle( 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM' ), 0, 10 );
+	}
+
+	public static function getPagesCount(array $excursions) : int
+	{
+		$EXCURSIONS_ON_PAGE = 9;
+
+		$total = count($excursions);
+
+		return ceil($total / $EXCURSIONS_ON_PAGE);
 	}
 
 }

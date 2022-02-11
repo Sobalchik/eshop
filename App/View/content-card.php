@@ -1,6 +1,6 @@
 <?php
 /** @var array $excursions */
-$helper = App\Helper\Helper::getInstance();
+$helper = App\Lib\Helper::getInstance();
 ?>
 
 <?php

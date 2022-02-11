@@ -165,17 +165,6 @@ class ExcursionService
 		return $excursions;
 	}
 
-	/* мб эту функцию перенести в хелпер тк тип она никак не
- 	связана с сервисом, а она больше для отображения контента на странице */
-	public static function getPagesCount(array $excursions) : int
-	{
-		$EXCURSIONS_ON_PAGE = 9;
-
-		$total = count($excursions);
-
-		return ceil($total / $EXCURSIONS_ON_PAGE);
-	}
-
 	public static function getExcursionById(mysqli $db, int $id) : object
 	{
 		$query = "
