@@ -47,4 +47,10 @@ class Helper
 		return round($data, 2);
 	}
 
+	public static function generateFormCsrfToken()
+	{
+		session_start();
+		return $_SESSION['csrf_token'] = substr( str_shuffle( 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM' ), 0, 10 );
+	}
+
 }
