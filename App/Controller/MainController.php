@@ -23,8 +23,11 @@ class MainController
 
 	public static function showAllExcursions(int $page): string
 	{
+		$helper = \App\Lib\Helper::getInstance();
+		$pageCount = $helper->getPagesCount();
+
 		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect(),$page);
-		return Render::render("content-all-excursions", ['excursions' => $excursions,'page' => $page]);
+		return Render::render("content-all-excursions", ['excursions' => $excursions,'page' => $page,'pageCount' => $pageCount]);
 	}
 
 
