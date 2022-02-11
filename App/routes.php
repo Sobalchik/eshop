@@ -11,7 +11,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/placeholder/:id",
+	"/excursion/:id",
 	[MainController::class, 'showPlaceHolder']
 );
 
@@ -23,7 +23,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/allExcursions",
+	"/allExcursions/:page",
 	[MainController::class, 'showAllExcursions']
 );
 

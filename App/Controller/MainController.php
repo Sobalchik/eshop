@@ -11,20 +11,21 @@ class MainController
 	public static function showTopExcursions(): string
 	{
 		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
-		return Render::render("content-main", ['excursions' => $excursions]);
+		return Render::render("content-top-excursions", ['excursions' => $excursions]);
 	}
 
-	public static function showPlaceHolder($id): string
+
+	public static function showPlaceHolder(): string
 	{
-		$excursions = ExcursionService::getExcursionById(Database::getInstance()->connect(), $id);
-		return Render::render("placeholder", ['excursions' => $excursions]);
+		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
+		return Render::render("content-detailed-excursion", ['excursions' => $excursions]);
 	}
 
 	public static function createOrder(): string
 	{
 		$order = OrderService::createOrder(Database::getInstance()->connect(),$_POST);
 		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
-		return Render::render("content-main", ['excursions' => $excursions]);
+		return Render::render("content-top-excursions", ['excursions' => $excursions]);
 
 		/*if ( isset( $_SESSION['csrf_token'] ) && $_SESSION['csrf_token'] == @$_POST['csrf_token'] )
 		{
@@ -42,12 +43,12 @@ class MainController
 	public static function showExcursionById($id): string
 	{
 		$excursions = ExcursionService::getExcursionById(Database::getInstance()->connect(), $id);
-		return Render::render("excursion-by-id", ['excursions' => $excursions]);
+		return Render::render("content-detailed-excursion", ['excursions' => $excursions]);
 	}
 
-	public static function showAllExcursions(): string
+	public static function showAllExcursions($page): string
 	{
-		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect());
-		return Render::render("content-main", ['excursions' => $excursions]);
+		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect(),$page);
+		return Render::render("content-top-excursions", ['excursions' => $excursions]);
 	}
 }
