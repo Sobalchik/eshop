@@ -23,14 +23,9 @@ class MainController
 	public static function showAllExcursions($page): string
 	{
 		$excursions = ExcursionService::getAllExcursionsByPage(Database::getInstance()->connect(),$page);
-		return Render::render("content-top-excursions", ['excursions' => $excursions]);
+		return Render::render("content-all-excursions", ['excursions' => $excursions]);
 	}
 
-	public static function showPlaceHolder(): string
-	{
-		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
-		return Render::render("content-detailed-excursion", ['excursions' => $excursions]);
-	}
 
 	public static function createOrder(): string
 	{

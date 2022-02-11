@@ -49,7 +49,6 @@ use App\Lib\Render;
 	</div>
 </div>
 <div class="bloc2">
-	<p class="bloc-2-text-top">Топ Экскурсий</p>
 	<div class="bloc-2-contener">
 		<?= Render:: renderContent("content-card",['excursions'=>$excursions])?>
 	</div>

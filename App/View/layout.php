@@ -17,10 +17,10 @@
 <div class="header">
 	<div class="menu">
 		<div class="bloc-logo">
-			<img class="header-logo" src="/Resources/Images/logo_template14%201.png">
+			<a href="http://eshop/"><img class="header-logo" src="/Resources/Images/logo_template14%201.png"></a>
 		</div>
 		<div class="bloc-menu">
-			<a href="/placeholder" class="menu-button">Экскурсии</a>
+			<a href="http://eshop/allExcursions/1" class="menu-button">Экскурсии</a>
 			<a class="menu-button">Клиентам</a>
 			<a class="menu-button">Блог</a>
 			<a class="menu-button">Отзывы</a>

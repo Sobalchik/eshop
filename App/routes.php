@@ -17,6 +17,12 @@ Router::add(
 
 Router::add(
 	"GET",
+	"/allExcursions/excursion/:id",
+	[MainController::class, 'showExcursionById']
+);
+
+Router::add(
+	"GET",
 	"/allExcursions/:page",
 	[MainController::class, 'showAllExcursions']
 );
