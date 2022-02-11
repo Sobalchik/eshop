@@ -9,7 +9,6 @@ class ExcursionService
 {
 	const MAIN_PHOTO = '1';
 
-
 	public static function getAllTags(mysqli $db) : array
 	{
 		$query = "
@@ -231,9 +230,9 @@ class ExcursionService
 		return $result_excursion;
 	}
 
-	public static function sortExcursionsByPriceAsc(mysqli $db, array $idList) : array
+	public static function sortExcursions(mysqli $db, array $idList, int $sortType) : array
 	{
-		$query = "
+		$queryByPriceAsc = "
 			select
 				ID as 'id',
 				NAME_CITY as 'nameCity',
@@ -260,42 +259,7 @@ class ExcursionService
 			order by up_product.PRICE;
 		";
 
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		$excursions = [];
-
-		while ($excursion = mysqli_fetch_assoc($result))
-		{
-			$excursions[] = new Excursion(
-				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
-				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				'',
-				'',
-				$excursion['imageList']
-			);
-		}
-
-		return $excursions;
-	}
-
-	public static function sortExcursionsByPriceDesc(mysqli $db, array $idList) : array
-	{
-		$query = "
+		$queryByPriceDesc = "
 			select
 				ID as 'id',
 				NAME_CITY as 'nameCity',
@@ -322,42 +286,7 @@ class ExcursionService
 			order by up_product.PRICE DESC;
 		";
 
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		$excursions = [];
-
-		while ($excursion = mysqli_fetch_assoc($result))
-		{
-			$excursions[] = new Excursion(
-				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
-				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				'',
-				'',
-				$excursion['imageList']
-			);
-		}
-
-		return $excursions;
-	}
-
-	public static function sortExcursionsByRatingDesc(mysqli $db, array $idList) : array
-	{
-		$query = "
+		$queryByRatingDesc = "
 			select
 				ID as 'id',
 				NAME_CITY as 'nameCity',
@@ -383,6 +312,21 @@ class ExcursionService
 			      (" . implode(',', array_map('intval', $idList)) . ")
 			order by up_product.RATING DESC;
 		";
+
+		$query = '';
+
+		switch ($sortType)
+		{
+		case 1:
+			$query = $queryByPriceAsc;
+			break;
+		case 2:
+			$query = $queryByPriceDesc;
+			break;
+		case 3:
+			$query = $queryByRatingDesc;
+			break;
+		}
 
 		$result = mysqli_query($db, $query);
 
