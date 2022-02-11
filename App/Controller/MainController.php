@@ -16,7 +16,9 @@ class MainController
 
 	public static function showPlaceHolder(): string
 	{
-		$excursions = ExcursionService::getExcursions(Database::getInstance()->connect());
-		return Render::render("placeholder", ['excursions' => $excursions]);
+		$excursions = ExcursionService::getTopExcursions(Database::getInstance()->connect());
+		return Render::render("placeholder",[ ['excursions' => $excursions,]]);
 	}
+
+
 }

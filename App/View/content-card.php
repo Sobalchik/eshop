@@ -16,7 +16,7 @@ foreach ($excursions as $excursion): ?>
 				<p class="box-h1-2"><?= $excursion->getNameCountry() ?></p>
 			</div>
 			<div class="box-bottom">
-				<img src="./Resources/Images/солнечно%201.png">
+				<img src="/Resources/Images/солнечно%201.png">
 				<p class="box-bottom-weather"><?= $excursion->getDegrees()?>°C</p>
 				<p class="box-bottom-many">₽ <?= $excursion->getPrice() ?></p>
 			</div>
