@@ -21,7 +21,7 @@ class UserService
 				ISADMIN as 'isAdmin',
 				DATE_CREATE as 'dateCreate',
 				DATE_UPDATE as 'dateUpdate'
-			FROM up_user WHERE LOGIN='{$validateLogin} ' LIMIT 1
+			FROM up_user WHERE LOGIN='{$validateLogin}' LIMIT 1
 		";
 
 		$result = mysqli_query($db, $query);
@@ -31,21 +31,20 @@ class UserService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		while ($itemUser = mysqli_fetch_assoc($result))
-		{
-			$user = new User(
-				$user['id'],
-				$user['login'],
-				$user['password'],
-				$user['userHash'],
-				$user['email'],
-				$user['isAdmin'],
-				$user['dateCreate'],
-				$user['dateUpdate'],
-			);
-		}
+		$user = mysqli_fetch_assoc($result);
 
-		return $user;
+		$resultUser = new User(
+			$user['id'],
+			$user['login'],
+			$user['password'],
+			$user['userHash'],
+			$user['email'],
+			$user['isAdmin'],
+			$user['dateCreate'],
+			$user['dateUpdate'],
+		);
+
+		return $resultUser;
 	}
 
 	public static function getUserByHash(mysqli $db, string $hash): User
@@ -70,21 +69,19 @@ class UserService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		while ($itemUser = mysqli_fetch_assoc($result))
-		{
-			$user = new User(
-				$user['id'],
-				$user['login'],
-				$user['password'],
-				$user['userHash'],
-				$user['email'],
-				$user['isAdmin'],
-				$user['dateCreate'],
-				$user['dateUpdate'],
-			);
-		}
+		$user = mysqli_fetch_assoc($result);
+		$resultUser = new User(
+			$user['id'],
+			$user['login'],
+			$user['password'],
+			$user['userHash'],
+			$user['email'],
+			$user['isAdmin'],
+			$user['dateCreate'],
+			$user['dateUpdate'],
+		);
 
-		return $user;
+		return $resultUser;
 	}
 
 	public static function setUserHash(mysqli $db, int $id, string $userHash): void

@@ -33,7 +33,8 @@ class UserController
 		else
 		{
 			$passwordHash = Helper::getPasswordHash($user->getLogin(),$validatePassword,$user->getEmail());
-			if ($user->password!=$passwordHash)
+			var_dump($passwordHash);
+			if ($user->getPassword()!=$passwordHash)
 			{
 				return var_dump("Fail auth");
 			}
