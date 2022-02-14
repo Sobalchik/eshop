@@ -70,4 +70,32 @@ class Helper
 		return ceil($total / $EXCURSIONS_ON_PAGE);
 	}
 
+	public static function generateUserHash(int $length = 6): string
+	{
+		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789";
+
+		$userHash = "";
+
+		$clen = strlen($chars) - 1;
+		while (strlen($userHash) < $length) {
+
+			$userHash .= $chars[mt_rand(0,$clen)];
+		}
+
+		return $userHash;
+	}
+
+	public static function getPasswordHash(string $login, string $password, string $email): string
+	{
+		$passwordHash = md5(md5($login.$password.$email));
+		return $passwordHash;
+	}
+
+	public static function setAuthorized(string $id, string $userHash):void
+	{
+		session_start();
+		$_SESSION['userId'] = $id;
+		$_SESSION['userHash'] = $userHash;
+	}
+
 }

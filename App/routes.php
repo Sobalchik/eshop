@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\MainController;
+use App\Controller\UserController;
 use App\Lib\Router;
 
 Router::add(
@@ -31,4 +32,16 @@ Router::add(
 	"POST",
 	"/createOrder",
 	[MainController::class, 'createOrder']
+);
+
+Router::add(
+	"GET",
+	"/login",
+	[UserController::class, 'loginUser']
+);
+
+Router::add(
+	"POST",
+	"/auth",
+	[UserController::class, 'Authorized']
 );
