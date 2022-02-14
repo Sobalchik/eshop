@@ -1,6 +1,5 @@
 <?php
-$helper = App\Lib\Helper::getInstance();
-echo $passwordHash = $helper->getPasswordHash('admin','1','admin@test.ru');
+
 ?>
 <div class="detailed-page"></div>
 <form action="/auth" method="post">

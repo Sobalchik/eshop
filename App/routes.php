@@ -41,7 +41,19 @@ Router::add(
 );
 
 Router::add(
+	"GET",
+	"/logout",
+	[UserController::class, 'logOutUser']
+);
+
+Router::add(
 	"POST",
 	"/auth",
 	[UserController::class, 'Authorized']
+);
+
+Router::add(
+	"GET",
+	"/admin",
+	[UserController::class, 'adminPanel']
 );

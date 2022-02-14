@@ -16,9 +16,45 @@ class UserController
 		return Render::render("login", []);
 	}
 
-	public static function isAuthorized():string
+	public static function logOutUser():string
 	{
-		$user = UserService::getUserByHash(Database::getInstance()->connect());
+		session_start();
+		$_SESSION = array();
+		session_destroy();
+		return Render::render("logout", []);
+	}
+
+	public static function adminPanel():string
+	{
+		if (self::isAuthorized()==true)
+		{
+			return Render::render("admin", []);
+		}
+		else
+		{
+			return Render::render("login", []);
+		}
+	}
+
+	public static function isAuthorized():bool
+	{
+		session_start();
+		if (!isset($_SESSION['userHash']))
+		{
+			return false;
+		}
+		else
+		{
+			$user = UserService::getUserByHash(Database::getInstance()->connect(),$_SESSION['userHash']);
+			if ($_SESSION['userHash']==$user->getUserHash())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 
 	public static function Authorized():string
@@ -28,22 +64,21 @@ class UserController
 		$user = UserService::getUserByLogin(Database::getInstance()->connect(),$validateLogin);
 		if (!isset($user))
 		{
-			return var_dump("Fail auth");
+			return Render::render("login", []);
 		}
 		else
 		{
 			$passwordHash = Helper::getPasswordHash($user->getLogin(),$validatePassword,$user->getEmail());
-			var_dump($passwordHash);
 			if ($user->getPassword()!=$passwordHash)
 			{
-				return var_dump("Fail auth");
+				return Render::render("login", []);
 			}
 			else
 			{
 				$userHash = Helper::generateUserHash();
 				UserService::setUserHash(Database::getInstance()->connect(),$user->getId(),$userHash);
 				Helper::setAuthorized($user->getId(),$userHash);
-				return var_dump("Success auth");
+				return Render::render("admin", []);
 			}
 		}
 
