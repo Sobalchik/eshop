@@ -8,6 +8,61 @@ use App\Lib\DBQuery;
 
 class ExcursionService
 {
+	public static function parseExcursionsForHomePage(\mysqli_result $excursionsFromDB) : array
+	{
+		$excursions = [];
+
+		while ($excursion = mysqli_fetch_assoc($excursionsFromDB))
+		{
+			$excursions[] = new Excursion(
+				$excursion['id'],
+				$excursion['nameCity'],
+				$excursion['nameCountry'],
+				$excursion['dateTravel'],
+				$excursion['price'],
+				'',
+				$excursion['internetRating'],
+				$excursion['entertainmentRating'],
+				$excursion['serviceRating'],
+				$excursion['rating'],
+				$excursion['degrees'],
+				$excursion['active'],
+				'',
+				'',
+				$excursion['imageList']
+			);
+		}
+
+		return $excursions;
+	}
+
+	public static function parseExcursionsForDetailedPage(\mysqli_result $excursionFromDB) : Excursion
+	{
+		$excursion = mysqli_fetch_assoc($excursionFromDB);
+
+		$result_excursion = new Excursion(
+			$excursion['id'],
+			$excursion['nameCity'],
+			$excursion['nameCountry'],
+			$excursion['dateTravel'],
+			$excursion['price'],
+			$excursion['full_description'],
+			0,
+			0,
+			0,
+			$excursion['rating'],
+			0,
+			$excursion['active'],
+			'',
+			'',
+			$excursion['imageList']
+		);
+
+		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
+
+		return $result_excursion;
+	}
+
 	public static function getExcursionsCount(mysqli $db) :array
 	{
 		$query = DBQuery::getAllExcursionsCountQuery();
@@ -57,30 +112,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$excursions = [];
-
-		while ($excursion = mysqli_fetch_assoc($result))
-		{
-			$excursions[] = new Excursion(
-				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
-				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				'',
-				'',
-				$excursion['imageList']
-			);
-		}
-
-		return $excursions;
+		return self::parseExcursionsForHomePage($result);
 	}
 
 	public static function getAllExcursionsByPage(mysqli $db, int $page = 1): array
@@ -100,30 +132,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$excursions = [];
-
-		while ($excursion = mysqli_fetch_assoc($result))
-		{
-			$excursions[] = new Excursion(
-				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
-				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				'',
-				'',
-				$excursion['imageList']
-			);
-		}
-
-		return $excursions;
+		return self::parseExcursionsForHomePage($result);
 	}
 
 	public static function getExcursionById(mysqli $db, int $id) : object
@@ -140,42 +149,22 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$excursion = mysqli_fetch_assoc($result);
-
-		$result_excursion = new Excursion(
-			$excursion['id'],
-			$excursion['nameCity'],
-			$excursion['nameCountry'],
-			$excursion['dateTravel'],
-			$excursion['price'],
-			$excursion['full_description'],
-			0,
-			0,
-			0,
-			$excursion['rating'],
-			0,
-			$excursion['active'],
-			'',
-			'',
-			$excursion['imageList']
-		);
-
-		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
-
-		return $result_excursion;
+		return self::parseExcursionsForDetailedPage($result);
 	}
 
 	public static function sortExcursions(mysqli $db, array $idList, int $sortType) : array
 	{
+		$ini = parse_ini_file('config.ini');
+
 		switch ($sortType)
 		{
-		case 1:
+		case $ini['order_excursions_by_price_asc']:
 			$query = DBQuery::sortExcursionsByPriceAscQuery($idList);
 			break;
-		case 2:
+		case $ini['order_excursions_by_price_desc']:
 			$query = DBQuery::sortExcursionsByPriceDescQuery($idList);
 			break;
-		case 3:
+		case $ini['order_excursions_by_rating_desc']:
 			$query = DBQuery::sortExcursionsByRatingDescQuery($idList);
 			break;
 		}
@@ -187,30 +176,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$excursions = [];
-
-		while ($excursion = mysqli_fetch_assoc($result))
-		{
-			$excursions[] = new Excursion(
-				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
-				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				'',
-				'',
-				$excursion['imageList']
-			);
-		}
-
-		return $excursions;
+		return self::parseExcursionsForHomePage($result);
 	}
 
 	public static function getExcursionsByTag(mysqli $db, array $tagId): array
@@ -224,30 +190,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$excursions = [];
-
-		while ($excursion = mysqli_fetch_assoc($result))
-		{
-			$excursions[] = new Excursion(
-				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
-				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				'',
-				'',
-				$excursion['imageList']
-			);
-		}
-
-		return $excursions;
+		return self::parseExcursionsForHomePage($result);
 	}
 
 	public static function addExcursion(): string
