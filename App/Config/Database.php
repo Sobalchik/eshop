@@ -11,6 +11,7 @@ class Database
 	protected $db_name;
 
 	private static $instance;
+	private static $database;
 
 	public function __construct()
 	{
@@ -35,6 +36,15 @@ class Database
 	}
 
 	// получение соединения с базой данных
+
+	/**
+	 * @return mixed
+	 */
+	public static function getDatabase()
+	{
+		return self::$database;
+	}
+
 	public function connect()
 	{
 		$database = mysqli_init();
@@ -57,6 +67,8 @@ class Database
 		{
 			trigger_error(mysqli_error($database), E_USER_ERROR);
 		}
+
+		self::$database = $database;
 
 		return $database;
 	}

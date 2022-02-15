@@ -61,7 +61,7 @@ class UserController
 	{
 		$validateLogin = $_POST['login'];
 		$validatePassword = $_POST['password'];
-		$user = UserService::getUserByLogin(Database::getInstance()->connect(),$validateLogin);
+		$user = UserService::getUserByLogin(Database::getDatabase(),$validateLogin);
 		if (!isset($user))
 		{
 			return Render::render("login", []);
@@ -76,7 +76,7 @@ class UserController
 			else
 			{
 				$userHash = Helper::generateUserHash();
-				UserService::setUserHash(Database::getInstance()->connect(),$user->getId(),$userHash);
+				UserService::setUserHash(Database::getDatabase(),$user->getId(),$userHash);
 				Helper::setAuthorized($user->getId(),$userHash);
 				return Render::render("admin", []);
 			}

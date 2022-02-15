@@ -13,10 +13,11 @@ class Application
 	{
 		$settings = Settings::getInstance();
 		$database = Database::getInstance();
+		$database->connect();
 
 		if($settings->isDev())
 		{
-			$migration = new Migration($database->connect());
+			$migration = new Migration(Database::getDatabase());
 			$migration->up();
 		}
 
