@@ -1,37 +1,38 @@
 <?php
 
-use App\Controller\MainController;
+use App\Controller\ExcursionController;
 use App\Controller\UserController;
+use App\Controller\OrderController;
 use App\Lib\Router;
 
 Router::add(
 	"GET",
 	"/",
-	[MainController::class, 'showTopExcursions']
+	[ExcursionController::class, 'showTopExcursions']
 );
 
 Router::add(
 	"GET",
 	"/excursion/:id",
-	[MainController::class, 'showExcursionById']
+	[ExcursionController::class, 'showExcursionById']
 );
 
 Router::add(
 	"GET",
 	"/allExcursions/excursion/:id",
-	[MainController::class, 'showExcursionById']
+	[ExcursionController::class, 'showExcursionById']
 );
 
 Router::add(
 	"GET",
 	"/allExcursions/:page",
-	[MainController::class, 'showAllExcursions']
+	[ExcursionController::class, 'showAllExcursions']
 );
 
 Router::add(
 	"POST",
 	"/createOrder",
-	[MainController::class, 'createOrder']
+	[OrderController::class, 'createOrder']
 );
 
 Router::add(

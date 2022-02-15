@@ -63,10 +63,10 @@ use App\Lib\Render;
 			<?php } ?>
 
 			<?php if($page < $pageCount){ ?>
-				'<a class="cta" href="http://eshop/allExcursions/<?= ($page+1) < $pageCount ?($page+1): $pageCount ?>">
+				<a class="cta" href="http://eshop/allExcursions/<?= ($page+1) < $pageCount ?($page+1): $pageCount ?>">
 				<img src="/Resources/Images/icons8-длинная-стрелка-вправо-30.png">
 				<span>вперед</span>
-				</a>'
+				</a>
 			<?php } ?>
 
 		</div>

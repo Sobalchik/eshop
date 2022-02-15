@@ -1,6 +1,6 @@
 <?php
-/** @var string $excursions */
-$helper = App\Lib\Helper::getInstance();
+/** @var string $excursion */
+$helper=App\Lib\Helper::getInstance();
 ?>
 
 
@@ -9,18 +9,18 @@ $helper = App\Lib\Helper::getInstance();
 	<img class="img-bloc-card" src="/Resources/Images/прага%202.png">
 	<div class="bloc-card-center">
 		<div>
-			<img src="<?= $excursions->getImageList() ?>">
+			<img src="<?= $excursion->getImageList() ?>">
 		</div>
 		<div class="bloc-card-center-text-block">
 			<p class="detailed-page-text-1">Экскурсия</p>
-			<p class="detailed-page-text-2">“<?= $excursions->getNameCity() ?>”</p>
-			<p class="detailed-page-text-3"><?=$excursions->getFullDescription() ?></p>
+			<p class="detailed-page-text-2">“<?= $excursion->getNameCity() ?>”</p>
+			<p class="detailed-page-text-3"><?=$excursion->getFullDescription() ?></p>
 			<p class="detailed-page-text-4">Что вас ожидает</p>
 			<p class="detailed-page-text-5">
 				<img style="padding-right: 15px" src="/Resources/Images/image%201.png">Мини группа, автобусно-пешеходная
 			</p>
 			<p class="detailed-page-text-5">
-				<img style="padding-right: 15px" src="/Resources/Images/image%202.png"><?=$helper::conversionDateToTime($excursions->getDateTravel()) ?></p>
+				<img style="padding-right: 15px" src="/Resources/Images/image%202.png"><?=$helper::conversionDateToTime($excursion->getDateTravel()) ?></p>
 			<p class="detailed-page-text-5">
 				<img style="padding-right: 15px" src="/Resources/Images/image%203.png">Размер группы до 10 человек
 			</p>
@@ -71,7 +71,7 @@ $helper = App\Lib\Helper::getInstance();
 						<p class="detailed-page-application-text2">и мы с вами свяжемся в удобное для вас время</p>
 					</div>
 					<form action="/createOrder" method="post">
-						<input class="form-application-input" style="display: none" type="hidden" name="product_id" value="<?=$excursions->getId()?>">
+						<input class="form-application-input" style="display: none" type="hidden" name="product_id" value="<?=$excursion->getId()?>">
 						<input class="form-application-input" style="display: none" type="hidden" name="status_id" value="1">
 						<input class="form-application-input" style="display: none" type="hidden" name="csrf_token" value="<?=$helper::generateFormCsrfToken()?>">
 						<p class="form-application-text">Укажите ваше имя</p>
