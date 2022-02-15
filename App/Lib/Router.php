@@ -2,6 +2,8 @@
 
 namespace App\Lib;
 
+use App\Exception\PathNotFoundEcxeption;
+
 class Router
 {
 	protected static $routes = [];
@@ -39,7 +41,8 @@ class Router
 
 			}
 		}
-		return null;
+
+		throw new PathNotFoundEcxeption();
 	}
 
 	private static function routeResponseAdapter(array $callback): ?Response
