@@ -23,6 +23,40 @@ class Excursion
 	private $dateUpdate;
 	private $tagList;
 	private $imageList;
+	private $duration;
+	private $countPersons;
+
+	/**
+	 * @return int
+	 */
+	public function getDuration() : int
+	{
+		return $this->duration;
+	}
+
+	/**
+	 * @param int $duration
+	 */
+	public function setDuration(int $duration): void
+	{
+		$this->duration = $duration;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCountPersons() : int
+	{
+		return $this->countPersons;
+	}
+
+	/**
+	 * @param int $countPersons
+	 */
+	public function setCountPersons(int $countPersons): void
+	{
+		$this->countPersons = $countPersons;
+	}
 
 	/**
 	 * @param int $id

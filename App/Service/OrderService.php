@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Order;
+use App\Lib\DBQuery;
 use mysqli;
 
 class OrderService
@@ -36,5 +37,65 @@ class OrderService
 		}
 	}
 
+	public static function getAllOrders(mysqli $db) : array
+	{
+		return [];
+	}
+
+	public static function sortOrders(mysqli $db, int $sortType) : array
+	{
+		$ini = parse_ini_file('config.ini');
+
+		switch ($sortType)
+		{
+			case $ini['order_orders_by_date_create_desc']:
+				$query = "";
+				break;
+			case $ini['order_orders_by_status']:
+				$query = "c";
+				break;
+		}
+
+		return [];
+	}
+
+	public static function findOrdersByClientName(mysqli $db, string $clientName) : array
+	{
+		$query = DBQuery::findOrderByClientName();
+
+		$searchString = mysqli_real_escape_string($db, $clientName);
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"s",$searchString);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$orders = [];
+
+		while($order = mysqli_fetch_assoc($result))
+		{
+			$orders[] = new Order(
+				$order['id'],
+				$order['fio'],
+				$order['email'],
+				$order['phone'],
+				$order['dateOrder'],
+				$order['comment'],
+				$order['statusId'],
+				$order['productId'],
+				'',
+				''
+			);
+			$order[count($order)-1]->setStatus($order['status']);
+			$order[count($order)-1]->setExcursionName($order['status']);
+		}
+
+		return $orders;
+	}
 
 }

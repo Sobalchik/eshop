@@ -57,7 +57,8 @@ class DBQuery
 					from up_product_tag
 							 left join up_tag on up_product_tag.TAG_ID = up_tag.ID
 					where up_product_tag.PRODUCT_ID = up_product.ID
-				) as 'tagList'
+				) as 'tagList',
+			    DURATION as 'duration'
 			from up_product
 			where up_product.ID = ?;
 		";
@@ -129,5 +130,85 @@ class DBQuery
 			"INNER JOIN up_product_tag on up_product_tag.PRODUCT_ID = up_product.ID
 			WHERE up_product_tag.TAG_ID IN (".implode(",",$tagId).")";
 	}
+
+	public static function insertExcursionInDBQuery() : string
+	{
+		return "
+			insert into up_product
+			(
+			 NAME_CITY, 
+			 NAME_COUNTRY, 
+			 DATE_TRAVEL, 
+			 DURATION,
+			 COUNT_PERSONS,
+			 PRICE, 
+			 FULL_DESCRIPTION, 
+			 INTERNET_RATING, 
+			 ENTERTAINMENT_RATING, 
+			 SERVICE_RATING, 
+			 RATING, 
+			 DEGREES, 
+			 ACTIVE
+			 )
+			values
+			(
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?,
+			 ?
+			)
+		";
+	}
+
+	public static function updateExcursionById() : string
+	{
+		return "
+			update up_product
+			set
+				NAME_CITY = ?,
+				NAME_COUNTRY = ?,
+				DATE_TRAVEL = ?,
+				PRICE = ?,
+				INTERNET_RATING = ?,
+				ENTERTAINMENT_RATING = ?,
+				SERVICE_RATING = ?,
+				RATING = ?,
+				DEGREES = ?,
+				ACTIVE = ?
+			where ID = ?
+		";
+	}
+
+	public static function findOrderByClientName() : string
+	{
+		return "
+			select
+				up_order.ID as 'id',
+				up_order.FIO as 'fio',
+				up_order.EMAIL as 'email',
+				up_order.PHONE as 'phone',
+				up_order.DATE_ORDER as 'orderDate',
+				up_order.COMMENT as 'comment',
+			    up_order.STATUS_ID as 'statusId',
+				up_status_order.NAME as 'status',
+			    up_order.PRODUCT_ID as 'productId',
+				group_concat(up_product.NAME_CITY,
+				    up_product.NAME_COUNTRY) as 'excursionName'
+			from up_order
+			left join up_product on up_product.ID = up_order.PRODUCT_ID
+			left join up_status_order on up_status_order.ID = up_order.STATUS_ID
+			where up_order.FIO like (?)
+		";
+	}
+
 
 }

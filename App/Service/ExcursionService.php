@@ -59,6 +59,7 @@ class ExcursionService
 		);
 
 		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
+		$result_excursion->setDuration($excursion['duration']);
 
 		return $result_excursion;
 	}
@@ -193,8 +194,82 @@ class ExcursionService
 		return self::parseExcursionsForHomePage($result);
 	}
 
-	public static function addExcursion(): string
+	public static function addExcursion(mysqli $db, array $excursionData): void
 	{
-		return "Excursion Added";
+		$query = DBQuery::insertExcursionInDBQuery();
+
+		$nameCity = mysqli_real_escape_string($db, $excursionData['nameCity']);
+		$nameCountry = mysqli_real_escape_string($db, $excursionData['nameCountry']);
+		$dateTravel = date_format($excursionData['dateTravel'], 'Y-m-d H:i:s');
+		$fullDescription = mysqli_real_escape_string($db, $excursionData['full_description']);
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"sssdiisddddii",
+								$nameCity,
+								$nameCountry,
+								$dateTravel,
+								$excursionData['price'],
+								$excursionData['duration'],
+								$excursionData['countPersons'],
+								$fullDescription,
+								$excursionData['internetRating'],
+								$excursionData['entertainmentRating'],
+								$excursionData['serviceRating'],
+								$excursionData['rating'],
+								$excursionData['degrees'],
+								$excursionData['active']
+		);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
+	public static function getAllExcursionsForAdmin(mysqli $db) : array
+	{
+		return [];
+	}
+
+	public static function addDateByExcursionId(mysqli $db) : array
+	{
+		return [];
+	}
+
+	public static function editExcursionById(mysqli $db, int $id, array $data) : void
+	{
+		$query = DBQuery::updateExcursionById();
+
+		$nameCity = mysqli_real_escape_string($db, $data['nameCity']);
+		$nameCountry = mysqli_real_escape_string($db, $data['nameCountry']);
+		$dateTravel = date_format($data['dateTravel'], 'Y-m-d H:i:s');
+		$fullDescription = mysqli_real_escape_string($db, $data['full_description']);
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"sssdiisddddiii",
+								$nameCity,
+								$nameCountry,
+								$dateTravel,
+								$data['price'],
+								$data['duration'],
+								$data['countPersons'],
+								$fullDescription,
+								$data['internetRating'],
+								$data['entertainmentRating'],
+								$data['serviceRating'],
+								$data['rating'],
+								$data['degrees'],
+								$data['active'],
+								$id
+		);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
 	}
 }

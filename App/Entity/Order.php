@@ -14,6 +14,41 @@ class Order
 	private $productId;
 	private $dateCreate;
 	private $dateUpdate;
+	private $status;
+	private $excursionName;
+
+	/**
+	 * @return string
+	 */
+	public function getStatus() : string
+	{
+		return $this->status;
+	}
+
+	/**
+	 * @param string $status
+	 */
+	public function setStatus(string $status): void
+	{
+		$this->status = $status;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getExcursionName() : string
+	{
+		return $this->excursionName;
+	}
+
+	/**
+	 * @param string $excursionName
+	 */
+	public function setExcursionName(string $excursionName): void
+	{
+		$this->excursionName = $excursionName;
+	}
+
 
 	/**
 	 * @param int $id
