@@ -26,6 +26,7 @@ DROP TABLE `up_order`;
 CREATE TABLE up_order
 (
 	ID int not null auto_increment,
+	FIO varchar(500) not null,
 	EMAIL varchar(500) not null,
 	PHONE varchar(500) not null,
 	DATE_ORDER datetime,
