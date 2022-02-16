@@ -2,6 +2,8 @@
 
 namespace App\Config;
 
+use App\Exception\NoConnectionToDataBaseException;
+
 class Database
 {
 	protected $user;
@@ -35,19 +37,23 @@ class Database
 		return self::$instance;
 	}
 
-	// получение соединения с базой данных
 
-	/**
-	 * @return mixed
-	 */
-	public static function getDatabase()
+
+
+	public static function getDatabase(): \mysqli
 	{
 		return self::$database;
 	}
 
+
+	// получение соединения с базой данных
+	/**
+	 * @throws NoConnectionToDataBaseException
+	 */
 	public function connect()
 	{
 		$database = mysqli_init();
+
 		$connectionResult = mysqli_real_connect(
 			$database,
 			$this->host,
@@ -58,11 +64,11 @@ class Database
 
 		if (!$connectionResult)
 		{
-			$error = mysqli_connect_errno() . ": " . mysqli_connect_error();
-			trigger_error($error, E_USER_ERROR);
+			throw new NoConnectionToDataBaseException("database not found :(");
 		}
 
 		$result = mysqli_set_charset($database, 'utf8');
+
 		if (!$result)
 		{
 			trigger_error(mysqli_error($database), E_USER_ERROR);
