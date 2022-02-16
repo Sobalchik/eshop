@@ -49,5 +49,10 @@ class MainController
 			return Render::render("content-more-excursion", ['excursion' => $excursion]);
 		}*/
 	}
+	public static function showErrorPage(): string
+	{
+		return Render::renderContent("placeholder");
+	}
+
 
 }
