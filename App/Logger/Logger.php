@@ -1,16 +1,27 @@
 <?php
 
-namespace Logger;
+namespace App\Logger;
+
+use App\Logger\LogLevel;
 
 class Logger implements LoggerInterface
 {
+
+	private $options =[
+		"dateFormat" => 'Y-m-d H:i:s',
+		"extension" => 'txt',
+		"filename"=> 'log',
+		"path" => '/',
+	];
+
+
 
 	/**
 	 * @inheritDoc
 	 */
 	public function emergency($message, array $context = [])
 	{
-		// TODO: Implement emergency() method.
+		$this->log(LogLevel::EMERGENCY,$message,$context);
 	}
 
 	/**
@@ -18,7 +29,7 @@ class Logger implements LoggerInterface
 	 */
 	public function alert($message, array $context = [])
 	{
-		// TODO: Implement alert() method.
+		$this->log(LogLevel::ALERT,$message,$context);
 	}
 
 	/**
@@ -26,7 +37,7 @@ class Logger implements LoggerInterface
 	 */
 	public function critical($message, array $context = [])
 	{
-		// TODO: Implement critical() method.
+		$this->log(LogLevel::CRITICAL,$message,$context);
 	}
 
 	/**
@@ -34,7 +45,7 @@ class Logger implements LoggerInterface
 	 */
 	public function error($message, array $context = [])
 	{
-		// TODO: Implement error() method.
+		$this->log(LogLevel::ERROR,$message,$context);
 	}
 
 	/**
@@ -42,7 +53,7 @@ class Logger implements LoggerInterface
 	 */
 	public function warning($message, array $context = [])
 	{
-		// TODO: Implement warning() method.
+		$this->log(LogLevel::WARNING,$message,$context);
 	}
 
 	/**
@@ -50,7 +61,7 @@ class Logger implements LoggerInterface
 	 */
 	public function notice($message, array $context = [])
 	{
-		// TODO: Implement notice() method.
+		$this->log(LogLevel::NOTICE,$message,$context);
 	}
 
 	/**
@@ -58,7 +69,7 @@ class Logger implements LoggerInterface
 	 */
 	public function info($message, array $context = array())
 	{
-		// TODO: Implement info() method.
+		$this->log(LogLevel::INFO,$message,$context);
 	}
 
 	/**
@@ -66,7 +77,7 @@ class Logger implements LoggerInterface
 	 */
 	public function debug($message, array $context = array())
 	{
-		// TODO: Implement debug() method.
+		$this->log(LogLevel::DEBUG,$message,$context);
 	}
 
 	/**
@@ -74,6 +85,26 @@ class Logger implements LoggerInterface
 	 */
 	public function log($level, $message, array $context = array())
 	{
-		// TODO: Implement log() method.
+		$filename =$this->options['filename'];
+		$extension = $this->options['extension'];
+		$dateFormat = $this->options['dateFormat'];
+		$path = __DIR__.$this->options['path'];
+
+
+		$dateFormatted = (new \DateTime())->format($dateFormat);
+
+
+		$contextString = json_encode($context);
+
+		$message = sprintf(
+			'[%s] %s: %s %s%s',
+			$dateFormatted,
+			$level,
+			$message,
+			$contextString,
+			PHP_EOL
+		);
+
+		file_put_contents($path.$filename.'.'.$extension, $message, FILE_APPEND);
 	}
 }
