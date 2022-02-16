@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Config\Settings;
 use App\Entity\Excursion;
 use mysqli;
 
@@ -118,7 +119,8 @@ class ExcursionService
 
 	public static function getAllExcursionsByPage(mysqli $db, int $page = 1): array
 	{
-		$EXCURSIONS_ON_PAGE = 9;
+		$settings = Settings::getInstance();
+		$EXCURSIONS_ON_PAGE = $settings->getExcursionOnPage();
 		$startLine = ($page * $EXCURSIONS_ON_PAGE) - $EXCURSIONS_ON_PAGE;
 
 		$query = "
