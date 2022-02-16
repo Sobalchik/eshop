@@ -45,7 +45,7 @@ class UserController
 		}
 		else
 		{
-			$user = UserService::getUserByHash(Database::getInstance()->connect(),$_SESSION['userHash']);
+			$user = UserService::getUserByHash(Database::getDatabase(),$_SESSION['userHash']);
 			if ($_SESSION['userHash']==$user->getUserHash())
 			{
 				return true;
