@@ -26,7 +26,7 @@
 			<a class="menu-button">О нас</a>
 		</div>
 		<div class="exit-log">
-			<a class="exit-button"><img src="/Resources/Images/1.png"> Личный кабинет</a>
+			<a href = 'http://eshop/login' class="exit-button"><img src="/Resources/Images/1.png"> Личный кабинет</a>
 		</div>
 	</div>
 </div>
