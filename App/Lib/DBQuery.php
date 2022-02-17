@@ -7,26 +7,33 @@ class DBQuery
 	public static function getExcursionsForHomePage() : string
 	{
 		return "
-			select 
-			ID as 'id',
-			NAME_CITY as 'nameCity',
-			NAME_COUNTRY as 'nameCountry',
-			DATE_TRAVEL as 'dateTravel',
-			PRICE as 'price',
-			INTERNET_RATING as 'internetRating',
-			ENTERTAINMENT_RATING as 'entertainmentRating',
-			SERVICE_RATING as 'serviceRating',
-			RATING as 'rating',
-			DEGREES as 'degrees',
-			ACTIVE as 'active',
-			(
-				select
-					up_image.PATH
-				from up_product_image
-				left join up_image on up_product_image.IMAGE_ID = up_image.ID
-				where up_product_image.PRODUCT_ID = up_product.ID
-				and up_image.MAIN = '1'
-			) as 'imageList'
+			select
+				up_product.ID as 'id',
+				up_product.NAME_CITY as 'nameCity',
+				up_product.NAME_COUNTRY as 'nameCountry',
+				(
+					select
+						min(up_date.DATE_TRAVEL)
+					from up_date
+					left join up_product_date
+					on up_date.ID = up_product_date.DATE_ID
+					where up_product_date.PRODUCT_ID = up_product.ID
+					) as 'dateTravel',
+				up_product.PRICE as 'price',
+				up_product.INTERNET_RATING as 'internetRating',
+				up_product.ENTERTAINMENT_RATING as 'entertainmentRating',
+				up_product.SERVICE_RATING as 'serviceRating',
+				up_product.RATING as 'rating',
+				up_product.DEGREES as 'degrees',
+				up_product.ACTIVE as 'active',
+				(
+					select
+						up_image.PATH
+					from up_product_image
+							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
+					where up_product_image.PRODUCT_ID = up_product.ID
+					  and up_image.MAIN = '1'
+				) as 'imageList'
 			from up_product
 		";
 	}
@@ -38,7 +45,22 @@ class DBQuery
 				ID as 'id',
 				NAME_CITY as 'nameCity',
 				NAME_COUNTRY as 'nameCountry',
-				DATE_TRAVEL as 'dateTravel',
+				(
+					select
+						min(up_date.DATE_TRAVEL)
+					from up_date
+							 left join up_product_date
+									   on up_date.ID = up_product_date.DATE_ID
+					where up_product_date.PRODUCT_ID = up_product.ID
+				) as 'dateTravel',
+				(
+					select
+						group_concat(up_date.DATE_TRAVEL)
+					from up_date
+					left join up_product_date
+						on up_date.ID = up_product_date.DATE_ID
+					where up_product_date.PRODUCT_ID = up_product.ID
+				) as 'allPossibleDatesTravel',
 				PRICE as 'price',
 				FULL_DESCRIPTION as 'full_description',
 				RATING as 'rating',
@@ -58,9 +80,9 @@ class DBQuery
 							 left join up_tag on up_product_tag.TAG_ID = up_tag.ID
 					where up_product_tag.PRODUCT_ID = up_product.ID
 				) as 'tagList',
-			    DURATION as 'duration'
+				DURATION as 'duration'
 			from up_product
-			where up_product.ID = ?;
+			where up_product.ID = ?
 		";
 	}
 

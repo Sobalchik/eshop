@@ -25,6 +25,23 @@ class Excursion
 	private $imageList;
 	private $duration;
 	private $countPersons;
+	private $allPossibleDatesTravel;
+
+	/**
+	 * @return array
+	 */
+	public function getAllPossibleDatesTravel() : array
+	{
+		return $this->allPossibleDatesTravel;
+	}
+
+	/**
+	 * @param array $allPossibleDatesTravel
+	 */
+	public function setAllPossibleDatesTravel(array $allPossibleDatesTravel): void
+	{
+		$this->allPossibleDatesTravel = $allPossibleDatesTravel;
+	}
 
 	/**
 	 * @return int

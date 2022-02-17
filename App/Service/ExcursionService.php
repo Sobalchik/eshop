@@ -60,6 +60,7 @@ class ExcursionService
 
 		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
 		$result_excursion->setDuration($excursion['duration']);
+		$result_excursion->setAllPossibleDatesTravel(explode(',', $excursion['allPossibleDatesTravel']));
 
 		return $result_excursion;
 	}
