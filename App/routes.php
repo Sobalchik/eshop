@@ -49,7 +49,7 @@ Router::add(
 
 Router::add(
 	"POST",
-	"/auth",
+	"/excursions",
 	[UserController::class, 'Authorized']
 );
 
