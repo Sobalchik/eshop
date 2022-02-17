@@ -67,12 +67,11 @@ class Helper
 
 	public static function getPagesCount() : int
 	{
-		$database = Database::getInstance();
 		$settings = Settings::getInstance();
 
 		$EXCURSIONS_ON_PAGE = $settings->getExcursionOnPage();
 
-		$excursionsCount = ExcursionService::getExcursionsCount($database->connect());
+		$excursionsCount = ExcursionService::getExcursionsCount(Database::getDatabase());
 
 		return ceil($excursionsCount[0] / $EXCURSIONS_ON_PAGE);
 	}
