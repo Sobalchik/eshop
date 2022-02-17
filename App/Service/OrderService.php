@@ -67,17 +67,25 @@ class OrderService
 	{
 		$ini = parse_ini_file('config.ini');
 
+		$query = DBQuery::getOrdersForAdminPage();
 		switch ($sortType)
 		{
 			case $ini['order_orders_by_date_create_desc']:
-				$query = "";
+				$query = DBQuery::sortOrdersByDateCreateDesc();
 				break;
 			case $ini['order_orders_by_status']:
-				$query = "c";
+				$query = DBQuery::sortOrdersByStatusCreatedProgressedCompleted();
 				break;
 		}
 
-		return [];
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return self::parseOrdersForAdminPage($result);
 	}
 
 	public static function findOrdersByClientName(mysqli $db, string $clientName) : array

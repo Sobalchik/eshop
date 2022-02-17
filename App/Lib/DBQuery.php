@@ -311,14 +311,27 @@ class DBQuery
 				up_order.PRODUCT_ID as 'productId',
 				up_status_order.NAME as 'status',
 				up_order.PRODUCT_ID as 'productId',
-				group_concat(up_product.NAME_CITY,
+				concat(up_product.NAME_CITY, ', ',
 							 up_product.NAME_COUNTRY) as 'excursionName',
 				up_date.DATE_TRAVEL as 'dateTravel'
 			from up_order
 			left join up_product on up_product.ID = up_order.PRODUCT_ID
 			left join up_status_order on up_status_order.ID = up_order.STATUS_ID
 			left join up_date on up_order.DATE_ID = up_date.ID
+
 		";
+	}
+
+	public static function sortOrdersByDateCreateDesc() : string
+	{
+		return self::getOrdersForAdminPage() .
+			"order by up_order.DATE_CREATE desc";
+	}
+
+	public static function sortOrdersByStatusCreatedProgressedCompleted() : string
+	{
+		return self::getOrdersForAdminPage() .
+			"order by up_order.STATUS_ID desc";
 	}
 
 }
