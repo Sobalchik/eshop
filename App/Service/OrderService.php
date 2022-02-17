@@ -37,9 +37,30 @@ class OrderService
 		}
 	}
 
-	public static function getAllOrders(mysqli $db) : array
+	public static function parseOrdersForAdminPage(\mysqli_result $result) : array
 	{
-		return [];
+		$orders = [];
+
+		while($order = mysqli_fetch_assoc($result))
+		{
+			$orders[] = new Order(
+				$order['id'],
+				$order['fio'],
+				$order['email'],
+				$order['phone'],
+				$order['dateOrder'],
+				$order['comment'],
+				$order['statusId'],
+				$order['productId'],
+				'',
+				''
+			);
+			$order[count($order)-1]->setStatus($order['status']);
+			$order[count($order)-1]->setExcursionName($order['status']);
+			$order[count($order)-1]->setDateTravel($order['dateTravel']);
+		}
+
+		return $orders;
 	}
 
 	public static function sortOrders(mysqli $db, int $sortType) : array
@@ -75,27 +96,22 @@ class OrderService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$orders = [];
+		return self::parseOrdersForAdminPage($result);
+	}
 
-		while($order = mysqli_fetch_assoc($result))
+	public static function getOrdersForAdminPage(mysqli $db) : array
+	{
+		$query = DBQuery::getOrdersForAdminPage();
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
 		{
-			$orders[] = new Order(
-				$order['id'],
-				$order['fio'],
-				$order['email'],
-				$order['phone'],
-				$order['dateOrder'],
-				$order['comment'],
-				$order['statusId'],
-				$order['productId'],
-				'',
-				''
-			);
-			$order[count($order)-1]->setStatus($order['status']);
-			$order[count($order)-1]->setExcursionName($order['status']);
+			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		return $orders;
+		return self::parseOrdersForAdminPage($result);
 	}
+
 
 }

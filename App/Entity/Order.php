@@ -16,6 +16,23 @@ class Order
 	private $dateUpdate;
 	private $status;
 	private $excursionName;
+	private $dateTravel;
+
+	/**
+	 * @return string
+	 */
+	public function getDateTravel() : string
+	{
+		return $this->dateTravel;
+	}
+
+	/**
+	 * @param string $dateTravel
+	 */
+	public function setDateTravel(string $dateTravel): void
+	{
+		$this->dateTravel = $dateTravel;
+	}
 
 	/**
 	 * @return string

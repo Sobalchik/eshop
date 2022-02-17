@@ -212,24 +212,9 @@ class DBQuery
 
 	public static function findOrderByClientName() : string
 	{
-		return "
-			select
-				up_order.ID as 'id',
-				up_order.FIO as 'fio',
-				up_order.EMAIL as 'email',
-				up_order.PHONE as 'phone',
-				up_order.DATE_ORDER as 'orderDate',
-				up_order.COMMENT as 'comment',
-			    up_order.STATUS_ID as 'statusId',
-				up_status_order.NAME as 'status',
-			    up_order.PRODUCT_ID as 'productId',
-				group_concat(up_product.NAME_CITY,
-				    up_product.NAME_COUNTRY) as 'excursionName'
-			from up_order
-			left join up_product on up_product.ID = up_order.PRODUCT_ID
-			left join up_status_order on up_status_order.ID = up_order.STATUS_ID
-			where up_order.FIO like (?)
-		";
+		return
+			self::getOrdersForAdminPage() .
+			"where up_order.FIO like (?)";
 	}
 
 	public static function getExcursionsForAdminPage() : string
@@ -309,6 +294,30 @@ class DBQuery
 				(select max(id)
 				from up_date)
 			);
+		";
+	}
+
+	public static function getOrdersForAdminPage() : string
+	{
+		return "
+			select
+				up_order.ID as 'id',
+				up_order.FIO as 'fio',
+				up_order.EMAIL as 'email',
+				up_order.PHONE as 'phone',
+				up_order.DATE_ORDER as 'orderDate',
+				up_order.COMMENT as 'comment',
+				up_order.STATUS_ID as 'statusId',
+				up_order.PRODUCT_ID as 'productId',
+				up_status_order.NAME as 'status',
+				up_order.PRODUCT_ID as 'productId',
+				group_concat(up_product.NAME_CITY,
+							 up_product.NAME_COUNTRY) as 'excursionName',
+				up_date.DATE_TRAVEL as 'dateTravel'
+			from up_order
+			left join up_product on up_product.ID = up_order.PRODUCT_ID
+			left join up_status_order on up_status_order.ID = up_order.STATUS_ID
+			left join up_date on up_order.DATE_ID = up_date.ID
 		";
 	}
 
