@@ -10,4 +10,4 @@ values
 	('fio', 'f@gmail.com', '89112345672', default, '', 2, 3, 3),
 	('fio', 'g@gmail.com', '89112345672', default, '', 2, 3, 3),
 	('fio', 'h@gmail.com', '89112345672', default, '', 2, 3, 3),
-	('fio', 'j@gmail.com', '89112345672', default, '', 2, 3, 18)
+	('fio', 'j@gmail.com', '89112345672', default, '', 2, 3, 18);
