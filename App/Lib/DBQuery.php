@@ -286,5 +286,12 @@ class DBQuery
 ";
 	}
 
+	public static function deleteExcursionById() : string
+	{
+		return "
+			delete from up_product
+			where ID = ?
+		";
+	}
 
 }
