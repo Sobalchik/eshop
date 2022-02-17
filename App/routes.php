@@ -63,4 +63,11 @@ Router::add(
 	"GET",
 	"/admin/detailed",
 	[ExcursionController::class, 'showAdminExcursionById']
+
+);
+
+Router::add(
+	"GET",
+	"/admin/orders",
+	[ExcursionController::class, 'showAdminOrders']
 );
