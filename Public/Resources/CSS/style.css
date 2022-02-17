@@ -788,6 +788,7 @@ html {
 	background-size: cover;
 	background-position: top;
 	color: white;
+	z-index: 10;
 }
 
 .footer-logo{
@@ -809,7 +810,7 @@ html {
 
 .footer-bloc2{
 	display: flex;
-	padding-right: 50px;
+	padding-left: 50px;
 	padding-bottom: 50px;
 	align-items: center;
 }
@@ -824,13 +825,35 @@ html {
 	padding-bottom: 9px;
 }
 
+
 .footer-text-2{
 	font-family: Raleway;
+	padding-right: 10px;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 12px;
 	line-height: 14px;
 }
+
+.footer-bloc2 a{
+	padding: 0 5px;
+}
+
+.footer-bloc3{
+	padding-bottom: 50px;
+	padding-right: 50px;
+}
+
+.footer-text-3{
+	font-family: Alegreya;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 24px;
+}
+
+
+
 
 
 .detailed-page-button{
@@ -841,10 +864,6 @@ html {
 	background: #00C1D9;
 	border-radius: 20px;
 }
-
-
-
-
 
 
 .detailed-page-bloc-pop-up{
@@ -1033,7 +1052,7 @@ html {
 
 .bloc3-difference{
 	height: 425px;
-	margin-top: 100px;
+	margin-top: 150px;
 	background-image: url("/Resources/Images/Без-имени-2 2.png");
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -1078,6 +1097,7 @@ html {
 
 .bloc4-map{
 	display: flex;
+	height: 600px;
 	align-items: center;
 	justify-content: space-evenly;
 }
@@ -1097,6 +1117,7 @@ html {
 }
 
 .map-text-secondary{
+	margin-top: 30px;
 	font-family: Raleway;
 	font-style: italic;
 	font-weight: normal;
@@ -1106,6 +1127,7 @@ html {
 }
 
 .map-text-secondary-2{
+	margin-top: 15px;
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: 500;
@@ -1114,21 +1136,190 @@ html {
 	color: #000000;
 }
 
+.map-text-secondary-a{
+	margin-top: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 260px;
+	height: 38px;
+	background: #00C1D9;
+	border-radius: 20px;
+}
+
+.map-img-a{
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	text-decoration: none;
+	border-radius: 50px;
+	background: rgba(255, 255, 255, 0.2);
+	width: 40px;
+	height: 40px;
+	border: 2px solid #00C1D9;
+	font-family: 'Raleway', sans-serif;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 40px;
+	color: #00C1D9;
+	z-index: 9;
+}
+
+.map-position-a-1{
+	margin-top: -290px;
+	margin-left: 130px;
+}
+
+.map-position-a-2{
+	margin-top: -150px;
+	margin-left: 200px;
+}
+.map-position-a-3{
+	margin-top: -290px;
+	margin-left: 380px;
+}
+.map-position-a-4{
+	margin-top: -155px;
+	margin-left: 395px;
+}
+.map-position-a-5{
+	margin-top: -300px;
+	margin-left: 520px;
+}
+.map-position-a-6{
+	margin-top: -100px;
+	margin-left: 636px;
+}
 
 
 
 
+.map-img-secondary{
+	position: absolute;
+	margin-top: -396px;
+	margin-left: -13px;
+	display: none;
+}
+
+.map-img-secondary-2{
+	position: absolute;
+	margin-top: -180px;
+	margin-left: 170px;
+	display: none;
+}
+
+.map-img-secondary-3{
+	position: absolute;
+	margin-top: -375px;
+	margin-left: 322px;
+	display: none;
+}
+.map-img-secondary-4{
+	position: absolute;
+	margin-top: -233px;
+	margin-left: 316px;
+	display: none;
+}
+.map-img-secondary-5{
+	position: absolute;
+	margin-top: -403px;
+	margin-left: 421px;
+	display: none;
+}
+
+.map-img-secondary-6{
+	position: absolute;
+	margin-top: -155px;
+	margin-left: 594px;
+	display: none;
+}
+
+
+.bloc5-landscape{
+	height: 900px;
+}
+
+.bloc5-landscape-img-1{
+	position: absolute;
+	width: 100%;
+	height: 1200px;
+	background-image: url("/Resources/Images/fon-1 1.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom;
+	z-index: 4;
+}
+
+.bloc5-landscape-img-2{
+	position: absolute;
+	width: 100%;
+	height: 1200px;
+	background-image: url("/Resources/Images/fon2 1.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom;
+	z-index: 7;
+}
+
+.bloc5-landscape-img-3{
+	position: absolute;
+	width: 100%;
+	height: 1200px;
+	background-image: url("/Resources/Images/fon3 1 (1).png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom;
+	z-index: 10;
+}
+
+
+
+
+.bloc5-sky-1{
+	position: absolute;
+	margin-left: -200px;
+	margin-top: 700px;
+	animation: withe 10s linear infinite;
+	z-index: 8;
+}
+
+.bloc5-sky-2{
+	position: absolute;
+	margin-top: 500px;
+	animation: withe 20s linear infinite reverse;
+	z-index: 5;
+}
+
+.bloc5-sky-3{
+	position: absolute;
+	margin-top: 200px;
+	animation: withe 35s linear infinite reverse;
+	z-index: 5;
+}
+
+
+
+
+@keyframes withe {
+	0%{
+		padding-left: 0;
+	}
+	100%{
+		padding-left: 100%;
+	}
+}
 
 
 
 @media all and (max-width: 1600px) {
-	.footer{
+	.footer {
 		height: 300px;
 	}
 
-	.difference-text{
+	.difference-text {
 		width: 350px;
 		margin-left: 255px;
 		margin-top: 60px;
 	}
+
 }

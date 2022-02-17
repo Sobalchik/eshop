@@ -65,6 +65,43 @@ $( ".pading-3" ).hover(function(){
 
 
 
+
+$(document).ready(function() {
+	$('.map-position-a-1').hover(function() {
+		$('.map-img-secondary').fadeIn('fast');
+	}, function() {
+		$('.map-img-secondary').fadeOut('fast');
+	});
+	$('.map-position-a-2').hover(function() {
+		$('.map-img-secondary-2').fadeIn('fast');
+	}, function() {
+		$('.map-img-secondary-2').fadeOut('fast');
+	});
+	$('.map-position-a-3').hover(function() {
+		$('.map-img-secondary-3').fadeIn('fast');
+	}, function() {
+		$('.map-img-secondary-3').fadeOut('fast');
+	});
+	$('.map-position-a-4').hover(function() {
+		$('.map-img-secondary-4').fadeIn('fast');
+	}, function() {
+		$('.map-img-secondary-4').fadeOut('fast');
+	});
+	$('.map-position-a-5').hover(function() {
+		$('.map-img-secondary-5').fadeIn('fast');
+	}, function() {
+		$('.map-img-secondary-5').fadeOut('fast');
+	});
+	$('.map-position-a-6').hover(function() {
+		$('.map-img-secondary-6').fadeIn('fast');
+	}, function() {
+		$('.map-img-secondary-6').fadeOut('fast');
+	});
+});
+
+
+
+
 $(document).ready(function() {
 	var progressPath = document.querySelector('.progress-wrap path');
 	var pathLength = progressPath.getTotalLength();

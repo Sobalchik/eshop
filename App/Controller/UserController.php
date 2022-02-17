@@ -13,7 +13,7 @@ class UserController
 
 	public static function loginUser():string
 	{
-		return Render::render("login", []);
+		return Render::renderContent("login", []);
 	}
 
 	public static function logOutUser():string
@@ -78,7 +78,7 @@ class UserController
 				$userHash = Helper::generateUserHash();
 				UserService::setUserHash(Database::getDatabase(),$user->getId(),$userHash);
 				Helper::setAuthorized($user->getId(),$userHash);
-				return Render::render("admin", []);
+				return Render::renderContent("admin", []);
 			}
 		}
 

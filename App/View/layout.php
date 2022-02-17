@@ -11,9 +11,8 @@
 	<title>Title</title>
 	<link rel="stylesheet" type="text/css" href="/Resources/CSS/Reset.css">
 	<link rel="stylesheet" type="text/css" href="/Resources/CSS/style.css">
-
 </head>
-<body>
+<body style="overflow-x:hidden;">
 <div class="header">
 	<div class="menu">
 		<div class="bloc-logo">
@@ -87,11 +86,14 @@
 	</div>
 	<div class="footer-bloc2">
 		<p class="footer-text-2">Следите за нами</p>
-		<p><img src="/Resources/Images/вк.png"></p>
-		<p><img src="/Resources/Images/инста.png"></p>
-		<p><img src="/Resources/Images/твитер.png"></p>
-		<p><img src="/Resources/Images/фейсбук.png"></p>
-		<p><img src="/Resources/Images/4846401.png"></p>
+		<a><img src="/Resources/Images/вк.png"></a>
+		<a><img src="/Resources/Images/инста.png"></a>
+		<a><img src="/Resources/Images/твитер.png"></a>
+		<a><img src="/Resources/Images/фейсбук.png"></a>
+		<a><img src="/Resources/Images/4846401.png"></a>
+	</div>
+	<div class="footer-bloc3">
+		<p class="footer-text-3">© 2022</p>
 	</div>
 </div>
 
@@ -105,5 +107,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript" async src="/Resources/JS/some.js"></script>
+
 </body>
 </html>

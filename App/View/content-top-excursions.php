@@ -64,13 +64,38 @@ use App\Lib\Render;
 	</div>
 </div>
 <div class="bloc4-map">
-	<div>
+	<div class="map-img">
 		<img src="/Resources/Images/карта бэг 1.png">
+		<div>
+			<img class="map-img-secondary" src="/Resources/Images/карта2.png">
+			<a href="#" class="map-img-a map-position-a-1">3</a>
+			<img class="map-img-secondary-2" src="/Resources/Images/карта1.png">
+			<a href="#" class="map-img-a map-position-a-2">5</a>
+			<img class="map-img-secondary-3" src="/Resources/Images/карта3.png">
+			<a href="#" class="map-img-a map-position-a-3">1</a>
+			<img class="map-img-secondary-4" src="/Resources/Images/карта4.png">
+			<a href="#" class="map-img-a map-position-a-4">4</a>
+			<img class="map-img-secondary-5" src="/Resources/Images/карта5.png">
+			<a href="#" class="map-img-a map-position-a-5">4</a>
+			<img class="map-img-secondary-6" src="/Resources/Images/карта6.png">
+			<a href="#" class="map-img-a map-position-a-6">7</a>
+		</div>
 	</div>
 	<div class="bloc4-map-text">
 		<p class="map-text-main">КУДА МОЖНО ОТПРАВИТЬСЯ?</p>
 		<p class="map-text-secondary">Откройте для себя мир!</p>
 		<p class="map-text-secondary-2"> Начать приключение просто — выбери интересное направление и отправь заявку организатору. Цена указана за одного человека. Приятного отдыха и ярких впечатлений!</p>
-		<a>Посмотреть экскурсии</a>
+		<div class="map-text-secondary-a">
+			<a>Посмотреть экскурсии</a>
+		</div>
 	</div>
+</div>
+<div class="bloc5-landscape">
+	<img class="bloc5-sky-1" src="/Resources/Images/sky1.png">
+	<img class="bloc5-sky-2" src="/Resources/Images/sky-2.png">
+	<img class="bloc5-sky-3" src="/Resources/Images/sky-3.png">
+	<div class="bloc5-landscape-img-1"></div>
+	<div class="bloc5-landscape-img-2"></div>
+	<div class="bloc5-landscape-img-3"></div>
+
 </div>
