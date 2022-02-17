@@ -229,9 +229,69 @@ class ExcursionService
 		}
 	}
 
+	public static function getExcursionOccupancyListById(mysqli $db, int $id) : array
+	{
+		$query = DBQuery::getExcursionCompletionByDateById();
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"i",$id);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$occupancyList = [];
+		while ($occupancy = mysqli_fetch_assoc($result))
+		{
+			$occupancyList[] =[
+				'dateTravel' => $occupancy['dateTravel'],
+				'orderedExcursionsCount' => $occupancy['orderedExcursionsCount']
+			];
+		}
+
+		return $occupancyList;
+	}
+
 	public static function getAllExcursionsForAdmin(mysqli $db) : array
 	{
-		return [];
+		$query = DBQuery::getExcursionsForAdminPage();
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$excursions = [];
+
+		while ($excursion = mysqli_fetch_assoc($result))
+		{
+			$excursions[] = new Excursion(
+				$excursion['id'],
+				$excursion['nameCity'],
+				'',
+				$excursion['dateTravel'],
+				$excursion['price'],
+				'',
+				0,
+				0,
+				0,
+				0,
+				0,
+				1,
+				'',
+				'',
+				''
+			);
+
+			$occupancyList = self::getExcursionOccupancyListById($db, (int)$excursion['id']);
+			$excursions[count($excursions) - 1]->setExcursionOccupancyByDateTravel($occupancyList);
+		}
+
+		return $excursions;
 	}
 
 	public static function addDateByExcursionId(mysqli $db) : array

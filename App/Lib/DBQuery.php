@@ -232,5 +232,59 @@ class DBQuery
 		";
 	}
 
+	public static function getExcursionsForAdminPage() : string
+	{
+		return "
+			select
+				up_product.ID as 'id',
+				up_product.NAME_CITY as 'excursionName',
+				up_product.PRICE as 'price',
+				(
+					select
+						   count(up_order.ID)
+					from up_order
+					left join up_product_date on
+						up_order.DATE_ID = up_product_date.DATE_ID
+					left join up_date on
+						up_order.DATE_ID = up_date.ID
+					where up_date.DATE_TRAVEL = (
+							select
+								min(up_date.DATE_TRAVEL)
+							from up_date
+									 left join up_product_date
+											   on up_date.ID = up_product_date.DATE_ID
+							where up_product_date.PRODUCT_ID = up_product.ID
+						) and up_order.PRODUCT_ID = up_product.ID
+						and STATUS_ID = 2
+				) as 'orderedExcursionsCount',
+				up_product.COUNT_PERSONS,
+				(
+					select
+						min(up_date.DATE_TRAVEL)
+					from up_date
+							 left join up_product_date
+									   on up_date.ID = up_product_date.DATE_ID
+					where up_product_date.PRODUCT_ID = up_product.ID
+				) as 'dateTravel'
+			from up_product
+		";
+	}
+
+	public static function getExcursionCompletionByDateById() : string
+	{
+		return "
+			select
+				count(up_order.ID) as 'orderedExcursionsCount',
+				up_date.DATE_TRAVEL as 'dateTravel'
+			from up_order
+			left join up_product_date on
+			up_order.DATE_ID = up_product_date.DATE_ID
+			left join up_date on
+			up_order.DATE_ID = up_date.ID
+			where STATUS_ID = 2 and up_order.PRODUCT_ID = ?
+			group by up_date.DATE_TRAVEL
+";
+	}
+
 
 }

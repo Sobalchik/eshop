@@ -26,6 +26,23 @@ class Excursion
 	private $duration;
 	private $countPersons;
 	private $allPossibleDatesTravel;
+	private $excursionOccupancyByDateTravel;
+
+	/**
+	 * @return array
+	 */
+	public function getExcursionOccupancyByDateTravel() : array
+	{
+		return $this->excursionOccupancyByDateTravel;
+	}
+
+	/**
+	 * @param array $excursionOccupancyByDateTravel
+	 */
+	public function setExcursionOccupancyByDateTravel(array $excursionOccupancyByDateTravel): void
+	{
+		$this->excursionOccupancyByDateTravel = $excursionOccupancyByDateTravel;
+	}
 
 	/**
 	 * @return array
