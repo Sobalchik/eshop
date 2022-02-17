@@ -294,4 +294,22 @@ class DBQuery
 		";
 	}
 
+	public static function addNewDate() : string
+	{
+		return "
+			insert into up_date
+			(DATE_TRAVEL, ACTIVE, DATE_CREATE, DATE_UPDATE)
+			values
+			(?, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+			
+			insert into up_product_date
+			(PRODUCT_ID, DATE_ID)
+			values
+			(?,
+				(select max(id)
+				from up_date)
+			);
+		";
+	}
+
 }

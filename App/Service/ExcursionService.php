@@ -296,11 +296,6 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function addDateByExcursionId(mysqli $db) : array
-	{
-		return [];
-	}
-
 	public static function editExcursionById(mysqli $db, int $id, array $data) : void
 	{
 		$query = DBQuery::updateExcursionById();
@@ -349,5 +344,21 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 	}
+
+	public static function addDateToExcursionById(mysqli $db, int $id, string $date) : void
+	{
+		$query = DBQuery::addNewDate();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"si",$date, $id);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
 
 }
