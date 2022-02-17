@@ -334,4 +334,14 @@ class DBQuery
 			"order by up_order.STATUS_ID desc";
 	}
 
+	public static function editOrderStatus() : string
+	{
+		return "
+		update up_order
+		set
+		STATUS_ID = ?
+		where ID = ?
+		";
+	}
+
 }

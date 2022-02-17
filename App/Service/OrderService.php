@@ -121,5 +121,20 @@ class OrderService
 		return self::parseOrdersForAdminPage($result);
 	}
 
+	public static function editOrderStatusById(mysqli $db, int $id, int $newStatusId) : void
+	{
+		$query = DBQuery::editOrderStatus();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"ii", $newStatusId, $id);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
 
 }
