@@ -15,11 +15,11 @@ foreach ($excursions as $excursion):
 								<div class="accordion-item-bloc1">
 									<div style="background-color: #3698f8" class="accordion-item-bloc2">
 										<p class="accordion-item-bloc2-text">Название -></p>
-										<input style="background-color: #000000; border: none; color: white; margin-right: 10px" type="text" value="<?= $excursion->getNameCity() ?>">
+										<p class="accordion-item-bloc2-text-2"><?= $excursion->getNameCity() ?></p>
 										<p class="accordion-item-bloc2-text">Стоимость -></p>
-										<input style="background-color: #000000; border: none; color: white; margin-right: 10px" type="text" value="<?= $excursion->getPrice() ?>">
+										<p class="accordion-item-bloc2-text-2"><?= $excursion->getPrice() ?></p>
 										<p class="accordion-item-bloc2-text">Необ.кол-во -></p>
-										<input style="background-color: #000000; border: none; color: white; margin-right: 10px" type="text" value="<?= $excursion->getCountPersons() ?>">
+										<p class="accordion-item-bloc2-text-2"><?= $excursion->getCountPersons() ?></p>
 										<button style="border: none;background-color: #3698f8;">Edit</button>
 									</div>
 									<button style="border: none;background-color: #3698f8;" class="bitawe collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?=$counter?>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<?=$counter?>">+</button>
@@ -27,12 +27,10 @@ foreach ($excursions as $excursion):
 								<div id="panelsStayOpen-collapse<?=$counter?>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading<?=$counter?>">
 									<div  style="background-color: #3698f8;display: flex"  class="accordion-item-bloc3">
 										<p style="margin-right: 56px;" class="accordion-item-bloc2-text">Дата -></p>
-										<input style="background-color: #000000; border: none; color: white; margin-right: 10px" type="text" value="<?= $excursion->getDateTravel() ?>">
+										<p class="accordion-item-bloc2-text-2"><?= $excursion->getDateTravel() ?></p>
 										<p style="margin-right: 33px;" class="accordion-item-bloc2-text">Набрано -></p>
-										<input style="background-color: #000000; border: none; color: white; margin-right: 10px" type="text" value="3">
-										<p style="margin-right: 39px;" class="accordion-item-bloc2-text">Требуется -></p>
-										<input style="background-color: #000000; border: none; color: white; margin-right: 10px" type="text" value="<?= $excursion->getCountPersons() - 3 ?>">
-										<button style="border: none;background-color: #3698f8;">Delete</button>
+										<p class="accordion-item-bloc2-text-2">3 / <?= $excursion->getCountPersons() - 3 ?></p>
+										<button style="border: none;background-color: #3698f8; margin-left: 318px;">Delete</button>
 									</div>
 								</div>
 							</form>
