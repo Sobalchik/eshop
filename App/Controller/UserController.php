@@ -21,18 +21,18 @@ class UserController
 		session_start();
 		$_SESSION = array();
 		session_destroy();
-		return Render::render("logout", []);
+		return Render::renderContent("logout", []);
 	}
 
 	public static function adminPanel():string
 	{
 		if (self::isAuthorized()==true)
 		{
-			return Render::render("admin", []);
+			return Render::renderContent("admin", []);
 		}
 		else
 		{
-			return Render::render("login", []);
+			return Render::renderContent("login", []);
 		}
 	}
 

@@ -20,7 +20,7 @@ foreach ($excursions as $excursion):
 										<p class="accordion-item-bloc2-text-2"><?= $excursion->getPrice() ?></p>
 										<p class="accordion-item-bloc2-text">Необ.кол-во -></p>
 										<p class="accordion-item-bloc2-text-2"><?= $excursion->getCountPersons() ?></p>
-										<button style="border: none;background-color: #3698f8;">Edit</button>
+										<a href="./admin/detailed" style="border: none;background-color: #3698f8;" >Edit</a>
 									</div>
 									<button style="border: none;background-color: #3698f8;" class="bitawe collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?=$counter?>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<?=$counter?>">+</button>
 								</div>

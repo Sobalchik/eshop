@@ -58,3 +58,9 @@ Router::add(
 	"/admin",
 	[UserController::class, 'adminPanel']
 );
+
+Router::add(
+	"GET",
+	"/admin/detailed",
+	[ExcursionController::class, 'showAdminExcursionById']
+);

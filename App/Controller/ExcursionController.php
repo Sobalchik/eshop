@@ -29,4 +29,11 @@ class ExcursionController
 		return Render::render("content-all-excursions", ['excursions' => $excursions,'page' => $page,'pageCount' => $pageCount]);
 	}
 
+	public static function showAdminExcursionById(): string
+	{
+		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), 1);
+		$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
+		return Render::renderAdminMenu($content);
+	}
+
 }
