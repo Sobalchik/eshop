@@ -224,7 +224,7 @@ class DBQuery
 			select
 				up_product.ID as 'id',
 				up_product.NAME_CITY as 'nameCity',
-			    up_product.NAME_COUNTRY as 'nameCountry',
+				up_product.NAME_COUNTRY as 'nameCountry',
 				(
 					select
 						min(up_date.DATE_TRAVEL)
@@ -233,16 +233,8 @@ class DBQuery
 									   on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
 				) as 'dateTravel',
-				up_product.DURATION as 'duration',
 				up_product.COUNT_PERSONS as 'countPersons',
 				up_product.PRICE as 'price',
-				up_product.FULL_DESCRIPTION as 'fullDescription',
-				up_product.INTERNET_RATING as 'internetRating',
-				up_product.ENTERTAINMENT_RATING as 'entertainmentRating',
-				up_product.SERVICE_RATING as 'serviceRating',
-				up_product.RATING as 'rating',
-				up_product.DEGREES as 'degrees',
-				up_product.ACTIVE as 'active',
 				(
 					select
 						count(up_order.ID)

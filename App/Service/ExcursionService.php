@@ -37,6 +37,37 @@ class ExcursionService
 		return $excursions;
 	}
 
+	public static function parseExcursionsForAdminHomePage(mysqli $db,\mysqli_result $excursionsFromDB) : array
+	{
+		$excursions = [];
+
+		while ($excursion = mysqli_fetch_assoc($excursionsFromDB))
+		{
+			$excursions[] = new Excursion(
+				$excursion['id'],
+				$excursion['nameCity'],
+				'',
+				'',
+				$excursion['price'],
+				'',
+				0,
+				0,
+				0,
+				0,
+				0,
+				1,
+				0,
+				'',
+				''
+			);
+			$excursions[count($excursions)-1]->
+			setExcursionOccupancyByDateTravel(self::getExcursionOccupancyListById($db, $excursion['id']));
+			$excursions[count($excursions)-1]->setCountPersons($excursion['countPersons']);
+		}
+
+		return $excursions;
+	}
+
 	public static function parseExcursionsForDetailedPage(\mysqli_result $excursionFromDB) : Excursion
 	{
 		$excursion = mysqli_fetch_assoc($excursionFromDB);
@@ -140,7 +171,7 @@ class ExcursionService
 		return self::parseExcursionsForHomePage($result);
 	}
 
-	public static function getExcursionById(mysqli $db, int $id) : object
+	public static function getExcursionById(mysqli $db, int $id) : Excursion
 	{
 		$query = DBQuery::getExcursionByIdQuery();
 
@@ -155,6 +186,20 @@ class ExcursionService
 		}
 
 		return self::parseExcursionsForDetailedPage($result);
+	}
+
+	public static function getExcursionsForAdminHomePage(mysqli $db) : array
+	{
+		$query = DBQuery::getExcursionsForAdminPage();
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return self::parseExcursionsForAdminHomePage($db, $result);
 	}
 
 	public static function getExcursionForAdminDetailedPageById(mysqli $db, int $id) : Excursion

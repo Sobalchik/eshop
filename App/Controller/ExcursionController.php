@@ -33,10 +33,8 @@ class ExcursionController
 
 	public static function showAdminExcursionById(): string
 	{
-
-
 		if(UserController::isAuthorized()){
-			$excursion = ExcursionService::getExcursionForAdminDetailedPageById(Database::getDatabase(), $_GET['id']);
+			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $_GET['id']);
 			$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
 			return Render::renderAdminMenu($content);
 		}else{
@@ -44,11 +42,12 @@ class ExcursionController
 			return '';
 		}
 	}
+
 	public static function showAdminExcursionList(): string
 	{
 		# Переделать метод получения экскурсий
 		if(UserController::isAuthorized()){
-			$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+			$excursions = ExcursionService::getExcursionsForAdminHomePage(Database::getDatabase());
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
 		}else{
@@ -56,7 +55,6 @@ class ExcursionController
 			return '';
 		}
 	}
-
 
 	public static function editExcursion(): string
 	{
