@@ -1344,6 +1344,41 @@ html {
 	}
 }
 
+.error-404{
+	height: 100vh;
+	width: 100%;
+	background-image: url("/Resources/Images/404.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.error-404-bloc1{
+	padding-top: 400px;
+	padding-left: 400px;
+}
+.error-404-p{
+	font-family: Alegreya;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 100px;
+	line-height: 49px;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.error-404-a{
+	margin-top: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 260px;
+	height: 38px;
+	background: #00C1D9;
+	border-radius: 20px;
+}
+.error-404-a a{
+}
 
 
 @media all and (max-width: 1600px) {
