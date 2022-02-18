@@ -31,7 +31,8 @@ class OrderController
 	{
 		if(UserController::isAuthorized()){
 			$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
-			$content = Render::renderContent("admin-orders", ["orders" => $orders]);
+			$statuses = OrderService::getAllStatuses(Database::getDatabase());
+			$content = Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
 			return Render::renderAdminMenu($content);
 		}else{
 			header("Location: http://eshop/login");
