@@ -27,4 +27,16 @@ class OrderController
 		}
 	}
 
+	public static function showAdminOrders(): string
+	{
+		if(UserController::isAuthorized()){
+			$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
+			$content = Render::renderContent("admin-orders", ["orders" => $orders]);
+			return Render::renderAdminMenu($content);
+		}else{
+			header("Location: http://eshop/login");
+			return '';
+		}
+
+	}
 }

@@ -56,7 +56,7 @@ Router::add(
 Router::add(
 	"GET",
 	"/admin/excursions",
-	[UserController::class, 'showAdminExcursionList']
+	[ExcursionController::class, 'showAdminExcursionList']
 );
 
 Router::add(
@@ -75,5 +75,5 @@ Router::add(
 Router::add(
 	"GET",
 	"/admin/orders",
-	[ExcursionController::class, 'showAdminOrders']
+	[OrderController::class, 'showAdminOrders']
 );

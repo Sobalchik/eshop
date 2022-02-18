@@ -43,19 +43,17 @@ class ExcursionController
 			return '';
 		}
 	}
-
-	public static function showAdminOrders(): string
+	public static function showAdminExcursionList(): string
 	{
+		# Переделать метод получения экскурсий
 		if(UserController::isAuthorized()){
-			$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
-			$content = Render::renderContent("admin-orders", ["orders" => $orders]);
+			$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
 		}else{
 			header("Location: http://eshop/login");
 			return '';
 		}
-
-
 	}
 
 }

@@ -82,24 +82,10 @@ class UserController
 				$userHash = Helper::generateUserHash();
 				UserService::setUserHash(Database::getDatabase(),$user->getId(),$userHash);
 				Helper::setAuthorized($user->getId(),$userHash);
-				return self::showAdminExcursionList();
+				return ExcursionController::showAdminExcursionList();
 			}
 		}
 
 	}
 
-	public static function showAdminExcursionList(): string
-	{
-		# Переделать метод получения экскурсий
-		if(self::isAuthorized()){
-			$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
-			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
-			return Render::renderAdminMenu($content);
-		}else{
-			header("Location: http://eshop/login");
-			return '';
-		}
-
-
-	}
 }
