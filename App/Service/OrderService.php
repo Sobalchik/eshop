@@ -123,5 +123,19 @@ class OrderService
 		}
 	}
 
+	public static function deleteOrderById(mysqli $db, int $id) : void
+	{
+		$query = DBQuery::deleteOrderById();
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"i",$id);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
 
 }

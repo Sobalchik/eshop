@@ -280,6 +280,14 @@ class DBQuery
 		";
 	}
 
+	public static function deleteOrderById() : string
+	{
+		return "
+			delete from up_order
+			where ID = ?
+		";
+	}
+
 	public static function addNewDate() : string
 	{
 		return "
