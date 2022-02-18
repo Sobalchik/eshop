@@ -35,7 +35,7 @@ class OrderService
 				$order['fio'],
 				$order['email'],
 				$order['phone'],
-				$order['dateOrder'],
+				$order['orderDate'],
 				$order['comment'],
 				$order['statusId'],
 				$order['productId'],
