@@ -20,9 +20,9 @@ $helper=App\Lib\Helper::getInstance();
 				<img style="padding-right: 15px" src="/Resources/Images/image%201.png">Мини группа, автобусно-пешеходная
 			</p>
 			<p class="detailed-page-text-5">
-				<img style="padding-right: 15px" src="/Resources/Images/image%202.png"><?=$helper::conversionDateToTime($excursion->getDateTravel()) ?></p>
+				<img style="padding-right: 15px" src="/Resources/Images/image%202.png"><?=$excursion->getDuration()?> суток</p>
 			<p class="detailed-page-text-5">
-				<img style="padding-right: 15px" src="/Resources/Images/image%203.png">Размер группы до 10 человек
+				<img style="padding-right: 15px" src="/Resources/Images/image%203.png">Размер группы до <?=$excursion->getCountPersons()?> человек
 			</p>
 			<p class="detailed-page-text-5">
 				<img style="padding-right: 15px" src="/Resources/Images/image%204.png">Можно с детьми
@@ -50,6 +50,7 @@ $helper=App\Lib\Helper::getInstance();
 		</div>
 	</div>
 </div>
+
 <div class="detailed-page-bloc-img">
 	<div class="page-bloc-img">
 		<img src="/Resources/Images/прага-1 1.png">
@@ -74,6 +75,12 @@ $helper=App\Lib\Helper::getInstance();
 						<input class="form-application-input" style="display: none" type="hidden" name="product_id" value="<?=$excursion->getId()?>">
 						<input class="form-application-input" style="display: none" type="hidden" name="status_id" value="1">
 						<input class="form-application-input" style="display: none" type="hidden" name="csrf_token" value="<?=$helper::generateFormCsrfToken()?>">
+						<p class="form-application-text">Выберите дату экскурсии</p>
+						<select name="dateTravel">
+							<?foreach ($excursion->getAllPossibleDatesTravel() as $dateTravel):?>
+							<option value="<?=$dateTravel?>"><?=$dateTravel?></option>
+							<?endforeach;?>
+						</select>
 						<p class="form-application-text">Укажите ваше имя</p>
 						<input class="form-application-input" type="text" name="name" required="required" placeholder="     Имя...">
 						<p class="form-application-text">Укажите ваш телефон</p>

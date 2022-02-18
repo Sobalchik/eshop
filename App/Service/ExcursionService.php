@@ -54,13 +54,14 @@ class ExcursionService
 			$excursion['rating'],
 			0,
 			$excursion['active'],
+			$excursion['imageList'],
 			'',
-			'',
-			$excursion['imageList']
+			''
 		);
 
 		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
 		$result_excursion->setDuration($excursion['duration']);
+		$result_excursion->setCountPersons($excursion['countPersons']);
 		$result_excursion->setAllPossibleDatesTravel(explode(',', $excursion['allPossibleDatesTravel']));
 
 		return $result_excursion;

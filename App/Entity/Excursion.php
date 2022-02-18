@@ -108,6 +108,9 @@ class Excursion
 	 * @param string $dateCreate
 	 * @param string $dateUpdate
 	 * @param string $imageList
+	 * @param string $allPossibleDatesTravel
+	 * @param int $duration
+	 * @param int $countPersons
 	 */
 	public function __construct(
 		int $id,
@@ -118,8 +121,8 @@ class Excursion
 		float $internetRating, float $entertainmentRating,
 		float $serviceRating, float $rating, float $degrees,
 		bool $active,
-		string $dateCreate, string $dateUpdate,
-		string $imageList)
+		string $imageList,
+		string $dateCreate, string $dateUpdate)
 	{
 		$this->id = $id;
 		$this->nameCity = $nameCity;
@@ -133,9 +136,9 @@ class Excursion
 		$this->rating = $rating;
 		$this->degrees = $degrees;
 		$this->active = $active;
+		$this->imageList = $imageList;
 		$this->dateCreate = $dateCreate;
 		$this->dateUpdate = $dateUpdate;
-		$this->imageList = $imageList;
 	}
 
 	/**

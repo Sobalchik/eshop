@@ -9,27 +9,30 @@ use mysqli;
 class OrderService
 {
 
-	public static function createOrder(mysqli $db, array $paramsOrder)
+	public static function createOrder(mysqli $db, array $orderData)
 	{
+
+		$query = DBQuery::insertOrderInDBQuery();
+
+		$stmt = mysqli_prepare($db, $query);
+
 		$createDateOrder = new \DateTime('now');
-		$validateParamsOrder = array(
-			'fio'=>mysqli_real_escape_string($db, $paramsOrder['name']),
-			'email'=>mysqli_real_escape_string($db, $paramsOrder['email']),
-			'phone'=>mysqli_real_escape_string($db, $paramsOrder['telephone']),
-			'date_order'=> $createDateOrder->format("Y-m-d H:i:s"),
-			'comment'=>mysqli_real_escape_string($db, $paramsOrder['comment']),
-			'status_id'=>mysqli_real_escape_string($db, $paramsOrder['status_id']),
-			'product_id'=>mysqli_real_escape_string($db, $paramsOrder['product_id']),
-			'date_create'=>$createDateOrder->format("Y-m-d H:i:s"),
-			'date_update'=>$createDateOrder->format("Y-m-d H:i:s")
+
+		mysqli_stmt_bind_param($stmt,"sssdiisddddii",
+			$orderData['name'],
+			$orderData['email'],
+			$orderData['telephone'],
+			$createDateOrder->format("Y-m-d H:i:s"),
+			$orderData['comment'],
+			$orderData['status_id'],
+			$orderData['product_id'],
+			$orderData['product_id'],
+			$createDateOrder->format("Y-m-d H:i:s"),
+			$createDateOrder->format("Y-m-d H:i:s")
 		);
+		mysqli_stmt_execute($stmt);
 
-		$query = "INSERT INTO `up_order`(`FIO`, `EMAIL`, `PHONE`, `DATE_ORDER`, `COMMENT`, `STATUS_ID`, `PRODUCT_ID`, `DATE_CREATE`, `DATE_UPDATE`)
- 		VALUES ('{$validateParamsOrder['fio']}','{$validateParamsOrder['email']}','{$validateParamsOrder['phone']}',
- 		        '{$validateParamsOrder['date_order']}','{$validateParamsOrder['comment']}','{$validateParamsOrder['status_id']}',
- 		        '{$validateParamsOrder['product_id']}','{$validateParamsOrder['date_create']}','{$validateParamsOrder['date_update']}') ";
-
-		$result = mysqli_query($db, $query);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
