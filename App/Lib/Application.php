@@ -52,7 +52,7 @@ class Application
 		{
 			MainController::showErrorPage();
 
-			return Response::text(MainController::showErrorPage())	;
+			return Response::text(MainController::showErrorPage());
 		}
 
 

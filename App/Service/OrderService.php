@@ -42,9 +42,9 @@ class OrderService
 				'',
 				''
 			);
-			$order[count($order)-1]->setStatus($order['status']);
-			$order[count($order)-1]->setExcursionName($order['status']);
-			$order[count($order)-1]->setDateTravel($order['dateTravel']);
+			$orders[count($orders)-1]->setStatus($order['status']);
+			$orders[count($orders)-1]->setExcursionName($order['status']);
+			$orders[count($orders)-1]->setDateTravel($order['dateTravel']);
 		}
 
 		return $orders;

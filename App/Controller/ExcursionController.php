@@ -46,7 +46,7 @@ class ExcursionController
 	public static function showAdminOrders(): string
 	{
 		if(UserController::isAuthorized()){
-			$orders = OrderService::getAllOrders(Database::getDatabase());
+			$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 			$content = Render::renderContent("admin-orders", ["orders" => $orders]);
 			return Render::renderAdminMenu($content);
 		}else{
