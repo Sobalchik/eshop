@@ -32,16 +32,29 @@ class ExcursionController
 
 	public static function showAdminExcursionById(): string
 	{
-		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), 1);
-		$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
-		return Render::renderAdminMenu($content);
+		if(UserController::isAuthorized()){
+
+			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), 1);
+			$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
+			return Render::renderAdminMenu($content);
+		}else{
+			header("Location: http://eshop/login");
+			return '';
+		}
 	}
 
 	public static function showAdminOrders(): string
 	{
-		$orders = OrderService::getAllOrders(Database::getDatabase());
-		$content = Render::renderContent("admin-orders", ["orders" => $orders]);
-		return Render::renderAdminMenu($content);
+		if(UserController::isAuthorized()){
+			$orders = OrderService::getAllOrders(Database::getDatabase());
+			$content = Render::renderContent("admin-orders", ["orders" => $orders]);
+			return Render::renderAdminMenu($content);
+		}else{
+			header("Location: http://eshop/login");
+			return '';
+		}
+
+
 	}
 
 }
