@@ -21,18 +21,18 @@ class UserController
 		session_start();
 		$_SESSION = array();
 		session_destroy();
-		return Render::render("logout", []);
+		return Render::renderContent("logout", []);
 	}
 
 	public static function adminPanel():string
 	{
 		if (self::isAuthorized()==true)
 		{
-			return Render::render("admin", []);
+			return Render::renderContent("admin", []);
 		}
 		else
 		{
-			return Render::render("login", []);
+			return Render::renderContent("login", []);
 		}
 	}
 
@@ -61,6 +61,10 @@ class UserController
 	{
 		$validateLogin = $_POST['login'];
 		$validatePassword = $_POST['password'];
+
+		# Переделать метод получения экскурсий
+		$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+
 		$user = UserService::getUserByLogin(Database::getDatabase(),$validateLogin);
 		if (!isset($user))
 		{
@@ -78,7 +82,8 @@ class UserController
 				$userHash = Helper::generateUserHash();
 				UserService::setUserHash(Database::getDatabase(),$user->getId(),$userHash);
 				Helper::setAuthorized($user->getId(),$userHash);
-				return Render::renderContent("admin", []);
+				$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
+				return Render::renderAdminMenu($content);
 			}
 		}
 

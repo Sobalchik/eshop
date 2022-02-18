@@ -17,7 +17,15 @@ class Render
 		$data = array_merge($templateData, [
 			'content' => $content,
 		]);
-		return self::renderContent("layout", $data);
+		return self::renderContent("admin", $data);
+	}
+
+	public static function renderAdminMenu(string $content, array $templateData = []): string
+	{
+		$data = array_merge($templateData, [
+			'content' => $content,
+		]);
+		return self::renderContent("admin", $data);
 	}
 
 	public  static  function  render(string $viewName, array $parameters = [] ) : string
