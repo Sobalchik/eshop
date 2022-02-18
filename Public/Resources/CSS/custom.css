@@ -121,6 +121,14 @@ p{
 	width: 200px;
 	height: 30px;
 }
+.inpit-me-order{
+	display: flex;
+	width: 100%;
+	min-width: 200px;
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+}
 
 .admin-excursions-detaild-bloc1{
 	display: flex;
