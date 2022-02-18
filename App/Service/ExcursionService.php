@@ -297,7 +297,7 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function editExcursionById(mysqli $db, int $id, Excursion $excursion) : void
+	public static function editExcursionById(mysqli $db, Excursion $excursion) : void
 	{
 		$query = DBQuery::updateExcursionById();
 
@@ -314,7 +314,7 @@ class ExcursionService
 		$rating = $excursion->getRating();
 		$degree = $excursion->getDegrees();
 		$active = $excursion->getActive();
-
+		$id = $excursion->getId();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"sssdiisddddiii",
