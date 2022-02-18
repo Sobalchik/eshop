@@ -64,10 +64,6 @@ $helper=App\Lib\Helper::getInstance();
 					<button class="close-detailed-page" id="pil2">X</button>
 				</div>
 				<div class="detailed-page-bloc-pop-up-cont">
-					<div>
-						<p class="detailed-page-application-text1">Оставьте заявку</p>
-						<p class="detailed-page-application-text2">и мы с вами свяжемся в удобное для вас время</p>
-					</div>
 					<form action="/createOrder" method="post">
 						<input class="form-application-input" style="display: none" type="hidden" name="product_id" value="<?=$excursion->getId()?>">
 						<input class="form-application-input" style="display: none" type="hidden" name="status_id" value="1">
