@@ -21,7 +21,8 @@ class UserController
 		session_start();
 		$_SESSION = array();
 		session_destroy();
-		return Render::renderContent("logout", []);
+		$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
+		return Render::render("content-top-excursions", ['excursions' => $excursions]);
 	}
 
 	public static function adminPanel():string
