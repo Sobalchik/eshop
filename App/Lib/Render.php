@@ -17,7 +17,7 @@ class Render
 		$data = array_merge($templateData, [
 			'content' => $content,
 		]);
-		return self::renderContent("admin", $data);
+		return self::renderContent("layout", $data);
 	}
 
 	public static function renderAdminMenu(string $content, array $templateData = []): string
