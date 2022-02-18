@@ -5,6 +5,7 @@ namespace App\Lib;
 use App\Config\Database;
 use App\Config\Settings;
 use App\Controller\MainController;
+use App\Controller\MessageController;
 use App\Database\Migration;
 use App\Exception\NoConnectionToDataBaseException;
 use App\Exception\PathNotFoundEcxeption;
@@ -50,9 +51,9 @@ class Application
 		}
 		catch (PathNotFoundEcxeption $e)
 		{
-			MainController::showErrorPage();
+			MessageController::showErrorPage();
 
-			return Response::text(MainController::showErrorPage());
+			return Response::text(MessageController::showErrorPage());
 		}
 
 
