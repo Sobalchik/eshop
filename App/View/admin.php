@@ -23,8 +23,8 @@
 
 <nav class="asd navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
-		<a style="color: white" class="navbar-brand" href="#">Navbar</a>
-			<form class="d-flex" method="post">
+		<a style="color: white; margin-left: 40px" class="navbar-brand" href="#">Interesting Excurs</a>
+			<form style="margin-right: 40px" class="d-flex" method="post">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Поиск</button>
 			</form>
@@ -35,9 +35,10 @@
 	<div class="navbar-s">
 		<div class="bloc1-navbar">
 			<img class="logo-navbar" src="/Resources/Images/logo_template14%201.png">
+			<hr>
 			<div class="bloc1-navbar-a">
-				<button type="button" class="btn btn-primary btn-lg">Экскурсии</button>
-				<button type="button" class="btn btn-secondary btn-lg">Заказы</button>
+				<a href="/excursions" class="admin-navbar-a">Экскурсии</a>
+				<a href="/admin/orders"  style="margin-top: 30px"  class="admin-navbar-a">Заказы</a>
 			</div>
 		</div>
 	</div>
@@ -46,8 +47,7 @@
 
 
 
-	<div class="bloc2">
-		<div class="bloc2-cont"><?= $content ?></div>
+	<?= $content ?>
 
 
 
