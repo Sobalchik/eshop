@@ -62,7 +62,7 @@ class ExcursionController
 	{
 		$logger = new Logger();
 
-		$excursion = ExcursionService::getExcursionById(Database::getDatabase(),$_POST['id']);
+		$excursion = ExcursionService::getExcursionForAdminDetailedPageById(Database::getDatabase(),$_POST['id']);
 		$excursion->setNameCity($_POST['city']);
 		$excursion->setNameCountry($_POST['country']);
 		$excursion->setPrice($_POST['price']);
@@ -73,7 +73,7 @@ class ExcursionController
 		$excursion->setTagList(explode(',',$_POST['TagList']));
 		$excursion->setCountPersons($_POST['person']);
 		$excursion->setFullDescription($_POST['description']);
-		ExcursionService::editExcursionById($excursion);
+		ExcursionService::editExcursionById(Database::getDatabase(),$excursion);
 
 		return self::showAdminExcursionList();
 

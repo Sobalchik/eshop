@@ -157,6 +157,46 @@ class ExcursionService
 		return self::parseExcursionsForDetailedPage($result);
 	}
 
+	public static function getExcursionForAdminDetailedPageById(mysqli $db, int $id) : Excursion
+	{
+		$query = DBQuery::getExcursionForAdminDetailedPage();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"i", $id);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$excursion = mysqli_fetch_assoc($result);
+
+		$result_excursion = new Excursion(
+			$excursion['id'],
+			$excursion['nameCity'],
+			$excursion['nameCountry'],
+			$excursion['dateTravel'],
+			$excursion['price'],
+			$excursion['fullDescription'],
+			$excursion['internetRating'],
+			$excursion['entertainmentRating'],
+			$excursion['serviceRating'],
+			$excursion['rating'],
+			$excursion['degrees'],
+			$excursion['active'],
+			'',
+			'',
+			''
+		);
+
+		$result_excursion->setDuration($excursion['duration']);
+		$result_excursion->setCountPersons($excursion['countPersons']);
+
+		return $result_excursion;
+	}
+
 	public static function sortExcursions(mysqli $db, array $idList, int $sortType) : array
 	{
 		$ini = parse_ini_file('config.ini');
