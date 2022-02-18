@@ -19,11 +19,11 @@
 				</div>
 				<div>
 					<p>Интернет</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" value="Есть">
+					<input type="text" class="inpit-me form-control" id="inlineFormInputName" value="<?= $excursion->getInternetRating();?>">
 					<p>Развлечения</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" value="Вхуу">
+					<input type="text" class="inpit-me form-control" id="inlineFormInputName" value="<?= $excursion->getEntertainmentRating();?>">
 					<p>Обслуживание</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" value="Есть">
+					<input type="text" class="inpit-me form-control" id="inlineFormInputName" value"=<?= $excursion->getServiceRating();?>">
 					<p>Оценка</p>
 					<input type="text" class="inpit-me form-control" id="inlineFormInputName" value="<?= $excursion->getRating();?>">
 				</div>
