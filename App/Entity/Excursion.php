@@ -108,9 +108,6 @@ class Excursion
 	 * @param string $dateCreate
 	 * @param string $dateUpdate
 	 * @param string $imageList
-	 * @param string $allPossibleDatesTravel
-	 * @param int $duration
-	 * @param int $countPersons
 	 */
 	public function __construct(
 		int $id,

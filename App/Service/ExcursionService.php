@@ -28,9 +28,9 @@ class ExcursionService
 				$excursion['rating'],
 				$excursion['degrees'],
 				$excursion['active'],
+				$excursion['imageList'],
 				'',
-				'',
-				$excursion['imageList']
+				''
 			);
 		}
 
