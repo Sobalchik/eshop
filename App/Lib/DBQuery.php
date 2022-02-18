@@ -224,26 +224,7 @@ class DBQuery
 			select
 				up_product.ID as 'id',
 				up_product.NAME_CITY as 'excursionName',
-				up_product.PRICE as 'price',
-				(
-					select
-						   count(up_order.ID)
-					from up_order
-					left join up_product_date on
-						up_order.DATE_ID = up_product_date.DATE_ID
-					left join up_date on
-						up_order.DATE_ID = up_date.ID
-					where up_date.DATE_TRAVEL = (
-							select
-								min(up_date.DATE_TRAVEL)
-							from up_date
-									 left join up_product_date
-											   on up_date.ID = up_product_date.DATE_ID
-							where up_product_date.PRODUCT_ID = up_product.ID
-						) and up_order.PRODUCT_ID = up_product.ID
-						and STATUS_ID = 2
-				) as 'orderedExcursionsCount',
-				up_product.COUNT_PERSONS,
+				up_product.NAME_COUNTRY,
 				(
 					select
 						min(up_date.DATE_TRAVEL)
@@ -251,7 +232,35 @@ class DBQuery
 							 left join up_product_date
 									   on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
-				) as 'dateTravel'
+				) as 'dateTravel',
+				up_product.DURATION as 'duration',
+				up_product.COUNT_PERSONS as 'countPersons',
+				up_product.PRICE as 'price',
+				up_product.FULL_DESCRIPTION,
+				up_product.INTERNET_RATING as 'internetRating',
+				up_product.ENTERTAINMENT_RATING as 'entertainmentRating',
+				up_product.SERVICE_RATING as 'serviceRating',
+				up_product.RATING as 'rating',
+				up_product.DEGREES as 'degrees',
+				up_product.ACTIVE as 'active',
+				(
+					select
+						count(up_order.ID)
+					from up_order
+							 left join up_product_date on
+							up_order.DATE_ID = up_product_date.DATE_ID
+							 left join up_date on
+							up_order.DATE_ID = up_date.ID
+					where up_date.DATE_TRAVEL = (
+						select
+							min(up_date.DATE_TRAVEL)
+						from up_date
+								 left join up_product_date
+										   on up_date.ID = up_product_date.DATE_ID
+						where up_product_date.PRODUCT_ID = up_product.ID
+					) and up_order.PRODUCT_ID = up_product.ID
+					  and STATUS_ID = 2
+				) as 'orderedExcursionsCount'
 			from up_product
 		";
 	}

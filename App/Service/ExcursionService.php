@@ -275,16 +275,16 @@ class ExcursionService
 			$excursions[] = new Excursion(
 				$excursion['id'],
 				$excursion['nameCity'],
-				'',
+				$excursion['nameCountry'],
 				$excursion['dateTravel'],
 				$excursion['price'],
-				'',
-				0,
-				0,
-				0,
-				0,
-				0,
-				1,
+				$excursion['fullDescription'],
+				$excursion['internetRating'],
+				$excursion['entertainmentRating'],
+				$excursion['serviceRating'],
+				$excursion['rating'],
+				$excursion['degrees'],
+				$excursion['active'],
 				'',
 				'',
 				''
@@ -297,30 +297,40 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function editExcursionById(mysqli $db, int $id, array $data) : void
+	public static function editExcursionById(mysqli $db, int $id, Excursion $excursion) : void
 	{
 		$query = DBQuery::updateExcursionById();
 
-		$nameCity = mysqli_real_escape_string($db, $data['nameCity']);
-		$nameCountry = mysqli_real_escape_string($db, $data['nameCountry']);
-		$dateTravel = date_format($data['dateTravel'], 'Y-m-d H:i:s');
-		$fullDescription = mysqli_real_escape_string($db, $data['full_description']);
+		$nameCity = mysqli_real_escape_string($db, $excursion->getNameCity());
+		$nameCountry = mysqli_real_escape_string($db, $excursion->getNameCountry());
+		$dateTravel = date_format($excursion->getDateTravel(), 'Y-m-d H:i:s');
+		$price = $excursion->getPrice();
+		$duration = $excursion->getDuration();
+		$countPerson = $excursion->getCountPersons();
+		$fullDescription = mysqli_real_escape_string($db, $excursion->getFullDescription());
+		$internetRating = $excursion->getInternetRating();
+		$entertainmentRating = $excursion->getEntertainmentRating();
+		$serviceRating = $excursion->getServiceRating();
+		$rating = $excursion->getRating();
+		$degree = $excursion->getDegrees();
+		$active = $excursion->getActive();
+
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"sssdiisddddiii",
 								$nameCity,
 								$nameCountry,
 								$dateTravel,
-								$data['price'],
-								$data['duration'],
-								$data['countPersons'],
+								$price,
+								$duration,
+								$countPerson,
 								$fullDescription,
-								$data['internetRating'],
-								$data['entertainmentRating'],
-								$data['serviceRating'],
-								$data['rating'],
-								$data['degrees'],
-								$data['active'],
+								$internetRating,
+								$entertainmentRating,
+								$serviceRating,
+								$rating,
+								$degree,
+								$active,
 								$id
 		);
 		mysqli_stmt_execute($stmt);
