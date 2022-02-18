@@ -280,6 +280,14 @@ class DBQuery
 		";
 	}
 
+	public static function deleteOrderById() : string
+	{
+		return "
+			delete from up_order
+			where ID = ?
+		";
+	}
+
 	public static function addNewDate() : string
 	{
 		return "
@@ -375,6 +383,16 @@ class DBQuery
 			'{$orderData['date']}'
 			)
 		";
+	}
+
+	public static function getAllStatuses() : string
+	{
+		return "
+		select
+			ID as 'id',
+			NAME as 'name'
+		from up_status_order
+";
 	}
 
 }
