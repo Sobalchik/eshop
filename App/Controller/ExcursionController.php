@@ -36,7 +36,7 @@ class ExcursionController
 
 
 		if(UserController::isAuthorized()){
-			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $_GET['id']);
+			$excursion = ExcursionService::getExcursionForAdminDetailedPageById(Database::getDatabase(), $_GET['id']);
 			$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
 			return Render::renderAdminMenu($content);
 		}else{

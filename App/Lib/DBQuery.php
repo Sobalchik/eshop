@@ -270,8 +270,8 @@ class DBQuery
 		return "
 		select
 			up_product.ID as 'id',
-			up_product.NAME_CITY as 'excursionName',
-			up_product.NAME_COUNTRY,
+			up_product.NAME_CITY as 'nameCity',
+			up_product.NAME_COUNTRY as 'nameCountry',
 			(
 				select
 					min(up_date.DATE_TRAVEL)
@@ -283,7 +283,7 @@ class DBQuery
 			up_product.DURATION as 'duration',
 			up_product.COUNT_PERSONS as 'countPersons',
 			up_product.PRICE as 'price',
-			up_product.FULL_DESCRIPTION,
+			up_product.FULL_DESCRIPTION as 'fullDescription',
 			up_product.INTERNET_RATING as 'internetRating',
 			up_product.ENTERTAINMENT_RATING as 'entertainmentRating',
 			up_product.SERVICE_RATING as 'serviceRating',
