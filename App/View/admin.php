@@ -39,7 +39,7 @@
 			<div class="bloc1-navbar-a">
 				<a href="/admin/excursions" class="admin-navbar-a">Экскурсии</a>
 				<a href="/admin/orders"  style="margin-top: 30px"  class="admin-navbar-a">Заказы</a>
-				<a href="/"  style="margin-top: 30px"  class="admin-navbar-a">Выход</a>
+				<a href="/logout"  style="margin-top: 30px"  class="admin-navbar-a">Выход</a>
 			</div>
 		</div>
 	</div>
