@@ -80,7 +80,8 @@ class DBQuery
 							 left join up_tag on up_product_tag.TAG_ID = up_tag.ID
 					where up_product_tag.PRODUCT_ID = up_product.ID
 				) as 'tagList',
-				DURATION as 'duration'
+				DURATION as 'duration',
+				COUNT_PERSONS as 'countPersons'
 			from up_product
 			where up_product.ID = ?
 		";
@@ -341,6 +342,38 @@ class DBQuery
 		set
 		STATUS_ID = ?
 		where ID = ?
+		";
+	}
+
+	public static function insertOrderInDBQuery($orderData): string
+	{
+		return "
+			insert into up_order
+			(
+			 FIO, 
+			 EMAIL, 
+			 PHONE, 
+			 DATE_ORDER,
+			 COMMENT,
+			 STATUS_ID, 
+			 PRODUCT_ID, 
+			 DATE_ID, 
+			 DATE_CREATE,
+			 DATE_UPDATE
+			 )
+			values
+			(
+			'{$orderData['name']}',
+			'{$orderData['email']}',
+			'{$orderData['telephone']}',
+			'{$orderData['date']}',
+			'{$orderData['comment']}',
+			'{$orderData['status_id']}',
+			'{$orderData['product_id']}',
+			'{$orderData['product_id']}',
+			'{$orderData['date']}',
+			'{$orderData['date']}'
+			)
 		";
 	}
 

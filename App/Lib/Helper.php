@@ -105,4 +105,20 @@ class Helper
 		$_SESSION['userHash'] = $userHash;
 	}
 
+	public static function validateFields(array $data): array
+	{
+		$validateData = [];
+		foreach ($data as $key=>$value)
+		{
+			$currentItem = $value;
+			$currentItem = trim($currentItem);
+			$currentItem = stripslashes($currentItem);
+			$currentItem = strip_tags($currentItem);
+			$currentItem = htmlspecialchars($currentItem);
+			$currentItem = mysqli_real_escape_string(Database::getDatabase(),$currentItem);
+			$validateData[$key] = $currentItem;
+		}
+		return $validateData;
+	}
+
 }
