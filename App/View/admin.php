@@ -37,7 +37,7 @@
 			<img class="logo-navbar" src="/Resources/Images/logo_template14%201.png">
 			<hr>
 			<div class="bloc1-navbar-a">
-				<a href="/excursions" class="admin-navbar-a">Экскурсии</a>
+				<a href="/admin/excursions" class="admin-navbar-a">Экскурсии</a>
 				<a href="/admin/orders"  style="margin-top: 30px"  class="admin-navbar-a">Заказы</a>
 			</div>
 		</div>

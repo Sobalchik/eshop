@@ -49,8 +49,14 @@ Router::add(
 
 Router::add(
 	"POST",
-	"/excursions",
+	"/admin/excursions",
 	[UserController::class, 'Authorized']
+);
+
+Router::add(
+	"GET",
+	"/admin/excursions",
+	[UserController::class, 'showAdminExcursionList']
 );
 
 Router::add(
