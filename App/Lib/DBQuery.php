@@ -260,30 +260,37 @@ class DBQuery
 	public static function getExcursionForAdminDetailedPage() : string
 	{
 		return "
-		select
-			up_product.ID as 'id',
-			up_product.NAME_CITY as 'nameCity',
-			up_product.NAME_COUNTRY as 'nameCountry',
-			(
-				select
-					min(up_date.DATE_TRAVEL)
-				from up_date
-						 left join up_product_date
-								   on up_date.ID = up_product_date.DATE_ID
-				where up_product_date.PRODUCT_ID = up_product.ID
-			) as 'dateTravel',
-			up_product.DURATION as 'duration',
-			up_product.COUNT_PERSONS as 'countPersons',
-			up_product.PRICE as 'price',
-			up_product.FULL_DESCRIPTION as 'fullDescription',
-			up_product.INTERNET_RATING as 'internetRating',
-			up_product.ENTERTAINMENT_RATING as 'entertainmentRating',
-			up_product.SERVICE_RATING as 'serviceRating',
-			up_product.RATING as 'rating',
-			up_product.DEGREES as 'degrees',
-			up_product.ACTIVE as 'active'
-		from up_product
-		where ID = ?
+			select
+				up_product.ID as 'id',
+				up_product.NAME_CITY as 'nameCity',
+				up_product.NAME_COUNTRY as 'nameCountry',
+				(
+					select
+						min(up_date.DATE_TRAVEL)
+					from up_date
+							 left join up_product_date
+									   on up_date.ID = up_product_date.DATE_ID
+					where up_product_date.PRODUCT_ID = up_product.ID
+				) as 'dateTravel',
+				up_product.DURATION as 'duration',
+				up_product.COUNT_PERSONS as 'countPersons',
+				up_product.PRICE as 'price',
+				up_product.FULL_DESCRIPTION as 'fullDescription',
+				up_product.INTERNET_RATING as 'internetRating',
+				up_product.ENTERTAINMENT_RATING as 'entertainmentRating',
+				up_product.SERVICE_RATING as 'serviceRating',
+				up_product.RATING as 'rating',
+				up_product.DEGREES as 'degrees',
+				up_product.ACTIVE as 'active',
+				(
+					select
+						up_tag.NAME
+					from up_product_tag
+							 left join up_tag on up_product_tag.TAG_ID = up_tag.ID
+					where up_product_tag.PRODUCT_ID = up_product.ID
+				) as 'tagList'
+			from up_product
+			where ID = ?
 		";
 	}
 

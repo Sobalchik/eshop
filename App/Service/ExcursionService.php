@@ -202,7 +202,7 @@ class ExcursionService
 		return self::parseExcursionsForAdminHomePage($db, $result);
 	}
 
-	public static function getExcursionForAdminDetailedPageById(mysqli $db, int $id) : Excursion
+	public static function getExcursionForAdminDetailedPage(mysqli $db, int $id) : Excursion
 	{
 		$query = DBQuery::getExcursionForAdminDetailedPage();
 
@@ -238,6 +238,7 @@ class ExcursionService
 
 		$result_excursion->setDuration($excursion['duration']);
 		$result_excursion->setCountPersons($excursion['countPersons']);
+		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
 
 		return $result_excursion;
 	}

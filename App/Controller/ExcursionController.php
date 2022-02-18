@@ -34,7 +34,7 @@ class ExcursionController
 	public static function showAdminExcursionById(): string
 	{
 		if(UserController::isAuthorized()){
-			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $_GET['id']);
+			$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(), $_GET['id']);
 			$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
 			return Render::renderAdminMenu($content);
 		}else{
@@ -60,7 +60,7 @@ class ExcursionController
 	{
 		$logger = new Logger();
 
-		$excursion = ExcursionService::getExcursionForAdminDetailedPageById(Database::getDatabase(),$_POST['id']);
+		$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(),$_POST['id']);
 		$excursion->setNameCity($_POST['city']);
 		$excursion->setNameCountry($_POST['country']);
 		$excursion->setPrice($_POST['price']);
