@@ -66,14 +66,14 @@ class ExcursionController
 		$excursion->setNameCity($_POST['city']);
 		$excursion->setNameCountry($_POST['country']);
 		$excursion->setPrice($_POST['price']);
-		$excursion->setInternetRating($_POST['iRating']);
-		$excursion->setEntertainmentRating($_POST['eRating']);
-		$excursion->setServiceRating($_POST['sRating']);
-		$excursion->setRating($_POST['Rating']);
+		$excursion->setInternetRating((float)$_POST['iRating']);
+		$excursion->setEntertainmentRating((float)$_POST['eRating']);
+		$excursion->setServiceRating((float)$_POST['sRating']);
+		$excursion->setRating((float)$_POST['Rating']);
 		$excursion->setTagList(explode(',',$_POST['TagList']));
-		$excursion->setCountPerson($_POST['person']);
+		$excursion->setCountPersons($_POST['person']);
 		$excursion->setFullDescription($_POST['description']);
-		ExcursionService::editExcursionById($excursion);
+		ExcursionService::editExcursionById(Database::getDatabase(),$excursion);
 
 		return self::showAdminExcursionList();
 
