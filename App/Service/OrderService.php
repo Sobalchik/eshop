@@ -9,7 +9,7 @@ use mysqli;
 class OrderService
 {
 
-	public static function createOrder(mysqli $db, array $orderData)
+	public static function createOrder(mysqli $db, array $orderData): void
 	{
 		$createDateOrder = new \DateTime('now');
 		$orderData['date'] = $createDateOrder->format("Y-m-d H:i:s");

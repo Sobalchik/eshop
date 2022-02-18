@@ -303,7 +303,10 @@ class ExcursionService
 
 		$nameCity = mysqli_real_escape_string($db, $excursion->getNameCity());
 		$nameCountry = mysqli_real_escape_string($db, $excursion->getNameCountry());
-		$dateTravel = date_format($excursion->getDateTravel(), 'Y-m-d H:i:s');
+
+		$dateTravel = date_create($excursion->getDateTravel());
+		$dateTravel = date_format($dateTravel, "Y-m-d H:i:s");
+
 		$price = $excursion->getPrice();
 		$duration = $excursion->getDuration();
 		$countPerson = $excursion->getCountPersons();
