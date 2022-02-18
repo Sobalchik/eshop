@@ -385,4 +385,14 @@ class DBQuery
 		";
 	}
 
+	public static function getAllStatuses() : string
+	{
+		return "
+		select
+			ID as 'id',
+			NAME as 'name'
+		from up_status_order
+";
+	}
+
 }

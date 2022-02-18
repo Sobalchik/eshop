@@ -137,5 +137,29 @@ class OrderService
 		}
 	}
 
+	public static function getAllStatuses(mysqli $db) : array
+	{
+		$query = DBQuery::getAllStatuses();
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$statuses = [];
+
+		while ($status = mysqli_fetch_assoc($result))
+		{
+			$statuses[] = [
+				'id' => $status['id'],
+				'name' => $status['name']
+			];
+		}
+
+		return $statuses;
+	}
+
 
 }
