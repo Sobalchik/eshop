@@ -67,7 +67,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/admin/detailed",
+	"/admin/detailed?id=:id",
 	[ExcursionController::class, 'showAdminExcursionById']
 
 );

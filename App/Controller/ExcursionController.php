@@ -32,9 +32,10 @@ class ExcursionController
 
 	public static function showAdminExcursionById(): string
 	{
-		if(UserController::isAuthorized()){
 
-			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), 1);
+
+		if(UserController::isAuthorized()){
+			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $_GET['id']);
 			$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
 			return Render::renderAdminMenu($content);
 		}else{
