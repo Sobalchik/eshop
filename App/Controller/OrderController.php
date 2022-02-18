@@ -18,7 +18,7 @@ class OrderController
 		{
 			$order = OrderService::createOrder(Database::getDatabase(),$validateData);
 			$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
-			return Render::render("content-main", ['excursions' => $excursions]);
+			return Render::render("content-top-excursions", ['excursions' => $excursions]);
 		}
 		else
 		{

@@ -11,28 +11,12 @@ class OrderService
 
 	public static function createOrder(mysqli $db, array $orderData)
 	{
-
-		$query = DBQuery::insertOrderInDBQuery();
-
-		$stmt = mysqli_prepare($db, $query);
-
 		$createDateOrder = new \DateTime('now');
+		$orderData['date'] = $createDateOrder->format("Y-m-d H:i:s");
 
-		mysqli_stmt_bind_param($stmt,"sssdiisddddii",
-			$orderData['name'],
-			$orderData['email'],
-			$orderData['telephone'],
-			$createDateOrder->format("Y-m-d H:i:s"),
-			$orderData['comment'],
-			$orderData['status_id'],
-			$orderData['product_id'],
-			$orderData['product_id'],
-			$createDateOrder->format("Y-m-d H:i:s"),
-			$createDateOrder->format("Y-m-d H:i:s")
-		);
-		mysqli_stmt_execute($stmt);
+		$query = DBQuery::insertOrderInDBQuery($orderData);
 
-		$result = mysqli_stmt_get_result($stmt);
+		$result = mysqli_query($db, $query);
 
 		if (!$result)
 		{

@@ -345,7 +345,7 @@ class DBQuery
 		";
 	}
 
-	public static function insertOrderInDBQuery(): string
+	public static function insertOrderInDBQuery($orderData): string
 	{
 		return "
 			insert into up_order
@@ -363,16 +363,16 @@ class DBQuery
 			 )
 			values
 			(
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?
+			'{$orderData['name']}',
+			'{$orderData['email']}',
+			'{$orderData['telephone']}',
+			'{$orderData['date']}',
+			'{$orderData['comment']}',
+			'{$orderData['status_id']}',
+			'{$orderData['product_id']}',
+			'{$orderData['product_id']}',
+			'{$orderData['date']}',
+			'{$orderData['date']}'
 			)
 		";
 	}
