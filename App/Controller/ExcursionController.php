@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Lib\Helper;
 use App\Lib\Render;
+use App\Logger\Logger;
 use App\Service\ExcursionService;
 use App\Config\Database;
 use App\Service\OrderService;
@@ -54,6 +55,29 @@ class ExcursionController
 			header("Location: http://eshop/login");
 			return '';
 		}
+	}
+
+
+	public static function editExcursion()
+	{
+		$logger = new Logger();
+
+		$excursion = ExcursionService::getExcursionById(Database::getDatabase(),$_POST['id']);
+		$excursion->setNameCity($_POST['city']);
+		$excursion->setNameCountry($_POST['country']);
+		$excursion->setPrice($_POST['price']);
+		$excursion->setInternetRating($_POST['iRaiting']);
+		$excursion->setEntertainmentRating($_POST['eRaiting']);
+		$excursion->setServiceRating($_POST['sRaiting']);
+		$excursion->setRating($_POST['Raiting']);
+		$excursion->setTagList(explode(',',$_POST['TagList']));
+		$excursion->setCountPerson($_POST['person']);
+		$excursion->setFullDescription($_POST['description']);
+
+
+		return self::showAdminExcursionList();
+
+
 	}
 
 }
