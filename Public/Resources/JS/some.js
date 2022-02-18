@@ -38,7 +38,10 @@ $("#pay").click(function() {
 $("#pil2").click(function() {
 	$("#pay-45").fadeOut();
 })
-
+$("#pay-12").click(function() {
+	$("#pay-45").fadeOut();
+	$("#pay-46").fadeIn();
+})
 
 $('.mobile-nav-button').on('change', function() {
 	$('body').css('overflow', $(this).prop('checked') === true ? 'hidden' : '');

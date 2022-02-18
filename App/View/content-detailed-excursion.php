@@ -24,9 +24,6 @@ $helper=App\Lib\Helper::getInstance();
 			<p class="detailed-page-text-5">
 				<img style="padding-right: 15px" src="/Resources/Images/image%203.png">Размер группы до <?=$excursion->getCountPersons()?> человек
 			</p>
-			<p class="detailed-page-text-5">
-				<img style="padding-right: 15px" src="/Resources/Images/image%204.png">Можно с детьми
-			</p>
 			<p class="detailed-page-text-7">Вы увидите</p>
 			<div class="detailed-page-text-bloc-8">
 				<div>
@@ -90,9 +87,24 @@ $helper=App\Lib\Helper::getInstance();
 						<p class="form-application-text">Укажите ваш комментарий</p>
 						<input class="form-application-input" type="text" name="comment" required="required" placeholder="     Комментарий...">
 						<div style="text-align: center; padding-top: 40px">
-							<input class="form-application-input-submit" type="submit" value="Отправить">
+							<input  class="form-application-input-submit" type="submit" value="Отправить" id="pay-12">
 						</div>
 					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="detailed-page-bloc-2-pop-up" id="pay-46">
+	<div class="dm-table">
+		<div class="dm-cell">
+			<div class="bloc-dm-modal-bloc2">
+				<div style="display: flex; align-items: center; flex-direction: column;padding: 30px;">
+					<h1 style="margin-top: 30px;">Заказ отправлен</h1>
+					<p style="margin-top: 50px;width: 218px;text-align: center;">Спасибо за ваш запрос наши менеджеры в ближайшее время свяжутся с вами</p>
+					<button onclick="window.location.href = 'http://eshop/';"  class="form-application-input-submit" style="margin-top: 30px;" id="confirmation-button">на главную</button>
 				</div>
 			</div>
 		</div>
