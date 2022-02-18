@@ -58,7 +58,7 @@ class ExcursionController
 	}
 
 
-	public static function editExcursion()
+	public static function editExcursion(): string
 	{
 		$logger = new Logger();
 
@@ -66,14 +66,14 @@ class ExcursionController
 		$excursion->setNameCity($_POST['city']);
 		$excursion->setNameCountry($_POST['country']);
 		$excursion->setPrice($_POST['price']);
-		$excursion->setInternetRating($_POST['iRaiting']);
-		$excursion->setEntertainmentRating($_POST['eRaiting']);
-		$excursion->setServiceRating($_POST['sRaiting']);
-		$excursion->setRating($_POST['Raiting']);
+		$excursion->setInternetRating($_POST['iRating']);
+		$excursion->setEntertainmentRating($_POST['eRating']);
+		$excursion->setServiceRating($_POST['sRating']);
+		$excursion->setRating($_POST['Rating']);
 		$excursion->setTagList(explode(',',$_POST['TagList']));
 		$excursion->setCountPerson($_POST['person']);
 		$excursion->setFullDescription($_POST['description']);
-
+		ExcursionService::editExcursionById($excursion);
 
 		return self::showAdminExcursionList();
 
