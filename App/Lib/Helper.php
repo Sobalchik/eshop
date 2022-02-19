@@ -92,9 +92,9 @@ class Helper
 		return $userHash;
 	}
 
-	public static function getPasswordHash(string $login, string $password, string $email): string
+	public static function getPasswordHash(string $password): string
 	{
-		$passwordHash = md5(md5($login.$password.$email));
+		$passwordHash = password_hash($password,PASSWORD_DEFAULT);
 		return $passwordHash;
 	}
 

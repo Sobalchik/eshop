@@ -11,7 +11,7 @@ class Order
 	private $dateOrder;
 	private $comment;
 	private $statusId;
-	private $productId;
+	private $dateId;
 	private $dateCreate;
 	private $dateUpdate;
 	private $status;
@@ -84,7 +84,7 @@ class Order
 		int $id,
 		string $fio, string $email, string $phone,
 		string $dateOrder, string $comment,
-		int $statusId, int $productId,
+		int $statusId, int $dateId,
 		string $dateCreate, string $dateUpdate
 	)
 	{
@@ -95,7 +95,7 @@ class Order
 		$this->dateOrder=$dateOrder;
 		$this->comment=$comment;
 		$this->statusId=$statusId;
-		$this->productId=$productId;
+		$this->dateId=$dateId;
 		$this->dateCreate=$dateCreate;
 		$this->dateUpdate=$dateUpdate;
 	}
@@ -215,17 +215,17 @@ class Order
 	/**
 	 * @return int
 	 */
-	public function getProductId(): int
+	public function getDatetId(): int
 	{
-		return $this->productId;
+		return $this->dateId;
 	}
 
 	/**
-	 * @param int $productId
+	 * @param int $dateId
 	 */
-	public function setProductId(int $productId): void
+	public function setProductId(int $dateId): void
 	{
-		$this->productId = $productId;
+		$this->dateId = $dateId;
 	}
 
 	/**

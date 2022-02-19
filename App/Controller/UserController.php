@@ -63,8 +63,6 @@ class UserController
 		$validateLogin = $_POST['login'];
 		$validatePassword = $_POST['password'];
 
-
-
 		$user = UserService::getUserByLogin(Database::getDatabase(),$validateLogin);
 		if (!isset($user))
 		{
@@ -72,8 +70,8 @@ class UserController
 		}
 		else
 		{
-			$passwordHash = Helper::getPasswordHash($user->getLogin(),$validatePassword,$user->getEmail());
-			if ($user->getPassword()!=$passwordHash)
+			$isCorrectPassword = password_verify($validatePassword,$user->getPassword());
+			if (!$isCorrectPassword)
 			{
 				return Render::render("login", []);
 			}
