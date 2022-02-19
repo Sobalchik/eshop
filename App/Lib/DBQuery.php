@@ -206,7 +206,10 @@ class DBQuery
 				SERVICE_RATING = ?,
 				RATING = ?,
 				DEGREES = ?,
-				ACTIVE = ?
+				ACTIVE = ?,
+			    FULL_DESCRIPTION = ?,
+			    DURATION = ?,
+			    COUNT_PERSONS = ?
 			where ID = ?
 		";
 	}

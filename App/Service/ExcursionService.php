@@ -417,6 +417,9 @@ class ExcursionService
 								$rating,
 								$degree,
 								$active,
+								$fullDescription,
+								$degree,
+								$countPerson,
 								$id
 		);
 		mysqli_stmt_execute($stmt);

@@ -43,7 +43,7 @@
 					<p>Теги</p>
 					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="tagList" value="<?= implode(",",$excursion->getTagList());?>">
 					<p>Время</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="time" value="<?= $excursion->getTagList();?>">
+					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="time" value="<?= $excursion->getDuration();?>">
 					<p>размер группы </p>
 					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="person" value="<?= $excursion->getCountPersons();?>">
 					<p>описание экскурсии</p>
