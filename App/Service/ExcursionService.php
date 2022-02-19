@@ -418,7 +418,7 @@ class ExcursionService
 								$degree,
 								$active,
 								$fullDescription,
-								$degree,
+								$duration,
 								$countPerson,
 								$id
 		);
