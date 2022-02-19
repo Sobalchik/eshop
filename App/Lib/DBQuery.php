@@ -301,14 +301,12 @@ class DBQuery
 	{
 		return "
 			select
-				count(up_order.ID) as 'orderedExcursionsCount',
+				COUNT(up_order.ID) as 'orderedExcursionsCount',
 				up_date.DATE_TRAVEL as 'dateTravel'
-			from up_order
-			left join up_product_date on
-			up_order.DATE_ID = up_product_date.DATE_ID
-			left join up_date on
-			up_order.DATE_ID = up_date.ID
-			where STATUS_ID = 2 and up_order.PRODUCT_ID = ?
+			from up_product_date
+			left join up_date on up_product_date.DATE_ID = up_date.ID
+			left join up_order on up_date.ID = up_order.DATE_ID
+			where up_product_date.PRODUCT_ID = ?
 			group by up_date.DATE_TRAVEL
 ";
 	}
