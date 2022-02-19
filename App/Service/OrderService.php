@@ -117,10 +117,10 @@ class OrderService
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
+		// if (!$result)
+		// {
+		// 	trigger_error(mysqli_error($db), E_USER_ERROR);
+		// }
 	}
 
 	public static function deleteOrderById(mysqli $db, int $id) : void

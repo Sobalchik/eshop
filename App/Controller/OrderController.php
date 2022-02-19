@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Config\Database;
 use App\Lib\Render;
 use App\Lib\Helper;
+use App\Logger\Logger;
 use App\Service\ExcursionService;
 use App\Service\OrderService;
 
@@ -38,6 +39,13 @@ class OrderController
 			header("Location: http://eshop/login");
 			return '';
 		}
+	}
 
+	public static function editOrder(int $id): string
+	{
+		$logger = new Logger();
+		$logger->info($_POST['id']);
+		OrderService::editOrderStatusById(Database::getDatabase(),$id, $_POST['status']);
+		return  self::showAdminOrders();
 	}
 }

@@ -89,3 +89,9 @@ Router::add(
 	"/admin/orders",
 	[OrderController::class, 'showAdminOrders']
 );
+
+Router::add(
+	"POST",
+	"/admin/orders/saved/:id",
+	[OrderController::class, 'editOrder']
+);

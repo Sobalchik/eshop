@@ -3,12 +3,12 @@
 ?>
 
 <div style="color: white" class="admin-excursions-detaild">
-	<form  action="/admin/excursions/saved" method="post">
+	<form action="/admin/excursions/saved" method="post">
 		<div style="display: flex">
 			<div class="admin-excursions-detaild-bloc1">
 				<h1>Вид карты</h1>
 				<div>
-					<input style="display: none " type="text" class="input-me form-control" id="inlineFormInputName" name="id" value="<?= $excursion->getId(); ?>">
+					<input style="display: none " type="text" class="input-me form-control" id="inlineFormInputName" name="id" value="<?= $excursion->getId() ?>">
 					<p>дата</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="date" value="<?= $excursion->getDateTravel(); ?>">
 					<p>страна</p>
