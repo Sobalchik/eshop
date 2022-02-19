@@ -386,4 +386,13 @@ class Excursion
 		$this->imageList = $imageList;
 	}
 
+	/**
+	 * @param float $degrees
+	 */
+	public function setDegrees(float $degrees): void
+	{
+		$this->degrees = $degrees;
+	}
+
+
 }

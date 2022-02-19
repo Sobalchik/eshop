@@ -16,7 +16,7 @@ class OrderController
 		$validateData = Helper::validateFields($_POST);
 		if ( isset( $_SESSION['csrf_token'] ) && $_SESSION['csrf_token'] === $validateData['csrf_token'] )
 		{
-			$order = OrderService::createOrder(Database::getDatabase(),$validateData);
+			OrderService::createOrder(Database::getDatabase(),$validateData);
 			$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
 			return Render::render("content-top-excursions", ['excursions' => $excursions]);
 		}

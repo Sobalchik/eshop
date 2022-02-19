@@ -12,5 +12,4 @@ class MessageController
 		return Render::renderContent('error-404');
 	}
 
-
 }

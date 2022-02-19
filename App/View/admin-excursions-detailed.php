@@ -8,44 +8,43 @@
 			<div class="admin-excursions-detaild-bloc1">
 				<h1>Вид карты</h1>
 				<div>
-					<p>id</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="id" value="<?= $excursion->getId(); ?>">
+					<input style="display: none " type="text" class="input-me form-control" id="inlineFormInputName" name="id" value="<?= $excursion->getId(); ?>">
 					<p>дата</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="date" value="<?= $excursion->getDateTravel(); ?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="date" value="<?= $excursion->getDateTravel(); ?>">
 					<p>страна</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="country" value="<?= $excursion->getNameCountry();?>">
-					<p>погода</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="weather" value="Солнечно">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="country" value="<?= $excursion->getNameCountry();?>">
+					<p>температура</p>
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="degrees" value="<?= $excursion->getDegrees();?>">
 					<p>цена</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="price" value="<?= $excursion->getPrice();?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="price" value="<?= $excursion->getPrice();?>">
 				</div>
 				<div>
 					<p>Интернет</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="iRaiting" value="<?= $excursion->getInternetRating();?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="iRating" value="<?= $excursion->getInternetRating();?>">
 					<p>Развлечения</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="eRaiting" value="<?= $excursion->getEntertainmentRating();?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="eRating" value="<?= $excursion->getEntertainmentRating();?>">
 					<p>Обслуживание</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="sRaiting" value="<?= $excursion->getServiceRating();?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="<?= $excursion->getServiceRating();?>">
 					<p>Оценка</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="Raiting" value="<?= $excursion->getRating();?>">
+					<p class="input-me form-control" id="inlineFormInputName"><?= $excursion->getRating();?></p>
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc2">
 				<h1>Общие данные</h1>
 				<div>
 					<p>название города</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="city" value="<?= $excursion->getNameCity();?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="city" value="<?= $excursion->getNameCity();?>">
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc3">
 				<h1>Детальная страница</h1>
 				<div>
 					<p>Теги</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="tagList" value="<?= implode(",",$excursion->getTagList());?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="tagList" value="<?= implode(",",$excursion->getTagList());?>">
 					<p>Время</p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="time" value="<?= $excursion->getDuration();?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="duration" value="<?= $excursion->getDuration();?>">
 					<p>размер группы </p>
-					<input type="text" class="inpit-me form-control" id="inlineFormInputName" name="person" value="<?= $excursion->getCountPersons();?>">
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="person" value="<?= $excursion->getCountPersons();?>">
 					<p>описание экскурсии</p>
 					<textarea class="form-control" id="exampleFormControlTextarea1" name = 'description'><?= $excursion->getFullDescription();?></textarea>
 				</div>

@@ -67,10 +67,13 @@ class ExcursionController
 		$excursion->setInternetRating((float)$_POST['iRating']);
 		$excursion->setEntertainmentRating((float)$_POST['eRating']);
 		$excursion->setServiceRating((float)$_POST['sRating']);
-		$excursion->setRating((float)$_POST['Rating']);
-		$excursion->setTagList(explode(',',$_POST['TagList']));
+		$excursion->setDuration((int)$_POST['duration']);
+		$excursion->setDegrees((float)$_POST['degrees']);
+		$excursion->setTagList(explode(',',$_POST['tagList']));
 		$excursion->setCountPersons($_POST['person']);
 		$excursion->setFullDescription($_POST['description']);
+		$rating = round(((float)$_POST['iRating'] +(float)$_POST['eRating'] +(float)$_POST['sRating']) / 3,1); //нужна функция-хелпер!
+		$excursion->setRating($rating);
 		ExcursionService::editExcursionById(Database::getDatabase(),$excursion);
 
 		return self::showAdminExcursionList();
