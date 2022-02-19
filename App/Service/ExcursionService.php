@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Config\Settings;
 use App\Entity\Excursion;
+use App\Logger\Logger;
 use mysqli;
 use App\Lib\DBQuery;
 
@@ -392,7 +393,6 @@ class ExcursionService
 
 		$dateTravel = date_create($excursion->getDateTravel());
 		$dateTravel = date_format($dateTravel, "Y-m-d H:i:s");
-
 		$price = $excursion->getPrice();
 		$duration = $excursion->getDuration();
 		$countPerson = $excursion->getCountPersons();
@@ -406,14 +406,11 @@ class ExcursionService
 		$id = $excursion->getId();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt,"sssdiisddddiii",
+		mysqli_stmt_bind_param($stmt,"sssiddddiii",
 								$nameCity,
 								$nameCountry,
 								$dateTravel,
 								$price,
-								$duration,
-								$countPerson,
-								$fullDescription,
 								$internetRating,
 								$entertainmentRating,
 								$serviceRating,
@@ -425,9 +422,10 @@ class ExcursionService
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 
+		// Штука выкидывает всегда ошибку потому что запрос ничего не возвращает
 		if (!$result)
 		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
+			#trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 	}
 
