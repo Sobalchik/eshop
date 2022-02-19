@@ -1,10 +1,12 @@
 <?php
 /**@var array $orders */
 /**@var array $statuses */
+$helper = App\Lib\Helper::getInstance();
 ?>
 <div class="bloc2">
 	<div class="bloc2-cont">
-		<?php foreach ($orders as $order): ?>
+		<?php
+		foreach ($orders as $order): ?>
 			<div class="admin-orders">
 				<p style="margin-right: 20px" class="admin-orders-text">№<?= $order->getId() ?></p>
 				<div class="admin-orders-bloc1">
@@ -28,9 +30,12 @@
 								<div style="display: flex;flex-direction: column;align-items: center;">
 									<p class="admin-orders-text">Статус</p>
 									<select class="inpit-me-order form-control va">
-										<?php foreach ($statuses as $status): ?>
-											<option value="<?=$status["id"]?>"><?=$status["name"]?></option>
-										<?php endforeach; ?>
+										<?php
+										foreach ($statuses as $status): ?>
+											<option <?= $helper::noRepeatStatus($order->getStatus(), $status["name"]) ?>
+												value="<?= $status["id"] ?>"><?= $status["name"] ?></option>
+										<?php
+										endforeach; ?>
 									</select>
 								</div>
 							</div>
@@ -52,6 +57,7 @@
 					</form>
 				</div>
 			</div>
-		<?php endforeach; ?>
+		<?php
+		endforeach; ?>
 	</div>
 </div>

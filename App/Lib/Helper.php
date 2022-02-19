@@ -62,10 +62,11 @@ class Helper
 	public static function generateFormCsrfToken()
 	{
 		session_start();
-		return $_SESSION['csrf_token'] = substr( str_shuffle( 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM' ), 0, 10 );
+		return $_SESSION['csrf_token'] = substr(str_shuffle('qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'), 0,
+			10);
 	}
 
-	public static function getPagesCount() : int
+	public static function getPagesCount(): int
 	{
 		$settings = Settings::getInstance();
 
@@ -76,7 +77,6 @@ class Helper
 		return ceil($excursionsCount[0] / $EXCURSIONS_ON_PAGE);
 	}
 
-
 	public static function generateUserHash(int $length = 6): string
 	{
 		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789";
@@ -84,9 +84,9 @@ class Helper
 		$userHash = "";
 
 		$clen = strlen($chars) - 1;
-		while (strlen($userHash) < $length) {
-
-			$userHash .= $chars[mt_rand(0,$clen)];
+		while (strlen($userHash) < $length)
+		{
+			$userHash .= $chars[mt_rand(0, $clen)];
 		}
 
 		return $userHash;
@@ -94,11 +94,11 @@ class Helper
 
 	public static function getPasswordHash(string $password): string
 	{
-		$passwordHash = password_hash($password,PASSWORD_DEFAULT);
+		$passwordHash = password_hash($password, PASSWORD_DEFAULT);
 		return $passwordHash;
 	}
 
-	public static function setAuthorized(string $id, string $userHash):void
+	public static function setAuthorized(string $id, string $userHash): void
 	{
 		session_start();
 		$_SESSION['userId'] = $id;
@@ -108,17 +108,25 @@ class Helper
 	public static function validateFields(array $data): array
 	{
 		$validateData = [];
-		foreach ($data as $key=>$value)
+		foreach ($data as $key => $value)
 		{
 			$currentItem = $value;
 			$currentItem = trim($currentItem);
 			$currentItem = stripslashes($currentItem);
 			$currentItem = strip_tags($currentItem);
 			$currentItem = htmlspecialchars($currentItem);
-			$currentItem = mysqli_real_escape_string(Database::getDatabase(),$currentItem);
+			$currentItem = mysqli_real_escape_string(Database::getDatabase(), $currentItem);
 			$validateData[$key] = $currentItem;
 		}
 		return $validateData;
 	}
 
+	public static function noRepeatStatus(string $statusFromOrder, string $allStatus): ?string
+	{
+		if ($statusFromOrder === $allStatus)
+		{
+			return "selected";
+		}
+		return null;
+	}
 }
