@@ -406,7 +406,7 @@ class ExcursionService
 		$id = $excursion->getId();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt,"sssiddddiii",
+		mysqli_stmt_bind_param($stmt,"sssiddddiisiii",
 								$nameCity,
 								$nameCountry,
 								$dateTravel,
