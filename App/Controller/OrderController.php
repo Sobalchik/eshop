@@ -48,4 +48,12 @@ class OrderController
 		OrderService::editOrderStatusById(Database::getDatabase(),$id, $_POST['status']);
 		return  self::showAdminOrders();
 	}
+
+	public static function deleteOrder(int $id): string
+	{
+		$logger = new Logger();
+		$logger->info($_POST['id']);
+		OrderService::deleteOrderById(Database::getDatabase(),$id);
+		return  self::showAdminOrders();
+	}
 }

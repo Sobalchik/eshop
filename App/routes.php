@@ -95,3 +95,9 @@ Router::add(
 	"/admin/orders/saved/:id",
 	[OrderController::class, 'editOrder']
 );
+
+Router::add(
+	"GET",
+	"/admin/orders/deleted/:id",
+	[OrderController::class, 'deleteOrder']
+);
