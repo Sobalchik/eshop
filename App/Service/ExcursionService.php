@@ -310,8 +310,7 @@ class ExcursionService
 								$excursionData['degrees'],
 								$excursionData['active']
 		);
-		mysqli_stmt_execute($stmt);
-		$result = mysqli_stmt_get_result($stmt);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -422,13 +421,11 @@ class ExcursionService
 								$countPerson,
 								$id
 		);
-		mysqli_stmt_execute($stmt);
-		$result = mysqli_stmt_get_result($stmt);
+		$result = mysqli_stmt_execute($stmt);
 
-		// Штука выкидывает всегда ошибку потому что запрос ничего не возвращает
 		if (!$result)
 		{
-			#trigger_error(mysqli_error($db), E_USER_ERROR);
+			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 	}
 
@@ -437,8 +434,7 @@ class ExcursionService
 		$query = DBQuery::deleteExcursionById();
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"i",$id);
-		mysqli_stmt_execute($stmt);
-		$result = mysqli_stmt_get_result($stmt);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -452,8 +448,7 @@ class ExcursionService
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"si",$date, $id);
-		mysqli_stmt_execute($stmt);
-		$result = mysqli_stmt_get_result($stmt);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
