@@ -7,7 +7,7 @@ $helper = App\Lib\Helper::getInstance();
 	<div class="bloc2-cont">
 		<?php
 		foreach ($orders as $order): ?>
-			<form action="/admin/orders/saved/<?=$order->getId() ?>" method="post">
+			<form action="/admin/orders/saved?id=<?=$order->getId() ?>" method="post">
 				<div class="admin-orders">
 					<label style="margin-right: 20px" class="admin-orders-text" >№<?= $order->getId() ?></label>
 					<div class="admin-orders-bloc1">

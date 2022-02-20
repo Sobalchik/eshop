@@ -92,12 +92,12 @@ Router::add(
 
 Router::add(
 	"POST",
-	"/admin/orders/saved/:id",
+	"/admin/orders/saved?id=:id",
 	[OrderController::class, 'editOrder']
 );
 
 Router::add(
-	"GET",
-	"/admin/orders/deleted/:id",
+	"POST",
+	"/admin/orders/deleted?id=:id",
 	[OrderController::class, 'deleteOrder']
 );
