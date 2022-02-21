@@ -1,6 +1,7 @@
 <?php /** @var array $excursions */ ?>
 
 <div class="bloc2">
+	<a href="#" >Добавить штуку</a>
 	<div class="bloc2-cont">
 <?php
 $counter = 1;
@@ -10,9 +11,9 @@ foreach ($excursions as $excursion):
 <div style="padding: 3px 0; display: flex; align-items: center;">
 	<p class="accordion-item-bloc2-text-help">№<?=$counter?></p>
 	<div id="accordionPanelsStayOpenExample">
-		<div style="border: none" class="accordion-item">
-			<form style="background-color:#3698f8 " method="post">
-				<div class="accordion-item-bloc1">
+		<div style="border: none; background-color:#3698f8 " class="accordion-item">
+
+				<div  class="accordion-item-bloc1">
 					<div style="background-color: #3698f8" class="accordion-item-bloc2">
 						<p class="accordion-item-bloc2-text">Название -></p>
 						<p class="accordion-item-bloc2-text-2"><?= $excursion->getNameCity() ?></p>
@@ -35,8 +36,15 @@ foreach ($excursions as $excursion):
 						<p class="accordion-item-bloc2-text-2"><?= $datesPeople['orderedExcursionsCount'] ?> / <?= $excursion->getCountPersons()?> </p>
 					</div>
 					<?php endforeach;?>
+					<form action="/admin/excursions/addDate" method="post">
+						<input type="hidden" value="<?= $excursion->getId()?>" name="id">
+						<input class = "button-add-date" type="submit" value="Добавить дату">
+						<input type="datetime-local" name="date">
+					</form>
+
+
 				</div>
-			</form>
+
 		</div>
 	</div>
 </div>
