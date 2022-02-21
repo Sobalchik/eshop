@@ -4,6 +4,7 @@
 $helper = App\Lib\Helper::getInstance();
 ?>
 <div class="bloc2">
+	<input id="showText" class="admin-excursions-detaild-bloc4-input admin-input-color-1"  type="checkbox" checked>
 	<div class="bloc2-cont">
 		<?php
 		foreach ($orders as $order): ?>
@@ -54,22 +55,23 @@ $helper = App\Lib\Helper::getInstance();
 								<div class="admin-orders-bloc1-clom2">
 									<input class="admin-excursions-detaild-bloc4-input admin-input-color-2" type="submit" value="save">
 									<input class="admin-excursions-detaild-bloc4-input admin-input-color-3" type="submit" value="delete">
-									<input id="showText" class="admin-excursions-detaild-bloc4-input admin-input-color-1"  type="checkbox" checked>
+
 								</div>
 							</div>
 					</div>
 				</div>
 			</form>
-			<script type="text/javascript">
-				$('#showText').click(function(){
-					if ($('#showText').is(':checked')){
-						$('.inpit-me-order').prop('disabled', true);
-					} else {
-						$('.inpit-me-order').prop('disabled', false);
-					}
-				});
-			</script>
 		<?php
 		endforeach; ?>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$('#showText').click(function(){
+		if ($('#showText').is(':checked')){
+			$('.inpit-me-order').prop('disabled', true);
+		} else {
+			$('.inpit-me-order').prop('disabled', false);
+		}
+	});
+</script>
