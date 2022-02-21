@@ -35,7 +35,7 @@ class ExcursionController
 	{
 		if(UserController::isAuthorized()){
 			$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(), $_GET['id']);
-			$content = Render::renderContent("admin-excursions-detailed", ["excursion" => $excursion]);
+			$content = Render::renderContent("admin-excursions-detailed-edit", ["excursion" => $excursion]);
 			return Render::renderAdminMenu($content);
 		}else{
 			header("Location: http://eshop/login");
@@ -45,7 +45,6 @@ class ExcursionController
 
 	public static function showAdminExcursionList(): string
 	{
-		# Переделать метод получения экскурсий
 		if(UserController::isAuthorized()){
 			$excursions = ExcursionService::getExcursionsForAdminHomePage(Database::getDatabase());
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
@@ -56,10 +55,17 @@ class ExcursionController
 		}
 	}
 
+	public static function addExcursionDate()
+	{
+		$date = str_replace("T"," ",$_POST['date']);
+		ExcursionService::addDateToExcursionById(Database::getDatabase(),$_POST['id'],$date);
+		header('Location: http://eshop/admin/excursions');
+		return self::showAdminExcursionList();
+
+	}
+
 	public static function editExcursion(): string
 	{
-		$logger = new Logger();
-		$logger->info($_POST['id']);
 		$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(),$_POST['id']);
 		$excursion->setNameCity($_POST['city']);
 		$excursion->setNameCountry($_POST['country']);
