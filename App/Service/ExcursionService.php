@@ -285,39 +285,6 @@ class ExcursionService
 		return self::parseExcursionsForHomePage($result);
 	}
 
-	public static function addExcursion(mysqli $db, array $excursionData): void
-	{
-		$query = DBQuery::insertExcursionInDBQuery();
-
-		$nameCity = mysqli_real_escape_string($db, $excursionData['nameCity']);
-		$nameCountry = mysqli_real_escape_string($db, $excursionData['nameCountry']);
-		$dateTravel = date_format($excursionData['dateTravel'], 'Y-m-d H:i:s');
-		$fullDescription = mysqli_real_escape_string($db, $excursionData['full_description']);
-
-		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt,"sssdiisddddii",
-								$nameCity,
-								$nameCountry,
-								$dateTravel,
-								$excursionData['price'],
-								$excursionData['duration'],
-								$excursionData['countPersons'],
-								$fullDescription,
-								$excursionData['internetRating'],
-								$excursionData['entertainmentRating'],
-								$excursionData['serviceRating'],
-								$excursionData['rating'],
-								$excursionData['degrees'],
-								$excursionData['active']
-		);
-		$result = mysqli_stmt_execute($stmt);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-	}
-
 	public static function getExcursionOccupancyListById(mysqli $db, int $id) : array
 	{
 		$query = DBQuery::getExcursionCompletionByDateById();
@@ -389,11 +356,9 @@ class ExcursionService
 
 		$nameCity = mysqli_real_escape_string($db, $excursion->getNameCity());
 		$nameCountry = mysqli_real_escape_string($db, $excursion->getNameCountry());
-
-		$dateTravel = date_create($excursion->getDateTravel());
-		$dateTravel = date_format($dateTravel, "Y-m-d H:i:s");
 		$price = $excursion->getPrice();
 		$duration = $excursion->getDuration();
+		$id = $excursion->getId();
 		$countPerson = $excursion->getCountPersons();
 		$fullDescription = mysqli_real_escape_string($db, $excursion->getFullDescription());
 		$internetRating = $excursion->getInternetRating();
@@ -402,13 +367,11 @@ class ExcursionService
 		$rating = $excursion->getRating();
 		$degree = $excursion->getDegrees();
 		$active = $excursion->getActive();
-		$id = $excursion->getId();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"sssiddddiisiii",
 								$nameCity,
 								$nameCountry,
-								$dateTravel,
 								$price,
 								$internetRating,
 								$entertainmentRating,
@@ -432,6 +395,7 @@ class ExcursionService
 	public static function deleteExcursionById(mysqli $db, int $id) : void
 	{
 		$query = DBQuery::deleteExcursionById();
+
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"i",$id);
 		$result = mysqli_stmt_execute($stmt);
@@ -456,5 +420,74 @@ class ExcursionService
 		}
 	}
 
+	public static function findExcursionByNameForAdminPage(mysqli $db, string $excursionName) : array
+	{
+		$query = DBQuery::findExcursionByNameForAdminPage();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"s",$excursionName);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return self::parseExcursionsForAdminHomePage($db, $result);
+	}
+
+	public static function deleteDateById(mysqli $db, int $dateId) : void
+	{
+		$query = DBQuery::deleteDateById();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"i",$dateId);
+		$result = mysqli_stmt_execute($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
+	// РАБОТА С ИЗОБРАЖЕНИЯМИ!!!
+	public static function addNewExcursion(mysqli $db, Excursion $excursion) : void
+	{
+		$query = DBQuery::addNewExcursion();
+
+		$nameCity = mysqli_real_escape_string($db, $excursion->getNameCity());
+		$nameCountry = mysqli_real_escape_string($db, $excursion->getNameCountry());
+		$price = $excursion->getPrice();
+		$duration = $excursion->getDuration();
+		$countPerson = $excursion->getCountPersons();
+		$fullDescription = mysqli_real_escape_string($db, $excursion->getFullDescription());
+		$internetRating = $excursion->getInternetRating();
+		$entertainmentRating = $excursion->getEntertainmentRating();
+		$serviceRating = $excursion->getServiceRating();
+		$rating = $excursion->getRating();
+		$degree = $excursion->getDegrees();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"ssiiisddddi",
+										$nameCity,
+										$nameCountry,
+										$duration,
+										$countPerson,
+										$price,
+										$fullDescription,
+										$internetRating,
+										$entertainmentRating,
+										$serviceRating,
+										$rating,
+										$degree
+		);
+		$result = mysqli_stmt_execute($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
 
 }
