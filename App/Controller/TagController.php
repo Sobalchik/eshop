@@ -18,7 +18,8 @@ class TagController
 		}
 		else
 		{
-			$content = Render::renderContent("admin-tags-list", ["tags" => array()]);
+			$tags = TagService::getTagsForAdminPage(Database::getDatabase());
+			$content = Render::renderContent("admin-tags-list", ["tags" => $tags]);
 			return Render::renderAdminMenu($content);
 		}
 	}

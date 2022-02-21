@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-class User
+class Tag
 {
 
 	private $id;
 	private $name;
 	private $typeTag;
+	private $typeName;
 	private $dateCreate;
 	private $dateUpdate;
 
@@ -15,14 +16,16 @@ class User
 	 * @param int $id
 	 * @param string $name
 	 * @param int $typeTag
+	 * @param string $typeName
 	 * @param string $dateCreate
 	 * @param string $dateUpdate
 	 */
-	public function __construct($id, $name, $typeTag, $dateCreate, $dateUpdate)
+	public function __construct($id, $name, $typeTag, $typeName, $dateCreate, $dateUpdate)
 	{
 		$this->id = $id;
 		$this->name = $name;
 		$this->typeTag = $typeTag;
+		$this->typeName = $typeName;
 		$this->dateCreate = $dateCreate;
 		$this->dateUpdate = $dateUpdate;
 	}
@@ -73,6 +76,22 @@ class User
 	public function setTypeTag(int $typeTag): void
 	{
 		$this->typeTag = $typeTag;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTypeName(): string
+	{
+		return $this->typeName;
+	}
+
+	/**
+	 * @param string $typeName
+	 */
+	public function setTypeName(string $typeName): void
+	{
+		$this->typeName = $typeName;
 	}
 
 	/**

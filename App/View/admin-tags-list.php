@@ -5,6 +5,12 @@
 <?php
 $counter = 1;
 ?>
+<?
+echo "<pre>";
+var_dump($tags);
+echo "</pre>";
+?>
+<?php foreach ($tags as $tag):?>
 <div style="padding: 3px 0; display: flex; align-items: center;">
 	<p class="accordion-item-bloc2-text-help">№<?=$counter?></p>
 	<div id="accordionPanelsStayOpenExample">
@@ -13,11 +19,7 @@ $counter = 1;
 				<div class="accordion-item-bloc1">
 					<div style="background-color: #3698f8" class="accordion-item-bloc2">
 						<p class="accordion-item-bloc2-text">Название -></p>
-						<p class="accordion-item-bloc2-text-2"></p>
-						<p class="accordion-item-bloc2-text">Стоимость -></p>
-						<p class="accordion-item-bloc2-text-2"></p>
-						<p class="accordion-item-bloc2-text">Необ.кол-во -></p>
-						<p class="accordion-item-bloc2-text-2"></p>
+						<p class="accordion-item-bloc2-text-2"><?=$tag?></p>
 						<a href="/admin/detailed?id=" class="admin-navbar-list-a">Edit</a>
 					</div>
 					<button style="border: none;background-color: #3698f8;" class="bitawe collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?=$counter?>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<?=$counter?>">+</button>
@@ -36,6 +38,7 @@ $counter = 1;
 		</div>
 	</div>
 </div>
-
+<?php $counter = $counter+1;
+endforeach;?>
 </div>
 </div>
