@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Config\Database;
+use App\Entity\Order;
 use App\Lib\Render;
 use App\Lib\Helper;
 use App\Logger\Logger;
@@ -45,7 +46,18 @@ class OrderController
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		OrderService::editOrderStatusById(Database::getDatabase(),$id, $_POST['status']);
+		$order = new Order($_POST['id'],
+							$_POST['fio'],
+							$_POST['email'],
+							$_POST['phone'],
+							'',
+							'',
+							0,
+							0,
+							'',
+							'');
+		$order->setStatus($_POST['status']);
+		OrderService::editOrderById(Database::getDatabase(), $order);
 		return  self::showAdminOrders();
 	}
 

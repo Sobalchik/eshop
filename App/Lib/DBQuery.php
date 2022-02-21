@@ -382,12 +382,19 @@ class DBQuery
 			"order by up_order.STATUS_ID desc";
 	}
 
-	public static function editOrderStatus() : string
+	public static function editOrder() : string
 	{
 		return "
 		update up_order
 		set
-		STATUS_ID = ?
+			FIO = ?,
+			EMAIL = ?,
+			PHONE = ?,
+			STATUS_ID = (
+				select STATUS_ID
+				from up_status_order
+				where up_status_order.NAME = ?
+				)
 		where ID = ?
 		";
 	}
