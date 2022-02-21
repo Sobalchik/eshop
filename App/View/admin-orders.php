@@ -16,7 +16,7 @@ $helper = App\Lib\Helper::getInstance();
 								<div class="admin-orders-bloc1-clom1">
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">ФИО</p>
-										<input class="inpit-me-order form-control" id="inlineFormInputName" name="fio" value="<?= $order->getFio() ?> " disabled>
+										<input  class="inpit-me-order form-control" id="inlineFormInputName" name="fio" value="<?= $order->getFio() ?> " disabled>
 									</div>
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Номер</p>
@@ -48,30 +48,28 @@ $helper = App\Lib\Helper::getInstance();
 									</div>
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Дата</p>
-										<input class="inpit-me-order form-control" id="inlineFormInputName" name="date" value="<?= $order->getDateTravel() ?> " disabled>
+										<input id="inlineFormInputName" class="inpit-me-order form-control"  name="date" value="<?= $order->getDateTravel() ?> " disabled>
 									</div>
 								</div>
 								<div class="admin-orders-bloc1-clom2">
 									<input class="admin-excursions-detaild-bloc4-input admin-input-color-2" type="submit" value="save">
 									<input class="admin-excursions-detaild-bloc4-input admin-input-color-3" type="submit" value="delete">
-									<input class="admin-excursions-detaild-bloc4-input admin-input-color-1" id="showText" type="checkbox" checked/>
+									<input id="showText" class="admin-excursions-detaild-bloc4-input admin-input-color-1"  type="checkbox" checked>
 								</div>
 							</div>
 					</div>
 				</div>
 			</form>
+			<script type="text/javascript">
+				$('#showText').click(function(){
+					if ($('#showText').is(':checked')){
+						$('.inpit-me-order').prop('disabled', true);
+					} else {
+						$('.inpit-me-order').prop('disabled', false);
+					}
+				});
+			</script>
 		<?php
 		endforeach; ?>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script type="text/javascript" async src="/Resources/JS/script.js">
-		$(document).ready(function() {
-			$('#showText').click(function(){
-				if ($(this).is(':checked')){
-					$('#inlineFormInputName').prop('disabled', true);
-				} else {
-					$('#inlineFormInputName').prop('disabled', false);
-				}
-			}); <!--TODO:Нужно переделать скрипт-->
-	</script>
 </div>
