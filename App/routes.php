@@ -3,6 +3,7 @@
 use App\Controller\ExcursionController;
 use App\Controller\UserController;
 use App\Controller\OrderController;
+use App\Controller\TagController;
 use App\Lib\Router;
 
 Router::add(
@@ -100,4 +101,10 @@ Router::add(
 	"POST",
 	"/admin/orders/deleted?id=:id",
 	[OrderController::class, 'deleteOrder']
+);
+
+Router::add(
+	"GET",
+	"/admin/tags",
+	[TagController::class, 'showAdminTags']
 );

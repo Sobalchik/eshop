@@ -1,5 +1,6 @@
 <?php
 /** @var string $content */
+use App\Lib\Helper;
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
 			<a class="menu-button">О нас</a>
 		</div>
 		<div class="exit-log">
-			<a href = 'http://eshop/login' class="exit-button"><img src="/Resources/Images/1.png"> Личный кабинет</a>
+			<a href = '<?=Helper::getUrl()?>/login' class="exit-button"><img src="/Resources/Images/1.png"> Личный кабинет</a>
 		</div>
 	</div>
 </div>

@@ -129,4 +129,9 @@ class Helper
 		}
 		return null;
 	}
+
+	public static function getUrl(): string
+	{
+		return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+	}
 }
