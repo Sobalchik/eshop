@@ -18,6 +18,7 @@ class DBQuery
 					left join up_product_date
 					on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
+				        and up_date.ACTIVE = 1
 					) as 'dateTravel',
 				up_product.PRICE as 'price',
 				up_product.INTERNET_RATING as 'internetRating',
@@ -52,6 +53,7 @@ class DBQuery
 							 left join up_product_date
 									   on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
+				    and up_date.ACTIVE = 1
 				) as 'dateTravel',
 				(
 					select
@@ -60,6 +62,7 @@ class DBQuery
 					left join up_product_date
 						on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
+				        and up_date.ACTIVE = 1
 				) as 'allPossibleDatesTravel',
 				PRICE as 'price',
 				FULL_DESCRIPTION as 'full_description',
@@ -154,44 +157,6 @@ class DBQuery
 			WHERE up_product_tag.TAG_ID IN (".implode(",",$tagId).")";
 	}
 
-	public static function insertExcursionInDBQuery() : string
-	{
-		return "
-			insert into up_product
-			(
-			 NAME_CITY, 
-			 NAME_COUNTRY, 
-			 DATE_TRAVEL, 
-			 DURATION,
-			 COUNT_PERSONS,
-			 PRICE, 
-			 FULL_DESCRIPTION, 
-			 INTERNET_RATING, 
-			 ENTERTAINMENT_RATING, 
-			 SERVICE_RATING, 
-			 RATING, 
-			 DEGREES, 
-			 ACTIVE
-			 )
-			values
-			(
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?,
-			 ?
-			)
-		";
-	}
-
 	public static function updateExcursionById() : string
 	{
 		return "
@@ -199,7 +164,6 @@ class DBQuery
 			set
 				NAME_CITY = ?,
 				NAME_COUNTRY = ?,
-				DATE_TRAVEL = ?,
 				PRICE = ?,
 				INTERNET_RATING = ?,
 				ENTERTAINMENT_RATING = ?,
@@ -221,6 +185,14 @@ class DBQuery
 			"where up_order.FIO like (?)";
 	}
 
+	public static function findExcursionByNameForAdminPage() : string
+	{
+		return
+			self::getExcursionsForAdminPage() .
+			"where up.product.NAME_CITY like (?)
+			or up.product.NAME_COUNTRY like (?)";
+	}
+
 	public static function getExcursionsForAdminPage() : string
 	{
 		return "
@@ -235,6 +207,7 @@ class DBQuery
 							 left join up_product_date
 									   on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
+				    and up_date.ACTIVE = 1
 				) as 'dateTravel',
 				up_product.COUNT_PERSONS as 'countPersons',
 				up_product.PRICE as 'price'
@@ -256,6 +229,7 @@ class DBQuery
 							 left join up_product_date
 									   on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
+				        and up_date.ACTIVE = 1
 				) as 'dateTravel',
 				up_product.DURATION as 'duration',
 				up_product.COUNT_PERSONS as 'countPersons',
@@ -289,6 +263,7 @@ class DBQuery
 			left join up_date on up_product_date.DATE_ID = up_date.ID
 			left join up_order on up_date.ID = up_order.DATE_ID
 			where up_product_date.PRODUCT_ID = ?
+				and up_date.ACTIVE = 1
 			group by up_date.DATE_TRAVEL
 ";
 	}
@@ -298,6 +273,15 @@ class DBQuery
 		return "
 			delete from up_product
 			where ID = ?
+		";
+	}
+
+	public static function deleteDateById() : string
+	{
+		return "
+			update  up_date
+			set up_date.ACTIVE = 0
+			where up_date.ID = ?
 		";
 	}
 
@@ -429,7 +413,47 @@ class DBQuery
 			ID as 'id',
 			NAME as 'name'
 		from up_status_order
-";
+		";
+	}
+
+	public static function addNewExcursion() : string
+	{
+		return "
+		insert into up_product
+		(
+		 NAME_CITY,
+		 NAME_COUNTRY,
+		 DURATION,
+		 COUNT_PERSONS,
+		 PRICE,
+		 FULL_DESCRIPTION,
+		 INTERNET_RATING,
+		 ENTERTAINMENT_RATING,
+		 SERVICE_RATING,
+		 RATING,
+		 DEGREES,
+		 ACTIVE,
+		 DATE_CREATE,
+		 DATE_UPDATE
+		 )
+		 values
+		(
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 ?,
+		 1,
+		 CURRENT_TIMESTAMP,
+		 CURRENT_TIMESTAMP
+		) 
+		";
 	}
 
 }
