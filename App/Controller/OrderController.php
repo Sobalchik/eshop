@@ -46,13 +46,13 @@ class OrderController
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		$order = new Order($_POST['id'],
+		$order = new Order($id,
 							$_POST['fio'],
 							$_POST['email'],
 							$_POST['phone'],
 							'',
 							'',
-							0,
+							$_POST['status'],
 							0,
 							'',
 							'');

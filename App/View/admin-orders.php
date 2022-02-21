@@ -4,8 +4,9 @@
 $helper = App\Lib\Helper::getInstance();
 ?>
 <div class="bloc2">
-	<input id="showText" class="admin-excursions-detaild-bloc4-input admin-input-color-1"  type="checkbox" checked>
 	<div class="bloc2-cont">
+		<p style="color:ivory; margin:0 0 10px 20px;">Форматирование полей</p>
+		<input id="showText" class="admin-excursions-detaild-bloc4-input admin-input-color-5" type="checkbox" checked>
 		<?php
 		foreach ($orders as $order): ?>
 			<form action="/admin/orders/saved?id=<?=$order->getId() ?>" method="post">
