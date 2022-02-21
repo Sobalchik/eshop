@@ -444,12 +444,32 @@ class ExcursionService
 
 	public static function addDateToExcursionById(mysqli $db, int $id, string $date) : void
 	{
+		self::addNewDate($db,$date);
+		self::addNewDateRelation($db,$id);
+
+	}
+
+	private static function addNewDate($db,string $date)
+	{
 		$query = DBQuery::addNewDate();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt,"si",$date, $id);
+		mysqli_stmt_bind_param($stmt,"s",$date);
 		$result = mysqli_stmt_execute($stmt);
 
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
+	private static function addNewDateRelation($db,int $id)
+	{
+		$query = DBQuery::addNewDateRelations();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"i",$id);
+		$result = mysqli_stmt_execute($stmt);
 		if (!$result)
 		{
 			trigger_error(mysqli_error($db), E_USER_ERROR);
