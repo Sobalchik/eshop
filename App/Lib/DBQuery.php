@@ -316,7 +316,12 @@ class DBQuery
 			(DATE_TRAVEL, ACTIVE, DATE_CREATE, DATE_UPDATE)
 			values
 			(?, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-			
+		";
+	}
+
+	public static function addNewDateRelations() : string
+	{
+		return "
 			insert into up_product_date
 			(PRODUCT_ID, DATE_ID)
 			values
