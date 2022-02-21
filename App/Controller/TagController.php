@@ -18,8 +18,13 @@ class TagController
 		}
 		else
 		{
-			$tags = TagService::getTagsForAdminPage(Database::getDatabase());
-			$content = Render::renderContent("admin-tags-list", ["tags" => $tags]);
+			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
+			foreach ($typeTags as $typeTag)
+			{
+				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
+				$typeTag->setTagsBelong($tagsBelong);
+			}
+			$content = Render::renderContent("admin-tags-list", ["typeTags" => $typeTags]);
 			return Render::renderAdminMenu($content);
 		}
 	}

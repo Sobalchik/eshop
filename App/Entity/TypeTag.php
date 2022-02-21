@@ -2,27 +2,27 @@
 
 namespace App\Entity;
 
-class Tag
+class TypeTag
 {
 
 	private $id;
 	private $name;
-	private $typeTag;
+	private $tagsBelong;
 	private $dateCreate;
 	private $dateUpdate;
 
 	/**
 	 * @param int $id
 	 * @param string $name
-	 * @param int $typeTag
+	 * @param array $tagsBelong
 	 * @param string $dateCreate
 	 * @param string $dateUpdate
 	 */
-	public function __construct($id, $name, $typeTag, $dateCreate, $dateUpdate)
+	public function __construct($id, $name, $tagsBelong, $dateCreate, $dateUpdate)
 	{
 		$this->id = $id;
 		$this->name = $name;
-		$this->typeTag = $typeTag;
+		$this->tagsBelong = $tagsBelong;
 		$this->dateCreate = $dateCreate;
 		$this->dateUpdate = $dateUpdate;
 	}
@@ -60,19 +60,19 @@ class Tag
 	}
 
 	/**
-	 * @return int
+	 * @return array
 	 */
-	public function getTypeTag(): int
+	public function getTagsBelong(): array
 	{
-		return $this->typeTag;
+		return $this->tagsBelong;
 	}
 
 	/**
-	 * @param int $typeTag
+	 * @param array $tagsBelong
 	 */
-	public function setTypeTag(int $typeTag): void
+	public function setTagsBelong(array $tagsBelong): void
 	{
-		$this->typeTag = $typeTag;
+		$this->tagsBelong = $tagsBelong;
 	}
 
 	/**

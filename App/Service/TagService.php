@@ -3,23 +3,20 @@
 namespace App\Service;
 
 use App\Entity\Tag;
+use App\Entity\TypeTag;
 use mysqli;
 
 class TagService
 {
-	public static function getTagsForAdminPage(mysqli $db) : array
+	public static function getTagsForAdminPage(mysqli $db, int $typeTag) : array
 	{
 		$query = "select
-    uttt.TYPE_ID as typeID,
-    utt.NAME as typeName,
-    ut.ID as tagId,
-    ut.NAME as tagName,
-    ut.DATE_CREATE as tagDateCreate,
-    ut.DATE_UPDATE as tagDateUpdate
-from up_tag as ut
-         inner join up_tag_type_tag uttt on ut.ID = uttt.TAG_ID
-         inner join up_type_tag utt on uttt.TYPE_ID = utt.ID
-ORDER BY typeID, tagName;";
+    					ut.ID as tagId,
+    					ut.NAME as tagName
+					from up_tag as ut
+         			inner join up_tag_type_tag uttt on ut.ID = uttt.TAG_ID
+					WHERE uttt.TYPE_ID={$typeTag}
+					ORDER BY tagName;";
 
 		$result = mysqli_query($db, $query);
 
@@ -29,19 +26,43 @@ ORDER BY typeID, tagName;";
 		}
 
 		$tags = [];
-
 		while ($tag = mysqli_fetch_assoc($result))
 		{
-			$tags[$tag['typeName']][]= new Tag(
+			$tags[] = new Tag(
 				$tag['tagId'],
 				$tag['tagName'],
-				$tag['typeId'],
-				$tag['typeName'],
-				$tag['tagDateCreate'],
-				$tag['tagDateUpdate'],
+				$typeTag,
+				null,
+				null
 			);
 		}
 
 		return $tags;
+	}
+
+	public static function getTypeTagsForAdminPage(mysqli $db) : array
+	{
+		$query = "select ID as id, NAME as name from up_type_tag";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$typeTags = [];
+		while ($typeTag = mysqli_fetch_assoc($result))
+		{
+			$typeTags [] = new TypeTag(
+				$typeTag['id'],
+				$typeTag['name'],
+				null,
+				null,
+				null
+			);
+		}
+
+		return $typeTags;
 	}
 }
