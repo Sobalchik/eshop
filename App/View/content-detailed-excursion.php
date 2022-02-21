@@ -100,7 +100,7 @@ $helper=App\Lib\Helper::getInstance();
 				<div style="display: flex; align-items: center; flex-direction: column;padding: 30px;">
 					<h1 style="margin-top: 30px;">Заказ отправлен</h1>
 					<p style="margin-top: 50px;width: 218px;text-align: center;">Спасибо за ваш запрос наши менеджеры в ближайшее время свяжутся с вами</p>
-					<button onclick="window.location.href = 'http://eshop/';"  class="form-application-input-submit" style="margin-top: 30px;" id="confirmation-button">на главную</button>
+					<button onclick="window.location.href = '/';"  class="form-application-input-submit" style="margin-top: 30px;" id="confirmation-button">на главную</button>
 				</div>
 			</div>
 		</div>

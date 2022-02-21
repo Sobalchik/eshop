@@ -17,14 +17,14 @@ use App\Lib\Render;
 		<div style="display: flex;justify-content: space-between;">
 
 			<?php if($page > 1){ ?>
-			<a class="cta" href="http://eshop/allExcursions/<?= ($page-1) > 1 ?($page-1): 1 ?>">
+			<a class="cta" href="/allExcursions/<?= ($page-1) > 1 ?($page-1): 1 ?>">
 				<img src="/Resources/Images/icons8-стрелка,-указывающая-влево-30.png">
 				<span>назад</span>
 			</a>
 			<?php } ?>
 
 			<?php if($page < $pageCount){ ?>
-				<a class="cta" href="http://eshop/allExcursions/<?= ($page+1) < $pageCount ?($page+1): $pageCount ?>">
+				<a class="cta" href="/allExcursions/<?= ($page+1) < $pageCount ?($page+1): $pageCount ?>">
 				<img src="/Resources/Images/icons8-длинная-стрелка-вправо-30.png">
 				<span>вперед</span>
 				</a>
