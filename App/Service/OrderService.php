@@ -38,7 +38,7 @@ class OrderService
 				$order['orderDate'],
 				$order['comment'],
 				$order['statusId'],
-				$order['productId'],
+				0,
 				'',
 				''
 			);

@@ -6,8 +6,6 @@
 $counter = 1;
 
 foreach ($excursions as $excursion):
-	#Видимость работы
-	#$excursion->setCountPersons(rand(3,10));
 ?>
 <div style="padding: 3px 0; display: flex; align-items: center;">
 	<p class="accordion-item-bloc2-text-help">№<?=$counter?></p>

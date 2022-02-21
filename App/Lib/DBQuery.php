@@ -237,25 +237,7 @@ class DBQuery
 					where up_product_date.PRODUCT_ID = up_product.ID
 				) as 'dateTravel',
 				up_product.COUNT_PERSONS as 'countPersons',
-				up_product.PRICE as 'price',
-				(
-					select
-						count(up_order.ID)
-					from up_order
-							 left join up_product_date on
-							up_order.DATE_ID = up_product_date.DATE_ID
-							 left join up_date on
-							up_order.DATE_ID = up_date.ID
-					where up_date.DATE_TRAVEL = (
-						select
-							min(up_date.DATE_TRAVEL)
-						from up_date
-								 left join up_product_date
-										   on up_date.ID = up_product_date.DATE_ID
-						where up_product_date.PRODUCT_ID = up_product.ID
-					) and up_order.PRODUCT_ID = up_product.ID
-					  and STATUS_ID = 2
-				) as 'orderedExcursionsCount'
+				up_product.PRICE as 'price'
 			from up_product
 		";
 	}
@@ -356,17 +338,19 @@ class DBQuery
 				up_order.DATE_ORDER as 'orderDate',
 				up_order.COMMENT as 'comment',
 				up_order.STATUS_ID as 'statusId',
-				up_order.PRODUCT_ID as 'productId',
 				up_status_order.NAME as 'status',
-				up_order.PRODUCT_ID as 'productId',
-				concat(up_product.NAME_CITY, ', ',
-							 up_product.NAME_COUNTRY) as 'excursionName',
+			   (
+					select concat(up_product.NAME_CITY, ', ',
+								  up_product.NAME_COUNTRY)
+					from up_product
+					left join up_product_date 
+					on up_product.ID = up_product_date.PRODUCT_ID
+					where up_product_date.DATE_ID = up_order.DATE_ID
+				) as 'excursionName',
 				up_date.DATE_TRAVEL as 'dateTravel'
 			from up_order
-			left join up_product on up_product.ID = up_order.PRODUCT_ID
 			left join up_status_order on up_status_order.ID = up_order.STATUS_ID
 			left join up_date on up_order.DATE_ID = up_date.ID
-
 		";
 	}
 
@@ -410,7 +394,6 @@ class DBQuery
 			 DATE_ORDER,
 			 COMMENT,
 			 STATUS_ID, 
-			 PRODUCT_ID, 
 			 DATE_ID, 
 			 DATE_CREATE,
 			 DATE_UPDATE
@@ -423,10 +406,13 @@ class DBQuery
 			'{$orderData['date']}',
 			'{$orderData['comment']}',
 			'{$orderData['status_id']}',
-			'{$orderData['product_id']}',
-			'{$orderData['product_id']}',
-			'{$orderData['date']}',
-			'{$orderData['date']}'
+			(
+			select up_date.ID
+			from up_date
+			where up_date.DATE_TRAVEL = '{$orderData['dateTravel']}'
+			),
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP
 			)
 		";
 	}
