@@ -108,3 +108,9 @@ Router::add(
 	"/admin/tags",
 	[TagController::class, 'showAdminTags']
 );
+
+Router::add(
+	"POST",
+	"/admin/excursions/addDate",
+	[ExcursionController::class, 'addExcursionDate']
+);
