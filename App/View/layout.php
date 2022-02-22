@@ -54,7 +54,7 @@ use App\Lib\Helper;
 		</nav>
 		<div class="mobile-menu-2">
 			<div class="mobile-menu-2-none none-1">
-				<div style="background-image: url('/Resources/Images/23232 1.png') " class="bloc1-menu">
+				<div style="background-image: url('/Resources/Images/23232 1.png')" class="bloc1-menu">
 					<div class="bloc1-menu-2-margin">
 						<div class="bloc1-menu-2-img">
 							<img src="/Resources/Images/55 1.png">
@@ -73,13 +73,52 @@ use App\Lib\Helper;
 				</div>
 			</div>
 			<div class="mobile-menu-2-none none-2">
-				<div style="background-image: url('/Resources/Images/23232 1.png') " class="bloc1-menu">
-					<p class="bloc1-menu-text">привет</p>
+				<div style="background-image: url('/Resources/Images/111.jpg')" class="bloc1-menu">
+					<div class="bloc1-menu-2-margin">
+						<div class="bloc1-menu-2-img">
+							<img src="/Resources/Images/55 1.png">
+						</div>
+						<div>
+							<p class="bloc3-menu-2-text-h2">КЛИЕНТАМ</p>
+							<p class="bloc3-menu-2-text-p1">Каждый авторская экскурсия – это уникальная программа, подготовленная командой наших агентов с назначенным руководителем и организатором. Выбрав любую из представленных на сайте, вы поймете, что такого больше нет нигде. Отзывы многочисленных клиентов, уже успевших насладиться поездкой с нами, свидетельствуют об этом.</p>
+							<p class="bloc3-menu-2-text-h1">КАКИЕ СТРАНЫ МЫ ПРЕДЛАГАЕМ</p>
+							<p class="bloc3-menu-2-text-p2">Абсолютно все. В ассортименте привычная для туристов Европа и страны ближнего зарубежья, показанные с новой стороны, экзотический Восток, а также Океания, удаленные острова и многое другое. Вы можете отправиться в Японию, чтобы воочию увидеть цветение сакуры или принять участие в карнавале, посвященному Дню мертвых в Мексике, пройти по пути Святого Иакова в Испании или достичь последнего рубежа Аляски, провести лучшие 12 дней на Шри-Ланке или отправиться в большое путешествие по Африке. </p>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="mobile-menu-2-none none-3">
-				<div class="bloc1-menu">
-					<p class="bloc1-menu-text">пока</p>
+				<div style="background-image: url('/Resources/Images/3333.jpg') " class="bloc1-menu">
+					<div class="bloc1-menu-2-margin">
+						<div class="bloc1-menu-2-img">
+							<img src="/Resources/Images/55 1.png">
+						</div>
+						<div>
+							<p class="bloc4-menu-2-text-h2">БЛОГ</p>
+							<p class="bloc4-menu-2-text-h1">яркие эмоции</p>
+							<p style="width: 450px" class="bloc4-menu-2-text-p1">Найдите вдохновение для своей следующей поездки и получите советы от путешественников, которые бывали там раньше.</p>
+						</div>
+						<div class="bloc4-menu-2-card-content">
+							<div class="bloc4-menu-2-card-1">
+								<div style="margin: 5px;text-align: center;">
+									<p class="bloc4-menu-2-text-h1">КРАСИВЫЕ ВИДЫ...</p>
+									<p style="color: white" class="bloc4-menu-2-text-p1">Узнай, какие места стоит посетить ради красивого вида</p>
+								</div>
+							</div>
+							<div class="bloc4-menu-2-card-2">
+								<div style="margin: 5px;text-align: center;">
+									<p class="bloc4-menu-2-text-h1">Что взять в дорогу</p>
+									<p style="color: white" class="bloc4-menu-2-text-p1">Что можно брать, а чего категорически нельзя</p>
+								</div>
+							</div>
+							<div class="bloc4-menu-2-card-3">
+								<div style="margin: 5px;text-align: center;">
+									<p class="bloc4-menu-2-text-h1">Лучшие завтраки</p>
+									<p style="color: white" class="bloc4-menu-2-text-p1">Места, в которых делают самые вкусные завтраки</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="mobile-menu-2-none none-4">
@@ -87,7 +126,7 @@ use App\Lib\Helper;
 					<p class="bloc1-menu-text">я тут</p>
 				</div>
 			</div>
-			<div class="mobile-menu-2-none none-5">
+			<div class="none-5">
 				<div style="background-image: url('/Resources/Images/111.jpg')" class="bloc1-menu">
 					<div class="bloc1-menu-2-margin">
 						<div class="bloc1-menu-2-img">
@@ -97,7 +136,7 @@ use App\Lib\Helper;
 							<p class="bloc1-menu-2-text-h2">ГЛАВНАЯ</p>
 							<p class="bloc1-menu-2-text-h1">Экскурсии, которые стоит посетить</p>
 							<p class="bloc1-menu-2-text-p">Программы авторских экскурсий рассчитаны и на любителей активного отдыха, и на созерцателей природы или архитектуры. Вы сами выбираете дату и место, в предложениях указана стоимость на одного человека.</p>
-							<div style="display: flex">
+							<div style="display: flex;margin-left: -30px;">
 								<div class="bloc5-menu-navbar-2-img-text">
 									<img src="/Resources/Images/870092.png">
 									<p style="width: 50px;">Полет всей группой</p>
@@ -161,9 +200,7 @@ use App\Lib\Helper;
 	</div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script type="text/javascript" async src="/Resources/JS/script.js"></script>
-
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript" async src="/Resources/JS/script.js"></script>
 </body>
 </html>

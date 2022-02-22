@@ -55,89 +55,49 @@ $('.mobile-nav-button').on('change', function() {
 
 
 
-setTimeout(function(){
-	$('.pading-1').hover(function() {
-		$('.none-1').fadeIn(1000).toggleClass('mobile-menu-2-block');
-	}, function() {
-		$('.none-1').fadeOut('fast');
-	});
-},2000);
+$('.pading-1').hover(function() {
+	$('.none-1').show()
+	$('.mobile-menu-2.mobile-menu--open-2>div:not(.none-1)').hide();
+});
 $('.pading-2').hover(function() {
-	$('.none-2').fadeIn(1000).toggleClass('mobile-menu-2-block');
-}, function() {
-	$('.none-2').fadeOut('fast');
+	$('.none-2').show()
+	$('.mobile-menu-2.mobile-menu--open-2>div:not(.none-2)').hide();
 });
 $('.pading-3').hover(function() {
-	$('.none-3').fadeIn(1000).toggleClass('mobile-menu-2-block');
-}, function() {
-	$('.none-3').fadeOut('fast');
+	$('.none-3').show()
+	$('.mobile-menu-2.mobile-menu--open-2>div:not(.none-3)').hide();
 });
 $('.pading-4').hover(function() {
-	$('.none-4').fadeIn(1000).toggleClass('mobile-menu-2-block');
-}, function() {
-	$('.none-4').fadeOut('fast');
+	$('.none-4').show()
+	$('.mobile-menu-2.mobile-menu--open-2>div:not(.none-4)').hide();
 });
 $('.pading-5').hover(function() {
-	$('.none-5').fadeIn(1000).toggleClass('mobile-menu-2-block');
-}, function() {
-	$('.none-5').fadeOut('fast');
+	$('.none-5').show()
+	$('.mobile-menu-2.mobile-menu--open-2>div:not(.none-5)').hide();
 });
-
-
 
 $(document).ready(function() {
-	$('.map-position-a-1').hover(function() {
-		$('.map-img-secondary').fadeIn('fast');
+	$('.map-img-a').hover(function() {
+		$('.map-img-secondary-'+$(this).attr('data-map')).stop().fadeIn('fast');
 	}, function() {
-		$('.map-img-secondary').fadeOut('fast');
-	});
-	$('.map-position-a-2').hover(function() {
-		$('.map-img-secondary-2').fadeIn('fast');
-	}, function() {
-		$('.map-img-secondary-2').fadeOut('fast');
-	});
-	$('.map-position-a-3').hover(function() {
-		$('.map-img-secondary-3').fadeIn('fast');
-	}, function() {
-		$('.map-img-secondary-3').fadeOut('fast');
-	});
-	$('.map-position-a-4').hover(function() {
-		$('.map-img-secondary-4').fadeIn('fast');
-	}, function() {
-		$('.map-img-secondary-4').fadeOut('fast');
-	});
-	$('.map-position-a-5').hover(function() {
-		$('.map-img-secondary-5').fadeIn('fast');
-	}, function() {
-		$('.map-img-secondary-5').fadeOut('fast');
-	});
-	$('.map-position-a-6').hover(function() {
-		$('.map-img-secondary-6').fadeIn('fast');
-	}, function() {
-		$('.map-img-secondary-6').fadeOut('fast');
+		$('.map-img-secondary-'+$(this).attr('data-map')).stop().fadeOut('fast');
 	});
 });
 
 
-
-let handleLinkClick = function(elem, toggleheader) {
+let loadPage = function(url, isToggleHeader) {
 	let allowed =
 		{
 			'/': true,
 			'/allExcursions': true,
 			'/excursion': true
-		}
-	let page;
-	window.event.preventDefault();
-	page = elem.attr('href');
-	window.history.pushState({page: "another"}, "another page", page);
-	window.scrollTo(0, 0);
-	if(!page.startsWith("http") && allowed["/"+page.split("/")[1]]) {
-		$('#page-content').load(page + ' #page-content', toggleheader ? toggleHeader: function(){});
+		};
+	if(!url.startsWith("http") && allowed["/"+url.split("/")[1]]) {
+		$('#page-content').load(url + ' #page-content', isToggleHeader ? toggleHeader: function(){});
 		return true;
 	}
 	let element=document.createElement("a");
-	element.href=page;
+	element.href=url;
 	element.style["position"]="absolute";
 	element.style["left"]="-9999px";
 	element.style["top"]="-9999px";
@@ -145,6 +105,16 @@ let handleLinkClick = function(elem, toggleheader) {
 	document.documentElement.appendChild(element);
 	element.click();
 	document.documentElement.removeChild(element);
+}
+
+let handleLinkClick = function(elem, isToggleHeader) {
+	let page;
+	window.event.preventDefault();
+	page = elem.attr('href');
+	loadPage(page, isToggleHeader)
+	//window.history.pushState({page: "another"}, "another page", page);
+	window.history.pushState({}, '', page)
+	window.scrollTo(0, 0);
 }
 
 $(document).ready(function (e) {
@@ -155,6 +125,9 @@ $(document).ready(function (e) {
 		handleLinkClick($(this), true);
 	});
 });
+
+
+
 
 $(document).ready(function() {
 	var progressPath = document.querySelector('.progress-wrap path');
@@ -190,3 +163,6 @@ $(document).ready(function() {
 		return false;
 	});
 });
+
+
+
