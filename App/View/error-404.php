@@ -15,7 +15,7 @@
 			<p class="error-404-p">Ooh shit! - 404</p>
 		</div>
 		<div class="error-404-a">
-			<a href="http://eshop/">вернуться на главную страницу</a>
+			<a href="/">вернуться на главную страницу</a>
 		</div>
 	</div>
 </div>

@@ -67,18 +67,18 @@ use App\Lib\Render;
 	<div class="map-img">
 		<img src="/Resources/Images/карта бэг 1.png">
 		<div>
-			<img class="map-img-secondary" src="/Resources/Images/карта2.png">
-			<a href="#" class="map-img-a map-position-a-1">3</a>
+			<img class="map-img-secondary-1" src="/Resources/Images/карта2.png">
+			<a href="#" class="map-img-a map-position-a-1" data-map="1">3</a>
 			<img class="map-img-secondary-2" src="/Resources/Images/карта1.png">
-			<a href="#" class="map-img-a map-position-a-2">5</a>
+			<a href="#" class="map-img-a map-position-a-2" data-map="2">5</a>
 			<img class="map-img-secondary-3" src="/Resources/Images/карта3.png">
-			<a href="#" class="map-img-a map-position-a-3">1</a>
+			<a href="#" class="map-img-a map-position-a-3" data-map="3">1</a>
 			<img class="map-img-secondary-4" src="/Resources/Images/карта4.png">
-			<a href="#" class="map-img-a map-position-a-4">4</a>
+			<a href="#" class="map-img-a map-position-a-4" data-map="4">4</a>
 			<img class="map-img-secondary-5" src="/Resources/Images/карта5.png">
-			<a href="#" class="map-img-a map-position-a-5">4</a>
+			<a href="#" class="map-img-a map-position-a-5" data-map="5">4</a>
 			<img class="map-img-secondary-6" src="/Resources/Images/карта6.png">
-			<a href="#" class="map-img-a map-position-a-6">7</a>
+			<a href="#" class="map-img-a map-position-a-6" data-map="6">7</a>
 		</div>
 	</div>
 	<div class="bloc4-map-text">
