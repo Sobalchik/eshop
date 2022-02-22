@@ -108,15 +108,10 @@ class OrderService
 		return self::parseOrdersForAdminPage($result);
 	}
 
-	public static function editOrderById(mysqli $db, Order $order) : void
+	public static function editOrderById(mysqli $db,
+			int $id, string $fio, string $email, string $phone, int $status) : void
 	{
 		$query = DBQuery::editOrder();
-
-		$id = $order->getId();
-		$fio = $order->getFio();
-		$email = $order->getEmail();
-		$phone = $order->getPhone();
-		$status = $order->getStatus();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"ssssi", $fio, $email, $phone, $status, $id);

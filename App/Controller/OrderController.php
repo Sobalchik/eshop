@@ -46,18 +46,13 @@ class OrderController
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		$order = new Order($id,
-							$_POST['fio'],
-							$_POST['email'],
-							$_POST['phone'],
-							'',
-							'',
-							$_POST['status'],
-							0,
-							'',
-							'');
-		$order->setStatus($_POST['status']);
-		OrderService::editOrderById(Database::getDatabase(), $order);
+		OrderService::editOrderById(Database::getDatabase(),
+									$id,
+									$_POST['fio'],
+									$_POST['email'],
+									$_POST['phone'],
+									$_POST['status']
+		);
 		return  self::showAdminOrders();
 	}
 

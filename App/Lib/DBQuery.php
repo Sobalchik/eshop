@@ -358,17 +358,13 @@ class DBQuery
 	public static function editOrder() : string
 	{
 		return "
-		update up_order
-		set
-			FIO = ?,
-			EMAIL = ?,
-			PHONE = ?,
-			STATUS_ID = (
-				select STATUS_ID
-				from up_status_order
-				where up_status_order.NAME = ?
-				)
-		where ID = ?
+			update up_order
+			set
+				up_order.FIO = ?,
+				up_order.EMAIL = ?,
+				up_order.PHONE = ?,
+				up_order.STATUS_ID = ?
+			where up_order.ID = ?
 		";
 	}
 
