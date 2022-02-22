@@ -116,7 +116,7 @@ class DBQuery
 
 	public static function getAllExcursionsByPageQuery() : string
 	{
-		return self::getExcursionsForHomePage() . "LIMIT ?, ?";
+		return self::getExcursionsForHomePage();
 	}
 
 	public static function getExcursionsFromIdList(array $idList) : string

@@ -153,14 +153,9 @@ class ExcursionService
 
 	public static function getAllExcursionsByPage(mysqli $db, int $page = 1): array
 	{
-		$settings = Settings::getInstance();
-		$EXCURSIONS_ON_PAGE = $settings->getExcursionOnPage();
-		$startLine = ($page * $EXCURSIONS_ON_PAGE) - $EXCURSIONS_ON_PAGE;
-
 		$query = DBQuery::getAllExcursionsByPageQuery();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt,"ii", $startLine, $EXCURSIONS_ON_PAGE);
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 
