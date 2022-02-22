@@ -10,6 +10,18 @@ use App\Lib\Render;
 class TagController
 {
 
+	public static function showAdminTagsPrepare(): string
+	{
+		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
+		foreach ($typeTags as $typeTag)
+		{
+			$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
+			$typeTag->setTagsBelong($tagsBelong);
+		}
+		$content = Render::renderContent("admin-tags-list", ["typeTags" => $typeTags]);
+		return $content;
+	}
+
 	public static function showAdminTags(): string
 	{
 		if(!UserController::isAuthorized())
@@ -18,14 +30,20 @@ class TagController
 		}
 		else
 		{
-			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
-			foreach ($typeTags as $typeTag)
-			{
-				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
-				$typeTag->setTagsBelong($tagsBelong);
-			}
-			$content = Render::renderContent("admin-tags-list", ["typeTags" => $typeTags]);
-			return Render::renderAdminMenu($content);
+			return Render::renderAdminMenu(TagController::showAdminTagsPrepare());
+		}
+	}
+
+	public static function deleteTag(int $id): string
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			$deleteTag = TagService::deleteTag(Database::getDatabase(), $id);
+			return TagController::showAdminTagsPrepare();
 		}
 	}
 

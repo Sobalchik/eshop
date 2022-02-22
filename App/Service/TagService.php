@@ -132,4 +132,25 @@ class TagService
 
 		return self::parseTagsByType($result);
 	}
+
+	public static function deleteTag(mysqli $db, int $tagId): void
+	{
+		$query = "DELETE FROM up_tag_type_tag WHERE TAG_ID={$tagId}";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$query = "DELETE FROM up_tag WHERE ID={$tagId}";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
 }
