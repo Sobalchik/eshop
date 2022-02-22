@@ -83,8 +83,12 @@ class ExcursionController
 		ExcursionService::editExcursionById(Database::getDatabase(),$excursion);
 
 		return self::showAdminExcursionList();
-
-
+	}
+	public static function  sortExcursions() : string
+	{
+		(int)$sortType = $_POST['sortType'];
+		$excursions = ExcursionService::sortExcursions(Database::getDatabase(), [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],$sortType);
+		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 
 }

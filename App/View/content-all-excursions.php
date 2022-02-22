@@ -12,7 +12,10 @@ use App\Lib\Render;
 </div>
 <div class="bloc2">
 	<div class="bloc-2-contener">
-		<div id ="content"> <?= Render:: renderContent("content-card",['excursions'=>$excursions])?></div>
+		<button id="btn" onclick="sort(1)">price-asc</button>
+		<button id="btn" onclick="sort(2)">price-desc</button>
+		<button id="btn" onclick="sort(3)">rating-desc</button>
+		<div class="content" id ="content"> <?= Render:: renderContent("content-card",['excursions'=>$excursions])?></div>
 		<div style="display: flex;justify-content: space-between;">
 		</div>
 	</div>
@@ -27,4 +30,6 @@ use App\Lib\Render;
 	window.scroll(...cords.map(cord => localStorage[cord]));</script>
 
 	<script type="text/javascript" async src="/Resources/JS/pagination.js"></script>
+	<script type="text/javascript" async src="/Resources/JS/sort.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
