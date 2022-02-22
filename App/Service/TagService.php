@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Tag;
 use App\Entity\TypeTag;
+use App\Lib\DBQuery;
 use mysqli;
 
 class TagService
@@ -64,5 +65,61 @@ class TagService
 		}
 
 		return $typeTags;
+	}
+
+	public static function parseTagsByType(\mysqli_result $result) : array
+	{
+		$tags = [];
+		while ($tag = mysqli_fetch_assoc($result))
+		{
+			$tags [] = new Tag(
+				$tag['id'],
+				$tag['name'],
+				$tag['tagType'],
+				null,
+				null
+			);
+		}
+
+		return $tags;
+	}
+
+	public static function getTagsByTypeCountry(mysqli $db) : array
+	{
+		$query = DBQuery::getTagsByTypeCountry();
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return self::parseTagsByType($result);
+	}
+
+	public static function getTagsByTypeContinent(mysqli $db) : array
+	{
+		$query = DBQuery::getTagsByTypeContinent();
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return self::parseTagsByType($result);
+	}
+
+	public static function getTagsByTypeFamilyFriendly(mysqli $db) : array
+	{
+		$query = DBQuery::getTagsByTypeFamilyFriendly();
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return self::parseTagsByType($result);
 	}
 }

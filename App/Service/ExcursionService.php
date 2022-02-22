@@ -406,6 +406,30 @@ class ExcursionService
 		}
 	}
 
+	public static function getAllActiveDates(mysqli $db) : array
+	{
+		$query = DBQuery::getAllActiveDates();
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$dates = [];
+
+		while ($date = mysqli_fetch_assoc($result))
+		{
+			$dates =[
+				'id' => $date['id'],
+				'name' => $date['date']
+			];
+		}
+
+		return $dates;
+	}
+
 	public static function addDateToExcursionById(mysqli $db, int $id, string $date) : void
 	{
 		self::addNewDate($db,$date);

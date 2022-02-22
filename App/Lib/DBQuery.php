@@ -289,7 +289,7 @@ class DBQuery
 	{
 		return "
 			delete from up_order
-			where ID = ?
+			where up_order.ID = ?
 		";
 	}
 
@@ -409,6 +409,58 @@ class DBQuery
 			ID as 'id',
 			NAME as 'name'
 		from up_status_order
+		";
+	}
+	public static function getTagsByTypeCountry() : string
+	{
+		return "
+			select
+				up_tag.ID as 'id',
+				up_tag.NAME as 'name',
+				up_tag_type_tag.TYPE_ID as 'tagType'
+			from up_tag
+			left join up_tag_type_tag
+			on up_tag.ID = up_tag_type_tag.TAG_ID
+			where up_tag_type_tag.TYPE_ID = 1
+		";
+	}
+
+	public static function getTagsByTypeContinent() : string
+	{
+		return "
+			select
+				up_tag.ID as 'id',
+				up_tag.NAME as 'name',
+				up_tag_type_tag.TYPE_ID as 'tagType'
+			from up_tag
+			left join up_tag_type_tag
+			on up_tag.ID = up_tag_type_tag.TAG_ID
+			where up_tag_type_tag.TYPE_ID = 2
+		";
+	}
+
+	public static function getTagsByTypeFamilyFriendly() : string
+	{
+		return "
+			select
+				up_tag.ID as 'id',
+				up_tag.NAME as 'name',
+				up_tag_type_tag.TYPE_ID as 'tagType'
+			from up_tag
+			left join up_tag_type_tag
+			on up_tag.ID = up_tag_type_tag.TAG_ID
+			where up_tag_type_tag.TYPE_ID = 3
+		";
+	}
+
+	public static function getAllActiveDates() : string
+	{
+		return "
+			select
+				up_date.ID as 'id',
+				up_date.DATE_TRAVEL as 'date'
+			from up_date
+			where up_date.ACTIVE = 1
 		";
 	}
 
