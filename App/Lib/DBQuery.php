@@ -78,7 +78,7 @@ class DBQuery
 				) as 'imageList',
 				(
 					select
-						up_tag.NAME
+						group_concat(up_tag.NAME)
 					from up_product_tag
 							 left join up_tag on up_product_tag.TAG_ID = up_tag.ID
 					where up_product_tag.PRODUCT_ID = up_product.ID
