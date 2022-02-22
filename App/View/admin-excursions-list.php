@@ -1,6 +1,6 @@
 <?php /** @var array $excursions */ ?>
 
-<div class="bloc2">
+<div class="bloc2" id="content">
 	<a href="#" >Добавить штуку</a>
 	<div class="bloc2-cont">
 <?php
@@ -8,7 +8,8 @@ $counter = 1;
 
 foreach ($excursions as $excursion):
 ?>
-<div style="padding: 3px 0; display: flex; align-items: center;">
+<div class="block">
+<div style="padding: 3px 0; display: flex; align-items: center; ">
 	<p class="accordion-item-bloc2-text-help">№<?=$counter?></p>
 	<div id="accordionPanelsStayOpenExample">
 		<div style="border: none; background-color:#3698f8 " class="accordion-item">
@@ -44,12 +45,12 @@ foreach ($excursions as $excursion):
 
 
 				</div>
-
 		</div>
 	</div>
 </div>
-
-<?php $counter = $counter+1;
+</div>
+	<?php $counter = $counter+1;
 endforeach;?>
 </div>
+	<div class="pagination"></div>
 </div>

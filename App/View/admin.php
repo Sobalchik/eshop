@@ -14,13 +14,13 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript" async src="/Resources/JS/script.js"></script>
+	<script src="/Resources/JS/pagination.js"></script>
 
 
 	<link rel="stylesheet" type="text/css" href="/Resources/CSS/custom.css">
 
 </head>
 <body style="background-color: #1e1e2e">
-
 
 <nav class="asd navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
@@ -48,9 +48,8 @@
 
 
 
+<?= $content ?>
 
-
-	<?= $content ?>
 
 
 
