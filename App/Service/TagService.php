@@ -12,10 +12,11 @@ class TagService
 	public static function getTagsForAdminPage(mysqli $db, int $typeTag) : array
 	{
 		$query = "select
-    					ut.ID as tagId,
-    					ut.NAME as tagName
+    				ut.ID as tagId,
+    				ut.NAME as tagName,
+    				(SELECT COUNT(PRODUCT_ID) FROM up_product_tag WHERE up_product_tag.TAG_ID=tagId) as tagBindProduct
 					from up_tag as ut
-         			inner join up_tag_type_tag uttt on ut.ID = uttt.TAG_ID
+         				inner join up_tag_type_tag uttt on ut.ID = uttt.TAG_ID
 					WHERE uttt.TYPE_ID={$typeTag}
 					ORDER BY tagName;";
 
@@ -29,13 +30,15 @@ class TagService
 		$tags = [];
 		while ($tag = mysqli_fetch_assoc($result))
 		{
-			$tags[] = new Tag(
+			$currentTag = new Tag(
 				$tag['tagId'],
 				$tag['tagName'],
 				$typeTag,
 				null,
 				null
 			);
+			$currentTag->setTagBindProduct($tag['tagBindProduct']);
+			$tags[] = $currentTag;
 		}
 
 		return $tags;
@@ -43,7 +46,11 @@ class TagService
 
 	public static function getTypeTagsForAdminPage(mysqli $db) : array
 	{
-		$query = "select ID as id, NAME as name from up_type_tag";
+		$query = "select 
+       				ID as id,
+       				NAME as name,
+       				(SELECT COUNT(TAG_ID) FROM up_tag_type_tag WHERE TYPE_ID=id) as typeTagBindTag
+				from up_type_tag";
 
 		$result = mysqli_query($db, $query);
 
@@ -55,17 +62,20 @@ class TagService
 		$typeTags = [];
 		while ($typeTag = mysqli_fetch_assoc($result))
 		{
-			$typeTags [] = new TypeTag(
+			$currentTypeTags = new TypeTag(
 				$typeTag['id'],
 				$typeTag['name'],
 				null,
 				null,
 				null
 			);
+			$currentTypeTags->setTypeTagBindTag($typeTag['typeTagBindTag']);
+			$typeTags [] = $currentTypeTags;
 		}
 
 		return $typeTags;
 	}
+
 
 	public static function parseTagsByType(\mysqli_result $result) : array
 	{

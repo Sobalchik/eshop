@@ -8,6 +8,7 @@ class TypeTag
 	private $id;
 	private $name;
 	private $tagsBelong;
+	private $typeTagBindTag;
 	private $dateCreate;
 	private $dateUpdate;
 
@@ -15,6 +16,7 @@ class TypeTag
 	 * @param int $id
 	 * @param string $name
 	 * @param array $tagsBelong
+	 * @param int $typeTagBindTag
 	 * @param string $dateCreate
 	 * @param string $dateUpdate
 	 */
@@ -73,6 +75,22 @@ class TypeTag
 	public function setTagsBelong(array $tagsBelong): void
 	{
 		$this->tagsBelong = $tagsBelong;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getTypeTagBindTag(): int
+	{
+		return $this->typeTagBindTag;
+	}
+
+	/**
+	 * @param int $typeTagBindTag
+	 */
+	public function setTypeTagBindTag(int $typeTagBindTag): void
+	{
+		$this->typeTagBindTag = $typeTagBindTag;
 	}
 
 	/**

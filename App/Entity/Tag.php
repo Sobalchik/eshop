@@ -8,6 +8,7 @@ class Tag
 	private $id;
 	private $name;
 	private $typeTag;
+	private $tagBindProduct;
 	private $dateCreate;
 	private $dateUpdate;
 
@@ -15,6 +16,7 @@ class Tag
 	 * @param int $id
 	 * @param string $name
 	 * @param int $typeTag
+	 * @param int $tagBindProduct
 	 * @param string $dateCreate
 	 * @param string $dateUpdate
 	 */
@@ -73,6 +75,22 @@ class Tag
 	public function setTypeTag(int $typeTag): void
 	{
 		$this->typeTag = $typeTag;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getTagBindProduct(): int
+	{
+		return $this->tagBindProduct;
+	}
+
+	/**
+	 * @param int $tagBindProduct
+	 */
+	public function setTagBindProduct(int $tagBindProduct): void
+	{
+		$this->tagBindProduct = $tagBindProduct;
 	}
 
 	/**

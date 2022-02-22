@@ -1,6 +1,6 @@
 <?php /** @var array $typeTags */ ?>
 
-<div class="bloc2">
+<div class="bloc2" id="tagsList">
 	<div class="bloc2-cont">
 <?php
 $counter = 1;
@@ -16,6 +16,11 @@ $counter = 1;
 						<p class="accordion-item-bloc2-text">Название -></p>
 						<p class="accordion-item-bloc2-text-2"><?=$typeTag->getName()?></p>
 						<a href="/admin/detailed?id=" class="admin-navbar-list-a">Edit</a>
+						<? if ($typeTag->getTypeTagBindTag()==0){?>
+							<a href="/admin/detailed?id=" class="admin-navbar-list-a ">Delete</a>
+						<?} else {?>
+							<a href="javascript:void(0)" onclick="alert('Удалить нельзя! У данного типа есть тэги');" class="admin-navbar-list-a ">Delete</a>
+						<? } ?>
 					</div>
 					<button style="border: none;background-color: #3698f8;" class="bitawe collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?=$counter?>" aria-expanded="false" aria-controls="panelsStayOpen-collapse<?=$counter?>">+</button>
 				</div>
@@ -26,6 +31,12 @@ $counter = 1;
 					<div  style="margin-top:10px;background-color: #3698f8;display: flex"  class="accordion-item-bloc3">
 						<p style="margin-right: 56px;" class="accordion-item-bloc2-text">Значение тэга -></p>
 						<p class="accordion-item-bloc2-text-2"><?=$tagsBelong->getName()?></p>
+						<a href="/admin/detailed?id=" class="admin-navbar-list-a">Edit</a>
+						<? if ($tagsBelong->getTagBindProduct()==0){?>
+							<a href="/admin/detailed?id=" class="admin-navbar-list-a ">Delete</a>
+						<?} else {?>
+							<a href="javascript:void(0)" onclick="alert('Удалить нельзя! Тэг привязан к эскурсиям');" class="admin-navbar-list-a ">Delete</a>
+						<? } ?>
 					</div>
 					<?php endforeach;?>
 				</div>
