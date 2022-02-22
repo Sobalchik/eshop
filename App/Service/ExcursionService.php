@@ -91,10 +91,11 @@ class ExcursionService
 			''
 		);
 
-		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
+		$result_excursion->setTagList(explode(',', $excursion['tagList']));
 		$result_excursion->setDuration($excursion['duration']);
 		$result_excursion->setCountPersons($excursion['countPersons']);
 		$result_excursion->setAllPossibleDatesTravel(explode(',', $excursion['allPossibleDatesTravel']));
+		$result_excursion->setAttractionList(explode(',', $excursion['attractionList']));
 
 		return $result_excursion;
 	}

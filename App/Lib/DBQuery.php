@@ -53,16 +53,16 @@ class DBQuery
 							 left join up_product_date
 									   on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
-				    and up_date.ACTIVE = 1
+					  and up_date.ACTIVE = 1
 				) as 'dateTravel',
 				(
 					select
 						group_concat(up_date.DATE_TRAVEL)
 					from up_date
-					left join up_product_date
-						on up_date.ID = up_product_date.DATE_ID
+							 left join up_product_date
+									   on up_date.ID = up_product_date.DATE_ID
 					where up_product_date.PRODUCT_ID = up_product.ID
-				        and up_date.ACTIVE = 1
+					  and up_date.ACTIVE = 1
 				) as 'allPossibleDatesTravel',
 				PRICE as 'price',
 				FULL_DESCRIPTION as 'full_description',
@@ -84,7 +84,15 @@ class DBQuery
 					where up_product_tag.PRODUCT_ID = up_product.ID
 				) as 'tagList',
 				DURATION as 'duration',
-				COUNT_PERSONS as 'countPersons'
+				COUNT_PERSONS as 'countPersons',
+				(
+					select
+						group_concat(up_attraction.NAME)
+					from up_attraction
+					left join up_product_attraction
+					on up_attraction.ID = up_product_attraction.ATTRACTION_ID
+					where up_product_attraction.PRODUCT_ID = up_product.ID
+					) as 'attractionList'
 			from up_product
 			where up_product.ID = ?
 		";

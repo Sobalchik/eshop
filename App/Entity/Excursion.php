@@ -27,6 +27,23 @@ class Excursion
 	private $countPersons;
 	private $allPossibleDatesTravel;
 	private $excursionOccupancyByDateTravel;
+	private $attractionList;
+
+	/**
+	 * @return mixed
+	 */
+	public function getAttractionList()
+	{
+		return $this->attractionList;
+	}
+
+	/**
+	 * @param mixed $attractionList
+	 */
+	public function setAttractionList($attractionList): void
+	{
+		$this->attractionList = $attractionList;
+	}
 
 	/**
 	 * @return array

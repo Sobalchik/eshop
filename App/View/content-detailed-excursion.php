@@ -16,9 +16,15 @@ $helper=App\Lib\Helper::getInstance();
 			<p class="detailed-page-text-2">“<?= $excursion->getNameCity() ?>”</p>
 			<p class="detailed-page-text-3"><?=$excursion->getFullDescription() ?></p>
 			<p class="detailed-page-text-4">Что вас ожидает</p>
+			<?php
+			foreach ($excursion->getTagList() as $tag):
+			?>
 			<p class="detailed-page-text-5">
-				<img style="padding-right: 15px" src="/Resources/Images/image%201.png">Мини группа, автобусно-пешеходная
+				<img style="padding-right: 15px" src="/Resources/Images/image%201.png">	<?=$tag	?>
 			</p>
+			<?php
+			endforeach;
+			?>
 			<p class="detailed-page-text-5">
 				<img style="padding-right: 15px" src="/Resources/Images/image%202.png"><?=$excursion->getDuration()?> суток</p>
 			<p class="detailed-page-text-5">
@@ -27,18 +33,14 @@ $helper=App\Lib\Helper::getInstance();
 			<p class="detailed-page-text-7">Вы увидите</p>
 			<div class="detailed-page-text-bloc-8">
 				<div>
+					<?php
+					foreach ($excursion->getAttractionList() as $attraction):
+					?>
 					<p class="detailed-page-text-9">
-						<img style="padding-right: 15px" src="/Resources/Images/image%205.png">Вацлавскую площадь</p>
-					<p class="detailed-page-text-9">
-						<img style="padding-right: 15px" src="/Resources/Images/image%205.png">Карлову площадь </p>
-					<p class="detailed-page-text-9">
-						<img style="padding-right: 15px" src="/Resources/Images/image%205.png">Пражский град </p>
-				</div>
-				<div style="padding-left: 80px">
-					<p class="detailed-page-text-9">
-						<img style="padding-right: 15px" src="/Resources/Images/image%205.png">Cобор Святого Вита </p>
-					<p class="detailed-page-text-9">
-						<img style="padding-right: 15px" src="/Resources/Images/image%205.png">Карлов мост</p>
+						<img style="padding-right: 15px" src="/Resources/Images/image%205.png"><?= $attraction ?></p>
+					<?php
+					endforeach;
+					?>
 				</div>
 			</div>
 			<div>
