@@ -45,21 +45,35 @@ use App\Lib\Helper;
 
 		<nav class="mobile-menu">
 			<ul class="mobile-menu-bloc2">
-				<li><a href="/">Главная</a></li>
+				<li><a href="/" class="pading-5">Главная</a></li>
 				<li><a href="/allExcursions/1" class="pading-1">Экскурсии</a></li>
 				<li><a href="/allExcursions/1" class="pading-2">Клиентам</a></li>
 				<li><a href="/allExcursions/1" class="pading-3">Блог</a></li>
-				<li><a href="/allExcursions/1"> О нас</a></li>
+				<li><a href="/allExcursions/1" class="pading-4"> О нас</a></li>
 			</ul>
 		</nav>
 		<div class="mobile-menu-2">
 			<div class="mobile-menu-2-none none-1">
-				<div class="bloc1-menu">
-					<p class="bloc1-menu-text">Путешествия, которые стоит совершить</p>
+				<div style="background-image: url('/Resources/Images/23232 1.png') " class="bloc1-menu">
+					<div class="bloc1-menu-2-margin">
+						<div class="bloc1-menu-2-img">
+							<img src="/Resources/Images/55 1.png">
+						</div>
+						<div>
+							<p class="bloc1-menu-2-text-h2">ЭКСКУРСИИ</p>
+							<p class="bloc1-menu-2-text-h1">Самые лучшие в своем деле</p>
+							<p class="bloc1-menu-2-text-p">Мы находим лучших гидов и совместно придумываем экскурсии. В результате вы встречаетесь с журналистами, историками, архитекторами и другими интересными людьми, которые умеют увлечь своими знаниями.</p>
+							<div>
+								<img style="width: 600px;" src="/Resources/Images/image 13 (4).png"><br/>
+								<img style="width: 350px;" src="/Resources/Images/fb508b897d5f093653566c717cd9af55.png">
+								<img src="/Resources/Images/image 16 (1).png">
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="mobile-menu-2-none none-2">
-				<div class="bloc1-menu">
+				<div style="background-image: url('/Resources/Images/23232 1.png') " class="bloc1-menu">
 					<p class="bloc1-menu-text">привет</p>
 				</div>
 			</div>
@@ -71,6 +85,42 @@ use App\Lib\Helper;
 			<div class="mobile-menu-2-none none-4">
 				<div class="bloc1-menu">
 					<p class="bloc1-menu-text">я тут</p>
+				</div>
+			</div>
+			<div class="mobile-menu-2-none none-5">
+				<div style="background-image: url('/Resources/Images/111.jpg')" class="bloc1-menu">
+					<div class="bloc1-menu-2-margin">
+						<div class="bloc1-menu-2-img">
+							<img src="/Resources/Images/55 1.png">
+						</div>
+						<div>
+							<p class="bloc1-menu-2-text-h2">ГЛАВНАЯ</p>
+							<p class="bloc1-menu-2-text-h1">Экскурсии, которые стоит посетить</p>
+							<p class="bloc1-menu-2-text-p">Программы авторских экскурсий рассчитаны и на любителей активного отдыха, и на созерцателей природы или архитектуры. Вы сами выбираете дату и место, в предложениях указана стоимость на одного человека.</p>
+							<div style="display: flex">
+								<div class="bloc5-menu-navbar-2-img-text">
+									<img src="/Resources/Images/870092.png">
+									<p style="width: 50px;">Полет всей группой</p>
+								</div>
+								<div class="bloc5-menu-navbar-2-img-text">
+									<img src="/Resources/Images/531897.png">
+									<p style="width: 60px">Позаботимся о вашем багаже</p>
+								</div>
+								<div class="bloc5-menu-navbar-2-img-text">
+									<img src="/Resources/Images/3127176.png">
+									<p style="width: 70px;">Получение билетов за 24 часа</p>
+								</div>
+								<div class="bloc5-menu-navbar-2-img-text">
+									<img src="/Resources/Images/854996.png">
+									<p style="width: 50px;">Все маршруты продуманы</p>
+								</div>
+								<div class="bloc5-menu-navbar-2-img-text">
+									<img src="/Resources/Images/6889720.png">
+									<p style="width: 50px;">Оставим яркие эмоции</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
