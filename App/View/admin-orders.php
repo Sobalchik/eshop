@@ -80,5 +80,7 @@ $helper = App\Lib\Helper::getInstance();
 	});
 </script>
 
+<script type="text/javascript" async src="/Resources/JS/pagination.js"></script>
+
 
 

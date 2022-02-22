@@ -6,32 +6,18 @@ use App\Lib\Render;
 ?>
 
 
-
 <div class="bloc1-asdas">
 	<div class="main-bloc">
 	</div>
 </div>
 <div class="bloc2">
 	<div class="bloc-2-contener">
-		<?= Render:: renderContent("content-card",['excursions'=>$excursions])?>
+		<div id ="content"> <?= Render:: renderContent("content-card",['excursions'=>$excursions])?></div>
 		<div style="display: flex;justify-content: space-between;">
-
-			<?php if($page > 1){ ?>
-			<a class="cta" href="http://eshop/allExcursions/<?= ($page-1) > 1 ?($page-1): 1 ?>">
-				<img src="/Resources/Images/icons8-стрелка,-указывающая-влево-30.png">
-				<span>назад</span>
-			</a>
-			<?php } ?>
-
-			<?php if($page < $pageCount){ ?>
-				<a class="cta" href="http://eshop/allExcursions/<?= ($page+1) < $pageCount ?($page+1): $pageCount ?>">
-				<img src="/Resources/Images/icons8-длинная-стрелка-вправо-30.png">
-				<span>вперед</span>
-				</a>
-			<?php } ?>
-
 		</div>
 	</div>
+	<div class="pagination">
+
 </div>
 <script>
 	let cords = ['scrollX','scrollY'];
@@ -39,3 +25,7 @@ use App\Lib\Render;
 	window.addEventListener('unload', e => cords.forEach(cord => localStorage[cord] = window[cord]));
 	// Прокручиваем страницу к scrollX и scrollY из localStorage (либо 0,0 если там еще ничего нет)
 	window.scroll(...cords.map(cord => localStorage[cord]));</script>
+
+	<script type="text/javascript" async src="/Resources/JS/pagination.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+

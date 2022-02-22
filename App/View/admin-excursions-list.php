@@ -54,3 +54,5 @@ endforeach;?>
 </div>
 	<div class="pagination"></div>
 </div>
+
+<script type="text/javascript" async src="/Resources/JS/pagination.js"></script>

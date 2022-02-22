@@ -5,6 +5,8 @@ $helper = App\Lib\Helper::getInstance();
 
 <?php
 foreach ($excursions as $excursion): ?>
+	<div class="block" style="position: relative;
+	display: inline-block;">
 	<div style="background-image: url(<?= $excursion->getImageList()?>)" class="bloc-2-box">
 		<div class="asd">
 			<div class="box-date">
@@ -56,5 +58,7 @@ foreach ($excursions as $excursion): ?>
 			</div>
 		</div>
 	</div>
+	</div>
 <?php
 endforeach; ?>
+
