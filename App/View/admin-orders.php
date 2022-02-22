@@ -3,12 +3,11 @@
 /**@var array $statuses */
 $helper = App\Lib\Helper::getInstance();
 ?>
-<div class="bloc2">
+<div class="bloc2" id="content">
 	<div class="bloc2-cont">
-		<p style="color:ivory; margin:0 0 10px 20px;">Форматирование полей</p>
-		<input id="showText" class="admin-excursions-detaild-bloc4-input admin-input-color-5" type="checkbox" checked>
 		<?php
 		foreach ($orders as $order): ?>
+		<div class="block">
 			<form action="/admin/orders/saved?id=<?=$order->getId() ?>" method="post">
 				<div class="admin-orders">
 					<label style="margin-right: 20px" class="admin-orders-text" >№<?= $order->getId() ?></label>
@@ -56,16 +55,20 @@ $helper = App\Lib\Helper::getInstance();
 								<div class="admin-orders-bloc1-clom2">
 									<input class="admin-excursions-detaild-bloc4-input admin-input-color-2" type="submit" value="save">
 									<input class="admin-excursions-detaild-bloc4-input admin-input-color-3" type="submit" value="delete">
-
 								</div>
 							</div>
 					</div>
 				</div>
 			</form>
+		</div>
 		<?php
 		endforeach; ?>
-	</div>
+		</div>
+	<p style="color:ivory; margin:0 0 10px 20px;">Форматирование полей</p>
+	<input id="showText" class="admin-excursions-detaild-bloc4-input admin-input-color-5" type="checkbox" checked>
+	<div class="pagination"></div>
 </div>
+
 
 <script type="text/javascript">
 	$('#showText').click(function(){
@@ -76,3 +79,6 @@ $helper = App\Lib\Helper::getInstance();
 		}
 	});
 </script>
+
+
+
