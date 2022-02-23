@@ -149,3 +149,9 @@ Router::add(
 	"/admin/excursion/deleted",
 	[ExcursionController::class,'deactivateDate']
 );
+
+Router::add(
+	"POST",
+	"/admin/excursion/found",
+	[ExcursionController::class, 'showAdminExcursionListBySearch']
+);

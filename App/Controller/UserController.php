@@ -27,7 +27,7 @@ class UserController
 
 	public static function adminPanel():string
 	{
-		if (self::isAuthorized()==true)
+		if (self::isAuthorized()===true)
 		{
 			return Render::renderContent("admin", []);
 		}
@@ -47,7 +47,7 @@ class UserController
 		else
 		{
 			$user = UserService::getUserByHash(Database::getDatabase(),$_SESSION['userHash']);
-			if ($_SESSION['userHash']==$user->getUserHash())
+			if ($_SESSION['userHash']===$user->getUserHash())
 			{
 				return true;
 			}

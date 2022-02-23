@@ -2,6 +2,10 @@
 
 <div class="bloc2" id="content">
 	<a href="/admin/excursions/add" >Добавить штуку</a>
+	<form style="margin-right: 40px" class="d-flex" action="/admin/excursion/found" method="post">
+		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search-excursions">
+		<button class="btn btn-outline-success" type="submit">Поиск</button>
+	</form>
 	<div class="bloc2-cont">
 <?php
 $counter = 1;

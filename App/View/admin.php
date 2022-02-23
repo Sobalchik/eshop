@@ -23,10 +23,7 @@
 <nav class="asd navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
 		<a style="color: white; margin-left: 40px" class="navbar-brand" href="#">Interesting Excurs</a>
-			<form style="margin-right: 40px" class="d-flex" method="post">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Поиск</button>
-			</form>
+
 	</div>
 </nav>
 
