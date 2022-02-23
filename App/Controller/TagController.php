@@ -77,4 +77,20 @@ class TagController
 		}
 	}
 
+	public static function addTag(): string
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			$typeTagId = $_POST['typeTagId'];
+			$tagName = $_POST['tagName'];
+			$tagId = TagService::addTag(Database::getDatabase(), $tagName);
+			$setTypeTagBelongTag = TagService::setTypeTagBelongTag(Database::getDatabase(), $typeTagId, $tagId);
+			return TagController::showAdminTagsPrepare();
+		}
+	}
+
 }

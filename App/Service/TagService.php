@@ -177,4 +177,30 @@ class TagService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 	}
+
+	public static function addTag(mysqli $db, string $tagName): int
+	{
+		$query = "INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('{$tagName}',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return mysqli_insert_id($db);
+	}
+
+	public static function setTypeTagBelongTag(mysqli $db, int $typeTagId, int $tagId): void
+	{
+		$query = "INSERT INTO `up_tag_type_tag`(`TAG_ID`, `TYPE_ID`) VALUES ('{$tagId}','{$typeTagId}')";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
 }

@@ -14,14 +14,14 @@ function tagDeleteAjax(tagId)
 function tagEditAjax(tagId, tagName,tagNameLink)
 {
 	$('#'+tagName).removeAttr('disabled');
-	$('#'+tagNameLink).text('Save');
+	$('#'+tagNameLink).text('Сохранить');
 	$('#'+tagNameLink).attr('onclick', 'tagSaveAjax("'+tagId+'","'+tagName+'")');
 }
 
 function typeTagEditAjax(typeTagId, typeTagName,typeTagNameLink)
 {
 	$('#'+typeTagName).removeAttr('disabled');
-	$('#'+typeTagNameLink).text('Save');
+	$('#'+typeTagNameLink).text('Сохранить');
 	$('#'+typeTagNameLink).attr('onclick', 'typeTagSaveAjax("'+typeTagId+'","'+typeTagName+'")');
 }
 
@@ -46,6 +46,20 @@ function typeTagSaveAjax(typeTagId, typeTagName)
 		url: "/admin/typeTag/saved",
 		type: "POST",
 		data: {"typeTagId": typeTagId, "typeTagName": typeTagNameValue},
+		success: function(data) {
+			$('#tagsList').empty();
+			document.getElementById('tagsList').innerHTML = data;
+		}
+	})
+}
+
+function tagCreateAjax(typeTagId, tagName)
+{
+	tagNameValue = $('#'+tagName).val();
+	$.ajax({
+		url: "/admin/tag/created",
+		type: "POST",
+		data: {"typeTagId": typeTagId, "tagName": tagNameValue},
 		success: function(data) {
 			$('#tagsList').empty();
 			document.getElementById('tagsList').innerHTML = data;

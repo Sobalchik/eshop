@@ -140,6 +140,12 @@ Router::add(
 
 Router::add(
 	"POST",
+	"/admin/tag/created",
+	[TagController::class, 'addTag']
+);
+
+Router::add(
+	"POST",
 	"/admin/typeTag/saved",
 	[TagController::class, 'saveTypeTag']
 );
