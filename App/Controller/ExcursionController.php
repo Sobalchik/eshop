@@ -8,6 +8,7 @@ use App\Logger\Logger;
 use App\Service\ExcursionService;
 use App\Config\Database;
 use App\Service\OrderService;
+use App\Service\TagService;
 
 class ExcursionController
 {
@@ -23,12 +24,19 @@ class ExcursionController
 		return Render::render("content-detailed-excursion", ['excursion' => $excursion]);
 	}
 
-	public static function showAllExcursions(int $page): string
+	public static function showAllExcursions(): string
 	{
-		$pageCount = Helper::getInstance()->getPagesCount();
+		$countryTags = TagService::getTagsByTypeCountry(Database::getDatabase());
+		$continentTags = TagService::getTagsByTypeContinent(Database::getDatabase());
+		$familyTags = TagService::getTagsByTypeFamilyFriendly(Database::getDatabase());
 
-		$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase(),$page);
-		return Render::render("content-all-excursions", ['excursions' => $excursions,'page' => $page,'pageCount' => $pageCount]);
+		$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+		return Render::render("content-all-excursions", [
+			'excursions' => $excursions,
+			'continentTags' => $continentTags,
+			'countryTags' => $countryTags,
+			'familyTags' =>$familyTags
+		]);
 	}
 
 	public static function showAdminExcursionById(): string

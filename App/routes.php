@@ -26,7 +26,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/allExcursions/:page",
+	"/allExcursions",
 	[ExcursionController::class, 'showAllExcursions']
 );
 

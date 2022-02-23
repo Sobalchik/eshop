@@ -1,7 +1,8 @@
 <?php
-/** @var array $excursions */
-/** @var int $page */
-/** @var int $pageCount */
+/** @var array $excursions **/
+/** @var array $continentTags **/
+/** @var array $countryTags **/
+/** @var array $familyTags **/
 use App\Lib\Render;
 ?>
 
@@ -12,9 +13,28 @@ use App\Lib\Render;
 </div>
 <div class="bloc2">
 	<div class="bloc-2-contener">
-		<button id="btn" onclick="sort(1)">price-asc</button>
-		<button id="btn" onclick="sort(2)">price-desc</button>
-		<button id="btn" onclick="sort(3)">rating-desc</button>
+
+		<div class="checkselect">
+			<?php foreach ($continentTags as $continentTag ):?>
+			<label><input type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
+			<?php endforeach?>
+		</div>
+
+		<div class="checkselect">
+			<?php foreach ($countryTags as $countryTag ):?>
+				<label><input type="checkbox" name="brands[]" value="<?= $countryTag->getId()?>"> <?= $countryTag->getName()?></label>
+			<?php endforeach?>
+		</div>
+
+		<div class="checkselect">
+			<?php foreach ($familyTags as $familyTag ):?>
+				<label><input type="checkbox" name="brands[]" value="<?= $familyTag->getId()?>"> <?= $familyTag->getName()?></label>
+			<?php endforeach?>
+		</div>
+
+		<button onclick="sort(1)">price-asc</button>
+		<button onclick="sort(2)">price-desc</button>
+		<button onclick="sort(3)">rating-desc</button>
 		<div class="content" id ="content"> <?= Render:: renderContent("content-card",['excursions'=>$excursions])?></div>
 		<div style="display: flex;justify-content: space-between;">
 		</div>
@@ -29,7 +49,8 @@ use App\Lib\Render;
 	// Прокручиваем страницу к scrollX и scrollY из localStorage (либо 0,0 если там еще ничего нет)
 	window.scroll(...cords.map(cord => localStorage[cord]));</script>
 
-	<script type="text/javascript" async src="/Resources/JS/pagination.js"></script>
-	<script type="text/javascript" async src="/Resources/JS/sort.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" defer src="/Resources/JS/pagination.js"></script>
+	<script type="text/javascript" defer src="/Resources/JS/sort.js"></script>
+<!--	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+
 
