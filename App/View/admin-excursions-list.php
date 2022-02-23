@@ -1,7 +1,7 @@
 <?php /** @var array $excursions */ ?>
 
 <div class="bloc2" id="content">
-	<a href="#" >Добавить штуку</a>
+	<a href="/admin/excursions/add" >Добавить штуку</a>
 	<div class="bloc2-cont">
 <?php
 $counter = 1;
@@ -35,6 +35,10 @@ foreach ($excursions as $excursion):
 						<p class="accordion-item-bloc2-text-2"><?= $datesPeople['dateTravel'] ?></p>
 						<p style="margin-right: 33px;" class="accordion-item-bloc2-text">Набрано -></p>
 						<p class="accordion-item-bloc2-text-2"><?= $datesPeople['orderedExcursionsCount'] ?> / <?= $excursion->getCountPersons()?> </p>
+						<form action="/admin/excursion/deleted" method="post">
+							<input type="hidden" value="<?=$datesPeople['id'] ?>" name="id">
+							<input type="submit" value="-" >
+						</form>
 					</div>
 					<?php endforeach;?>
 					<form action="/admin/excursions/addDate" method="post">
