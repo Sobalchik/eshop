@@ -266,13 +266,15 @@ class DBQuery
 		return "
 			select
 				COUNT(up_order.ID) as 'orderedExcursionsCount',
-				up_date.DATE_TRAVEL as 'dateTravel'
+				up_date.DATE_TRAVEL as 'dateTravel',
+				up_date.ACTIVE as 'active',
+				up_date.ID as 'id'
 			from up_product_date
 			left join up_date on up_product_date.DATE_ID = up_date.ID
 			left join up_order on up_date.ID = up_order.DATE_ID
 			where up_product_date.PRODUCT_ID = ?
 				and up_date.ACTIVE = 1
-			group by up_date.DATE_TRAVEL
+			group by up_date.ACTIVE, up_date.DATE_TRAVEL, up_date.ID
 ";
 	}
 

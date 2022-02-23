@@ -298,6 +298,7 @@ class ExcursionService
 		while ($occupancy = mysqli_fetch_assoc($result))
 		{
 			$occupancyList[] =[
+				'id' => $occupancy['id'],
 				'dateTravel' => $occupancy['dateTravel'],
 				'orderedExcursionsCount' => $occupancy['orderedExcursionsCount']
 			];
@@ -460,5 +461,17 @@ class ExcursionService
 		}
 	}
 
+		public static function deactivateDate(mysqli $db, int $id){
+		$query = DBQuery::deleteDateById();
 
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"i",$id);
+		$result = mysqli_stmt_execute($stmt);
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+	}
+	
 }
