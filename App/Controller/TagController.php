@@ -55,9 +55,24 @@ class TagController
 		}
 		else
 		{
-			$id = $_POST['tagId'];
+			$tagId = $_POST['tagId'];
 			$tagName = $_POST['tagName'];
-			$saveTag = TagService::saveTag(Database::getDatabase(), $id, $tagName);
+			$saveTag = TagService::saveTag(Database::getDatabase(), $tagId, $tagName);
+			return TagController::showAdminTagsPrepare();
+		}
+	}
+
+	public static function saveTypeTag(): string
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			$typeTagId = $_POST['typeTagId'];
+			$typeTagName = $_POST['typeTagName'];
+			$saveTypeTag = TagService::saveTypeTag(Database::getDatabase(), $typeTagId, $typeTagName);
 			return TagController::showAdminTagsPrepare();
 		}
 	}

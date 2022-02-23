@@ -165,4 +165,16 @@ class TagService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 	}
+
+	public static function saveTypeTag(mysqli $db, int $typeTagId, string $typeTagName): void
+	{
+		$query = "UPDATE up_type_tag SET NAME='{$typeTagName}' WHERE ID={$typeTagId}";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
 }

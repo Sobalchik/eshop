@@ -13,10 +13,16 @@ function tagDeleteAjax(tagId)
 
 function tagEditAjax(tagId, tagName,tagNameLink)
 {
-	console.log(tagName);
 	$('#'+tagName).removeAttr('disabled');
 	$('#'+tagNameLink).text('Save');
 	$('#'+tagNameLink).attr('onclick', 'tagSaveAjax("'+tagId+'","'+tagName+'")');
+}
+
+function typeTagEditAjax(typeTagId, typeTagName,typeTagNameLink)
+{
+	$('#'+typeTagName).removeAttr('disabled');
+	$('#'+typeTagNameLink).text('Save');
+	$('#'+typeTagNameLink).attr('onclick', 'typeTagSaveAjax("'+typeTagId+'","'+typeTagName+'")');
 }
 
 function tagSaveAjax(tagId, tagName)
@@ -26,6 +32,20 @@ function tagSaveAjax(tagId, tagName)
 		url: "/admin/tag/saved",
 		type: "POST",
 		data: {"tagId": tagId, "tagName": tagNameValue},
+		success: function(data) {
+			$('#tagsList').empty();
+			document.getElementById('tagsList').innerHTML = data;
+		}
+	})
+}
+
+function typeTagSaveAjax(typeTagId, typeTagName)
+{
+	typeTagNameValue = $('#'+typeTagName).val();
+	$.ajax({
+		url: "/admin/typeTag/saved",
+		type: "POST",
+		data: {"typeTagId": typeTagId, "typeTagName": typeTagNameValue},
 		success: function(data) {
 			$('#tagsList').empty();
 			document.getElementById('tagsList').innerHTML = data;

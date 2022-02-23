@@ -15,7 +15,7 @@
 								<div style="background-color: #3698f8" class="accordion-item-bloc2">
 									<p class="accordion-item-bloc2-text">Название -></p>
 									<input class="inpit-me-order form-control" id="typeTagName_<?=$typeTag->getId()?>" value="<?=$typeTag->getName()?> " disabled>
-									<a href="/admin/detailed?id=" class="admin-navbar-list-a">Edit</a>
+									<a href="javascript:void(0)" onclick="typeTagEditAjax('<?=$typeTag->getId()?>','typeTagName_<?=$typeTag->getId()?>','typeTagNameLink_<?=$typeTag->getId()?>')" class="admin-navbar-list-a" id="typeTagNameLink_<?=$typeTag->getId()?>">Edit</a>
 									<? if ($typeTag->getTypeTagBindTag()==0){?>
 										<a href="/admin/detailed?id=" class="admin-navbar-list-a ">Delete</a>
 									<?} else {?>
