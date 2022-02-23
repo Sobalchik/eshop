@@ -114,9 +114,20 @@ Router::add(
 	"/admin/excursions/addDate",
 	[ExcursionController::class, 'addExcursionDate']
 );
+Router::add(
+	"GET",
+	"/admin/excursions/add",
+	[ExcursionController::class, 'addExcursion']
+);
 
 Router::add(
 	"POST",
 	"/admin/tag/deleted?id=:id",
 	[TagController::class, 'deleteTag']
+);
+
+Router::add(
+	"POST",
+	"/admin/excursion/deleted",
+	[ExcursionController::class,'deactivateDate']
 );
