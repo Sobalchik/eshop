@@ -1,9 +1,4 @@
-// Returns an array of maxLength (or less) page numbers
-// where a 0 in the returned array denotes a gap in the series.
-// Parameters:
-//   totalPages:     total number of pages
-//   page:           current page
-//   maxLength:      maximum size of returned array
+
 function getPageList(totalPages, page, maxLength) {
 	if (maxLength < 5) throw "maxLength must be at least 5";
 
@@ -34,9 +29,7 @@ function getPageList(totalPages, page, maxLength) {
 			0, range(totalPages - sideWidth + 1, totalPages));
 }
 
-// Below is an example use of the above function.
-$(function paginate() {
-	// Number of items and limits the number of items per page
+function paginate() {
 	var numberOfItems = $("#content .block").length;
 	let pathname = document.location.pathname;
 	var limitPerPage = 5;
@@ -50,11 +43,8 @@ $(function paginate() {
 	}
 
 
-	// Total pages rounded upwards
 	var totalPages = Math.ceil(numberOfItems / limitPerPage);
-	// Number of buttons at the top, not counting prev/next,
-	// but including the dotted buttons.
-	// Must be at least 5:
+
 	var paginationSize = 7;
 	var currentPage;
 
@@ -64,7 +54,6 @@ $(function paginate() {
 		$("#content .block").hide()
 			.slice((currentPage-1) * limitPerPage,
 				currentPage * limitPerPage).show();
-		// Replace the navigation items (not prev/next):
 		$(".pagination li").slice(1, -1).remove();
 		getPageList(totalPages, currentPage, paginationSize).forEach( item => {
 			$("<li>").addClass("page-item")
@@ -74,13 +63,13 @@ $(function paginate() {
 					href: "javascript:void(0)"}).text(item || "...")
 			).insertBefore("#next-page");
 		});
-		// Disable prev/next when at first/last page:
+
 		$("#previous-page").toggleClass("disabled", currentPage === 1);
 		$("#next-page").toggleClass("disabled", currentPage === totalPages);
 		return true;
 	}
 
-	// Include the prev/next buttons:
+
 	$(".pagination").append(
 		$("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
 			$("<a>").addClass("page-link").attr({
@@ -91,11 +80,10 @@ $(function paginate() {
 				href: "javascript:void(0)"}).text("Next")
 		)
 	);
-	// Show the page links
+
 	$("#content").show();
 	showPage(1);
 
-	// Use event delegation, as these items are recreated later
 	$(document).on("click", ".pagination li.current-page:not(.active)", function () {
 		return showPage(+$(this).text());
 	});
@@ -106,4 +94,6 @@ $(function paginate() {
 	$("#previous-page").on("click", function () {
 		return showPage(currentPage-1);
 	});
-});
+}
+
+$(paginate());

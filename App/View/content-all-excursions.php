@@ -16,21 +16,23 @@ use App\Lib\Render;
 
 		<div class="checkselect">
 			<?php foreach ($continentTags as $continentTag ):?>
-			<label><input type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
+			<label><input  type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
 			<?php endforeach?>
 		</div>
 
 		<div class="checkselect">
 			<?php foreach ($countryTags as $countryTag ):?>
-				<label><input type="checkbox" name="brands[]" value="<?= $countryTag->getId()?>"> <?= $countryTag->getName()?></label>
+				<label><input  type="checkbox" name="brands[]" value="<?= $countryTag->getId()?>"> <?= $countryTag->getName()?></label>
 			<?php endforeach?>
 		</div>
 
 		<div class="checkselect">
 			<?php foreach ($familyTags as $familyTag ):?>
-				<label><input type="checkbox" name="brands[]" value="<?= $familyTag->getId()?>"> <?= $familyTag->getName()?></label>
+				<label><input  type="checkbox" name="brands[]" value="<?= $familyTag->getId()?>"> <?= $familyTag->getName()?></label>
 			<?php endforeach?>
 		</div>
+
+		<button onclick="sortByTag()"> показать </button>
 
 		<button onclick="sort(1)">price-asc</button>
 		<button onclick="sort(2)">price-desc</button>
@@ -51,6 +53,6 @@ use App\Lib\Render;
 
 	<script type="text/javascript" defer src="/Resources/JS/pagination.js"></script>
 	<script type="text/javascript" defer src="/Resources/JS/sort.js"></script>
-<!--	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
 

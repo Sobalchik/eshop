@@ -99,6 +99,13 @@ class ExcursionController
 		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 
+	public static function  sortExcursionsByTags() : string
+	{
+		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),$_POST['tagList']);
+		return Render:: renderContent("content-card",['excursions'=>$excursions]);
+	}
+
+
 	public static function addExcursion()
 	{
 		if(UserController::isAuthorized()){
