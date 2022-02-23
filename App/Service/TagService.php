@@ -154,6 +154,18 @@ class TagService
 		}
 	}
 
+	public static function deleteTypeTag(mysqli $db, int $typeTagId): void
+	{
+		$query = "DELETE FROM up_type_tag WHERE ID={$typeTagId}";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
 	public static function saveTag(mysqli $db, int $tagId, string $tagName): void
 	{
 		$query = "UPDATE up_tag SET NAME='{$tagName}' WHERE ID={$tagId}";
@@ -202,5 +214,19 @@ class TagService
 		{
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
+	}
+
+	public static function addTypeTag(mysqli $db, string $typeTagName): int
+	{
+		$query = "INSERT INTO `up_type_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('{$typeTagName}',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return mysqli_insert_id($db);
 	}
 }

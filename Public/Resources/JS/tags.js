@@ -11,6 +11,19 @@ function tagDeleteAjax(tagId)
 	});
 }
 
+function typeTagDeleteAjax(typeTagId)
+{
+	$.ajax({
+		url: "/admin/typeTag/deleted?id="+typeTagId,
+		type: "POST",
+		data: {"typeTagId": typeTagId },
+		success: function(data) {
+			$('#tagsList').empty();
+			document.getElementById('tagsList').innerHTML = data;
+		}
+	});
+}
+
 function tagEditAjax(tagId, tagName,tagNameLink)
 {
 	$('#'+tagName).removeAttr('disabled');
@@ -60,6 +73,20 @@ function tagCreateAjax(typeTagId, tagName)
 		url: "/admin/tag/created",
 		type: "POST",
 		data: {"typeTagId": typeTagId, "tagName": tagNameValue},
+		success: function(data) {
+			$('#tagsList').empty();
+			document.getElementById('tagsList').innerHTML = data;
+		}
+	})
+}
+
+function typeTagCreateAjax(typeTagName)
+{
+	typeTagNameValue = $('#'+typeTagName).val();
+	$.ajax({
+		url: "/admin/typeTag/created",
+		type: "POST",
+		data: {"typeTagName": typeTagNameValue},
 		success: function(data) {
 			$('#tagsList').empty();
 			document.getElementById('tagsList').innerHTML = data;
