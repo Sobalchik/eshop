@@ -42,25 +42,28 @@ class OrderController
 		}
 	}
 
-	public static function editOrder(int $id): string
+	public static function editOrder(): string
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
 		OrderService::editOrderById(Database::getDatabase(),
-									$id,
+									$_POST['id'],
 									$_POST['fio'],
 									$_POST['email'],
 									$_POST['phone'],
 									$_POST['status']
 		);
-		return  self::showAdminOrders();
+		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
+		$statuses = OrderService::getAllStatuses(Database::getDatabase());
+		$content = Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
+		return $content;
 	}
 
-	public static function deleteOrder(int $id): string
+	public static function deleteOrder(): string
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		OrderService::deleteOrderById(Database::getDatabase(),$id);
+		OrderService::deleteOrderById(Database::getDatabase(),$_POST['id']);
 		return  self::showAdminOrders();
 	}
 }

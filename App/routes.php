@@ -26,7 +26,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/allExcursions/:page",
+	"/allExcursions",
 	[ExcursionController::class, 'showAllExcursions']
 );
 
@@ -93,7 +93,7 @@ Router::add(
 
 Router::add(
 	"POST",
-	"/admin/orders/saved?id=:id",
+	"/admin/orders/saved",
 	[OrderController::class, 'editOrder']
 );
 
@@ -120,6 +120,13 @@ Router::add(
 	"/sort",
 	[ExcursionController::class, 'sortExcursions']
 );
+
+Router::add(
+	"POST",
+	"/sortByTag",
+	[ExcursionController::class, 'sortExcursionsByTags']
+);
+
 Router::add(
 	"GET",
 	"/admin/excursions/add",
@@ -163,13 +170,19 @@ Router::add(
 );
 
 Router::add(
-	"POST",
-	"/admin/excursion/deleted",
-	[ExcursionController::class,'deactivateDate']
+	"GET",
+	"/about",
+	[ExcursionController::class,'showAbout']
 );
 
 Router::add(
-	"POST",
-	"/admin/excursion/found",
-	[ExcursionController::class, 'showAdminExcursionListBySearch']
+	"GET",
+	"/client",
+	[ExcursionController::class, 'showClient']
+);
+
+Router::add(
+	"GET",
+	"/blog",
+	[ExcursionController::class, 'getBlog']
 );
