@@ -17,6 +17,19 @@ class ExcursionController
 		return Render::render("content-top-excursions", ['excursions' => $excursions]);
 	}
 
+	public static function showAbout(): string
+	{
+		return Render::render("about");
+	}
+	public static function showClient(): string
+	{
+		return Render::render("client");
+	}
+	public static function getBlog(): string
+	{
+		return Render::render("blog");
+	}
+
 	public static function showExcursionById($id): string
 	{
 		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $id);

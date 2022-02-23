@@ -93,7 +93,7 @@ Router::add(
 
 Router::add(
 	"POST",
-	"/admin/orders/saved?id=:id",
+	"/admin/orders/saved",
 	[OrderController::class, 'editOrder']
 );
 
@@ -163,13 +163,19 @@ Router::add(
 );
 
 Router::add(
-	"POST",
-	"/admin/excursion/deleted",
-	[ExcursionController::class,'deactivateDate']
+	"GET",
+	"/about",
+	[ExcursionController::class,'showAbout']
 );
 
 Router::add(
-	"POST",
-	"/admin/excursion/found",
-	[ExcursionController::class, 'showAdminExcursionListBySearch']
+	"GET",
+	"/client",
+	[ExcursionController::class, 'showClient']
+);
+
+Router::add(
+	"GET",
+	"/blog",
+	[ExcursionController::class, 'getBlog']
 );
