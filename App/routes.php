@@ -26,7 +26,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/allExcursions/:page",
+	"/allExcursions",
 	[ExcursionController::class, 'showAllExcursions']
 );
 
@@ -120,6 +120,13 @@ Router::add(
 	"/sort",
 	[ExcursionController::class, 'sortExcursions']
 );
+
+Router::add(
+	"POST",
+	"/sortByTag",
+	[ExcursionController::class, 'sortExcursionsByTags']
+);
+
 Router::add(
 	"GET",
 	"/admin/excursions/add",
