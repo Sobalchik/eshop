@@ -39,6 +39,11 @@
 										<? } ?>
 									</div>
 								<?php endforeach;?>
+								<div  style="margin-top:10px;background-color: #3698f8;display: flex"  class="accordion-item-bloc3">
+									<p style="margin-right: 56px;" class="accordion-item-bloc2-text">Значение</p>
+									<input class="inpit-me-order form-control" id="typeTag_<?=$typeTag->getId()?>_TagCreate" value="">
+									<a href="javascript:void(0)" onclick="tagCreateAjax('<?=$typeTag->getId()?>','typeTag_<?=$typeTag->getId()?>_TagCreate')" class="admin-navbar-list-a ">Создать</a>
+								</div>
 							</div>
 						</form>
 					</div>
