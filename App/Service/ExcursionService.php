@@ -242,7 +242,7 @@ class ExcursionService
 
 	public static function sortExcursions(mysqli $db, array $idList, int $sortType) : array
 	{
-		$ini = parse_ini_file('config.ini');
+		$ini = parse_ini_file(__DIR__ . '\../Config/config.ini');
 
 		switch ($sortType)
 		{

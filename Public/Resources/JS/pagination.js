@@ -35,12 +35,11 @@ function getPageList(totalPages, page, maxLength) {
 }
 
 // Below is an example use of the above function.
-$(function () {
+$(function paginate() {
 	// Number of items and limits the number of items per page
 	var numberOfItems = $("#content .block").length;
 	let pathname = document.location.pathname;
-	var limitPerPage = 1;
-	console.log(pathname);
+	var limitPerPage = 5;
 	switch (pathname){
 		case "/admin/excursions":
 			limitPerPage = 7;

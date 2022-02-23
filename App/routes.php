@@ -114,6 +114,12 @@ Router::add(
 	"/admin/excursions/addDate",
 	[ExcursionController::class, 'addExcursionDate']
 );
+
+Router::add(
+	"POST",
+	"/sort",
+	[ExcursionController::class, 'sortExcursions']
+);
 Router::add(
 	"GET",
 	"/admin/excursions/add",
