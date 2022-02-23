@@ -47,4 +47,19 @@ class TagController
 		}
 	}
 
+	public static function saveTag(): string
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			$id = $_POST['tagId'];
+			$tagName = $_POST['tagName'];
+			$saveTag = TagService::saveTag(Database::getDatabase(), $id, $tagName);
+			return TagController::showAdminTagsPrepare();
+		}
+	}
+
 }

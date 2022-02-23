@@ -128,6 +128,12 @@ Router::add(
 
 Router::add(
 	"POST",
+	"/admin/tag/saved",
+	[TagController::class, 'saveTag']
+);
+
+Router::add(
+	"POST",
 	"/admin/excursion/deleted",
 	[ExcursionController::class,'deactivateDate']
 );

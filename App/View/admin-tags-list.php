@@ -14,7 +14,7 @@
 							<div class="accordion-item-bloc1">
 								<div style="background-color: #3698f8" class="accordion-item-bloc2">
 									<p class="accordion-item-bloc2-text">Название -></p>
-									<p class="accordion-item-bloc2-text-2"><?=$typeTag->getName()?></p>
+									<input class="inpit-me-order form-control" id="typeTagName_<?=$typeTag->getId()?>" value="<?=$typeTag->getName()?> " disabled>
 									<a href="/admin/detailed?id=" class="admin-navbar-list-a">Edit</a>
 									<? if ($typeTag->getTypeTagBindTag()==0){?>
 										<a href="/admin/detailed?id=" class="admin-navbar-list-a ">Delete</a>
@@ -30,8 +30,8 @@
 									?>
 									<div  style="margin-top:10px;background-color: #3698f8;display: flex"  class="accordion-item-bloc3">
 										<p style="margin-right: 56px;" class="accordion-item-bloc2-text">Значение тэга -></p>
-										<p class="accordion-item-bloc2-text-2"><?=$tagsBelong->getName()?></p>
-										<a href="/admin/tag/edit?id=<?=$tagsBelong->getId()?>" class="admin-navbar-list-a">Edit</a>
+										<input class="inpit-me-order form-control" id="tagName_<?=$tagsBelong->getId()?>" value="<?=$tagsBelong->getName()?> " disabled>
+										<a href="javascript:void(0)" onclick="tagEditAjax('<?=$tagsBelong->getId()?>','tagName_<?=$tagsBelong->getId()?>','tagNameLink_<?=$tagsBelong->getId()?>')" class="admin-navbar-list-a" id="tagNameLink_<?=$tagsBelong->getId()?>">Edit</a>
 										<? if ($tagsBelong->getTagBindProduct()==0){?>
 											<a href="javascript:void(0)" onclick="tagDeleteAjax('<?=$tagsBelong->getId()?>')" class="admin-navbar-list-a ">Delete</a>
 										<?} else {?>

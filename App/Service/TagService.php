@@ -153,4 +153,16 @@ class TagService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 	}
+
+	public static function saveTag(mysqli $db, int $tagId, string $tagName): void
+	{
+		$query = "UPDATE up_tag SET NAME='{$tagName}' WHERE ID={$tagId}";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
 }
