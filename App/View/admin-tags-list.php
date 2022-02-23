@@ -17,7 +17,7 @@
 									<input class="inpit-me-order form-control" id="typeTagName_<?=$typeTag->getId()?>" value="<?=$typeTag->getName()?> " disabled>
 									<a href="javascript:void(0)" onclick="typeTagEditAjax('<?=$typeTag->getId()?>','typeTagName_<?=$typeTag->getId()?>','typeTagNameLink_<?=$typeTag->getId()?>')" class="admin-navbar-list-a" id="typeTagNameLink_<?=$typeTag->getId()?>">Изменить</a>
 									<? if ($typeTag->getTypeTagBindTag()==0){?>
-										<a href="/admin/detailed?id=" class="admin-navbar-list-a ">Удалить</a>
+										<a href="javascript:void(0)" onclick="typeTagDeleteAjax('<?=$typeTag->getId()?>')" class="admin-navbar-list-a ">Удалить</a>
 									<?} else {?>
 										<a href="javascript:void(0)" onclick="alert('Удалить нельзя! У данного типа есть тэги');" class="admin-navbar-list-a ">Удалить</a>
 									<? } ?>
@@ -51,6 +51,22 @@
 			</div>
 			<?php $counter = $counter+1;
 		endforeach;?>
+		<div style="padding: 3px 0; display: flex; align-items: center;">
+			<p class="accordion-item-bloc2-text-help">№<?=$counter?></p>
+			<div id="accordionPanelsStayOpenExample">
+				<div style="border: none" class="accordion-item">
+					<form style="background-color:#3698f8 " method="post">
+						<div class="accordion-item-bloc1">
+							<div style="background-color: #3698f8" class="accordion-item-bloc2">
+								<p class="accordion-item-bloc2-text">Тип</p>
+								<input class="inpit-me-order form-control" id="typeTagCreate" value="">
+								<a href="javascript:void(0)" onclick="typeTagCreateAjax('typeTagCreate')" class="admin-navbar-list-a" id="typeTagNameLinkCreate">Создать</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 </div>

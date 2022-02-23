@@ -134,8 +134,26 @@ Router::add(
 
 Router::add(
 	"POST",
+	"/admin/typeTag/deleted?id=:id",
+	[TagController::class, 'deleteTypeTag']
+);
+
+Router::add(
+	"POST",
 	"/admin/tag/saved",
 	[TagController::class, 'saveTag']
+);
+
+Router::add(
+	"POST",
+	"/admin/tag/created",
+	[TagController::class, 'addTag']
+);
+
+Router::add(
+	"POST",
+	"/admin/typeTag/created",
+	[TagController::class, 'addTypeTag']
 );
 
 Router::add(
@@ -148,4 +166,10 @@ Router::add(
 	"POST",
 	"/admin/excursion/deleted",
 	[ExcursionController::class,'deactivateDate']
+);
+
+Router::add(
+	"POST",
+	"/admin/excursion/found",
+	[ExcursionController::class, 'showAdminExcursionListBySearch']
 );

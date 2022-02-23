@@ -47,6 +47,19 @@ class TagController
 		}
 	}
 
+	public static function deleteTypeTag(int $id): string
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			$deleteTypeTag = TagService::deleteTypeTag(Database::getDatabase(), $id);
+			return TagController::showAdminTagsPrepare();
+		}
+	}
+
 	public static function saveTag(): string
 	{
 		if(!UserController::isAuthorized())
@@ -73,6 +86,36 @@ class TagController
 			$typeTagId = $_POST['typeTagId'];
 			$typeTagName = $_POST['typeTagName'];
 			$saveTypeTag = TagService::saveTypeTag(Database::getDatabase(), $typeTagId, $typeTagName);
+			return TagController::showAdminTagsPrepare();
+		}
+	}
+
+	public static function addTag(): string
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			$typeTagId = $_POST['typeTagId'];
+			$tagName = $_POST['tagName'];
+			$tagId = TagService::addTag(Database::getDatabase(), $tagName);
+			$setTypeTagBelongTag = TagService::setTypeTagBelongTag(Database::getDatabase(), $typeTagId, $tagId);
+			return TagController::showAdminTagsPrepare();
+		}
+	}
+
+	public static function addTypeTag(): string
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			$typeTagName = $_POST['typeTagName'];
+			$typeTagId = TagService::addTypeTag(Database::getDatabase(), $typeTagName);
 			return TagController::showAdminTagsPrepare();
 		}
 	}

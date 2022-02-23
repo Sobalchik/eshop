@@ -197,8 +197,8 @@ class DBQuery
 	{
 		return
 			self::getExcursionsForAdminPage() .
-			"where up.product.NAME_CITY like (?)
-			or up.product.NAME_COUNTRY like (?)";
+			'where up_product.NAME_CITY like (?)
+			or up_product.NAME_COUNTRY like (?)';
 	}
 
 	public static function getExcursionsForAdminPage() : string
@@ -342,7 +342,7 @@ class DBQuery
 					select concat(up_product.NAME_CITY, ', ',
 								  up_product.NAME_COUNTRY)
 					from up_product
-					left join up_product_date 
+					left join up_product_date
 					on up_product.ID = up_product_date.PRODUCT_ID
 					where up_product_date.DATE_ID = up_order.DATE_ID
 				) as 'excursionName',
@@ -383,13 +383,13 @@ class DBQuery
 		return "
 			insert into up_order
 			(
-			 FIO, 
-			 EMAIL, 
-			 PHONE, 
+			 FIO,
+			 EMAIL,
+			 PHONE,
 			 DATE_ORDER,
 			 COMMENT,
-			 STATUS_ID, 
-			 DATE_ID, 
+			 STATUS_ID,
+			 DATE_ID,
 			 DATE_CREATE,
 			 DATE_UPDATE
 			 )
@@ -421,6 +421,7 @@ class DBQuery
 		from up_status_order
 		";
 	}
+
 	public static function getTagsByTypeCountry() : string
 	{
 		return "
@@ -510,7 +511,7 @@ class DBQuery
 		 1,
 		 CURRENT_TIMESTAMP,
 		 CURRENT_TIMESTAMP
-		) 
+		)
 		";
 	}
 

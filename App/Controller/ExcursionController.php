@@ -55,13 +55,24 @@ class ExcursionController
 		}
 	}
 
-	public static function addExcursionDate()
+	public static function showAdminExcursionListBySearch() : string
+	{
+		if(UserController::isAuthorized()){
+			$excursions = ExcursionService::findExcursionsForAdminPageByName(Database::getDatabase(), $_POST['search-excursions']);
+			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
+			return Render::renderAdminMenu($content);
+		}else{
+			header("Location: http://eshop/login");
+			return '';
+		}
+	}
+
+	public static function addExcursionDate() : string
 	{
 		$date = str_replace("T"," ",$_POST['date']);
 		ExcursionService::addDateToExcursionById(Database::getDatabase(),$_POST['id'],$date);
 		header('Location: http://eshop/admin/excursions');
 		return self::showAdminExcursionList();
-
 	}
 
 	public static function editExcursion(): string
