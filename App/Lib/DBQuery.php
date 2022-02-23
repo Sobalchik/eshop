@@ -421,6 +421,7 @@ class DBQuery
 		from up_status_order
 		";
 	}
+
 	public static function getTagsByTypeCountry() : string
 	{
 		return "

@@ -55,13 +55,12 @@ class ExcursionController
 		}
 	}
 
-	public static function addExcursionDate()
+	public static function addExcursionDate() : string
 	{
 		$date = str_replace("T"," ",$_POST['date']);
 		ExcursionService::addDateToExcursionById(Database::getDatabase(),$_POST['id'],$date);
 		header('Location: http://eshop/admin/excursions');
 		return self::showAdminExcursionList();
-
 	}
 
 	public static function editExcursion(): string

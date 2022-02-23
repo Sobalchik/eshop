@@ -240,10 +240,30 @@ class ExcursionService
 		return $result_excursion;
 	}
 
-	public static function sortExcursions(mysqli $db, array $idList, int $sortType) : array
+	public static function findExcursionsForAdminPageByName(mysqli $db, string $name) : array
+	{
+		$query = DBQuery::findExcursionByNameForAdminPage();
+
+		$name = mysqli_real_escape_string($db, $name);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"s", $name);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		return self::parseExcursionsForAdminHomePage($db, $result);
+	}
+
+	public static function sortExcursions(mysqli $db, array $excursions, int $sortType) : array
 	{
 		$ini = parse_ini_file(__DIR__ . '\../Config/config.ini');
 
+		$idList = [];
+		foreach($excursions as $excursion)
+		{
+			$idList[] = $excursion->getId();
+		}
+
+		$query = [];
 		switch ($sortType)
 		{
 		case $ini['order_excursions_by_price_asc']:
@@ -473,5 +493,5 @@ class ExcursionService
 		}
 
 	}
-	
+
 }
