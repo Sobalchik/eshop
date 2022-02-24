@@ -126,21 +126,8 @@ class ExcursionController
 
 	public static function  sortExcursionsByTags() : string
 	{
-		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),
-			[
-				[
-					'tagType' => 1,
-					'tagList' => [10]
-				],
-				[
-					'tagType' => 2,
-					'tagList' => [14]
-				],
-				[
-				'tagType' => 3,
-				'tagList' => [20]
-				]
-			]);
+		//$tagsList = $_POST['tagList'];
+		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),$_POST['tagList']);
 		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 

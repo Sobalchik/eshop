@@ -157,6 +157,18 @@ class DBQuery
 			"order by up_product.RATING DESC;";
 	}
 
+	public static function orginizeTagIdLists(array $tagList) : string
+	{
+		return "
+			select
+			TYPE_ID as 'tagType',
+			group_concat(TAG_ID) as 'tagList'
+			from up_tag_type_tag
+			where TAG_ID in (" .implode(',', $tagList) .")
+			group by TYPE_ID
+		";
+	}
+
 	public static function getExcursionsByTagQuery(int $tagType, array $tagList) : string
 	{
 		return
