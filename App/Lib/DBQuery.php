@@ -415,6 +415,7 @@ class DBQuery
 				up_order.FIO = ?,
 				up_order.EMAIL = ?,
 				up_order.PHONE = ?,
+			    up_order.COMMENT = ?,
 				up_order.STATUS_ID = ?
 			where up_order.ID = ?
 		";

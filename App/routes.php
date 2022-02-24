@@ -104,6 +104,12 @@ Router::add(
 );
 
 Router::add(
+	"POST",
+	"/admin/orders/find",
+	[OrderController::class, 'findOrdersByClientName']
+);
+
+Router::add(
 	"GET",
 	"/admin/tags",
 	[TagController::class, 'showAdminTags']

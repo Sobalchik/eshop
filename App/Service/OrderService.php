@@ -109,12 +109,12 @@ class OrderService
 	}
 
 	public static function editOrderById(mysqli $db,
-			int $id, string $fio, string $email, string $phone, int $status) : void
+			int $id, string $fio, string $email, string $phone, int $status, string $comment) : void
 	{
 		$query = DBQuery::editOrder();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt,"ssssi", $fio, $email, $phone, $status, $id);
+		mysqli_stmt_bind_param($stmt,"sssssi", $fio, $email, $phone, $comment, $status, $id);
 		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)

@@ -51,7 +51,8 @@ class OrderController
 									$_POST['fioOrder'],
 									$_POST['emailOrder'],
 									$_POST['phoneOrder'],
-									$_POST['statusOrder']
+									$_POST['statusOrder'],
+									$_POST['commentOrder']
 		);
 		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
@@ -65,6 +66,15 @@ class OrderController
 		$logger->info($_POST['id']);
 		OrderService::deleteOrderById(Database::getDatabase(),$_POST['idOrder']);
 		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
+		$statuses = OrderService::getAllStatuses(Database::getDatabase());
+		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
+	}
+
+	public static function findOrdersByClientName(): string
+	{
+		$logger = new Logger();
+		$logger->info($_POST['id']);
+		$orders =OrderService::findOrdersByClientName(Database::getDatabase(),$_POST['clientName']);
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
 		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
 	}
