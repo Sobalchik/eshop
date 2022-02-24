@@ -46,14 +46,13 @@ class OrderController
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		var_dump($_POST);
-		// OrderService::editOrderById(Database::getDatabase(),
-		// 							$_POST['idOrder'],
-		// 							$_POST['fioOrder'],
-		// 							$_POST['emailOrder'],
-		// 							$_POST['phoneOrder'],
-		// 							$_POST['statusOrder']
-		// );
+		OrderService::editOrderById(Database::getDatabase(),
+									$_POST['idOrder'],
+									$_POST['fioOrder'],
+									$_POST['emailOrder'],
+									$_POST['phoneOrder'],
+									$_POST['statusOrder']
+		);
 		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
 		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
