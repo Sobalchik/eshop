@@ -99,7 +99,7 @@ Router::add(
 
 Router::add(
 	"POST",
-	"/admin/orders/deleted?id=:id",
+	"/admin/orders/deleted",
 	[OrderController::class, 'deleteOrder']
 );
 
