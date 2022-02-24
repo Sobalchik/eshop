@@ -288,9 +288,17 @@ class ExcursionService
 		return self::parseExcursionsForHomePage($result);
 	}
 
-	public static function getExcursionsByTag(mysqli $db, array $tagId): array
+	public static function getExcursionsByTag(mysqli $db, array $tagTypesTagsList): array
 	{
-		$query = DBQuery::getExcursionsByTagQuery($tagId);
+		$query = DBQuery::getExcursionsForHomePage();
+
+		$tag = array_shift($tagTypesTagsList);
+		$query .= "where " . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
+
+		foreach ($tagTypesTagsList as $tag)
+		{
+			$query .= "and" . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
+		}
 
 		$result = mysqli_query($db, $query);
 
