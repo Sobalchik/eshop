@@ -1,14 +1,25 @@
-
-
 function sort(type){
-
 
 	$.ajax({
 		url: "http://eshop/sort",
 		type: "POST",
 		data: {"sortType": type },
 		success: function(data) {
-			console.log(data);
+			$('#content').empty();
+			document.getElementById('content').innerHTML = data;
+			paginate();
+		}
+	});
+}
+
+function find(){
+
+
+	$.ajax({
+		url: "http://eshop/sort",
+		type: "POST",
+		data: {"name": name },
+		success: function(data) {
 			$('#content').empty();
 			document.getElementById('content').innerHTML = data;
 			paginate();
@@ -22,7 +33,8 @@ function sortByTag(){
 	$('input:checkbox:checked').each(function() {
 		checked.push($(this).val());
 	});
-	
+
+	console.log(checked);
 	// document.querySelectorAll('input.checkbox:checked');
 	//  var selectedCheckBoxes = document.querySelectorAll('input.checkbox:checked');
 	//  var checkedValues = Array.from(selectedCheckBoxes).map(cb => cb.value);

@@ -235,6 +235,14 @@ class DBQuery
 			or up_product.NAME_COUNTRY like (?)';
 	}
 
+	public static function findExcursionByNameForHomePage() : string
+	{
+		return
+			self::getExcursionsForHomePage() .
+			'where up_product.NAME_CITY like (?)
+			or up_product.NAME_COUNTRY like (?)';
+	}
+
 	public static function getExcursionsForAdminPage() : string
 	{
 		return "
