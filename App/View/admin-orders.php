@@ -16,21 +16,21 @@ $helper = App\Lib\Helper::getInstance();
 								<div class="admin-orders-bloc1-clom1">
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">ФИО</p>
-										<input class="inpit-me-order form-control" id="inlineFormInputName" name="fio" value="<?= $order->getFio() ?> ">
+										<input class="inpit-me-order form-control" id="inlineFormInputName_fio_<?=$order->getId()?>" name="fio" value="<?= $order->getFio() ?> ">
 									</div>
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Номер</p>
-										<input class="inpit-me-order form-control" id="inlineFormInputName" name="phone" value="<?= $order->getPhone() ?> ">
+										<input class="inpit-me-order form-control" id="inlineFormInputName_phone_<?=$order->getId()?>" name="phone" value="<?= $order->getPhone() ?> ">
 									</div>
 								</div>
 								<div class="admin-orders-bloc1-clom1">
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Почта</p>
-										<input class="inpit-me-order form-control" id="inlineFormInputName" name="email" value="<?= $order->getEmail() ?> ">
+										<input class="inpit-me-order form-control" id="inlineFormInputName_email_<?=$order->getId()?>" name="email" value="<?= $order->getEmail() ?> ">
 									</div>
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Статус</p>
-										<select class="inpit-me-order form-control va" id="inlineFormInputName" name="status">
+										<select class="inpit-me-order form-control va" id="inlineFormInputName_status_<?=$order->getId()?>" name="status">
 											<?php
 											foreach ($statuses as $status): ?>
 												<option <?= $helper::noRepeatStatus($order->getStatus(),
@@ -44,7 +44,7 @@ $helper = App\Lib\Helper::getInstance();
 								<div class="admin-orders-bloc1-clom1">
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Название.экс</p>
-										<input class="inpit-me-order form-control" id="inlineFormInputName" name="nameExcursion" value="<?= $order->getExcursionName() ?> ">
+										<input class="inpit-me-order form-control" id="inlineFormInputName_nameExc_<?=$order->getId()?>" name="nameExcursion" value="<?= $order->getExcursionName() ?> ">
 									</div>
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Дата</p>
@@ -52,8 +52,7 @@ $helper = App\Lib\Helper::getInstance();
 									</div>
 								</div>
 								<div class="admin-orders-bloc1-clom2">
-									<a href="javascript:void(0)" onclick="saveOrder('<?= $order->getId() ?>', '<?= $order->getFio() ?>', '<?= $order->getEmail() ?>', '<?= $order->getPhone() ?>', '<?= $order->getStatusId() ?>')" class="admin-navbar-list-a">save</a>
-									<!-- TODO: Почему-то через пост запрос прилетают страрые значения? -->
+									<a href="javascript:void(0)" onclick="saveOrder('<?= $order->getId() ?>','inlineFormInputName_fio_<?=$order->getId()?>', 'inlineFormInputName_email_<?=$order->getId()?>', 'inlineFormInputName_phone_<?=$order->getId()?>','inlineFormInputName_status_<?=$order->getId()?>')" class="admin-navbar-list-a">save</a>
 									<a href="javascript:void(0)" onclick="deleteOrder('<?= $order->getId() ?>')" class="admin-navbar-list-a">delete</a>
 								</div>
 							</div>
