@@ -59,7 +59,7 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-detailed-edit", ["excursion" => $excursion]);
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -71,7 +71,7 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -83,7 +83,7 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -92,7 +92,7 @@ class ExcursionController
 	{
 		$date = str_replace("T"," ",$_POST['date']);
 		ExcursionService::addDateToExcursionById(Database::getDatabase(),$_POST['id'],$date);
-		header('Location: http://eshop/admin/excursions');
+		header("Location: ".Helper::getUrl()."/admin/excursions");
 		return self::showAdminExcursionList();
 	}
 
@@ -136,7 +136,7 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-detailed-add");
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -146,7 +146,7 @@ class ExcursionController
 		$log = new Logger;
 		$log->info('',['id'=>$_POST['id']]);
 		ExcursionService::deactivateDate(Database::getDatabase(),$_POST['id']);
-		header('Location: http://eshop/admin/excursions');
+		header("Location: ".Helper::getUrl()."/admin/excursions");
 		return self::showAdminExcursionList();
 	}
 
