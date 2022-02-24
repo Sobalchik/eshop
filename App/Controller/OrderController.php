@@ -37,7 +37,7 @@ class OrderController
 			$content = Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}

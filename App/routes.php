@@ -129,7 +129,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/admin/excursions/add",
+	"/admin/excursion/add",
 	[ExcursionController::class, 'addExcursion']
 );
 
@@ -185,4 +185,10 @@ Router::add(
 	"GET",
 	"/blog",
 	[ExcursionController::class, 'getBlog']
+);
+
+Router::add(
+	"POST",
+	"/admin/excursion/create",
+	[ExcursionController::class, 'createExcursion']
 );

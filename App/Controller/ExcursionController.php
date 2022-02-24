@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Excursion;
 use App\Lib\Helper;
 use App\Lib\Render;
 use App\Logger\Logger;
@@ -59,7 +60,7 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-detailed-edit", ["excursion" => $excursion]);
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -71,7 +72,7 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -83,7 +84,7 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -92,7 +93,7 @@ class ExcursionController
 	{
 		$date = str_replace("T"," ",$_POST['date']);
 		ExcursionService::addDateToExcursionById(Database::getDatabase(),$_POST['id'],$date);
-		header('Location: http://eshop/admin/excursions');
+		header("Location: ".Helper::getUrl()."/admin/excursions");
 		return self::showAdminExcursionList();
 	}
 
@@ -125,7 +126,21 @@ class ExcursionController
 
 	public static function  sortExcursionsByTags() : string
 	{
-		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),$_POST['tagList']);
+		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),
+			[
+				[
+					'tagType' => 1,
+					'tagList' => [10]
+				],
+				[
+					'tagType' => 2,
+					'tagList' => [14]
+				],
+				[
+				'tagType' => 3,
+				'tagList' => [20]
+				]
+			]);
 		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 
@@ -136,7 +151,38 @@ class ExcursionController
 			$content = Render::renderContent("admin-excursions-detailed-add");
 			return Render::renderAdminMenu($content);
 		}else{
-			header("Location: http://eshop/login");
+			header("Location: ".Helper::getUrl()."/login");
+			return '';
+		}
+	}
+
+	public static function createExcursion()
+	{
+		$excursionDate = new \DateTime('now');
+		if(UserController::isAuthorized()){
+			$excursion = new Excursion(
+				0,
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['city']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['country']),
+				'null',
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['price']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['description']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['iRating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['eRating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['sRating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['Rating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['degrees']),
+				1,
+				'null',
+				$excursionDate->format("Y-m-d H:i:s"),
+				$excursionDate->format("Y-m-d H:i:s")
+			);
+			$excursion->setCountPersons(mysqli_real_escape_string(Database::getDatabase(), $_POST['person']));
+			$excursion->setDuration(mysqli_real_escape_string(Database::getDatabase(), $_POST['duration']));
+			ExcursionService::addExcursion(Database::getDatabase(), $excursion);
+			return self::showAdminExcursionList();
+		}else{
+			header("Location: ".Helper::getUrl()."/login");
 			return '';
 		}
 	}
@@ -146,7 +192,7 @@ class ExcursionController
 		$log = new Logger;
 		$log->info('',['id'=>$_POST['id']]);
 		ExcursionService::deactivateDate(Database::getDatabase(),$_POST['id']);
-		header('Location: http://eshop/admin/excursions');
+		header("Location: ".Helper::getUrl()."/admin/excursions" );
 		return self::showAdminExcursionList();
 	}
 

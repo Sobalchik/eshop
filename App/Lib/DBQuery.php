@@ -7,7 +7,7 @@ class DBQuery
 	public static function getExcursionsForHomePage() : string
 	{
 		return "
-			select
+			select distinct 
 				up_product.ID as 'id',
 				up_product.NAME_CITY as 'nameCity',
 				up_product.NAME_COUNTRY as 'nameCountry',
@@ -157,12 +157,34 @@ class DBQuery
 			"order by up_product.RATING DESC;";
 	}
 
-	public static function getExcursionsByTagQuery(array $tagId) : string
+	public static function getExcursionsByTagQuery(int $tagType, array $tagList) : string
 	{
 		return
-			self::getExcursionsForHomePage() .
-			"INNER JOIN up_product_tag on up_product_tag.PRODUCT_ID = up_product.ID
-			WHERE up_product_tag.TAG_ID IN (".implode(",",$tagId).")";
+			"up_product.ID in
+			(
+				select concat(up_product.ID)
+				from up_product
+				left join up_product_tag on up_product.ID = up_product_tag.PRODUCT_ID
+				left join up_tag_type_tag on up_tag_type_tag.TAG_ID = up_product_tag.TAG_ID
+				where up_tag_type_tag.TAG_ID in
+				(
+					select group_concat(up_tag_type_tag.TAG_ID)
+					from up_tag_type_tag
+					where up_tag_type_tag.TAG_ID in (" .implode(',', $tagList) .") and up_tag_type_tag.TYPE_ID = '{$tagType}'
+					group by up_tag_type_tag.TYPE_ID
+				)
+			)
+		";
+	}
+
+	public static function addExcursion() : string
+	{
+		return "
+			insert into up_product
+			(NAME_CITY, NAME_COUNTRY, DURATION, COUNT_PERSONS, PRICE, FULL_DESCRIPTION, INTERNET_RATING, SERVICE_RATING, RATING, DEGREES, ACTIVE, DATE_CREATE, DATE_UPDATE)
+			values
+			(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+		";
 	}
 
 	public static function updateExcursionById() : string
