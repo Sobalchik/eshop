@@ -155,12 +155,24 @@ class ExcursionController
 		}
 	}
 
+	public static function createExcursion()
+	{
+		if(UserController::isAuthorized()){
+
+			//$content = Render::renderContent("admin-excursions-detailed-add");
+			//return Render::renderAdminMenu($content);
+		}else{
+			header("Location: ".Helper::getUrl()."/login");
+			return '';
+		}
+	}
+
 	public static function deactivateDate(): string
 	{
 		$log = new Logger;
 		$log->info('',['id'=>$_POST['id']]);
 		ExcursionService::deactivateDate(Database::getDatabase(),$_POST['id']);
-		header("Location: ".Helper::getUrl()."/admin/excursions");
+		header("Location: ".Helper::getUrl()."/admin/excursions" );
 		return self::showAdminExcursionList();
 	}
 

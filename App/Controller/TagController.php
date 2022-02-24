@@ -9,7 +9,6 @@ use App\Lib\Render;
 
 class TagController
 {
-
 	public static function showAdminTagsPrepare(): string
 	{
 		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
