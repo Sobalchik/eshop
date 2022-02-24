@@ -22,7 +22,7 @@ function sortByTag(){
 	$('input:checkbox:checked').each(function() {
 		checked.push($(this).val());
 	});
-
+	
 	// document.querySelectorAll('input.checkbox:checked');
 	//  var selectedCheckBoxes = document.querySelectorAll('input.checkbox:checked');
 	//  var checkedValues = Array.from(selectedCheckBoxes).map(cb => cb.value);

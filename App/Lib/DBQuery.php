@@ -180,7 +180,7 @@ class DBQuery
 				left join up_tag_type_tag on up_tag_type_tag.TAG_ID = up_product_tag.TAG_ID
 				where up_tag_type_tag.TAG_ID in
 				(
-					select group_concat(up_tag_type_tag.TAG_ID)
+					select concat(up_tag_type_tag.TAG_ID)
 					from up_tag_type_tag
 					where up_tag_type_tag.TAG_ID in (" .implode(',', $tagList) .") and up_tag_type_tag.TYPE_ID = '{$tagType}'
 					group by up_tag_type_tag.TYPE_ID
