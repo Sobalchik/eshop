@@ -29,7 +29,7 @@
 					<p>Обслуживание</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="">
 					<p>Оценка</p>
-					<p class="input-me form-control" id="inlineFormInputName"></p>
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="Rating" value="">
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc2">

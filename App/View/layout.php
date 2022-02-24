@@ -20,7 +20,7 @@ use App\Lib\Helper;
 			<a href="http://eshop/"><img class="header-logo" src="/Resources/Images/logo_template14%201.png"></a>
 		</div>
 		<div class="bloc-menu">
-			<a href="http://eshop/allExcursions" class="menu-button">Экскурсии</a>
+			<a href="<?=Helper::getUrl()?>/allExcursions" class="menu-button">Экскурсии</a>
 			<a class="menu-button">Клиентам</a>
 			<a class="menu-button">Блог</a>
 			<a class="menu-button">Отзывы</a>

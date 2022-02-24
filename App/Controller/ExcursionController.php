@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Excursion;
 use App\Lib\Helper;
 use App\Lib\Render;
 use App\Logger\Logger;
@@ -157,10 +158,29 @@ class ExcursionController
 
 	public static function createExcursion()
 	{
+		$excursionDate = new \DateTime('now');
 		if(UserController::isAuthorized()){
-
-			//$content = Render::renderContent("admin-excursions-detailed-add");
-			//return Render::renderAdminMenu($content);
+			$excursion = new Excursion(
+				0,
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['city']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['country']),
+				'null',
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['price']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['description']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['iRating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['eRating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['sRating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['Rating']),
+				mysqli_real_escape_string(Database::getDatabase(), $_POST['degrees']),
+				1,
+				'null',
+				$excursionDate->format("Y-m-d H:i:s"),
+				$excursionDate->format("Y-m-d H:i:s")
+			);
+			$excursion->setCountPersons(mysqli_real_escape_string(Database::getDatabase(), $_POST['person']));
+			$excursion->setDuration(mysqli_real_escape_string(Database::getDatabase(), $_POST['duration']));
+			ExcursionService::addExcursion(Database::getDatabase(), $excursion);
+			return self::showAdminExcursionList();
 		}else{
 			header("Location: ".Helper::getUrl()."/login");
 			return '';

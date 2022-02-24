@@ -376,6 +376,35 @@ class ExcursionService
 		return $excursions;
 	}
 
+	public static function addExcursion(mysqli $db, Excursion $excursion) : void
+	{
+		$query = "insert into up_product
+			(NAME_CITY, NAME_COUNTRY, DURATION, COUNT_PERSONS, PRICE, FULL_DESCRIPTION, INTERNET_RATING, ENTERTAINMENT_RATING, SERVICE_RATING, RATING, DEGREES, ACTIVE, DATE_CREATE, DATE_UPDATE)
+			values
+			(
+			'{$excursion->getNameCity()}',
+			'{$excursion->getNameCountry()}',
+			'{$excursion->getDuration()}',
+			'{$excursion->getCountPersons()}',
+			'{$excursion->getPrice()}',
+			'{$excursion->getFullDescription()}',
+			'{$excursion->getInternetRating()}',
+			'{$excursion->getEntertainmentRating()}',
+			'{$excursion->getServiceRating()}',
+			'{$excursion->getRating()}',
+			'{$excursion->getDegrees()}',
+			'{$excursion->getActive()}', 
+			 CURRENT_TIMESTAMP,
+			 CURRENT_TIMESTAMP)";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
 	public static function editExcursionById(mysqli $db, Excursion $excursion) : void
 	{
 		$query = DBQuery::updateExcursionById();
