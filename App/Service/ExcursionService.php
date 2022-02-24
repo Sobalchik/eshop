@@ -297,7 +297,7 @@ class ExcursionService
 
 		foreach ($tagTypesTagsList as $tag)
 		{
-			$query .= "and" . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
+			$query .= " and " . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
 		}
 
 		$result = mysqli_query($db, $query);
