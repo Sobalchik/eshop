@@ -162,42 +162,19 @@ class DBQuery
 		return
 			"up_product.ID in
 			(
-				select if
-			(
-				exists
+				select concat(up_product.ID)
+				from up_product
+				left join up_product_tag on up_product.ID = up_product_tag.PRODUCT_ID
+				left join up_tag_type_tag on up_tag_type_tag.TAG_ID = up_product_tag.TAG_ID
+				where up_tag_type_tag.TAG_ID in
 				(
-					select group_concat(up_product.ID)
-						from up_product
-						left join up_product_tag on up_product.ID = up_product_tag.PRODUCT_ID
-						left join up_tag_type_tag on up_tag_type_tag.TAG_ID = up_product_tag.TAG_ID
-						where up_tag_type_tag.TAG_ID in
-						(
-							select group_concat(up_tag_type_tag.TAG_ID)
-							from up_tag_type_tag
-							where up_tag_type_tag.TAG_ID in (?) and up_tag_type_tag.TYPE_ID = 1
-							group by up_tag_type_tag.TYPE_ID
-						)
-					),
-				(
-					select group_concat(up_product.ID)
-					from up_product
-					left join up_product_tag on up_product.ID = up_product_tag.PRODUCT_ID
-					left join up_tag_type_tag on up_tag_type_tag.TAG_ID = up_product_tag.TAG_ID
-					where up_tag_type_tag.TAG_ID in
-					(
-						select group_concat(up_tag_type_tag.TAG_ID)
-						from up_tag_type_tag
-						where up_tag_type_tag.TAG_ID in 
-							((" . implode(',', array_map('intval', $tagList)) . ")) 
-							and up_tag_type_tag.TYPE_ID = '{$tagType}'
-						group by up_tag_type_tag.TYPE_ID
-					)
-				),
-				(
-					select up_product.ID from up_product
+					select group_concat(up_tag_type_tag.TAG_ID)
+					from up_tag_type_tag
+					where up_tag_type_tag.TAG_ID in (" .implode(',', $tagList) .") and up_tag_type_tag.TYPE_ID = '{$tagType}'
+					group by up_tag_type_tag.TYPE_ID
 				)
 			)
-		)";
+		";
 	}
 
 	public static function addExcursion() : string
