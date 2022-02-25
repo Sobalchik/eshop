@@ -57,7 +57,13 @@ class ExcursionController
 	{
 		if(UserController::isAuthorized()){
 			$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(), $_GET['id']);
-			$content = Render::renderContent("admin-excursions-detailed-edit", ["excursion" => $excursion]);
+			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
+			foreach ($typeTags as $typeTag)
+			{
+				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
+				$typeTag->setTagsBelong($tagsBelong);
+			}
+			$content = Render::renderContent("admin-excursions-detailed-edit", ["excursion" => $excursion, "typeTags"=>$typeTags]);
 			return Render::renderAdminMenu($content);
 		}else{
 			header("Location: ".Helper::getUrl()."/login");
@@ -113,7 +119,16 @@ class ExcursionController
 		$excursion->setFullDescription($_POST['description']);
 		$rating = round(((float)$_POST['iRating'] +(float)$_POST['eRating'] +(float)$_POST['sRating']) / 3,1); //нужна функция-хелпер!
 		$excursion->setRating($rating);
+		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
+		$resultSelectTags = [];
+		foreach ($typeTags as $typeTag)
+		{
+			$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_'.$typeTag->getId()]);
+		}
+		$excursion->setTagList($resultSelectTags);
 		ExcursionService::editExcursionById(Database::getDatabase(),$excursion);
+		ExcursionService::deleteProductBelongTags(Database::getDatabase(), $excursion);
+		ExcursionService::addProductBelongTags(Database::getDatabase(), $excursion);
 
 		return self::showAdminExcursionList();
 	}
@@ -136,7 +151,13 @@ class ExcursionController
 	public static function addExcursion()
 	{
 		if(UserController::isAuthorized()){
-			$content = Render::renderContent("admin-excursions-detailed-add");
+			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
+			foreach ($typeTags as $typeTag)
+			{
+				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
+				$typeTag->setTagsBelong($tagsBelong);
+			}
+			$content = Render::renderContent("admin-excursions-detailed-add",["typeTags" => $typeTags]);
 			return Render::renderAdminMenu($content);
 		}else{
 			header("Location: ".Helper::getUrl()."/login");
@@ -167,7 +188,16 @@ class ExcursionController
 			);
 			$excursion->setCountPersons(mysqli_real_escape_string(Database::getDatabase(), $_POST['person']));
 			$excursion->setDuration(mysqli_real_escape_string(Database::getDatabase(), $_POST['duration']));
-			ExcursionService::addExcursion(Database::getDatabase(), $excursion);
+			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
+			$resultSelectTags = [];
+			foreach ($typeTags as $typeTag)
+			{
+				$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_'.$typeTag->getId()]);
+			}
+			$excursion->setTagList($resultSelectTags);
+			$excursionId = ExcursionService::addExcursion(Database::getDatabase(), $excursion);
+			$excursion->setId($excursionId);
+			ExcursionService::addProductBelongTags(Database::getDatabase(), $excursion);
 			return self::showAdminExcursionList();
 		}else{
 			header("Location: ".Helper::getUrl()."/login");

@@ -1,5 +1,6 @@
 <?php
 /** @var \App\Entity\Excursion $excursion */
+/** @var array $typeTags */
 
 ?>
 
@@ -11,8 +12,6 @@
 				<h1>Вид карты</h1>
 				<div>
 					<input style="display: none " type="text" class="input-me form-control" id="inlineFormInputName" name="id" value="<?= $excursion->getId() ?>">
-					<p>дата</p>
-					<input type="text" class="input-me form-control" id="inlineFormInputName" name="date" value="<?= $excursion->getDateTravel(); ?>">
 					<p>страна</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="country" value="<?= $excursion->getNameCountry();?>">
 					<p>температура</p>
@@ -42,7 +41,18 @@
 				<h1>Детальная страница</h1>
 				<div>
 					<p>Теги</p>
-					<input type="text" class="input-me form-control" id="inlineFormInputName" name="tagList" value="<?= implode(",",$excursion->getTagList());?>">
+					<?php foreach ($typeTags as $typeTag):?>
+						<p><select size="3" multiple  name="select_typeTag_<?=$typeTag->getId()?>[]">
+								<option disabled><?=$typeTag->getName()?></option>
+								<?php foreach ($typeTag->getTagsBelong() as $tagsBelong): ?>
+								<? if (in_array($tagsBelong->getName(),$excursion->getTagList())){?>
+										<option selected value="<?=$tagsBelong->getId()?>"><?=$tagsBelong->getName()?></option>
+									<?} else {?>
+										<option value="<?=$tagsBelong->getId()?>"><?=$tagsBelong->getName()?></option>
+									<? }?>
+								<?endforeach;?>
+							</select></p>
+					<?endforeach;?>
 					<p>Время</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="duration" value="<?= $excursion->getDuration();?>">
 					<p>размер группы </p>

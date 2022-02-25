@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Config\Settings;
 use App\Entity\Excursion;
+use App\Lib\Helper;
 use App\Logger\Logger;
 use mysqli;
 use App\Lib\DBQuery;
@@ -18,18 +19,18 @@ class ExcursionService
 		{
 			$excursions[] = new Excursion(
 				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
+				Helper::replacementNullValueMysql($excursion['nameCity']),
+				Helper::replacementNullValueMysql($excursion['nameCountry']),
+				Helper::replacementNullValueMysql($excursion['dateTravel']),
+				Helper::replacementNullValueMysql($excursion['price']),
 				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				$excursion['imageList'],
+				Helper::replacementNullValueMysql($excursion['internetRating']),
+				Helper::replacementNullValueMysql($excursion['entertainmentRating']),
+				Helper::replacementNullValueMysql($excursion['serviceRating']),
+				Helper::replacementNullValueMysql($excursion['rating']),
+				Helper::replacementNullValueMysql($excursion['degrees']),
+				Helper::replacementNullValueMysql($excursion['active']),
+				Helper::replacementNullValueMysql($excursion['imageList']),
 				'',
 				''
 			);
@@ -75,18 +76,18 @@ class ExcursionService
 
 		$result_excursion = new Excursion(
 			$excursion['id'],
-			$excursion['nameCity'],
-			$excursion['nameCountry'],
-			$excursion['dateTravel'],
-			$excursion['price'],
-			$excursion['full_description'],
+			Helper::replacementNullValueMysql($excursion['nameCity']),
+			Helper::replacementNullValueMysql($excursion['nameCountry']),
+			Helper::replacementNullValueMysql($excursion['dateTravel']),
+			Helper::replacementNullValueMysql($excursion['price']),
+			Helper::replacementNullValueMysql($excursion['full_description']),
 			0,
 			0,
 			0,
-			$excursion['rating'],
+			Helper::replacementNullValueMysql($excursion['rating']),
 			0,
-			$excursion['active'],
-			$excursion['imageList'],
+			Helper::replacementNullValueMysql($excursion['active']),
+			Helper::replacementNullValueMysql($excursion['imageList']),
 			'',
 			''
 		);
@@ -219,7 +220,7 @@ class ExcursionService
 			$excursion['id'],
 			$excursion['nameCity'],
 			$excursion['nameCountry'],
-			$excursion['dateTravel'],
+			'',
 			$excursion['price'],
 			$excursion['fullDescription'],
 			$excursion['internetRating'],
@@ -235,7 +236,7 @@ class ExcursionService
 
 		$result_excursion->setDuration($excursion['duration']);
 		$result_excursion->setCountPersons($excursion['countPersons']);
-		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
+		$result_excursion->setTagList(explode(',', $excursion['tagList']));
 
 		return $result_excursion;
 	}
@@ -409,7 +410,7 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function addExcursion(mysqli $db, Excursion $excursion) : void
+	public static function addExcursion(mysqli $db, Excursion $excursion) : int
 	{
 		$query = "insert into up_product
 			(NAME_CITY, NAME_COUNTRY, DURATION, COUNT_PERSONS, PRICE, FULL_DESCRIPTION, INTERNET_RATING, ENTERTAINMENT_RATING, SERVICE_RATING, RATING, DEGREES, ACTIVE, DATE_CREATE, DATE_UPDATE)
@@ -429,6 +430,27 @@ class ExcursionService
 			'{$excursion->getActive()}', 
 			 CURRENT_TIMESTAMP,
 			 CURRENT_TIMESTAMP)";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return mysqli_insert_id($db);
+	}
+
+	public static function addProductBelongTags(mysqli $db, Excursion $excursion): void
+	{
+		$query = "insert into up_product_tag (PRODUCT_ID, TAG_ID) values";
+
+		foreach ($excursion->getTagList() as $tag)
+		{
+			$query .= "({$excursion->getId()},{$tag}), ";
+		}
+
+		$query = substr($query, 0, -2);
 
 		$result = mysqli_query($db, $query);
 
@@ -552,7 +574,7 @@ class ExcursionService
 		}
 	}
 
-		public static function deactivateDate(mysqli $db, int $id){
+	public static function deactivateDate(mysqli $db, int $id){
 		$query = DBQuery::deleteDateById();
 
 		$stmt = mysqli_prepare($db, $query);
@@ -563,6 +585,18 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
+	}
+
+	public static function deleteProductBelongTags(mysqli $db, Excursion $excursion): void
+	{
+		$query = "delete from up_product_tag WHERE PRODUCT_ID=({$excursion->getId()})";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
 	}
 
 }

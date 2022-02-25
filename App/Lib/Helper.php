@@ -134,4 +134,9 @@ class Helper
 	{
 		return ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 	}
+
+	public static function replacementNullValueMysql($valueMysql)
+	{
+		return ($valueMysql==NULL) ? '' : $valueMysql;
+	}
 }
