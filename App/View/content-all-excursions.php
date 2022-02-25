@@ -39,12 +39,21 @@ use App\Lib\Render;
 
 		<button class="glow-button" onclick="sortByTag()"> показать </button>
 	</div>
+	<div class="bloc-2-contener-tegi-renting">
+		<div class="form_radio_btn">
+			<input id="radio-2" type="radio" onclick="sort(1)" name="radio" value="2">
+			<label for="radio-2">Radio button 2</label>
+		</div>
 
+		<div class="form_radio_btn">
+			<input id="radio-3" type="radio" onclick="sort(2)" name="radio" value="3">
+			<label for="radio-3">Radio button 3</label>
+		</div>
 
-	<div  class="bloc-2-contener-tegi-renting">
-		<button class="glow-button" onclick="sort(1)">Сначала недорогие</button>
-		<button class="glow-button" onclick="sort(2)">Сначала дорогие</button>
-		<button class="glow-button" onclick="sort(3)">С лучшей оценкой</button>
+		<div class="form_radio_btn">
+			<input id="radio-4" type="radio" onclick="sort(3)" name="radio" value="4" >
+			<label for="radio-4">Radio button 3</label>
+		</div>
 	</div>
 
 
