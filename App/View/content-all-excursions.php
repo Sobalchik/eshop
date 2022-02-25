@@ -12,9 +12,11 @@ use App\Lib\Render;
 	</div>
 </div>
 <div class="bloc2">
-	<div class="bloc-2-contener-poisk">
-		<input class="form-control-poisk" type="search" placeholder="Search" aria-label="Search" name="search-excursions">
-		<button class="btn-outline-posik" type="submit">Поиск</button>
+	<form class="bloc-2-contener-poisk" method="post">
+		<input id="search" class="form-control-poisk" type="search" placeholder="Search" aria-label="Search" name="search-excursions" value="">
+		<a href="javascript:void(0)" onclick="findByName()" class="btn-outline-posik" type="submit">Поиск</a>
+	</form>
+
 	</div>
 	<div class="bloc-2-contener-tegi-list">
 		<div class="checkselect">
@@ -40,9 +42,9 @@ use App\Lib\Render;
 
 
 	<div  class="bloc-2-contener-tegi-renting">
-		<button class="glow-button" onclick="sort(1)">price-asc</button>
-		<button class="glow-button" onclick="sort(2)">price-desc</button>
-		<button class="glow-button" onclick="sort(3)">rating-desc</button>
+		<button class="glow-button" onclick="sort(1)">Сначала недорогие</button>
+		<button class="glow-button" onclick="sort(2)">Сначала дорогие</button>
+		<button class="glow-button" onclick="sort(3)">С лучшей оценкой</button>
 	</div>
 
 

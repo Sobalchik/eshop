@@ -25,7 +25,7 @@ use App\Lib\Helper;
 				<a href="/"><img class="header-logo" src="/Resources/Images/logo_template14%201.png"></a>
 			</div>
 			<div class="bloc-menu">
-				<a href="/allExcursions" class="menu-button">Экскурсии</a>
+				<a href="/allExcursions/" class="menu-button">Экскурсии</a>
 				<a href="/client" class="menu-button">Клиентам</a>
 				<a href="/blog" class="menu-button">Блог</a>
 				<a href="/about" class="menu-button">О нас</a>
@@ -47,7 +47,7 @@ use App\Lib\Helper;
 		<nav class="mobile-menu">
 			<ul class="mobile-menu-bloc2">
 				<li><a href="/" class="pading-5">Главная</a></li>
-				<li><a href="/allExcursions" class="pading-1">Экскурсии</a></li>
+				<li><a href="/allExcursions/" class="pading-1">Экскурсии</a></li>
 				<li><a href="/client" class="pading-2">Клиентам</a></li>
 				<li><a href="/blog" class="pading-3">Блог</a></li>
 				<li><a href="/about" class="pading-4"> О нас</a></li>

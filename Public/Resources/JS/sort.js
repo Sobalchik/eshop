@@ -61,6 +61,9 @@ function sortByTag(){
 		checked.push($(this).val());
 	});
 
+
+
+
 	order = getUrlParameter('order')
 	// document.querySelectorAll('input.checkbox:checked');
 	//  var selectedCheckBoxes = document.querySelectorAll('input.checkbox:checked');
@@ -151,7 +154,3 @@ $(document).ready(function() {
 })(jQuery);
 
 $('.checkselect').checkselect();
-
-$( window ).unload(function() {
-	return "Handler for .unload() called.";
-});

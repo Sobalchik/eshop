@@ -101,7 +101,7 @@ class ExcursionController
 
 			if (sizeof($excursions)==0)
 			{
-				MessageController::showErrorPage();
+				return MessageController::showErrorPage();
 			}
 			return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
@@ -152,22 +152,25 @@ class ExcursionController
 
 		if (sizeof($excursions)==0)
 		{
-			MessageController::showErrorPage();
+			return MessageController::showErrorPage();
 		}
 		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 
 	public static function  sortExcursionsByTags() : string
 	{
+		if($_POST['tagList']==null)
+		{
+			return MessageController::showErrorPage();
+		}
+
 		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),$_POST['tagList']);
+
 		if($_POST['order']!=0)
 		{
 			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions ,$_POST['order']);
 		}
-		if (sizeof($excursions)==0)
-		{
-			MessageController::showErrorPage();
-		}
+
 		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 
