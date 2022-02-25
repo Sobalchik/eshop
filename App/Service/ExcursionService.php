@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Config\Settings;
 use App\Entity\Excursion;
+use App\Lib\Helper;
 use App\Logger\Logger;
 use mysqli;
 use App\Lib\DBQuery;
@@ -18,18 +19,18 @@ class ExcursionService
 		{
 			$excursions[] = new Excursion(
 				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
+				Helper::replacementNullValueMysql($excursion['nameCity']),
+				Helper::replacementNullValueMysql($excursion['nameCountry']),
+				Helper::replacementNullValueMysql($excursion['dateTravel']),
+				Helper::replacementNullValueMysql($excursion['price']),
 				'',
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				$excursion['imageList'],
+				Helper::replacementNullValueMysql($excursion['internetRating']),
+				Helper::replacementNullValueMysql($excursion['entertainmentRating']),
+				Helper::replacementNullValueMysql($excursion['serviceRating']),
+				Helper::replacementNullValueMysql($excursion['rating']),
+				Helper::replacementNullValueMysql($excursion['degrees']),
+				Helper::replacementNullValueMysql($excursion['active']),
+				Helper::replacementNullValueMysql($excursion['imageList']),
 				'',
 				''
 			);
@@ -73,20 +74,22 @@ class ExcursionService
 	{
 		$excursion = mysqli_fetch_assoc($excursionFromDB);
 
+		var_dump($excursion);
+
 		$result_excursion = new Excursion(
 			$excursion['id'],
-			$excursion['nameCity'],
-			$excursion['nameCountry'],
-			$excursion['dateTravel'],
-			$excursion['price'],
-			$excursion['full_description'],
+			Helper::replacementNullValueMysql($excursion['nameCity']),
+			Helper::replacementNullValueMysql($excursion['nameCountry']),
+			Helper::replacementNullValueMysql($excursion['dateTravel']),
+			Helper::replacementNullValueMysql($excursion['price']),
+			Helper::replacementNullValueMysql($excursion['full_description']),
 			0,
 			0,
 			0,
-			$excursion['rating'],
+			Helper::replacementNullValueMysql($excursion['rating']),
 			0,
-			$excursion['active'],
-			$excursion['imageList'],
+			Helper::replacementNullValueMysql($excursion['active']),
+			Helper::replacementNullValueMysql($excursion['imageList']),
 			'',
 			''
 		);
