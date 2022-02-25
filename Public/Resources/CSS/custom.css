@@ -1,20 +1,20 @@
 
-
-p{
+p {
 	margin-top: 0;
 	margin-bottom: 0;
 }
-.asd{
+
+.asd {
 	background-color: #1e1e2e !important;
 }
 
 
-.container-s{
+.container-s {
 	display: flex;
 }
 
 
-.navbar-s{
+.navbar-s {
 	width: 13%;
 	min-width: 270px;
 	height: 100%;
@@ -22,7 +22,7 @@ p{
 	padding: 20px;
 }
 
-.bloc1-navbar{
+.bloc1-navbar {
 	width: 100%;
 	height: 800px;
 	background: linear-gradient(to top, #bf53ee 40%, #cd51dd 50%, #e04eca 80%);
@@ -30,19 +30,19 @@ p{
 	margin-top: 20px;
 }
 
-.bloc1-navbar-a{
+.bloc1-navbar-a {
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-.bloc2{
+.bloc2 {
 	width: 87%;
 	padding: 20px;
 }
 
-.bloc2-cont{
+.bloc2-cont {
 	width: 1200px;
 	height: 724px;
 	margin-top: 20px;
@@ -51,11 +51,11 @@ p{
 	background-color: #27293d;
 }
 
-.bitawe{
+.bitawe {
 	width: 40px;
 }
 
-.admin-navbar-list-a{
+.admin-navbar-list-a {
 	width: 100px;
 	height: 30px;
 	color: white;
@@ -66,29 +66,31 @@ p{
 	border-radius: 20px;
 }
 
-.accordion-item-bloc1{
+.accordion-item-bloc1 {
 	display: flex;
 	height: 50px;
 	width: 1100px;
 	justify-content: center;
 	align-items: center;
 }
-.accordion-item-bloc2{
+
+.accordion-item-bloc2 {
 	display: flex;
 	align-items: center;
 }
-.accordion-item-bloc3{
+
+.accordion-item-bloc3 {
 	display: flex;
 }
 
-.accordion-item-bloc2-text-help{
+.accordion-item-bloc2-text-help {
 	margin-right: 20px;
 	color: white;
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-.accordion-item-bloc2-text{
+.accordion-item-bloc2-text {
 	margin-left: 20px;
 	margin-right: 20px;
 	color: white;
@@ -96,8 +98,8 @@ p{
 	margin-bottom: 0;
 }
 
-.accordion-item-bloc2-text-2{
-	background-color: #000000;
+.accordion-item-bloc2-text-2 {
+	background-color: #000;
 	color: white;
 	margin-right: 10px;
 	width: 185px;
@@ -107,11 +109,11 @@ p{
 	margin-bottom: 0px;
 }
 
-.logo-navbar{
+.logo-navbar {
 	margin-left: 47px;
 }
 
-.admin-navbar-a{
+.admin-navbar-a {
 	width: 200px;
 	height: 30px;
 	color: white;
@@ -122,11 +124,12 @@ p{
 	border-radius: 20px;
 }
 
-.input-me{
+.input-me {
 	width: 200px;
 	height: 30px;
 }
-.inpit-me-order{
+
+.inpit-me-order {
 	display: flex;
 	width: 100%;
 	min-width: 200px;
@@ -135,7 +138,7 @@ p{
 	justify-content: center;
 }
 
-.admin-excursions-detaild-bloc1{
+.admin-excursions-detaild-bloc1 {
 	display: flex;
 	text-align: center;
 	width: 300px;
@@ -149,7 +152,7 @@ p{
 	margin-right: 20px;
 }
 
-.admin-excursions-detaild-bloc2{
+.admin-excursions-detaild-bloc2 {
 	display: flex;
 	text-align: center;
 	width: 300px;
@@ -163,7 +166,7 @@ p{
 	margin-right: 20px;
 }
 
-.admin-excursions-detaild-bloc3{
+.admin-excursions-detaild-bloc3 {
 	display: flex;
 	text-align: center;
 	width: 300px;
@@ -177,7 +180,7 @@ p{
 	margin-right: 20px;
 }
 
-.admin-excursions-detaild-bloc4{
+.admin-excursions-detaild-bloc4 {
 	display: flex;
 	width: 982px;
 	height: 130px;
@@ -189,7 +192,8 @@ p{
 	align-items: center;
 	justify-content: space-evenly;
 }
-.admin-excursions-detaild-bloc4-input{
+
+.admin-excursions-detaild-bloc4-input {
 	width: 100px;
 	height: 30px;
 	border: none;
@@ -201,37 +205,42 @@ p{
 	text-decoration: none;
 
 }
-.admin-input-color-3{
+
+.admin-input-color-3 {
 	background: linear-gradient(to top, #e50384 40%, #b048be 90%, #c53eb2 80%);
 }
-.admin-input-color-2{
+
+.admin-input-color-2 {
 	background: linear-gradient(to top, #0cb754 10%, #389d1c 70%, rgba(106, 161, 26, 0.84) 90%);
 }
-.admin-input-color-1{
+
+.admin-input-color-1 {
 	background: linear-gradient(to top, #2d2d2d 10%, #504a4a 70%, rgba(70, 70, 70, 0.84) 90%);
 }
 
-.admin-orders-text{
+.admin-orders-text {
 	color: white;
 }
-.admin-orders{
+
+.admin-orders {
 	display: flex;
 	align-items: center;
 }
-.admin-orders-bloc1{
+
+.admin-orders-bloc1 {
 	margin-bottom: 20px;
 }
 
-.admin-orders-bloc1-form{
+.admin-orders-bloc1-form {
 	display: flex;
 }
 
-.admin-orders-bloc1-clom1{
+.admin-orders-bloc1-clom1 {
 	text-align: center;
 	margin-right: 20px;
 }
 
-.admin-orders-bloc1-clom2{
+.admin-orders-bloc1-clom2 {
 	margin-top: 20px;
 	display: flex;
 	flex-direction: column;

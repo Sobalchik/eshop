@@ -14,7 +14,7 @@ class TagController
 		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
 		foreach ($typeTags as $typeTag)
 		{
-			$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
+			$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(), $typeTag->getId());
 			$typeTag->setTagsBelong($tagsBelong);
 		}
 		$content = Render::renderContent("admin-tags-list", ["typeTags" => $typeTags]);
@@ -23,9 +23,9 @@ class TagController
 
 	public static function showAdminTags(): string
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{
@@ -35,9 +35,9 @@ class TagController
 
 	public static function deleteTag(int $id): string
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{
@@ -48,9 +48,9 @@ class TagController
 
 	public static function deleteTypeTag(int $id): string
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{
@@ -61,9 +61,9 @@ class TagController
 
 	public static function saveTag(): string
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{
@@ -76,9 +76,9 @@ class TagController
 
 	public static function saveTypeTag(): string
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{
@@ -91,9 +91,9 @@ class TagController
 
 	public static function addTag(): string
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{
@@ -107,9 +107,9 @@ class TagController
 
 	public static function addTypeTag(): string
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{

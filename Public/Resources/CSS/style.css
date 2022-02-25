@@ -170,6 +170,7 @@ html {
 	padding-left: 250px;
 	padding-right: 250px;
 	text-align: center;
+	min-height: 577px;
 }
 
 .bloc-2-box {
@@ -2138,6 +2139,13 @@ html {
 	align-items: center;
 	justify-content: center;
 	padding-bottom: 10px;
+}
+
+.error-nothing-found-text{
+	font-family: Raleway;
+	font-size: 30px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 @media all and (max-width: 1600px) {

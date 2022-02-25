@@ -37,22 +37,22 @@ use App\Lib\Render;
 			<?php endforeach?>
 		</div>
 
-		<button class="glow-button" onclick="sortByTag()"> показать </button>
+		<button class="glow-button" onclick="sortByTag()"> Показать </button>
 	</div>
 	<div class="bloc-2-contener-tegi-renting">
 		<div class="form_radio_btn">
 			<input id="radio-2" type="radio" onclick="sort(1)" name="radio" value="2">
-			<label for="radio-2">Radio button 2</label>
+			<label for="radio-2">Сначала дешевые</label>
 		</div>
 
 		<div class="form_radio_btn">
 			<input id="radio-3" type="radio" onclick="sort(2)" name="radio" value="3">
-			<label for="radio-3">Radio button 3</label>
+			<label for="radio-3">Сначала дорогие</label>
 		</div>
 
 		<div class="form_radio_btn">
 			<input id="radio-4" type="radio" onclick="sort(3)" name="radio" value="4" >
-			<label for="radio-4">Radio button 3</label>
+			<label for="radio-4">С высоким рейтингом</label>
 		</div>
 	</div>
 

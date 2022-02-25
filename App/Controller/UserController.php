@@ -11,23 +11,23 @@ use App\Lib\Render;
 class UserController
 {
 
-	public static function loginUser():string
+	public static function loginUser(): string
 	{
 		return Render::renderContent("login", []);
 	}
 
-	public static function logOutUser():string
+	public static function logOutUser(): string
 	{
 		session_start();
-		$_SESSION = array();
+		$_SESSION = [];
 		session_destroy();
 		$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
 		return Render::render("content-top-excursions", ['excursions' => $excursions]);
 	}
 
-	public static function adminPanel():string
+	public static function adminPanel(): string
 	{
-		if (self::isAuthorized()===true)
+		if (self::isAuthorized() === true)
 		{
 			return Render::renderContent("admin", []);
 		}
@@ -37,7 +37,7 @@ class UserController
 		}
 	}
 
-	public static function isAuthorized():bool
+	public static function isAuthorized(): bool
 	{
 		session_start();
 		if (!isset($_SESSION['userHash']))
@@ -46,8 +46,8 @@ class UserController
 		}
 		else
 		{
-			$user = UserService::getUserByHash(Database::getDatabase(),$_SESSION['userHash']);
-			if ($_SESSION['userHash']===$user->getUserHash())
+			$user = UserService::getUserByHash(Database::getDatabase(), $_SESSION['userHash']);
+			if ($_SESSION['userHash'] === $user->getUserHash())
 			{
 				return true;
 			}
@@ -58,19 +58,19 @@ class UserController
 		}
 	}
 
-	public static function Authorized():string
+	public static function Authorized(): string
 	{
 		$validateLogin = $_POST['login'];
 		$validatePassword = $_POST['password'];
 
-		$user = UserService::getUserByLogin(Database::getDatabase(),$validateLogin);
+		$user = UserService::getUserByLogin(Database::getDatabase(), $validateLogin);
 		if (!isset($user))
 		{
 			return Render::render("login", []);
 		}
 		else
 		{
-			$isCorrectPassword = password_verify($validatePassword,$user->getPassword());
+			$isCorrectPassword = password_verify($validatePassword, $user->getPassword());
 			if (!$isCorrectPassword)
 			{
 				return Render::render("login", []);
@@ -78,12 +78,11 @@ class UserController
 			else
 			{
 				$userHash = Helper::generateUserHash();
-				UserService::setUserHash(Database::getDatabase(),$user->getId(),$userHash);
-				Helper::setAuthorized($user->getId(),$userHash);
+				UserService::setUserHash(Database::getDatabase(), $user->getId(), $userHash);
+				Helper::setAuthorized($user->getId(), $userHash);
 				return ExcursionController::showAdminExcursionList();
 			}
 		}
-
 	}
 
 }
