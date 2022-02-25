@@ -97,5 +97,6 @@ use App\Lib\Render;
 	<div class="bloc5-landscape-img-1"></div>
 	<div class="bloc5-landscape-img-2"></div>
 	<div class="bloc5-landscape-img-3"></div>
-
 </div>
+
+<script defer src="/Resources/JS/main-card.js"></script>

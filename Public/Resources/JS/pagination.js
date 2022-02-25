@@ -33,7 +33,7 @@ function paginate()
 {
 	var numberOfItems = $("#content .block").length;
 	let pathname = document.location.pathname;
-	var limitPerPage = 5;
+	var limitPerPage = 4;
 	switch (pathname)
 	{
 		case "/admin/excursions":

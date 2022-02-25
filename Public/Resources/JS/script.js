@@ -55,6 +55,8 @@ $('.mobile-nav-button').on('change', function() {
 
 
 
+
+
 $('.pading-1').hover(function() {
 	$('.none-1').show()
 	$('.mobile-menu-2.mobile-menu--open-2>div:not(.none-1)').hide();
@@ -76,24 +78,58 @@ $('.pading-5').hover(function() {
 	$('.mobile-menu-2.mobile-menu--open-2>div:not(.none-5)').hide();
 });
 
-$(document).ready(function() {
-	$('.map-img-a').hover(function() {
-		$('.map-img-secondary-'+$(this).attr('data-map')).stop().fadeIn('fast');
-	}, function() {
-		$('.map-img-secondary-'+$(this).attr('data-map')).stop().fadeOut('fast');
-	});
-});
+function getJs(jsObjectArray) {
+	for (let objectId in jsObjectArray) {
+		let jsObject = jsObjectArray[objectId]
+		if(!window[jsObject["method"]]) {
+			$.getScript(jsObject['js'], function() {
+				console.log("Script " + jsObject['js'] + " loaded but not necessarily executed.");
+			});
+			whenAvailable(jsObject["method"])
+		}
+		else {
+			window[jsObject["method"]]()
+		}
+	}
+}
 
+function whenAvailable(name) {
+	let interval = 10;
+	window.setTimeout(function() {
+		if (window[name]) {
+			window[name]()
+		} else {
+			whenAvailable(name);
+		}
+	}, interval);
+}
 
-let loadPage = function(url, isToggleHeader) {
+function loadPage(url, isToggleHeader) {
 	let allowed =
 		{
-			'/': true,
-			'/allExcursions': true,
-			'/excursion': true
+			'/': [
+				{'js': "/Resources/JS/main-card.js", 'method': "initMap"}
+			],
+			'/allExcursions': [
+				{'js': "/Resources/JS/pagination.js", 'method': "initPaginations"},
+				{'js': "/Resources/JS/sort.js", 'method': "initSort"}
+			],
+			'/excursion': [
+				{'js': "/Resources/JS/script.js", 'method': "initMap"}
+			],
+			'/about': [
+
+			],
+			'/blog': [
+
+			],
+			'/client': [
+
+			]
 		};
-	if(!url.startsWith("http") && allowed["/"+url.split("/")[1]]) {
-		$('#page-content').load(url + ' #page-content', isToggleHeader ? toggleHeader: function(){});
+	let allowedURL = allowed["/"+url.split("/")[1]]
+	if(!url.startsWith("http") && allowedURL) {
+		$('#page-content').load(url + ' #page-content', isToggleHeader ? function(){toggleHeader();getJs(allowedURL)}: function(){getJs(allowedURL)});
 		return true;
 	}
 	let element=document.createElement("a");

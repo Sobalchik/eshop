@@ -14,6 +14,8 @@ use App\Lib\Helper;
 	<title>Title</title>
 	<link rel="stylesheet" type="text/css" href="/Resources/CSS/Reset.css">
 	<link rel="stylesheet" type="text/css" href="/Resources/CSS/style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript" defer src="/Resources/JS/script.js"></script>
 </head>
 <body style="overflow-x:hidden;">
 
@@ -23,11 +25,10 @@ use App\Lib\Helper;
 				<a href="/"><img class="header-logo" src="/Resources/Images/logo_template14%201.png"></a>
 			</div>
 			<div class="bloc-menu">
-				<a href="/allExcursions/1" class="menu-button">Экскурсии</a>
-				<a class="menu-button">Клиентам</a>
-				<a class="menu-button">Блог</a>
-				<a class="menu-button">Отзывы</a>
-				<a class="menu-button">О нас</a>
+				<a href="/allExcursions" class="menu-button">Экскурсии</a>
+				<a href="/client" class="menu-button">Клиентам</a>
+				<a href="/blog" class="menu-button">Блог</a>
+				<a href="/about" class="menu-button">О нас</a>
 			</div>
 			<div class="exit-log">
 				<a href='<?= Helper::getUrl() ?>/login' class="exit-button"><img src="/Resources/Images/1.png"> Личный кабинет</a>
@@ -46,10 +47,10 @@ use App\Lib\Helper;
 		<nav class="mobile-menu">
 			<ul class="mobile-menu-bloc2">
 				<li><a href="/" class="pading-5">Главная</a></li>
-				<li><a href="/allExcursions/1" class="pading-1">Экскурсии</a></li>
-				<li><a href="/allExcursions/1" class="pading-2">Клиентам</a></li>
-				<li><a href="/allExcursions/1" class="pading-3">Блог</a></li>
-				<li><a href="/allExcursions/1" class="pading-4"> О нас</a></li>
+				<li><a href="/allExcursions" class="pading-1">Экскурсии</a></li>
+				<li><a href="/client" class="pading-2">Клиентам</a></li>
+				<li><a href="/blog" class="pading-3">Блог</a></li>
+				<li><a href="/about" class="pading-4"> О нас</a></li>
 			</ul>
 		</nav>
 		<div class="mobile-menu-2">
@@ -122,12 +123,22 @@ use App\Lib\Helper;
 				</div>
 			</div>
 			<div class="mobile-menu-2-none none-4">
-				<div class="bloc1-menu">
-					<p class="bloc1-menu-text">я тут</p>
+				<div style="background-image: url('/Resources/Images/111.jpg')" class="bloc1-menu">
+					<div class="bloc1-menu-2-margin">
+						<div class="bloc1-menu-2-img">
+							<img src="/Resources/Images/55 1.png">
+						</div>
+						<div>
+							<p class="bloc1-menu-2-text-h2">О НАС</p>
+							<p class="bloc1-menu-2-text-h1">ПУТЕШЕСТВУЙ ПО ВСЕМУ МИРУ!</p>
+							<p class="bloc1-menu-2-text-p">Коллектив компании Excurs против однообразного отдыха и похожих как близнецы туров. Своим клиентам мы предлагаем исключительно эксклюзивные путешествия в самые разные точки земного шара.</p>
+							<p class="bloc1-menu-2-text-p">Авторские туры рассчитаны на тех, кто знает толк в поездках. Они также привлекают людей, застрявших в поисках неизведанного, манящего и удивительно прекрасного.</p>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="none-5">
-				<div style="background-image: url('/Resources/Images/111.jpg')" class="bloc1-menu">
+				<div style="background-image: url('/Resources/Images/111 1.png')" class="bloc1-menu">
 					<div class="bloc1-menu-2-margin">
 						<div class="bloc1-menu-2-img">
 							<img src="/Resources/Images/55 1.png">
@@ -198,9 +209,5 @@ use App\Lib\Helper;
 			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
 		</svg>
 	</div>
-
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script type="text/javascript" async src="/Resources/JS/script.js"></script>
 </body>
 </html>

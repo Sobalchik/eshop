@@ -7,20 +7,19 @@ use App\Lib\Render;
 ?>
 
 
-<div class="bloc1-asdas">
+<div class="bloc1-all-main-excurs">
 	<div class="main-bloc">
 	</div>
 </div>
 <div class="bloc2">
-	<form style="margin-right: 40px" class="d-flex" method="post">
-		<input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search-excursions" value="">
-		<a href="javascript:void(0)" onclick="findByName()" class="button-for-public" type="submit">Поиск</a>
-	</form>
-	<div class="bloc-2-contener">
-
+	<div class="bloc-2-contener-poisk">
+		<input class="form-control-poisk" type="search" placeholder="Search" aria-label="Search" name="search-excursions">
+		<button class="btn-outline-posik" type="submit">Поиск</button>
+	</div>
+	<div class="bloc-2-contener-tegi-list">
 		<div class="checkselect">
 			<?php foreach ($continentTags as $continentTag ):?>
-			<label><input  type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
+				<label><input class="custom-checkbox"  type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
 			<?php endforeach?>
 		</div>
 
@@ -36,11 +35,18 @@ use App\Lib\Render;
 			<?php endforeach?>
 		</div>
 
-		<button onclick="sortByTag()"> показать </button>
+		<button class="glow-button" onclick="sortByTag()"> показать </button>
+	</div>
 
-		<button onclick="sort(1)">price-asc</button>
-		<button onclick="sort(2)">price-desc</button>
-		<button onclick="sort(3)">rating-desc</button>
+
+	<div  class="bloc-2-contener-tegi-renting">
+		<button class="glow-button" onclick="sort(1)">price-asc</button>
+		<button class="glow-button" onclick="sort(2)">price-desc</button>
+		<button class="glow-button" onclick="sort(3)">rating-desc</button>
+	</div>
+
+
+	<div class="bloc-2-contener">
 		<div class="content" id ="content"> <?= Render:: renderContent("content-card",['excursions'=>$excursions])?></div>
 		<div style="display: flex;justify-content: space-between;">
 		</div>
@@ -57,6 +63,5 @@ use App\Lib\Render;
 
 	<script type="text/javascript" defer src="/Resources/JS/pagination.js"></script>
 	<script type="text/javascript" defer src="/Resources/JS/sort.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
 
