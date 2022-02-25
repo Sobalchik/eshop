@@ -55,7 +55,7 @@ $helper = App\Lib\Helper::getInstance();
 									</div>
 									<div style="display: flex;flex-direction: column;align-items: center;">
 										<p class="admin-orders-text">Дата Экскурсии</p>
-										<input id="inlineFormInputName" class="inpit-me-order form-control" name="date" value="<?= $order->getDateTravel() ?> " disabled>
+										<input id="inlineFormInputName" class="inpit-me-order form-control" name="date" value="<?= $helper::conversionDate($order->getDateTravel()) ?> " disabled>
 									</div>
 								</div>
 
@@ -64,7 +64,7 @@ $helper = App\Lib\Helper::getInstance();
 									<input class="inpit-me-order form-control" id="inlineFormInputName_comment_<?= $order->getId() ?>" name="comment" value="<?= $order->getComment() ?> ">
 
 									<p class="admin-orders-text">Дата заказа</p>
-									<input id="inlineFormInputName" class="inpit-me-order form-control<?= $order->getId() ?>" name="date" value="<?= $order->getDateTravel() ?> " disabled>
+									<input id="inlineFormInputName" class="inpit-me-order form-control<?=$order->getId() ?>" name="date" value="<?= $helper::conversionDate($order->getDateTravel()) ?> " disabled>
 								</div>
 
 

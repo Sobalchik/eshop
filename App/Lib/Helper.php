@@ -42,6 +42,12 @@ class Helper
 		return "{$hours}ч:{$minutes}мин";
 	}
 
+	public static function conversionDate($date): string
+	{
+		$date = date_create($date);
+		return date_format($date, "j, F, Y, H:i ");
+	}
+
 	public static function conversionCelsiusToFahrenheit($celsius)
 	{
 		return ($celsius * 9 / 5) + 32;
