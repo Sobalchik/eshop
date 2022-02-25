@@ -21,7 +21,7 @@ class Order
 	/**
 	 * @return string
 	 */
-	public function getDateTravel() : string
+	public function getDateTravel(): string
 	{
 		return $this->dateTravel;
 	}
@@ -37,7 +37,7 @@ class Order
 	/**
 	 * @return string
 	 */
-	public function getStatus() : string
+	public function getStatus(): string
 	{
 		return $this->status;
 	}
@@ -53,7 +53,7 @@ class Order
 	/**
 	 * @return string
 	 */
-	public function getExcursionName() : string
+	public function getExcursionName(): string
 	{
 		return $this->excursionName;
 	}
@@ -65,7 +65,6 @@ class Order
 	{
 		$this->excursionName = $excursionName;
 	}
-
 
 	/**
 	 * @param int $id
@@ -88,16 +87,16 @@ class Order
 		string $dateCreate, string $dateUpdate
 	)
 	{
-		$this->id=$id;
-		$this->fio=$fio;
-		$this->email=$email;
-		$this->phone=$phone;
-		$this->dateOrder=$dateOrder;
-		$this->comment=$comment;
-		$this->statusId=$statusId;
-		$this->dateId=$dateId;
-		$this->dateCreate=$dateCreate;
-		$this->dateUpdate=$dateUpdate;
+		$this->id = $id;
+		$this->fio = $fio;
+		$this->email = $email;
+		$this->phone = $phone;
+		$this->dateOrder = $dateOrder;
+		$this->comment = $comment;
+		$this->statusId = $statusId;
+		$this->dateId = $dateId;
+		$this->dateCreate = $dateCreate;
+		$this->dateUpdate = $dateUpdate;
 	}
 
 	/**

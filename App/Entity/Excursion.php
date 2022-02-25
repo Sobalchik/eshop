@@ -48,7 +48,7 @@ class Excursion
 	/**
 	 * @return array
 	 */
-	public function getExcursionOccupancyByDateTravel() : array
+	public function getExcursionOccupancyByDateTravel(): array
 	{
 		return $this->excursionOccupancyByDateTravel;
 	}
@@ -64,7 +64,7 @@ class Excursion
 	/**
 	 * @return array
 	 */
-	public function getAllPossibleDatesTravel() : array
+	public function getAllPossibleDatesTravel(): array
 	{
 		return $this->allPossibleDatesTravel;
 	}
@@ -80,7 +80,7 @@ class Excursion
 	/**
 	 * @return int
 	 */
-	public function getDuration() : int
+	public function getDuration(): int
 	{
 		return $this->duration;
 	}
@@ -96,7 +96,7 @@ class Excursion
 	/**
 	 * @return int
 	 */
-	public function getCountPersons() : int
+	public function getCountPersons(): int
 	{
 		return $this->countPersons;
 	}
@@ -410,6 +410,5 @@ class Excursion
 	{
 		$this->degrees = $degrees;
 	}
-
 
 }

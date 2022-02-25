@@ -16,28 +16,31 @@ class OrderController
 	{
 		session_start();
 		$validateData = Helper::validateFields($_POST);
-		if ( isset( $_SESSION['csrf_token'] ) && $_SESSION['csrf_token'] === $validateData['csrf_token'] )
+		if (isset($_SESSION['csrf_token']) && $_SESSION['csrf_token'] === $validateData['csrf_token'])
 		{
-			OrderService::createOrder(Database::getDatabase(),$validateData);
+			OrderService::createOrder(Database::getDatabase(), $validateData);
 			$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
 			return Render::render("content-top-excursions", ['excursions' => $excursions]);
 		}
 		else
 		{
-			$excursion = ExcursionService::getExcursionById(Database::getDatabase(),$validateData['product_id']);
+			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $validateData['product_id']);
 			return Render::render("content-more-excursion", ['excursion' => $excursion]);
 		}
 	}
 
 	public static function showAdminOrders(): string
 	{
-		if(UserController::isAuthorized()){
+		if (UserController::isAuthorized())
+		{
 			$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 			$statuses = OrderService::getAllStatuses(Database::getDatabase());
 			$content = Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
 			return Render::renderAdminMenu($content);
-		}else{
-			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
 	}
@@ -47,24 +50,23 @@ class OrderController
 		$logger = new Logger();
 		$logger->info($_POST['id']);
 		OrderService::editOrderById(Database::getDatabase(),
-									$_POST['idOrder'],
-									$_POST['fioOrder'],
-									$_POST['emailOrder'],
-									$_POST['phoneOrder'],
-									$_POST['statusOrder'],
-									$_POST['commentOrder']
+			$_POST['idOrder'],
+			$_POST['fioOrder'],
+			$_POST['emailOrder'],
+			$_POST['phoneOrder'],
+			$_POST['statusOrder'],
+			$_POST['commentOrder']
 		);
 		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
 		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
-
 	}
 
 	public static function deleteOrder(): string
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		OrderService::deleteOrderById(Database::getDatabase(),$_POST['idOrder']);
+		OrderService::deleteOrderById(Database::getDatabase(), $_POST['idOrder']);
 		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
 		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
@@ -74,7 +76,7 @@ class OrderController
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		$orders =OrderService::findOrdersByClientName(Database::getDatabase(),$_POST['clientName']);
+		$orders = OrderService::findOrdersByClientName(Database::getDatabase(), $_POST['clientName']);
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
 		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
 	}

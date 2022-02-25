@@ -125,6 +125,4 @@ class Tag
 		$this->dateUpdate = $dateUpdate;
 	}
 
-
-
 }

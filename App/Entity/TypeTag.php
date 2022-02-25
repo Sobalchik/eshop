@@ -125,6 +125,4 @@ class TypeTag
 		$this->dateUpdate = $dateUpdate;
 	}
 
-
-
 }

@@ -169,7 +169,7 @@ class ExcursionController
 		else
 		{
 			$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
-			if(sizeof($excursions)!==0)
+			if (sizeof($excursions) !== 0)
 			{
 				$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $sortType);
 			}
@@ -190,7 +190,7 @@ class ExcursionController
 
 		if ($_POST['order'] != 0)
 		{
-			if(sizeof($excursions)!==0)
+			if (sizeof($excursions) !== 0)
 			{
 				$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
 			}
@@ -198,7 +198,6 @@ class ExcursionController
 
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
-
 
 	public static function addExcursion()
 	{
@@ -274,15 +273,14 @@ class ExcursionController
 
 	public static function deleteExcursionDate(): void
 	{
-		if(!UserController::isAuthorized())
+		if (!UserController::isAuthorized())
 		{
-			header("Location: ".Helper::getUrl()."/login");
+			header("Location: " . Helper::getUrl() . "/login");
 		}
 		else
 		{
-			ExcursionService::deleteDateById(Database::getDatabase(),$_POST['dateId']);
+			ExcursionService::deleteDateById(Database::getDatabase(), $_POST['dateId']);
 		}
-
 	}
 
 }
