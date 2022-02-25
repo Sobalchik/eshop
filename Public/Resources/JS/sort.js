@@ -1,24 +1,51 @@
+function updateURL(type) {
+	if (history.pushState) {
+		var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+		var newUrl = baseUrl + '?order='+type;
+		history.pushState(null, null, newUrl);
+	}
+	else {
+		console.warn('History API не поддерживается');
+	}
+}
+
+function updateToBaseURL() {
+	if (history.pushState) {
+		var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+		history.pushState(null, null, baseUrl);
+	}
+	else {
+		console.warn('History API не поддерживается');
+	}
+}
+
+var getUrlParameter = function getUrlParameter(sParam) {
+	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+		sURLVariables = sPageURL.split('&'),
+		sParameterName,
+		i;
+	for (i = 0; i < sURLVariables.length; i++) {
+		sParameterName = sURLVariables[i].split('=');
+		if (sParameterName[0] === sParam) {
+			return sParameterName[1] === undefined ? true : sParameterName[1];
+		}
+	}
+};
+
+
+
+
+/*сортировка по возрастанию/убыванию,
+ где type принимает численное значение,
+ в качестве data возвращается строка*/
 function sort(type){
+
+	updateURL(type);
 
 	$.ajax({
 		url: "http://eshop/sort",
 		type: "POST",
 		data: {"sortType": type },
-		success: function(data) {
-			$('#content').empty();
-			document.getElementById('content').innerHTML = data;
-			paginate();
-		}
-	});
-}
-
-function find(){
-
-
-	$.ajax({
-		url: "http://eshop/sort",
-		type: "POST",
-		data: {"name": name },
 		success: function(data) {
 			$('#content').empty();
 			document.getElementById('content').innerHTML = data;
@@ -34,7 +61,7 @@ function sortByTag(){
 		checked.push($(this).val());
 	});
 
-	console.log(checked);
+	order = getUrlParameter('order')
 	// document.querySelectorAll('input.checkbox:checked');
 	//  var selectedCheckBoxes = document.querySelectorAll('input.checkbox:checked');
 	//  var checkedValues = Array.from(selectedCheckBoxes).map(cb => cb.value);
@@ -43,7 +70,7 @@ function sortByTag(){
 	$.ajax({
 		url: "http://eshop/sortByTag",
 		type: "POST",
-		data: { "tagList":checked },
+		data: { "tagList":checked,"order": order },
 		success: function(data) {
 			console.log(data);
 			$('#content').empty();
@@ -52,6 +79,31 @@ function sortByTag(){
 		}
 	});
 }
+
+function findByName(){
+
+	updateToBaseURL()
+	searchValue = $('#search').val();
+
+	$.ajax({
+		url: "http://eshop/allExcursions/found",
+		type: "POST",
+		data: {"search-excursions": searchValue },
+		success: function(data) {
+			$('#content').empty();
+			document.getElementById('content').innerHTML = data;
+			paginate();
+		}
+	});
+}
+
+$(document).ready(function() {
+	$('#search').keydown(function(e) {
+		if(e.keyCode === 13) {
+			findByName();
+		}
+	});
+});
 
 (function($) {
 	function setChecked(target) {
@@ -99,3 +151,7 @@ function sortByTag(){
 })(jQuery);
 
 $('.checkselect').checkselect();
+
+$( window ).unload(function() {
+	return "Handler for .unload() called.";
+});

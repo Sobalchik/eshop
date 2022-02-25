@@ -12,7 +12,6 @@ function saveOrder(idOrder,fioOrder,emailOrder,phoneOrder,statusOrder, commentOr
 		"emailOrder" : orderEmailValue, "phoneOrder" : orderPhoneValue,
 		"statusOrder" : orderstatusValue, 'commentOrder' : ordersCommentValue},
 		success: function(data) {
-			console.log(data);
 			$('#order').empty();
 			document.getElementById('order').innerHTML = data;
 			paginate();
@@ -28,7 +27,6 @@ function deleteOrder(idOrder)
 		type: "POST",
 		data: {"idOrder": idOrder},
 		success: function(data) {
-			console.log(data);
 			$('#order').empty();
 			document.getElementById('order').innerHTML = data;
 			paginate();
@@ -44,7 +42,6 @@ function findOrdersByClientName(clientName)
 		type: "POST",
 		data: {"clientName": clientNameValue},
 		success: function(data) {
-			console.log(data);
 			$('#order').empty();
 			document.getElementById('order').innerHTML = data;
 			paginate();

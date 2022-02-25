@@ -95,6 +95,17 @@ class ExcursionController
 		}
 	}
 
+	public static function showHomeExcursionListBySearch() : string
+	{
+			$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(), $_POST['search-excursions']);
+
+			if (sizeof($excursions)==0)
+			{
+				MessageController::showErrorPage();
+			}
+			return Render:: renderContent("content-card",['excursions'=>$excursions]);
+	}
+
 	public static function addExcursionDate() : string
 	{
 		$date = str_replace("T"," ",$_POST['date']);
@@ -132,18 +143,31 @@ class ExcursionController
 
 		return self::showAdminExcursionList();
 	}
+
 	public static function  sortExcursions() : string
 	{
 		(int)$sortType = $_POST['sortType'];
 		$ex = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
 		$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $ex ,$sortType);
+
+		if (sizeof($excursions)==0)
+		{
+			MessageController::showErrorPage();
+		}
 		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 
 	public static function  sortExcursionsByTags() : string
 	{
-		//$tagsList = $_POST['tagList'];
 		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),$_POST['tagList']);
+		if($_POST['order']!=0)
+		{
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions ,$_POST['order']);
+		}
+		if (sizeof($excursions)==0)
+		{
+			MessageController::showErrorPage();
+		}
 		return Render:: renderContent("content-card",['excursions'=>$excursions]);
 	}
 
@@ -214,10 +238,5 @@ class ExcursionController
 		return self::showAdminExcursionList();
 	}
 
-	public static function findExcursionByName(): string
-	{
-		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(), $_POST['name']);
-		return Render:: renderContent("content-card",['excursions'=>$excursions]);
-	}
 
 }

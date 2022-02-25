@@ -26,7 +26,7 @@ Router::add(
 
 Router::add(
 	"GET",
-	"/allExcursions",
+	"/allExcursions/",
 	[ExcursionController::class, 'showAllExcursions']
 );
 
@@ -198,3 +198,16 @@ Router::add(
 	"/admin/excursion/create",
 	[ExcursionController::class, 'createExcursion']
 );
+
+Router::add(
+	"POST",
+	"/admin/excursion/found",
+	[ExcursionController::class, 'showAdminExcursionListBySearch']
+);
+
+Router::add(
+	"POST",
+	"/allExcursions/found",
+	[ExcursionController::class, 'showHomeExcursionListBySearch']
+);
+
