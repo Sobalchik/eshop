@@ -63,9 +63,9 @@
 			</div>
 		</div>
 		<div class="admin-excursions-detaild-bloc4">
-			<a class="admin-excursions-detaild-bloc4-input admin-input-color-1" href="/admin/excursions" >Back</a>
-			<input class="admin-excursions-detaild-bloc4-input admin-input-color-2" type="submit" value="save">
-			<input class="admin-excursions-detaild-bloc4-input admin-input-color-3" type="submit" value="delete">
+			<a href="/admin/excursions" class="admin-navbar-list-a">Назад</a>
+			<input class="admin-excursions-detaild-bloc4-input admin-input-color-2" type="submit" value="Сохранить">
+			<input class="admin-excursions-detaild-bloc4-input admin-input-color-3" type="submit" value="Удалить">
 		</div>
 	</form>
 </div>

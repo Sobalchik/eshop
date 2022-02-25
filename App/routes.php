@@ -212,6 +212,12 @@ Router::add(
 );
 
 Router::add(
+	"POST",
+	"/admin/excursions/deleteDate",
+	[ExcursionController::class, 'deleteExcursionDate']
+);
+
+Router::add(
 	"GET",
 	"/allExcursions/?order=:order",
 	[ExcursionController::class, 'showAllExcursions']
