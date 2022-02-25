@@ -23,10 +23,12 @@ class ExcursionController
 	{
 		return Render::render("about");
 	}
+
 	public static function showClient(): string
 	{
 		return Render::render("client");
 	}
+
 	public static function getBlog(): string
 	{
 		return Render::render("blog");
@@ -49,74 +51,82 @@ class ExcursionController
 			'excursions' => $excursions,
 			'continentTags' => $continentTags,
 			'countryTags' => $countryTags,
-			'familyTags' =>$familyTags
+			'familyTags' => $familyTags,
 		]);
 	}
 
 	public static function showAdminExcursionById(): string
 	{
-		if(UserController::isAuthorized()){
+		if (UserController::isAuthorized())
+		{
 			$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(), $_GET['id']);
 			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
 			foreach ($typeTags as $typeTag)
 			{
-				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
+				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(), $typeTag->getId());
 				$typeTag->setTagsBelong($tagsBelong);
 			}
-			$content = Render::renderContent("admin-excursions-detailed-edit", ["excursion" => $excursion, "typeTags"=>$typeTags]);
+			$content = Render::renderContent("admin-excursions-detailed-edit",
+				["excursion" => $excursion, "typeTags" => $typeTags]);
 			return Render::renderAdminMenu($content);
-		}else{
-			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
 	}
 
 	public static function showAdminExcursionList(): string
 	{
-		if(UserController::isAuthorized()){
+		if (UserController::isAuthorized())
+		{
 			$excursions = ExcursionService::getExcursionsForAdminHomePage(Database::getDatabase());
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
-		}else{
-			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
 	}
 
-	public static function showAdminExcursionListBySearch() : string
+	public static function showAdminExcursionListBySearch(): string
 	{
-		if(UserController::isAuthorized()){
-			$excursions = ExcursionService::findExcursionsForAdminPageByName(Database::getDatabase(), $_POST['search-excursions']);
+		if (UserController::isAuthorized())
+		{
+			$excursions = ExcursionService::findExcursionsForAdminPageByName(Database::getDatabase(),
+				$_POST['search-excursions']);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderAdminMenu($content);
-		}else{
-			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
 	}
 
-	public static function showHomeExcursionListBySearch() : string
+	public static function showHomeExcursionListBySearch(): string
 	{
-			$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(), $_POST['search-excursions']);
+		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(),
+			$_POST['search-excursions']);
 
-			if (sizeof($excursions)==0)
-			{
-				return MessageController::showErrorPage();
-			}
-			return Render:: renderContent("content-card",['excursions'=>$excursions]);
+		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
 
-	public static function addExcursionDate() : string
+	public static function addExcursionDate(): string
 	{
-		$date = str_replace("T"," ",$_POST['date']);
-		ExcursionService::addDateToExcursionById(Database::getDatabase(),$_POST['id'],$date);
-		header("Location: ".Helper::getUrl()."/admin/excursions");
+		$date = str_replace("T", " ", $_POST['date']);
+		ExcursionService::addDateToExcursionById(Database::getDatabase(), $_POST['id'], $date);
+		header("Location: " . Helper::getUrl() . "/admin/excursions");
 		return self::showAdminExcursionList();
 	}
 
 	public static function editExcursion(): string
 	{
-		$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(),$_POST['id']);
+		$excursion = ExcursionService::getExcursionForAdminDetailedPage(Database::getDatabase(), $_POST['id']);
 		$excursion->setNameCity($_POST['city']);
 		$excursion->setNameCountry($_POST['country']);
 		$excursion->setPrice($_POST['price']);
@@ -125,69 +135,83 @@ class ExcursionController
 		$excursion->setServiceRating((float)$_POST['sRating']);
 		$excursion->setDuration((int)$_POST['duration']);
 		$excursion->setDegrees((float)$_POST['degrees']);
-		$excursion->setTagList(explode(',',$_POST['tagList']));
+		$excursion->setTagList(explode(',', $_POST['tagList']));
 		$excursion->setCountPersons($_POST['person']);
 		$excursion->setFullDescription($_POST['description']);
-		$rating = round(((float)$_POST['iRating'] +(float)$_POST['eRating'] +(float)$_POST['sRating']) / 3,1); //нужна функция-хелпер!
+		$rating = round(((float)$_POST['iRating'] + (float)$_POST['eRating'] + (float)$_POST['sRating']) / 3,
+			1); //нужна функция-хелпер!
 		$excursion->setRating($rating);
 		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
 		$resultSelectTags = [];
 		foreach ($typeTags as $typeTag)
 		{
-			$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_'.$typeTag->getId()]);
+			$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_' . $typeTag->getId()]);
 		}
 		$excursion->setTagList($resultSelectTags);
-		ExcursionService::editExcursionById(Database::getDatabase(),$excursion);
+		ExcursionService::editExcursionById(Database::getDatabase(), $excursion);
 		ExcursionService::deleteProductBelongTags(Database::getDatabase(), $excursion);
 		ExcursionService::addProductBelongTags(Database::getDatabase(), $excursion);
 
 		return self::showAdminExcursionList();
 	}
 
-	public static function  sortExcursions() : string
+	public static function sortExcursions(): string
 	{
 		(int)$sortType = $_POST['sortType'];
-		$ex = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
-		$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $ex ,$sortType);
-
-		if (sizeof($excursions)==0)
+		if ($_POST['tagList'] == null)
 		{
-			return MessageController::showErrorPage();
+			$ex = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $ex, $sortType);
 		}
-		return Render:: renderContent("content-card",['excursions'=>$excursions]);
+		else
+		{
+			$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
+			if(sizeof($excursions)!==0)
+			{
+				$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $sortType);
+			}
+		}
+
+		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
 
-	public static function  sortExcursionsByTags() : string
+	public static function sortExcursionsByTags(): string
 	{
-		if($_POST['tagList']==null)
+		if ($_POST['tagList'] == null)
 		{
-			return MessageController::showErrorPage();
+			$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+			return Render:: renderContent("content-card", ['excursions' => $excursions]);
 		}
 
-		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(),$_POST['tagList']);
+		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
 
-		if($_POST['order']!=0)
+		if ($_POST['order'] != 0)
 		{
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions ,$_POST['order']);
+			if(sizeof($excursions)!==0)
+			{
+				$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
+			}
 		}
 
-		return Render:: renderContent("content-card",['excursions'=>$excursions]);
+		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
-
 
 	public static function addExcursion()
 	{
-		if(UserController::isAuthorized()){
+		if (UserController::isAuthorized())
+		{
 			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
 			foreach ($typeTags as $typeTag)
 			{
-				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(),$typeTag->getId());
+				$tagsBelong = TagService::getTagsForAdminPage(Database::getDatabase(), $typeTag->getId());
 				$typeTag->setTagsBelong($tagsBelong);
 			}
-			$content = Render::renderContent("admin-excursions-detailed-add",["typeTags" => $typeTags]);
+			$content = Render::renderContent("admin-excursions-detailed-add", ["typeTags" => $typeTags]);
 			return Render::renderAdminMenu($content);
-		}else{
-			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
 	}
@@ -195,7 +219,8 @@ class ExcursionController
 	public static function createExcursion()
 	{
 		$excursionDate = new \DateTime('now');
-		if(UserController::isAuthorized()){
+		if (UserController::isAuthorized())
+		{
 			$excursion = new Excursion(
 				0,
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['city']),
@@ -219,15 +244,17 @@ class ExcursionController
 			$resultSelectTags = [];
 			foreach ($typeTags as $typeTag)
 			{
-				$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_'.$typeTag->getId()]);
+				$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_' . $typeTag->getId()]);
 			}
 			$excursion->setTagList($resultSelectTags);
 			$excursionId = ExcursionService::addExcursion(Database::getDatabase(), $excursion);
 			$excursion->setId($excursionId);
 			ExcursionService::addProductBelongTags(Database::getDatabase(), $excursion);
 			return self::showAdminExcursionList();
-		}else{
-			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
 	}
@@ -235,11 +262,10 @@ class ExcursionController
 	public static function deactivateDate(): string
 	{
 		$log = new Logger;
-		$log->info('',['id'=>$_POST['id']]);
-		ExcursionService::deactivateDate(Database::getDatabase(),$_POST['id']);
-		header("Location: ".Helper::getUrl()."/admin/excursions" );
+		$log->info('', ['id' => $_POST['id']]);
+		ExcursionService::deactivateDate(Database::getDatabase(), $_POST['id']);
+		header("Location: " . Helper::getUrl() . "/admin/excursions");
 		return self::showAdminExcursionList();
 	}
-
 
 }

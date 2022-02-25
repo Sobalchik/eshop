@@ -2072,11 +2072,15 @@ html {
 }
 .btn-outline-posik{
 	top: 0;
-	right: 0px;
+	right: 0;
 	width: 50px;
 	height: 42px;
 	border: none;
 	background: #7BA7AB;
+
+	line-height: 40px;
+	color: #050000;
+
 }
 
 

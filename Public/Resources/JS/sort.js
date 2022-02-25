@@ -40,12 +40,17 @@ var getUrlParameter = function getUrlParameter(sParam) {
  в качестве data возвращается строка*/
 function sort(type){
 
+	var checked = [];
+	$('input:checkbox:checked').each(function() {
+		checked.push($(this).val());
+	});
+
 	updateURL(type);
 
 	$.ajax({
 		url: "http://eshop/sort",
 		type: "POST",
-		data: {"sortType": type },
+		data: {"sortType": type, "tagList":checked},
 		success: function(data) {
 			$('#content').empty();
 			document.getElementById('content').innerHTML = data;
@@ -61,14 +66,7 @@ function sortByTag(){
 		checked.push($(this).val());
 	});
 
-
-
-
 	order = getUrlParameter('order')
-	// document.querySelectorAll('input.checkbox:checked');
-	//  var selectedCheckBoxes = document.querySelectorAll('input.checkbox:checked');
-	//  var checkedValues = Array.from(selectedCheckBoxes).map(cb => cb.value);
-	//  console.log(checkedValues);
 
 	$.ajax({
 		url: "http://eshop/sortByTag",

@@ -211,3 +211,11 @@ Router::add(
 	[ExcursionController::class, 'showHomeExcursionListBySearch']
 );
 
+Router::add(
+	"GET",
+	"/allExcursions/?order=:order",
+	[ExcursionController::class, 'showAllExcursions']
+);
+
+
+
