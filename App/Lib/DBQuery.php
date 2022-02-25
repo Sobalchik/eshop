@@ -56,13 +56,21 @@ class DBQuery
 					  and up_date.ACTIVE = 1
 				) as 'dateTravel',
 				(
-					select
-						group_concat(up_date.DATE_TRAVEL)
+					select group_concat(up_date.DATE_TRAVEL)
 					from up_date
-							 left join up_product_date
-									   on up_date.ID = up_product_date.DATE_ID
-					where up_product_date.PRODUCT_ID = up_product.ID
-					  and up_date.ACTIVE = 1
+					where up_date.DATE_TRAVEL in (
+						select
+							up_date.DATE_TRAVEL
+						from up_date
+								 left join up_product_date
+										   on up_date.ID = up_product_date.DATE_ID
+								 left join up_order on up_date.ID = up_order.DATE_ID
+								 left join up_product on up_product_date.PRODUCT_ID = up_product.ID
+						where up_product_date.PRODUCT_ID = ?
+						  and up_date.ACTIVE = 1
+						group by up_date.ID, up_product.COUNT_PERSONS
+						having COUNT(up_order.ID) < up_product.COUNT_PERSONS
+					)
 				) as 'allPossibleDatesTravel',
 				PRICE as 'price',
 				FULL_DESCRIPTION as 'full_description',
@@ -89,13 +97,13 @@ class DBQuery
 					select
 						group_concat(up_attraction.NAME)
 					from up_attraction
-					left join up_product_attraction
-					on up_attraction.ID = up_product_attraction.ATTRACTION_ID
+							 left join up_product_attraction
+									   on up_attraction.ID = up_product_attraction.ATTRACTION_ID
 					where up_product_attraction.PRODUCT_ID = up_product.ID
-					) as 'attractionList'
+				) as 'attractionList'
 			from up_product
 			where up_product.ID = ?
-		";
+			";
 	}
 
 	public static function getTopExcursionsQuery() : string
