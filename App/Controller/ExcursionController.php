@@ -173,6 +173,10 @@ class ExcursionController
 			{
 				$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $sortType);
 			}
+			else
+			{
+				return MessageController::showNotFoundPage();
+			}
 		}
 
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
@@ -188,12 +192,14 @@ class ExcursionController
 
 		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
 
-		if ($_POST['order'] != 0)
+		if (($_POST['order'] != 0)&&(sizeof($excursions) !== 0))
 		{
-			if (sizeof($excursions) !== 0)
-			{
-				$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
-			}
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
+		}
+
+		if (sizeof($excursions) == 0)
+		{
+			return MessageController::showNotFoundPage();
 		}
 
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);

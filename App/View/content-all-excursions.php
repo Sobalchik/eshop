@@ -21,19 +21,19 @@ use App\Lib\Render;
 	<div class="bloc-2-contener-tegi-list">
 		<div class="checkselect">
 			<?php foreach ($continentTags as $continentTag ):?>
-				<label><input class="custom-checkbox"  type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
+				<label><input  class="custom-checkbox"  type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
 			<?php endforeach?>
 		</div>
 
 		<div class="checkselect">
 			<?php foreach ($countryTags as $countryTag ):?>
-				<label><input  type="checkbox" name="brands[]" value="<?= $countryTag->getId()?>"> <?= $countryTag->getName()?></label>
+				<label><input type="checkbox" name="brands[]" value="<?= $countryTag->getId()?>"> <?= $countryTag->getName()?></label>
 			<?php endforeach?>
 		</div>
 
 		<div class="checkselect">
 			<?php foreach ($familyTags as $familyTag ):?>
-				<label><input  type="checkbox" name="brands[]" value="<?= $familyTag->getId()?>"> <?= $familyTag->getName()?></label>
+				<label><input type="checkbox" name="brands[]" value="<?= $familyTag->getId()?>"> <?= $familyTag->getName()?></label>
 			<?php endforeach?>
 		</div>
 

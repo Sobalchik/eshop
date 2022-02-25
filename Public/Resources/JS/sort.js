@@ -98,13 +98,6 @@ function findByName(){
 	});
 }
 
-$(document).ready(function() {
-	$('#search').keydown(function(e) {
-		if(e.keyCode === 13) {
-			findByName();
-		}
-	});
-});
 
 (function($) {
 	function setChecked(target) {
