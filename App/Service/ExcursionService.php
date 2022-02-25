@@ -599,4 +599,25 @@ class ExcursionService
 		}
 	}
 
+	public static function deleteDateById(mysqli $db, int $id) : void
+	{
+		$query = "delete from up_product_date WHERE DATE_ID=({$id})";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$query = "delete from up_date WHERE ID=({$id})";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+	}
+
 }
