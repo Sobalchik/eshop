@@ -74,8 +74,6 @@ class ExcursionService
 	{
 		$excursion = mysqli_fetch_assoc($excursionFromDB);
 
-		var_dump($excursion);
-
 		$result_excursion = new Excursion(
 			$excursion['id'],
 			Helper::replacementNullValueMysql($excursion['nameCity']),
@@ -238,7 +236,7 @@ class ExcursionService
 
 		$result_excursion->setDuration($excursion['duration']);
 		$result_excursion->setCountPersons($excursion['countPersons']);
-		$result_excursion->setTagList(explode(' ', $excursion['tagList']));
+		$result_excursion->setTagList(explode(',', $excursion['tagList']));
 
 		return $result_excursion;
 	}
@@ -576,7 +574,7 @@ class ExcursionService
 		}
 	}
 
-		public static function deactivateDate(mysqli $db, int $id){
+	public static function deactivateDate(mysqli $db, int $id){
 		$query = DBQuery::deleteDateById();
 
 		$stmt = mysqli_prepare($db, $query);
@@ -587,6 +585,18 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
+	}
+
+	public static function deleteProductBelongTags(mysqli $db, Excursion $excursion): void
+	{
+		$query = "delete from up_product_tag WHERE PRODUCT_ID=({$excursion->getId()})";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
 	}
 
 }

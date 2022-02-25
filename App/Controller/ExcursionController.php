@@ -119,7 +119,16 @@ class ExcursionController
 		$excursion->setFullDescription($_POST['description']);
 		$rating = round(((float)$_POST['iRating'] +(float)$_POST['eRating'] +(float)$_POST['sRating']) / 3,1); //нужна функция-хелпер!
 		$excursion->setRating($rating);
+		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
+		$resultSelectTags = [];
+		foreach ($typeTags as $typeTag)
+		{
+			$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_'.$typeTag->getId()]);
+		}
+		$excursion->setTagList($resultSelectTags);
 		ExcursionService::editExcursionById(Database::getDatabase(),$excursion);
+		ExcursionService::deleteProductBelongTags(Database::getDatabase(), $excursion);
+		ExcursionService::addProductBelongTags(Database::getDatabase(), $excursion);
 
 		return self::showAdminExcursionList();
 	}
