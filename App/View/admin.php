@@ -15,6 +15,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="/Resources/JS/tags.js"></script>
 	<script src="/Resources/JS/orders.js"></script>
+	<script src="/Resources/JS/excursion.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="/Resources/CSS/custom.css">
 

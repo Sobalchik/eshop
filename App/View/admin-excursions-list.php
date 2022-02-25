@@ -32,15 +32,16 @@ foreach ($excursions as $excursion):
 					<?php
 					foreach ($excursion->getExcursionOccupancyByDateTravel() as $datesPeople):
 					?>
-					<div  style="margin-top:10px;    background-color: #6e6e6e;display: flex;align-items: center;"  class="accordion-item-bloc3">
+					<div  style="margin-top:10px;    background-color: #6e6e6e;display: flex;align-items: center;"  class="accordion-item-bloc3" id="divDateTravel_<?=$datesPeople['id']?>">
 						<p style="margin-right: 46px;margin-left: 31px;" class="accordion-item-bloc2-text">Дата</p>
 						<p style="max-width: 212px;" class="inpit-me-order form-control"><?= $datesPeople['dateTravel'] ?></p>
 						<p style="margin-right: 33px;" class="accordion-item-bloc2-text">Набрано</p>
 						<p style="max-width: 212px;" class="inpit-me-order form-control"><?= $datesPeople['orderedExcursionsCount'] ?> / <?= $excursion->getCountPersons()?> </p>
-						<form action="/admin/excursion/deleted" method="post">
-							<input type="hidden" value="<?=$datesPeople['id'] ?>" name="id">
-							<input style="margin-left: 20px; width: 40px;background-color: #939393;border: none" type="submit" value="-" >
-						</form>
+						<? if($datesPeople['orderedExcursionsCount']>0) {?>
+							<input style="margin-left: 20px; width: 40px;background-color: #939393;border: none" type="submit" value="-" onclick="alert('Дату удалить нельзя. Есть заказы!')">
+						<? } else {?>
+							<input style="margin-left: 20px; width: 40px;background-color: #939393;border: none" type="submit" value="-" onclick="dateDeleteAjax('<?=$datesPeople['id']?>','divDateTravel_<?=$datesPeople['id']?>')">
+						<? } ?>
 					</div>
 					<?php endforeach;?>
 					<form style="display: flex;align-items: center;justify-content: center;padding: 20px;" action="/admin/excursions/addDate" method="post">

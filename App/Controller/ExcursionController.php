@@ -196,6 +196,7 @@ class ExcursionController
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
 
+
 	public static function addExcursion()
 	{
 		if (UserController::isAuthorized())
@@ -266,6 +267,19 @@ class ExcursionController
 		ExcursionService::deactivateDate(Database::getDatabase(), $_POST['id']);
 		header("Location: " . Helper::getUrl() . "/admin/excursions");
 		return self::showAdminExcursionList();
+	}
+
+	public static function deleteExcursionDate(): void
+	{
+		if(!UserController::isAuthorized())
+		{
+			header("Location: ".Helper::getUrl()."/login");
+		}
+		else
+		{
+			ExcursionService::deleteDateById(Database::getDatabase(),$_POST['dateId']);
+		}
+
 	}
 
 }
