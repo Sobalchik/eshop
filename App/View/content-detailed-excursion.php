@@ -9,7 +9,7 @@ $helper=App\Lib\Helper::getInstance();
 	<img class="img-bloc-card" src="/Resources/Images/прага%202.png">
 	<div class="bloc-card-center">
 		<div>
-			<img src="<?= $excursion->getImageList() ?>">
+			<img style="width: 450px;;height: 720px;" src="<?= $excursion->getImageList() ?>">
 		</div>
 		<div class="bloc-card-center-text-block">
 			<p class="detailed-page-text-1">Экскурсия</p>
