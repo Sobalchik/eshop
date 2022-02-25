@@ -11,5 +11,10 @@ class MessageController
 
 		return Render::renderContent('error-404');
 	}
+	public static function showNotFoundPage()
+	{
+
+		return Render::renderContent('error-nothing-found');
+	}
 
 }

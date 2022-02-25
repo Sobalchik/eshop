@@ -112,7 +112,10 @@ class ExcursionController
 	{
 		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(),
 			$_POST['search-excursions']);
-
+		if (sizeof($excursions) == 0)
+		{
+			return MessageController::showNotFoundPage();
+		}
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
 

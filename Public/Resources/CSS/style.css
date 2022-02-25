@@ -2140,6 +2140,13 @@ html {
 	padding-bottom: 10px;
 }
 
+.error-nothing-found-text{
+	font-family: Raleway;
+	font-size: 30px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
 @media all and (max-width: 1600px) {
 	.footer {
 		height: 300px;
