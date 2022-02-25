@@ -222,7 +222,7 @@ class ExcursionService
 			$excursion['id'],
 			$excursion['nameCity'],
 			$excursion['nameCountry'],
-			$excursion['dateTravel'],
+			'',
 			$excursion['price'],
 			$excursion['fullDescription'],
 			$excursion['internetRating'],
@@ -412,7 +412,7 @@ class ExcursionService
 		return $excursions;
 	}
 
-	public static function addExcursion(mysqli $db, Excursion $excursion) : void
+	public static function addExcursion(mysqli $db, Excursion $excursion) : int
 	{
 		$query = "insert into up_product
 			(NAME_CITY, NAME_COUNTRY, DURATION, COUNT_PERSONS, PRICE, FULL_DESCRIPTION, INTERNET_RATING, ENTERTAINMENT_RATING, SERVICE_RATING, RATING, DEGREES, ACTIVE, DATE_CREATE, DATE_UPDATE)
@@ -432,6 +432,27 @@ class ExcursionService
 			'{$excursion->getActive()}', 
 			 CURRENT_TIMESTAMP,
 			 CURRENT_TIMESTAMP)";
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		return mysqli_insert_id($db);
+	}
+
+	public static function addProductBelongTags(mysqli $db, Excursion $excursion): void
+	{
+		$query = "insert into up_product_tag (PRODUCT_ID, TAG_ID) values";
+
+		foreach ($excursion->getTagList() as $tag)
+		{
+			$query .= "({$excursion->getId()},{$tag}), ";
+		}
+
+		$query = substr($query, 0, -2);
 
 		$result = mysqli_query($db, $query);
 

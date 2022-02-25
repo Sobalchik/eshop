@@ -189,16 +189,6 @@ class DBQuery
 		";
 	}
 
-	public static function addExcursion() : string
-	{
-		return "
-			insert into up_product
-			(NAME_CITY, NAME_COUNTRY, DURATION, COUNT_PERSONS, PRICE, FULL_DESCRIPTION, INTERNET_RATING, SERVICE_RATING, RATING, DEGREES, ACTIVE, DATE_CREATE, DATE_UPDATE)
-			values
-			(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-		";
-	}
-
 	public static function updateExcursionById() : string
 	{
 		return "
