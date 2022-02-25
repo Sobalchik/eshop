@@ -254,6 +254,20 @@ class ExcursionService
 		return self::parseExcursionsForAdminHomePage($db, $result);
 	}
 
+	public static function findExcursionsForHomePageByName(mysqli $db, string $name) : array
+	{
+		$query = DBQuery::findExcursionByNameForHomePage();
+
+		$name = mysqli_real_escape_string($db, $name);
+		$name = "%" . $name . "%";
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"ss", $name, $name);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		return self::parseExcursionsForHomePage($result);
+	}
+
 	public static function sortExcursions(mysqli $db, array $excursions, int $sortType) : array
 	{
 		$ini = parse_ini_file(__DIR__ . '\../Config/config.ini');
@@ -288,16 +302,35 @@ class ExcursionService
 		return self::parseExcursionsForHomePage($result);
 	}
 
-	public static function getExcursionsByTag(mysqli $db, array $tagTypesTagsList): array
+	public static function getExcursionsByTag(mysqli $db, array $tagList): array
 	{
+		$query = DBQuery::orginizeTagIdLists($tagList);
+
+		$result = mysqli_query($db, $query);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$tags = [];
+		while ($tag = mysqli_fetch_assoc($result))
+		{
+			$tags[] =
+			[
+				'tagType' => $tag['tagType'],
+				'tagList' => explode(',', $tag['tagList'])
+			];
+		}
+
 		$query = DBQuery::getExcursionsForHomePage();
 
-		$tag = array_shift($tagTypesTagsList);
+		$tag = array_shift($tags);
 		$query .= "where " . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
 
-		foreach ($tagTypesTagsList as $tag)
+		foreach ($tags as $tag)
 		{
-			$query .= "and" . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
+			$query .= " and " . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
 		}
 
 		$result = mysqli_query($db, $query);

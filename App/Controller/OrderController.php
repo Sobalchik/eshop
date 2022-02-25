@@ -47,23 +47,35 @@ class OrderController
 		$logger = new Logger();
 		$logger->info($_POST['id']);
 		OrderService::editOrderById(Database::getDatabase(),
-									$_POST['id'],
-									$_POST['fio'],
-									$_POST['email'],
-									$_POST['phone'],
-									$_POST['status']
+									$_POST['idOrder'],
+									$_POST['fioOrder'],
+									$_POST['emailOrder'],
+									$_POST['phoneOrder'],
+									$_POST['statusOrder'],
+									$_POST['commentOrder']
 		);
 		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
-		$content = Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
-		return $content;
+		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
+
 	}
 
 	public static function deleteOrder(): string
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		OrderService::deleteOrderById(Database::getDatabase(),$_POST['id']);
-		return  self::showAdminOrders();
+		OrderService::deleteOrderById(Database::getDatabase(),$_POST['idOrder']);
+		$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
+		$statuses = OrderService::getAllStatuses(Database::getDatabase());
+		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
+	}
+
+	public static function findOrdersByClientName(): string
+	{
+		$logger = new Logger();
+		$logger->info($_POST['id']);
+		$orders =OrderService::findOrdersByClientName(Database::getDatabase(),$_POST['clientName']);
+		$statuses = OrderService::getAllStatuses(Database::getDatabase());
+		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
 	}
 }

@@ -12,6 +12,8 @@ use App\Lib\Render;
 	</div>
 </div>
 <div class="bloc2">
+		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search-excursions">
+		<button class="btn btn-outline-success" type="submit">Поиск</button>
 	<div class="bloc-2-contener">
 
 		<div class="checkselect">

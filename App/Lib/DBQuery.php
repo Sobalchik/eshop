@@ -157,6 +157,18 @@ class DBQuery
 			"order by up_product.RATING DESC;";
 	}
 
+	public static function orginizeTagIdLists(array $tagList) : string
+	{
+		return "
+			select
+			TYPE_ID as 'tagType',
+			group_concat(TAG_ID) as 'tagList'
+			from up_tag_type_tag
+			where TAG_ID in (" .implode(',', $tagList) .")
+			group by TYPE_ID
+		";
+	}
+
 	public static function getExcursionsByTagQuery(int $tagType, array $tagList) : string
 	{
 		return
@@ -168,7 +180,7 @@ class DBQuery
 				left join up_tag_type_tag on up_tag_type_tag.TAG_ID = up_product_tag.TAG_ID
 				where up_tag_type_tag.TAG_ID in
 				(
-					select group_concat(up_tag_type_tag.TAG_ID)
+					select concat(up_tag_type_tag.TAG_ID)
 					from up_tag_type_tag
 					where up_tag_type_tag.TAG_ID in (" .implode(',', $tagList) .") and up_tag_type_tag.TYPE_ID = '{$tagType}'
 					group by up_tag_type_tag.TYPE_ID
@@ -219,6 +231,14 @@ class DBQuery
 	{
 		return
 			self::getExcursionsForAdminPage() .
+			'where up_product.NAME_CITY like (?)
+			or up_product.NAME_COUNTRY like (?)';
+	}
+
+	public static function findExcursionByNameForHomePage() : string
+	{
+		return
+			self::getExcursionsForHomePage() .
 			'where up_product.NAME_CITY like (?)
 			or up_product.NAME_COUNTRY like (?)';
 	}
@@ -395,6 +415,7 @@ class DBQuery
 				up_order.FIO = ?,
 				up_order.EMAIL = ?,
 				up_order.PHONE = ?,
+			    up_order.COMMENT = ?,
 				up_order.STATUS_ID = ?
 			where up_order.ID = ?
 		";
