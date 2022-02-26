@@ -111,31 +111,22 @@ class UserController
 			$newPassword = $_POST['newPassword'];
 			$repeatNewPassword = $_POST['repeatNewPassword'];
 			session_start();
-			if (Helper::getCsrfToken() === $csrf_token)
-			{
-				$user = UserService::getUserById(Database::getDatabase(), Helper::getCurrentUserId());
-				$isCorrectPassword = password_verify($currentPassword, $user->getPassword());
-				if (!($isCorrectPassword))
-				{
-					return "Текущий пароль не верный";
-				}
-				else
-				{
-					if (!($newPassword===$repeatNewPassword))
-					{
-						return "Введеные пароли не совпадают";
-					}
-					else
-					{
-						UserService::setPassword(Database::getDatabase(), Helper::getCurrentUserId(),  Helper::getPasswordHash($newPassword));
-						return "Пароль успешно сохранен";
-					}
-				}
-			}
-			else
+			if (!Helper::getCsrfToken() === $csrf_token)
 			{
 				return "csrf_token не совпадает";
 			}
+			$user = UserService::getUserById(Database::getDatabase(), Helper::getCurrentUserId());
+			$isCorrectPassword = password_verify($currentPassword, $user->getPassword());
+			if (!($isCorrectPassword))
+			{
+				return "Текущий пароль не верный";
+			}
+			if (!($newPassword===$repeatNewPassword))
+			{
+				return "Введеные пароли не совпадают";
+			}
+			UserService::setPassword(Database::getDatabase(), Helper::getCurrentUserId(),  Helper::getPasswordHash($newPassword));
+			return "Пароль успешно сохранен";
 		}
 	}
 
