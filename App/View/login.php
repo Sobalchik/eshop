@@ -31,7 +31,7 @@
 								</div>
 
 								<div class="form-outline form-white mb-4">
-									<input type="text" name="password" required="required" placeholder="     Пароль..." id="typePasswordX" class="form-control form-control-lg"/>
+									<input type="password" name="password" required="required" placeholder="     Пароль..." id="typePasswordX" class="form-control form-control-lg"/>
 									<label class="form-label" for="typePasswordX">Password</label>
 								</div>
 

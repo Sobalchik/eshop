@@ -27,7 +27,7 @@
 					<p>Обслуживание</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="<?= $excursion->getServiceRating();?>">
 					<p>Оценка</p>
-					<p class="input-me form-control" id="inlineFormInputName"><?= $excursion->getRating();?></p>
+					<p class="input-me form-control" id="inlineFormInputName" disable><?= $excursion->getRating();?></p>
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc2">
