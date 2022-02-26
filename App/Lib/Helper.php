@@ -146,8 +146,8 @@ class Helper
 		return ($valueMysql==NULL) ? '' : $valueMysql;
 	}
 
-	public static function calculationRating(double $internetRating, double $entertainmentRating, double $serviceRating): int
+	public static function calculationRating(float $internetRating, float $entertainmentRating, float $serviceRating): float
 	{
-		return round(($internetRating+$entertainmentRating+$serviceRating)/3);
+		return round(($internetRating+$entertainmentRating+$serviceRating)/3, 1, PHP_ROUND_HALF_EVEN);
 	}
 }

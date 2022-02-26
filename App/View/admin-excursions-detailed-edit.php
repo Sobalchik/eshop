@@ -1,10 +1,8 @@
 <?php
 /** @var \App\Entity\Excursion $excursion */
 /** @var array $typeTags */
-
+$helper = App\Lib\Helper::getInstance();
 ?>
-
-
 <div style="color: white" class="admin-excursions-detaild">
 	<form action="/admin/excursions/saved" method="post">
 		<div style="display: flex">
@@ -27,13 +25,13 @@
 					<p>Обслуживание</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="<?= $excursion->getServiceRating();?>">
 					<p>Оценка</p>
-					<p class="input-me form-control" id="inlineFormInputName" disable><?= $excursion->getRating();?></p>
+					<input type="text" disabled class="input-me form-control" id="inlineFormInputName" name="Rating" value="<?=$helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating());?>">
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc2">
 				<h1>Общие данные</h1>
 				<div>
-					<p>название города</p>
+					<p>Название города</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="city" value="<?= $excursion->getNameCity();?>">
 				</div>
 			</div>
@@ -55,9 +53,9 @@
 					<?endforeach;?>
 					<p>Время</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="duration" value="<?= $excursion->getDuration();?>">
-					<p>размер группы </p>
+					<p>Размер группы </p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="person" value="<?= $excursion->getCountPersons();?>">
-					<p>описание экскурсии</p>
+					<p>Описание экскурсии</p>
 					<textarea class="form-control" id="exampleFormControlTextarea1" name = 'description'><?= $excursion->getFullDescription();?></textarea>
 				</div>
 			</div>
