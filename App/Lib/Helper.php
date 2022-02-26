@@ -71,6 +71,10 @@ class Helper
 		return $_SESSION['csrf_token'] = substr(str_shuffle('qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'), 0,
 			10);
 	}
+	public static function getCsrfToken(): string
+	{
+		return $_SESSION['csrf_token'];
+	}
 
 	public static function getPagesCount(): int
 	{
@@ -109,6 +113,12 @@ class Helper
 		session_start();
 		$_SESSION['userId'] = $id;
 		$_SESSION['userHash'] = $userHash;
+	}
+
+	public static function getCurrentUserId(): int
+	{
+		session_start();
+		return $_SESSION['userId'];
 	}
 
 	public static function validateFields(array $data): array

@@ -141,9 +141,7 @@ class ExcursionController
 		$excursion->setTagList(explode(',', $_POST['tagList']));
 		$excursion->setCountPersons($_POST['person']);
 		$excursion->setFullDescription($_POST['description']);
-		$rating = round(((float)$_POST['iRating'] + (float)$_POST['eRating'] + (float)$_POST['sRating']) / 3,
-			1); //нужна функция-хелпер!
-		$excursion->setRating($rating);
+		$excursion->setRating(Helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating()));
 		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
 		$resultSelectTags = [];
 		foreach ($typeTags as $typeTag)
@@ -240,13 +238,14 @@ class ExcursionController
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['iRating']),
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['eRating']),
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['sRating']),
-				mysqli_real_escape_string(Database::getDatabase(), $_POST['Rating']),
+				'null',
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['degrees']),
 				1,
 				'null',
 				$excursionDate->format("Y-m-d H:i:s"),
 				$excursionDate->format("Y-m-d H:i:s")
 			);
+			$excursion->setRating(Helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating()));
 			$excursion->setCountPersons(mysqli_real_escape_string(Database::getDatabase(), $_POST['person']));
 			$excursion->setDuration(mysqli_real_escape_string(Database::getDatabase(), $_POST['duration']));
 			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());

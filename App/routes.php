@@ -223,5 +223,16 @@ Router::add(
 	[ExcursionController::class, 'showAllExcursions']
 );
 
+Router::add(
+	"GET",
+	"/admin/userChange/show",
+	[UserController::class, 'showUserAction']
+);
+
+Router::add(
+	"POST",
+	"/admin/userChange/saved",
+	[UserController::class, 'changeUserPasswordAction']
+);
 
 

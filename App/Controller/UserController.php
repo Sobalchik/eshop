@@ -85,4 +85,58 @@ class UserController
 		}
 	}
 
+	public static function showUserAction()
+	{
+		if (!self::isAuthorized())
+		{
+			header("Location: " . Helper::getUrl() . "/login");
+		}
+		else
+		{
+			$content = Render::renderContent("admin-user-change");
+			return Render::renderAdminMenu($content);
+		}
+	}
+
+	public static function changeUserPasswordAction()
+	{
+		if (!self::isAuthorized())
+		{
+			header("Location: " . Helper::getUrl() . "/login");
+		}
+		else
+		{
+			$csrf_token = $_POST['csrf_token'];
+			$currentPassword = $_POST['currentPassword'];
+			$newPassword = $_POST['newPassword'];
+			$repeatNewPassword = $_POST['repeatNewPassword'];
+			session_start();
+			if (Helper::getCsrfToken() === $csrf_token)
+			{
+				$user = UserService::getUserById(Database::getDatabase(), Helper::getCurrentUserId());
+				$isCorrectPassword = password_verify($currentPassword, $user->getPassword());
+				if (!($isCorrectPassword))
+				{
+					return "Текущий пароль не верный";
+				}
+				else
+				{
+					if (!($newPassword===$repeatNewPassword))
+					{
+						return "Введеные пароли не совпадают";
+					}
+					else
+					{
+						UserService::setPassword(Database::getDatabase(), Helper::getCurrentUserId(),  Helper::getPasswordHash($newPassword));
+						return "Пароль успешно сохранен";
+					}
+				}
+			}
+			else
+			{
+				return "csrf_token не совпадает";
+			}
+		}
+	}
+
 }

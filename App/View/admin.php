@@ -16,6 +16,7 @@
 	<script src="/Resources/JS/tags.js"></script>
 	<script src="/Resources/JS/orders.js"></script>
 	<script src="/Resources/JS/excursion.js"></script>
+	<script src="/Resources/JS/user.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="/Resources/CSS/custom.css">
 
@@ -38,6 +39,7 @@
 				<a href="/admin/excursions" class="admin-navbar-a">Экскурсии</a>
 				<a href="/admin/tags"  style="margin-top: 30px"  class="admin-navbar-a">Тэги</a>
 				<a href="/admin/orders"  style="margin-top: 30px"  class="admin-navbar-a">Заказы</a>
+				<a href="/admin/userChange/show"  style="margin-top: 30px"  class="admin-navbar-a">Пользователь</a>
 				<a href="/logout"  style="margin-top: 30px"  class="admin-navbar-a">Выход</a>
 			</div>
 		</div>
