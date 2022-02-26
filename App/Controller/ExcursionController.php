@@ -8,7 +8,6 @@ use App\Lib\Render;
 use App\Logger\Logger;
 use App\Service\ExcursionService;
 use App\Config\Database;
-use App\Service\OrderService;
 use App\Service\TagService;
 
 class ExcursionController
@@ -42,16 +41,11 @@ class ExcursionController
 
 	public static function showAllExcursions(): string
 	{
-		$countryTags = TagService::getTagsByTypeCountry(Database::getDatabase());
-		$continentTags = TagService::getTagsByTypeContinent(Database::getDatabase());
-		$familyTags = TagService::getTagsByTypeFamilyFriendly(Database::getDatabase());
-
+		$tagList = TagController::getAllTagsAction();
 		$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
 		return Render::render("content-all-excursions", [
 			'excursions' => $excursions,
-			'continentTags' => $continentTags,
-			'countryTags' => $countryTags,
-			'familyTags' => $familyTags,
+			'tagList' => $tagList
 		]);
 	}
 

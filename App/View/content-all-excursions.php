@@ -1,8 +1,6 @@
 <?php
 /** @var array $excursions **/
-/** @var array $continentTags **/
-/** @var array $countryTags **/
-/** @var array $familyTags **/
+/** @var array $tagList **/
 use App\Lib\Render;
 ?>
 
@@ -19,23 +17,13 @@ use App\Lib\Render;
 
 	</div>
 	<div class="bloc-2-contener-tegi-list">
+		<?php foreach ($tagList as $tagType ):?>
 		<div class="checkselect">
-			<?php foreach ($continentTags as $continentTag ):?>
-				<label><input  class="custom-checkbox"  type="checkbox" name="brands[]" value="<?= $continentTag->getId()?>"> <?= $continentTag->getName()?></label>
+			<?php foreach ($tagType->getTagsBelong() as $tag ):?>
+				<label><input  class="custom-checkbox"  type="checkbox" name="brands[]" value="<?= $tag->getId()?>"> <?= $tag->getName()?></label>
 			<?php endforeach?>
 		</div>
-
-		<div class="checkselect">
-			<?php foreach ($countryTags as $countryTag ):?>
-				<label><input type="checkbox" name="brands[]" value="<?= $countryTag->getId()?>"> <?= $countryTag->getName()?></label>
-			<?php endforeach?>
-		</div>
-
-		<div class="checkselect">
-			<?php foreach ($familyTags as $familyTag ):?>
-				<label><input type="checkbox" name="brands[]" value="<?= $familyTag->getId()?>"> <?= $familyTag->getName()?></label>
-			<?php endforeach?>
-		</div>
+		<?php endforeach?>
 
 		<button class="glow-button" onclick="sortByTag()"> Показать </button>
 	</div>

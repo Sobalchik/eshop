@@ -6,6 +6,7 @@ use App\Controller\OrderController;
 use App\Controller\TagController;
 use App\Lib\Router;
 
+
 Router::add(
 	"GET",
 	"/",
