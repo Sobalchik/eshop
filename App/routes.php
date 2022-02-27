@@ -16,6 +16,12 @@ Router::add(
 
 Router::add(
 	"GET",
+	"/allExcursions/",
+	[ExcursionController::class, 'showAllExcursionsAction']
+);
+
+Router::add(
+	"GET",
 	"/excursion/:id",
 	[ExcursionController::class, 'showExcursionById']
 );
@@ -26,11 +32,6 @@ Router::add(
 	[ExcursionController::class, 'showExcursionById']
 );
 
-Router::add(
-	"GET",
-	"/allExcursions/",
-	[ExcursionController::class, 'showAllExcursions']
-);
 
 Router::add(
 	"POST",
@@ -222,7 +223,7 @@ Router::add(
 Router::add(
 	"GET",
 	"/allExcursions/?order=:order",
-	[ExcursionController::class, 'showAllExcursions']
+	[ExcursionController::class, 'showAllExcursionsAction']
 );
 
 Router::add(

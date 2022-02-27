@@ -13,14 +13,29 @@ use App\Service\TagService;
 class ExcursionController
 {
 	/**
-	 * Вывод всех экскурсий на экран
+	 * Вывод лучших 8 экскурсий по рейтингу на экран
 	 *
-	 * @return string
+	 * @return string возвращает строку с html кодом
 	 */
 	public static function showTopExcursionsAction(): string
 	{
 		$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
-		return Render::render("content-top-excursions","layout", ['excursions' => $excursions],);
+		return Render::render("content-top-excursions","layout", ['excursions' => $excursions]);
+	}
+
+	/**
+	 * Вывод всех экскурсий на экран
+	 *
+	 * @return string возвращает строку с html кодом
+	 */
+	public static function showAllExcursionsAction(): string
+	{
+		$tagList = TagController::getAllTagsAction();
+		$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+		return Render::render("content-all-excursions","layout", [
+			'excursions' => $excursions,
+			'tagList' => $tagList
+		]);
 	}
 
 	/**
@@ -33,16 +48,6 @@ class ExcursionController
 	{
 		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $id);
 		return Render::render("content-detailed-excursion", "layout", ['excursion' => $excursion]);
-	}
-
-	public static function showAllExcursions(): string
-	{
-		$tagList = TagController::getAllTagsAction();
-		$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-		return Render::render("content-all-excursions","layout", [
-			'excursions' => $excursions,
-			'tagList' => $tagList
-		]);
 	}
 
 	public static function showAdminExcursionById(): string
