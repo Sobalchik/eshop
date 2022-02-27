@@ -14,9 +14,19 @@ class OrderService
 		$createDateOrder = new \DateTime('now');
 		$orderData['date'] = $createDateOrder->format("Y-m-d H:i:s");
 
-		$query = DBQuery::insertOrderInDBQuery($orderData);
+		$query = DBQuery::insertOrderInDBQuery();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"sssssis",
+								$orderData['name'],
+								$orderData['email'],
+								$orderData['telephone'],
+								$orderData['date'],
+								$orderData['comment'],
+								$orderData['status_id'],
+								$orderData['dateTravel']
+		);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{

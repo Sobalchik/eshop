@@ -120,64 +120,48 @@ class DBQuery
 		";
 	}
 
-	public static function getAllTagsQuery() : string
+	public static function getExcursionsFromIdList() : string
 	{
-		return "
-			select
-				ID as 'id',
-				NAME as 'name'
-			from up_tag
-		";
+		return "where find_in_set(ID, ?)";
 	}
 
-	public static function getAllExcursionsByPageQuery() : string
-	{
-		return self::getExcursionsForHomePage();
-	}
-
-	public static function getExcursionsFromIdList(array $idList) : string
-	{
-		return "where up_product.ID in 
-			(" . implode(',', array_map('intval', $idList)) . ")";
-	}
-
-	public static function sortExcursionsByPriceAscQuery(array $idList) : string
+	public static function sortExcursionsByPriceAscQuery() : string
 	{
 		return
 			self::getExcursionsForHomePage() .
-			self::getExcursionsFromIdList($idList) .
+			self::getExcursionsFromIdList() .
 			"order by up_product.PRICE;";
 	}
 
-	public static function sortExcursionsByPriceDescQuery(array $idList) : string
+	public static function sortExcursionsByPriceDescQuery() : string
 	{
 		return
 			self::getExcursionsForHomePage() .
-			self::getExcursionsFromIdList($idList) .
+			self::getExcursionsFromIdList() .
 			"order by up_product.PRICE DESC;";
 	}
 
-	public static function sortExcursionsByRatingDescQuery(array $idList) : string
+	public static function sortExcursionsByRatingDescQuery() : string
 	{
 		return
 			self::getExcursionsForHomePage() .
-			self::getExcursionsFromIdList($idList) .
+			self::getExcursionsFromIdList() .
 			"order by up_product.RATING DESC;";
 	}
 
-	public static function orginizeTagIdLists(array $tagList) : string
+	public static function organizeTagIdList() : string
 	{
 		return "
 			select
 			TYPE_ID as 'tagType',
 			group_concat(TAG_ID) as 'tagList'
 			from up_tag_type_tag
-			where TAG_ID in (" .implode(',', $tagList) .")
+			where find_in_set(TAG_ID, ?)
 			group by TYPE_ID
 		";
 	}
 
-	public static function getExcursionsByTagQuery(int $tagType, array $tagList) : string
+	public static function getExcursionsByTagHelpQuery() : string
 	{
 		return
 			"up_product.ID in
@@ -190,11 +174,25 @@ class DBQuery
 				(
 					select concat(up_tag_type_tag.TAG_ID)
 					from up_tag_type_tag
-					where up_tag_type_tag.TAG_ID in (" .implode(',', $tagList) .") and up_tag_type_tag.TYPE_ID = '{$tagType}'
+					where find_in_set(up_tag_type_tag.TAG_ID, ?) and up_tag_type_tag.TYPE_ID = ?
 					group by up_tag_type_tag.TYPE_ID
 				)
 			)
 		";
+	}
+
+	public static function getExcursionsByTagFullQuery(int $count) : string
+	{
+		$query = self::getExcursionsForHomePage();
+
+		$query .= "where ". self::getExcursionsByTagHelpQuery();
+
+		for ($i = 1; $i < $count; $i++)
+		{
+			$query .= " and " . self::getExcursionsByTagHelpQuery();
+		}
+
+		return $query;
 	}
 
 	public static function updateExcursionById() : string
@@ -315,7 +313,7 @@ class DBQuery
 			where up_product_date.PRODUCT_ID = ?
 				and up_date.ACTIVE = 1
 			group by up_date.ACTIVE, up_date.DATE_TRAVEL, up_date.ID
-";
+		";
 	}
 
 	public static function deleteExcursionById() : string
@@ -329,9 +327,11 @@ class DBQuery
 	public static function deleteDateById() : string
 	{
 		return "
-			update  up_date
-			set up_date.ACTIVE = 0
-			where up_date.ID = ?
+			delete from up_product_date 
+			WHERE DATE_ID = ?;
+
+			delete from up_date 
+			WHERE ID = ?;
 		";
 	}
 
@@ -359,7 +359,8 @@ class DBQuery
 			insert into up_product_date
 			(PRODUCT_ID, DATE_ID)
 			values
-			(?,
+			(
+			    ?,
 				(select max(id)
 				from up_date)
 			);
@@ -419,7 +420,7 @@ class DBQuery
 		";
 	}
 
-	public static function insertOrderInDBQuery($orderData): string
+	public static function insertOrderInDBQuery(): string
 	{
 		return "
 			insert into up_order
@@ -436,16 +437,16 @@ class DBQuery
 			 )
 			values
 			(
-			'{$orderData['name']}',
-			'{$orderData['email']}',
-			'{$orderData['telephone']}',
-			'{$orderData['date']}',
-			'{$orderData['comment']}',
-			'{$orderData['status_id']}',
+			?,
+			?,
+			?,
+			?,
+			?,
+			?,
 			(
 			select up_date.ID
 			from up_date
-			where up_date.DATE_TRAVEL = '{$orderData['dateTravel']}'
+			where up_date.DATE_TRAVEL = ?
 			),
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP
@@ -518,42 +519,60 @@ class DBQuery
 
 	public static function addNewExcursion() : string
 	{
-		return "
-		insert into up_product
-		(
-		 NAME_CITY,
-		 NAME_COUNTRY,
-		 DURATION,
-		 COUNT_PERSONS,
-		 PRICE,
-		 FULL_DESCRIPTION,
-		 INTERNET_RATING,
-		 ENTERTAINMENT_RATING,
-		 SERVICE_RATING,
-		 RATING,
-		 DEGREES,
-		 ACTIVE,
-		 DATE_CREATE,
-		 DATE_UPDATE
-		 )
-		 values
-		(
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 ?,
-		 1,
-		 CURRENT_TIMESTAMP,
-		 CURRENT_TIMESTAMP
-		)
+		return
+			"insert into up_product
+			(
+				NAME_CITY,
+				NAME_COUNTRY,
+				DURATION,
+				COUNT_PERSONS,
+				PRICE,
+				FULL_DESCRIPTION, 
+				INTERNET_RATING, 
+				ENTERTAINMENT_RATING, 
+				SERVICE_RATING, 
+				RATING, DEGREES, 
+				ACTIVE, DATE_CREATE, 
+				DATE_UPDATE
+			)
+			values
+			(
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				 CURRENT_TIMESTAMP,
+				 CURRENT_TIMESTAMP
+			)
 		";
 	}
+
+	public static function addProductBelongTags() : string
+	{
+		return "
+			insert into up_product_tag 
+			(PRODUCT_ID, TAG_ID) 
+			values
+			(?, ?)
+		";
+	}
+
+	public static function deleteProductBelongTags() : string
+	{
+		return "
+			delete from up_product_tag 
+			WHERE PRODUCT_ID = ?
+		";
+	}
+
+
 
 }

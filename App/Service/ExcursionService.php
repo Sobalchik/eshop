@@ -115,30 +115,6 @@ class ExcursionService
 		return mysqli_fetch_row($result);
 	}
 
-	public static function getAllTags(mysqli $db) : array
-	{
-		$query = DBQuery::getAllTagsQuery();
-
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		$tags = [];
-
-		while ($tag = mysqli_fetch_assoc($result))
-		{
-			$tags[] = [
-				'id' => $tag['id'],
-				'name' => $tag['name']
-			];
-		}
-
-		return $tags;
-	}
-
 	public static function getTopExcursions(mysqli $db): array
 	{
 		$query = DBQuery::getTopExcursionsQuery();
@@ -153,9 +129,9 @@ class ExcursionService
 		return self::parseExcursionsForHomePage($result);
 	}
 
-	public static function getAllExcursionsByPage(mysqli $db, int $page = 1): array
+	public static function getExcursionsForHomePage(mysqli $db, int $page = 1): array
 	{
-		$query = DBQuery::getAllExcursionsByPageQuery();
+		$query = DBQuery::getExcursionsForHomePage();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_execute($stmt);
@@ -279,21 +255,26 @@ class ExcursionService
 			$idList[] = $excursion->getId();
 		}
 
-		$query = [];
+		$idList = implode(',', $idList);
+
+		$query = "";
 		switch ($sortType)
 		{
 		case $ini['order_excursions_by_price_asc']:
-			$query = DBQuery::sortExcursionsByPriceAscQuery($idList);
+			$query = DBQuery::sortExcursionsByPriceAscQuery();
 			break;
 		case $ini['order_excursions_by_price_desc']:
-			$query = DBQuery::sortExcursionsByPriceDescQuery($idList);
+			$query = DBQuery::sortExcursionsByPriceDescQuery();
 			break;
 		case $ini['order_excursions_by_rating_desc']:
-			$query = DBQuery::sortExcursionsByRatingDescQuery($idList);
+			$query = DBQuery::sortExcursionsByRatingDescQuery();
 			break;
 		}
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "s", $idList);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
@@ -303,11 +284,15 @@ class ExcursionService
 		return self::parseExcursionsForHomePage($result);
 	}
 
-	public static function getExcursionsByTag(mysqli $db, array $tagList): array
+	public static function organizeTagIdList(mysqli $db, array $tagList) : array
 	{
-		$query = DBQuery::orginizeTagIdLists($tagList);
+		$query = DBQuery::organizeTagIdList();
 
-		$result = mysqli_query($db, $query);
+		$tagListString = implode(',', $tagList);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "s", $tagListString);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
@@ -317,24 +302,24 @@ class ExcursionService
 		$tags = [];
 		while ($tag = mysqli_fetch_assoc($result))
 		{
-			$tags[] =
-			[
-				'tagType' => $tag['tagType'],
-				'tagList' => explode(',', $tag['tagList'])
-			];
+			$tags[] = $tag['tagList'];
+			$tags[] = $tag['tagType'];
 		}
 
-		$query = DBQuery::getExcursionsForHomePage();
+		return $tags;
+	}
 
-		$tag = array_shift($tags);
-		$query .= "where " . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
+	public static function getExcursionsByTag(mysqli $db, array $tagList) : array
+	{
+		$tags = self::organizeTagIdList($db, $tagList);
+		$tagsCount = count($tags) / 2;
 
-		foreach ($tags as $tag)
-		{
-			$query .= " and " . DBQuery::getExcursionsByTagQuery($tag['tagType'], $tag['tagList']);
-		}
+		$query = DBQuery::getExcursionsByTagFullQuery($tagsCount);
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, str_repeat("si", $tagsCount), ...$tags);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
@@ -370,68 +355,39 @@ class ExcursionService
 		return $occupancyList;
 	}
 
-	public static function getAllExcursionsForAdmin(mysqli $db) : array
-	{
-		$query = DBQuery::getExcursionsForAdminPage();
-
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		$excursions = [];
-
-		while ($excursion = mysqli_fetch_assoc($result))
-		{
-			$excursions[] = new Excursion(
-				$excursion['id'],
-				$excursion['nameCity'],
-				$excursion['nameCountry'],
-				$excursion['dateTravel'],
-				$excursion['price'],
-				$excursion['fullDescription'],
-				$excursion['internetRating'],
-				$excursion['entertainmentRating'],
-				$excursion['serviceRating'],
-				$excursion['rating'],
-				$excursion['degrees'],
-				$excursion['active'],
-				'',
-				'',
-				''
-			);
-
-			$occupancyList = self::getExcursionOccupancyListById($db, (int)$excursion['id']);
-			$excursions[count($excursions) - 1]->setExcursionOccupancyByDateTravel($occupancyList);
-		}
-
-		return $excursions;
-	}
-
 	public static function addExcursion(mysqli $db, Excursion $excursion) : int
 	{
-		$query = "insert into up_product
-			(NAME_CITY, NAME_COUNTRY, DURATION, COUNT_PERSONS, PRICE, FULL_DESCRIPTION, INTERNET_RATING, ENTERTAINMENT_RATING, SERVICE_RATING, RATING, DEGREES, ACTIVE, DATE_CREATE, DATE_UPDATE)
-			values
-			(
-			'{$excursion->getNameCity()}',
-			'{$excursion->getNameCountry()}',
-			'{$excursion->getDuration()}',
-			'{$excursion->getCountPersons()}',
-			'{$excursion->getPrice()}',
-			'{$excursion->getFullDescription()}',
-			'{$excursion->getInternetRating()}',
-			'{$excursion->getEntertainmentRating()}',
-			'{$excursion->getServiceRating()}',
-			'{$excursion->getRating()}',
-			'{$excursion->getDegrees()}',
-			'{$excursion->getActive()}', 
-			 CURRENT_TIMESTAMP,
-			 CURRENT_TIMESTAMP)";
+		$query = DBQuery::addNewExcursion();
 
-		$result = mysqli_query($db, $query);
+		$nameCity = $excursion->getNameCity();
+		$nameCountry =$excursion->getNameCountry();
+		$duration = $excursion->getDuration();
+		$countPerson = $excursion->getCountPersons();
+		$price = $excursion->getPrice();
+		$fullDescription = $excursion->getFullDescription();
+		$internetRating = $excursion->getInternetRating();
+		$entertainmentRating = $excursion->getEntertainmentRating();
+		$serviceRating = $excursion->getServiceRating();
+		$rating = $excursion->getRating();
+		$degree = $excursion->getDegrees();
+		$active = $excursion->getActive();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"ssiiisddddii",
+									$nameCity,
+									$nameCountry,
+									$duration,
+									$countPerson,
+									$price,
+									$fullDescription,
+									$internetRating,
+									$entertainmentRating,
+									$serviceRating,
+									$rating,
+									$degree,
+									$active
+		);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -443,20 +399,21 @@ class ExcursionService
 
 	public static function addProductBelongTags(mysqli $db, Excursion $excursion): void
 	{
-		$query = "insert into up_product_tag (PRODUCT_ID, TAG_ID) values";
-
 		foreach ($excursion->getTagList() as $tag)
 		{
-			$query .= "({$excursion->getId()},{$tag}), ";
-		}
+			$query = DBQuery::addProductBelongTags();
 
-		$query = substr($query, 0, -2);
+			$stmt = mysqli_prepare($db, $query);
+			$id = $excursion->getId();
+			mysqli_stmt_bind_param($stmt, "ii", $id, $tag);
+			mysqli_stmt_execute($stmt);
 
-		$result = mysqli_query($db, $query);
+			$result = mysqli_stmt_get_result($stmt);
 
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
+			if (!$result)
+			{
+				trigger_error(mysqli_error($db), E_USER_ERROR);
+			}
 		}
 	}
 
@@ -464,8 +421,8 @@ class ExcursionService
 	{
 		$query = DBQuery::updateExcursionById();
 
-		$nameCity = mysqli_real_escape_string($db, $excursion->getNameCity());
-		$nameCountry = mysqli_real_escape_string($db, $excursion->getNameCountry());
+		$nameCity = $excursion->getNameCity();
+		$nameCountry =$excursion->getNameCountry();
 		$price = $excursion->getPrice();
 		$duration = $excursion->getDuration();
 		$id = $excursion->getId();
@@ -547,7 +504,7 @@ class ExcursionService
 
 	}
 
-	private static function addNewDate($db,string $date)
+	private static function addNewDate($db,string $date) : void
 	{
 		$query = DBQuery::addNewDate();
 
@@ -561,7 +518,7 @@ class ExcursionService
 		}
 	}
 
-	private static function addNewDateRelation($db,int $id)
+	private static function addNewDateRelation($db,int $id) : void
 	{
 		$query = DBQuery::addNewDateRelations();
 
@@ -574,7 +531,8 @@ class ExcursionService
 		}
 	}
 
-	public static function deactivateDate(mysqli $db, int $id){
+	public static function deactivateDate(mysqli $db, int $id) : void
+	{
 		$query = DBQuery::deleteDateById();
 
 		$stmt = mysqli_prepare($db, $query);
@@ -589,9 +547,12 @@ class ExcursionService
 
 	public static function deleteProductBelongTags(mysqli $db, Excursion $excursion): void
 	{
-		$query = "delete from up_product_tag WHERE PRODUCT_ID=({$excursion->getId()})";
+		$query = DBQuery::deleteProductBelongTags();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		$id = $excursion->getId();
+		mysqli_stmt_bind_param($stmt,"i",$id);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -601,18 +562,11 @@ class ExcursionService
 
 	public static function deleteDateById(mysqli $db, int $id) : void
 	{
-		$query = "delete from up_product_date WHERE DATE_ID=({$id})";
+		$query = DBQuery::deleteDateById();
 
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		$query = "delete from up_date WHERE ID=({$id})";
-
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt,"ii",$id, $id);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{

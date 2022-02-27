@@ -42,7 +42,7 @@ class ExcursionController
 	public static function showAllExcursions(): string
 	{
 		$tagList = TagController::getAllTagsAction();
-		$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+		$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
 		return Render::render("content-all-excursions", [
 			'excursions' => $excursions,
 			'tagList' => $tagList
@@ -155,7 +155,7 @@ class ExcursionController
 		(int)$sortType = $_POST['sortType'];
 		if ($_POST['tagList'] == null)
 		{
-			$ex = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+			$ex = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
 			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $ex, $sortType);
 		}
 		else
@@ -178,7 +178,7 @@ class ExcursionController
 	{
 		if ($_POST['tagList'] == null)
 		{
-			$excursions = ExcursionService::getAllExcursionsByPage(Database::getDatabase());
+			$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
 			return Render:: renderContent("content-card", ['excursions' => $excursions]);
 		}
 
