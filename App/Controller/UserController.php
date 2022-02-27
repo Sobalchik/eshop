@@ -22,7 +22,7 @@ class UserController
 		$_SESSION = [];
 		session_destroy();
 		$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
-		return Render::render("content-top-excursions", ['excursions' => $excursions]);
+		return Render::render("content-top-excursions", "layout", ['excursions' => $excursions]);
 	}
 
 	public static function adminPanel(): string
@@ -66,14 +66,14 @@ class UserController
 		$user = UserService::getUserByLogin(Database::getDatabase(), $validateLogin);
 		if (!isset($user))
 		{
-			return Render::render("login", []);
+			return Render::render("login", "admin");
 		}
 		else
 		{
 			$isCorrectPassword = password_verify($validatePassword, $user->getPassword());
 			if (!$isCorrectPassword)
 			{
-				return Render::render("login", []);
+				return Render::render("login","admin");
 			}
 			else
 			{
@@ -94,7 +94,7 @@ class UserController
 		else
 		{
 			$content = Render::renderContent("admin-user-change");
-			return Render::renderAdminMenu($content);
+			return Render::renderLayout($content,"admin");
 		}
 	}
 

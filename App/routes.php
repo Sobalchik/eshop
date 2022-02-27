@@ -4,13 +4,14 @@ use App\Controller\ExcursionController;
 use App\Controller\UserController;
 use App\Controller\OrderController;
 use App\Controller\TagController;
+use App\Controller\MessageController;
 use App\Lib\Router;
 
 
 Router::add(
 	"GET",
 	"/",
-	[ExcursionController::class, 'showTopExcursions']
+	[ExcursionController::class, 'showTopExcursionsAction']
 );
 
 Router::add(
@@ -179,19 +180,19 @@ Router::add(
 Router::add(
 	"GET",
 	"/about",
-	[ExcursionController::class,'showAbout']
+	[MessageController::class,'showAbout']
 );
 
 Router::add(
 	"GET",
 	"/client",
-	[ExcursionController::class, 'showClient']
+	[MessageController::class, 'showClient']
 );
 
 Router::add(
 	"GET",
 	"/blog",
-	[ExcursionController::class, 'getBlog']
+	[MessageController::class, 'getBlog']
 );
 
 Router::add(

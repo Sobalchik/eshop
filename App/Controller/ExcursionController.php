@@ -12,38 +12,34 @@ use App\Service\TagService;
 
 class ExcursionController
 {
-	public static function showTopExcursions(): string
+	/**
+	 * Вывод всех экскурсий на экран
+	 *
+	 * @return string
+	 */
+	public static function showTopExcursionsAction(): string
 	{
 		$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
-		return Render::render("content-top-excursions", ['excursions' => $excursions]);
+		return Render::render("content-top-excursions","layout", ['excursions' => $excursions],);
 	}
 
-	public static function showAbout(): string
-	{
-		return Render::render("about");
-	}
-
-	public static function showClient(): string
-	{
-		return Render::render("client");
-	}
-
-	public static function getBlog(): string
-	{
-		return Render::render("blog");
-	}
-
+	/**
+	 * Вывод подробной информации об экскурсии на экран.
+	 *
+	 * @param $id
+	 * @return string
+	 */
 	public static function showExcursionById($id): string
 	{
 		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $id);
-		return Render::render("content-detailed-excursion", ['excursion' => $excursion]);
+		return Render::render("content-detailed-excursion", "layout", ['excursion' => $excursion]);
 	}
 
 	public static function showAllExcursions(): string
 	{
 		$tagList = TagController::getAllTagsAction();
 		$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-		return Render::render("content-all-excursions", [
+		return Render::render("content-all-excursions","layout", [
 			'excursions' => $excursions,
 			'tagList' => $tagList
 		]);
@@ -62,7 +58,7 @@ class ExcursionController
 			}
 			$content = Render::renderContent("admin-excursions-detailed-edit",
 				["excursion" => $excursion, "typeTags" => $typeTags]);
-			return Render::renderAdminMenu($content);
+			return Render::renderLayout($content, "admin");
 		}
 		else
 		{
@@ -77,7 +73,7 @@ class ExcursionController
 		{
 			$excursions = ExcursionService::getExcursionsForAdminHomePage(Database::getDatabase());
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
-			return Render::renderAdminMenu($content);
+			return Render::renderLayout($content,"admin");
 		}
 		else
 		{
@@ -93,7 +89,7 @@ class ExcursionController
 			$excursions = ExcursionService::findExcursionsForAdminPageByName(Database::getDatabase(),
 				$_POST['search-excursions']);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
-			return Render::renderAdminMenu($content);
+			return Render::renderLayout($content,"admin");
 		}
 		else
 		{
@@ -208,7 +204,7 @@ class ExcursionController
 				$typeTag->setTagsBelong($tagsBelong);
 			}
 			$content = Render::renderContent("admin-excursions-detailed-add", ["typeTags" => $typeTags]);
-			return Render::renderAdminMenu($content);
+			return Render::renderLayout($content,"admin");
 		}
 		else
 		{

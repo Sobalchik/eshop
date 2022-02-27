@@ -35,7 +35,7 @@ class TagController
 		}
 		else
 		{
-			return Render::renderAdminMenu(TagController::showAdminTagsPrepare());
+			return Render::renderLayout(TagController::showAdminTagsPrepare(),"admin");
 		}
 	}
 

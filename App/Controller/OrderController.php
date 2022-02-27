@@ -20,12 +20,12 @@ class OrderController
 		{
 			OrderService::createOrder(Database::getDatabase(), $validateData);
 			$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
-			return Render::render("content-top-excursions", ['excursions' => $excursions]);
+			return Render::render("content-top-excursions", "layout", ['excursions' => $excursions]);
 		}
 		else
 		{
 			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $validateData['product_id']);
-			return Render::render("content-more-excursion", ['excursion' => $excursion]);
+			return Render::render("content-more-excursion", "layout", ['excursion' => $excursion]);
 		}
 	}
 
@@ -36,7 +36,7 @@ class OrderController
 			$orders = OrderService::getOrdersForAdminPage(Database::getDatabase());
 			$statuses = OrderService::getAllStatuses(Database::getDatabase());
 			$content = Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
-			return Render::renderAdminMenu($content);
+			return Render::renderLayout($content,"admin");
 		}
 		else
 		{

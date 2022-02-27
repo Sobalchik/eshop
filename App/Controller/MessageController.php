@@ -16,4 +16,19 @@ class MessageController
 		return Render::renderContent('error-nothing-found');
 	}
 
+	public static function showAbout(): string
+	{
+		return Render::render("about","layout");
+	}
+
+	public static function showClient(): string
+	{
+		return Render::render("client","layout");
+	}
+
+	public static function getBlog(): string
+	{
+		return Render::render("blog", "layout");
+	}
+
 }
