@@ -108,7 +108,10 @@ class DBQuery
 
 	public static function getTopExcursionsQuery() : string
 	{
-		return self::getExcursionsForHomePage() . "limit 8";
+		return
+			self::getExcursionsForHomePage() .
+			"order by up_product.RATING
+			limit 8";
 	}
 
 	public static function getAllExcursionsCountQuery() : string
@@ -464,48 +467,6 @@ class DBQuery
 		";
 	}
 
-	public static function getTagsByTypeCountry() : string
-	{
-		return "
-			select
-				up_tag.ID as 'id',
-				up_tag.NAME as 'name',
-				up_tag_type_tag.TYPE_ID as 'tagType'
-			from up_tag
-			left join up_tag_type_tag
-			on up_tag.ID = up_tag_type_tag.TAG_ID
-			where up_tag_type_tag.TYPE_ID = 1
-		";
-	}
-
-	public static function getTagsByTypeContinent() : string
-	{
-		return "
-			select
-				up_tag.ID as 'id',
-				up_tag.NAME as 'name',
-				up_tag_type_tag.TYPE_ID as 'tagType'
-			from up_tag
-			left join up_tag_type_tag
-			on up_tag.ID = up_tag_type_tag.TAG_ID
-			where up_tag_type_tag.TYPE_ID = 2
-		";
-	}
-
-	public static function getTagsByTypeFamilyFriendly() : string
-	{
-		return "
-			select
-				up_tag.ID as 'id',
-				up_tag.NAME as 'name',
-				up_tag_type_tag.TYPE_ID as 'tagType'
-			from up_tag
-			left join up_tag_type_tag
-			on up_tag.ID = up_tag_type_tag.TAG_ID
-			where up_tag_type_tag.TYPE_ID = 3
-		";
-	}
-
 	public static function getAllActiveDates() : string
 	{
 		return "
@@ -573,6 +534,107 @@ class DBQuery
 		";
 	}
 
+	public static function getTagsForAdminPage() : string
+	{
+		return "
+			select
+				ut.ID as tagId,
+				ut.NAME as tagName,
+				(
+					SELECT 
+						COUNT(PRODUCT_ID) 
+					FROM up_product_tag 
+					WHERE up_product_tag.TAG_ID = tagId
+				) as tagBindProduct
+			from up_tag as ut
+				inner join up_tag_type_tag uttt on ut.ID = uttt.TAG_ID
+			WHERE uttt.TYPE_ID = ?
+			ORDER BY tagName;
+		";
+	}
 
+	public static function getTypeTagsForAdminPage() : string
+	{
+		return "
+			select 
+				ID as id,
+				NAME as name,
+				(
+					SELECT 
+						COUNT(TAG_ID) 
+					FROM up_tag_type_tag 
+					WHERE TYPE_ID=id
+				) as typeTagBindTag
+			from up_type_tag
+			";
+	}
 
+	public static function deleteTag() : string
+	{
+		return "
+			DELETE FROM up_tag_type_tag 
+			WHERE TAG_ID = ?;
+			
+			DELETE FROM up_tag 
+			WHERE ID = ?;
+		";
+	}
+
+	public static function deleteTypeTag() : string
+	{
+		return "
+			DELETE FROM up_type_tag 
+			WHERE ID = ?;
+		";
+	}
+
+	public static function saveTag() : string
+	{
+		return "
+			UPDATE up_tag 
+			SET 
+				NAME = ? 
+			WHERE ID = ?;
+		";
+	}
+
+	public static function saveTypeTag() : string
+	{
+		return "
+			UPDATE up_type_tag 
+			SET 
+				NAME = ? 
+			WHERE ID = ?
+		";
+	}
+
+	public static function addTag() : string
+	{
+		return "
+			INSERT INTO `up_tag`
+			(`NAME`, `DATE_CREATE`, `DATE_UPDATE`)
+			VALUES
+			(?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)
+		";
+	}
+
+	public static function setTypeBelongTag() : string
+	{
+		return "
+			INSERT INTO `up_tag_type_tag`
+			(`TAG_ID`, `TYPE_ID`)
+			VALUES
+			(?, ?)
+		";
+	}
+
+	public static function addTypeTag() : string
+	{
+		return "
+			INSERT INTO `up_type_tag`
+			(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) 
+			VALUES 
+			(?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)
+		";
+	}
 }

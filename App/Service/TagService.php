@@ -11,16 +11,12 @@ class TagService
 {
 	public static function getTagsForAdminPage(mysqli $db, int $typeTag) : array
 	{
-		$query = "select
-    				ut.ID as tagId,
-    				ut.NAME as tagName,
-    				(SELECT COUNT(PRODUCT_ID) FROM up_product_tag WHERE up_product_tag.TAG_ID=tagId) as tagBindProduct
-					from up_tag as ut
-         				inner join up_tag_type_tag uttt on ut.ID = uttt.TAG_ID
-					WHERE uttt.TYPE_ID={$typeTag}
-					ORDER BY tagName;";
+		$query = DBQuery::getTagsForAdminPage();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "i", $typeTag);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
@@ -46,13 +42,11 @@ class TagService
 
 	public static function getTypeTagsForAdminPage(mysqli $db) : array
 	{
-		$query = "select 
-       				ID as id,
-       				NAME as name,
-       				(SELECT COUNT(TAG_ID) FROM up_tag_type_tag WHERE TYPE_ID=id) as typeTagBindTag
-				from up_type_tag";
+		$query = DBQuery::getTypeTagsForAdminPage();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
@@ -76,77 +70,13 @@ class TagService
 		return $typeTags;
 	}
 
-
-	public static function parseTagsByType(\mysqli_result $result) : array
-	{
-		$tags = [];
-		while ($tag = mysqli_fetch_assoc($result))
-		{
-			$tags [] = new Tag(
-				$tag['id'],
-				$tag['name'],
-				$tag['tagType'],
-				null,
-				null
-			);
-		}
-
-		return $tags;
-	}
-
-	public static function getTagsByTypeCountry(mysqli $db) : array
-	{
-		$query = DBQuery::getTagsByTypeCountry();
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		return self::parseTagsByType($result);
-	}
-
-	public static function getTagsByTypeContinent(mysqli $db) : array
-	{
-		$query = DBQuery::getTagsByTypeContinent();
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		return self::parseTagsByType($result);
-	}
-
-	public static function getTagsByTypeFamilyFriendly(mysqli $db) : array
-	{
-		$query = DBQuery::getTagsByTypeFamilyFriendly();
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		return self::parseTagsByType($result);
-	}
-
 	public static function deleteTag(mysqli $db, int $tagId): void
 	{
-		$query = "DELETE FROM up_tag_type_tag WHERE TAG_ID={$tagId}";
+		$query = DBQuery::deleteTag();
 
-		$result = mysqli_query($db, $query);
-
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		$query = "DELETE FROM up_tag WHERE ID={$tagId}";
-
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "ii", $typeTag, $typeTag);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -156,9 +86,11 @@ class TagService
 
 	public static function deleteTypeTag(mysqli $db, int $typeTagId): void
 	{
-		$query = "DELETE FROM up_type_tag WHERE ID={$typeTagId}";
+		$query = DBQuery::deleteTypeTag();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "i", $typeTagId);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -168,9 +100,11 @@ class TagService
 
 	public static function saveTag(mysqli $db, int $tagId, string $tagName): void
 	{
-		$query = "UPDATE up_tag SET NAME='{$tagName}' WHERE ID={$tagId}";
+		$query = DBQuery::saveTag();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "ii", $tagName, $tagId);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -180,9 +114,11 @@ class TagService
 
 	public static function saveTypeTag(mysqli $db, int $typeTagId, string $typeTagName): void
 	{
-		$query = "UPDATE up_type_tag SET NAME='{$typeTagName}' WHERE ID={$typeTagId}";
+		$query = DBQuery::saveTypeTag();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "ii", $typeTagName, $typeTagId);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -192,9 +128,11 @@ class TagService
 
 	public static function addTag(mysqli $db, string $tagName): int
 	{
-		$query = "INSERT INTO `up_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('{$tagName}',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+		$query = DBQuery::addTag();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "i", $tagName);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -206,9 +144,11 @@ class TagService
 
 	public static function setTypeTagBelongTag(mysqli $db, int $typeTagId, int $tagId): void
 	{
-		$query = "INSERT INTO `up_tag_type_tag`(`TAG_ID`, `TYPE_ID`) VALUES ('{$tagId}','{$typeTagId}')";
+		$query = DBQuery::setTypeBelongTag();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "ii", $tagId, $typeTagId);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -218,9 +158,11 @@ class TagService
 
 	public static function addTypeTag(mysqli $db, string $typeTagName): int
 	{
-		$query = "INSERT INTO `up_type_tag`(`NAME`, `DATE_CREATE`, `DATE_UPDATE`) VALUES ('{$typeTagName}',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+		$query = DBQuery::addTypeTag();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "i", $typeTagName);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
