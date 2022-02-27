@@ -3,129 +3,82 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Lib\DBQuery;
 use mysqli;
 
 class UserService
 {
 
+	public static function parseUserForAdminPage(\mysqli_result $result) : User
+	{
+		$user = mysqli_fetch_assoc($result);
+
+		return
+			new User(
+				$user['id'],
+				$user['login'],
+				$user['password'],
+				$user['userHash'],
+				$user['email'],
+				$user['isAdmin'],
+				$user['dateCreate'],
+				$user['dateUpdate']
+			);
+	}
+
 	public static function getUserByLogin(mysqli $db, string $login): User
 	{
-		$validateLogin = mysqli_real_escape_string($db,$login);
-		$query = "
-			SELECT
-				ID as 'id',
-				LOGIN as 'login',
-				PASSWORD as 'password',
-				USER_HASH as 'userHash',
-				EMAIL as 'email',
-				ISADMIN as 'isAdmin',
-				DATE_CREATE as 'dateCreate',
-				DATE_UPDATE as 'dateUpdate'
-			FROM up_user WHERE LOGIN='{$validateLogin}' LIMIT 1
-		";
+		$query = DBQuery::getUserByLogin();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "s", $login);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$user = mysqli_fetch_assoc($result);
-
-		$resultUser = new User(
-			$user['id'],
-			$user['login'],
-			$user['password'],
-			$user['userHash'],
-			$user['email'],
-			$user['isAdmin'],
-			$user['dateCreate'],
-			$user['dateUpdate']
-		);
-
-		return $resultUser;
+		return self::parseUserForAdminPage($result);
 	}
 
 	public static function getUserById(mysqli $db, int $id): User
 	{
-		$query = "
-			SELECT
-				ID as 'id',
-				LOGIN as 'login',
-				PASSWORD as 'password',
-				USER_HASH as 'userHash',
-				EMAIL as 'email',
-				ISADMIN as 'isAdmin',
-				DATE_CREATE as 'dateCreate',
-				DATE_UPDATE as 'dateUpdate'
-			FROM up_user WHERE ID='{$id} ' LIMIT 1
-		";
+		$query = DBQuery::getUserById();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "i", $id);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
-		if (!$result)
-		{
-			trigger_error(mysqli_error($db), E_USER_ERROR);
-		}
-
-		$user = mysqli_fetch_assoc($result);
-		$resultUser = new User(
-			$user['id'],
-			$user['login'],
-			$user['password'],
-			$user['userHash'],
-			$user['email'],
-			$user['isAdmin'],
-			$user['dateCreate'],
-			$user['dateUpdate']
-		);
-
-		return $resultUser;
+		return self::parseUserForAdminPage($result);
 	}
 
 	public static function getUserByHash(mysqli $db, string $hash): User
 	{
-		$query = "
-			SELECT
-				ID as 'id',
-				LOGIN as 'login',
-				PASSWORD as 'password',
-				USER_HASH as 'userHash',
-				EMAIL as 'email',
-				ISADMIN as 'isAdmin',
-				DATE_CREATE as 'dateCreate',
-				DATE_UPDATE as 'dateUpdate'
-			FROM up_user WHERE USER_HASH='{$hash} ' LIMIT 1
-		";
+		$query = DBQuery::getUserByHash();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "s", $hash);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
 
 		if (!$result)
 		{
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$user = mysqli_fetch_assoc($result);
-		$resultUser = new User(
-			$user['id'],
-			$user['login'],
-			$user['password'],
-			$user['userHash'],
-			$user['email'],
-			$user['isAdmin'],
-			$user['dateCreate'],
-			$user['dateUpdate']
-		);
-
-		return $resultUser;
+		return self::parseUserForAdminPage($result);
 	}
 
 	public static function setUserHash(mysqli $db, int $id, string $userHash): void
 	{
-		$query = "UPDATE up_user SET USER_HASH='{$userHash}' WHERE ID={$id};";
+		$query = DBQuery::setUserHash();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "si", $userHash, $id);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{
@@ -135,9 +88,11 @@ class UserService
 
 	public static function setPassword(mysqli $db, int $id, string $password): void
 	{
-		$query = "UPDATE up_user SET PASSWORD='{$password}' WHERE ID={$id};";
+		$query = DBQuery::setPassword();
 
-		$result = mysqli_query($db, $query);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "si", $password, $id);
+		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
 		{

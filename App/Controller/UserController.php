@@ -63,6 +63,8 @@ class UserController
 		$validateLogin = $_POST['login'];
 		$validatePassword = $_POST['password'];
 
+		$validateLogin = mysqli_real_escape_string(Database::getDatabase(), $validateLogin);
+
 		$user = UserService::getUserByLogin(Database::getDatabase(), $validateLogin);
 		if (!isset($user))
 		{
