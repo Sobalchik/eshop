@@ -17,10 +17,10 @@ class ExcursionController
 	 *
 	 * @return string строка с html кодом
 	 */
-	public static function showTopExcursionsAction(): string
+	public static function showTopExcursionsForPublicPageAction(): string
 	{
 		$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
-		return Render::render("content-top-excursions","layout", ['excursions' => $excursions]);
+		return Render::render("content-top-excursions", "layout", ['excursions' => $excursions]);
 	}
 
 	/**
@@ -32,10 +32,10 @@ class ExcursionController
 	{
 		$tagList = TagController::getAllTagsAction();
 		$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-		$content = Render:: renderContent("content-card",['excursions'=>$excursions]);
-		return Render::render("content-all-excursions","layout", [
+		$content = Render:: renderContent("content-card", ['excursions' => $excursions]);
+		return Render::render("content-all-excursions", "layout", [
 			'content' => $content,
-			'tagList' => $tagList
+			'tagList' => $tagList,
 		]);
 	}
 
@@ -60,40 +60,17 @@ class ExcursionController
 	 */
 	public static function showSortedExcursionsAction(): string
 	{
-		(int)$order = $_POST['order']; //  $_POST['order'] - тип сортировки; подробнее о типах сортировки в config.ini
-		if ($_POST['tagList'] == null)
-		{
-			$allExcursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $allExcursions, $order);
-		}
-		else
-		{
-			$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
-
-			if (sizeof($excursions) == 0) // в случае если экскурсий с таким набором тегов не существует
-			{
-				return MessageController::excursionNotFoundAction();
-			}
-
-			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $excursions, $order);
-		}
-
-		return Render:: renderContent("content-card", ['excursions' => $excursions]);
-	}
-
-	/**
-	 * Выводит отсортированные по тегам экскурсии на публичную страницу.
-	 * В случае если включена сортировка по возрастанию/убыванию, так же сортирует
-	 * по ней.
-	 *
-	 * @return string строка с html кодом
-	 */
-
-	public static function showSortedByTagsExcursionsAction(): string
-	{
-		if ($_POST['tagList'] == null) // $_POST['tagList'] - массив с id выбранных тегов.
+		if ($_POST['tagList'] === null && ($_POST['order'] === null)) // $_POST['tagList'] - массив с id выбранных тегов.
 		{
 			$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+			return Render:: renderContent("content-card", ['excursions' => $excursions]);
+		}
+
+		if (($_POST['tagList'] === null) && ($_POST['order'] !== null))
+		{
+			(int)$order = $_POST['order'];
+			$allExcursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $allExcursions, $order);
 			return Render:: renderContent("content-card", ['excursions' => $excursions]);
 		}
 
@@ -104,11 +81,10 @@ class ExcursionController
 			return MessageController::excursionNotFoundAction();
 		}
 
-		if ($_POST['order'] != 0) // $_POST['order'] - тип сортировки; подробнее о типах сортировки в config.ini
+		if ($_POST['order'] !== null) // в случае если присутствует какая-либо сортировка
 		{
-			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $excursions, $_POST['order']);
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
 		}
-
 
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
@@ -120,7 +96,7 @@ class ExcursionController
 	 */
 	public static function showFoundBySearchExcursionsAction(): string
 	{
-		$excursions = ExcursionService::getExcursionsForHomePageByName(Database::getDatabase(),
+		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(),
 			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
 		if (sizeof($excursions) == 0)
 		{
@@ -128,8 +104,6 @@ class ExcursionController
 		}
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
-
-
 
 	public static function showAdminExcursionById(): string
 	{
@@ -153,14 +127,13 @@ class ExcursionController
 		}
 	}
 
-
 	public static function showAdminExcursionList(): string
 	{
 		if (UserController::isAuthorized())
 		{
 			$excursions = ExcursionService::getExcursionsForAdminHomePage(Database::getDatabase());
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
-			return Render::renderLayout($content,"admin");
+			return Render::renderLayout($content, "admin");
 		}
 		else
 		{
@@ -173,10 +146,10 @@ class ExcursionController
 	{
 		if (UserController::isAuthorized())
 		{
-			$excursions = ExcursionService::getExcursionsForAdminPageByName(Database::getDatabase(),
+			$excursions = ExcursionService::findExcursionsForAdminPageByName(Database::getDatabase(),
 				$_POST['search-excursions']);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
-			return Render::renderLayout($content,"admin");
+			return Render::renderLayout($content, "admin");
 		}
 		else
 		{
@@ -184,7 +157,6 @@ class ExcursionController
 			return '';
 		}
 	}
-
 
 	public static function addExcursionDate(): string
 	{
@@ -208,7 +180,8 @@ class ExcursionController
 		$excursion->setTagList(explode(',', $_POST['tagList']));
 		$excursion->setCountPersons($_POST['person']);
 		$excursion->setFullDescription($_POST['description']);
-		$excursion->setRating(Helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating()));
+		$excursion->setRating(Helper::calculationRating($excursion->getInternetRating(),
+			$excursion->getEntertainmentRating(), $excursion->getServiceRating()));
 		$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
 		$resultSelectTags = [];
 		foreach ($typeTags as $typeTag)
@@ -223,8 +196,6 @@ class ExcursionController
 		return self::showAdminExcursionList();
 	}
 
-
-
 	public static function addExcursion()
 	{
 		if (UserController::isAuthorized())
@@ -236,7 +207,7 @@ class ExcursionController
 				$typeTag->setTagsBelong($tagsBelong);
 			}
 			$content = Render::renderContent("admin-excursions-detailed-add", ["typeTags" => $typeTags]);
-			return Render::renderLayout($content,"admin");
+			return Render::renderLayout($content, "admin");
 		}
 		else
 		{
@@ -267,7 +238,8 @@ class ExcursionController
 				$excursionDate->format("Y-m-d H:i:s"),
 				$excursionDate->format("Y-m-d H:i:s")
 			);
-			$excursion->setRating(Helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating()));
+			$excursion->setRating(Helper::calculationRating($excursion->getInternetRating(),
+				$excursion->getEntertainmentRating(), $excursion->getServiceRating()));
 			$excursion->setCountPersons(mysqli_real_escape_string(Database::getDatabase(), $_POST['person']));
 			$excursion->setDuration(mysqli_real_escape_string(Database::getDatabase(), $_POST['duration']));
 			$typeTags = TagService::getTypeTagsForAdminPage(Database::getDatabase());
@@ -287,6 +259,15 @@ class ExcursionController
 			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
+	}
+
+	public static function deactivateDate(): string
+	{
+		$log = new Logger;
+		$log->info('', ['id' => $_POST['id']]);
+		ExcursionService::deactivateDate(Database::getDatabase(), $_POST['id']);
+		header("Location: " . Helper::getUrl() . "/admin/excursions");
+		return self::showAdminExcursionList();
 	}
 
 	public static function deleteExcursionDate(): void
