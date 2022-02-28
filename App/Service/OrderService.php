@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Order;
-use App\Lib\DBQuery;
+use App\Lib\OrderDBQuery;
 use mysqli;
 
 class OrderService
@@ -14,7 +14,7 @@ class OrderService
 		$createDateOrder = new \DateTime('now');
 		$orderData['date'] = $createDateOrder->format("Y-m-d H:i:s");
 
-		$query = DBQuery::insertOrderInDBQuery();
+		$query = OrderDBQuery::insertOrderInDBQuery();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"sssssis",
@@ -64,14 +64,14 @@ class OrderService
 	{
 		$ini = parse_ini_file('config.ini');
 
-		$query = DBQuery::getOrdersForAdminPage();
+		$query = OrderDBQuery::getOrdersForAdminPage();
 		switch ($sortType)
 		{
 			case $ini['order_orders_by_date_create_desc']:
-				$query = DBQuery::sortOrdersByDateCreateDesc();
+				$query = OrderDBQuery::sortOrdersByDateCreateDesc();
 				break;
 			case $ini['order_orders_by_status']:
-				$query = DBQuery::sortOrdersByStatusCreatedProgressedCompleted();
+				$query = OrderDBQuery::sortOrdersByStatusCreatedProgressedCompleted();
 				break;
 		}
 
@@ -87,7 +87,7 @@ class OrderService
 
 	public static function findOrdersByClientName(mysqli $db, string $clientName) : array
 	{
-		$query = DBQuery::findOrderByClientName();
+		$query = OrderDBQuery::findOrderByClientName();
 
 		$searchString = mysqli_real_escape_string($db, $clientName);
 
@@ -106,7 +106,7 @@ class OrderService
 
 	public static function getOrdersForAdminPage(mysqli $db) : array
 	{
-		$query = DBQuery::getOrdersForAdminPage();
+		$query = OrderDBQuery::getOrdersForAdminPage();
 
 		$result = mysqli_query($db, $query);
 
@@ -121,7 +121,7 @@ class OrderService
 	public static function editOrderById(mysqli $db,
 			int $id, string $fio, string $email, string $phone, int $status, string $comment) : void
 	{
-		$query = DBQuery::editOrder();
+		$query = OrderDBQuery::editOrder();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"sssssi", $fio, $email, $phone, $comment, $status, $id);
@@ -135,7 +135,7 @@ class OrderService
 
 	public static function deleteOrderById(mysqli $db, int $id) : void
 	{
-		$query = DBQuery::deleteOrderById();
+		$query = OrderDBQuery::deleteOrderById();
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"i",$id);
 		$result = mysqli_stmt_execute($stmt);
@@ -148,7 +148,7 @@ class OrderService
 
 	public static function getAllStatuses(mysqli $db) : array
 	{
-		$query = DBQuery::getAllStatuses();
+		$query = OrderDBQuery::getAllStatuses();
 
 		$result = mysqli_query($db, $query);
 
