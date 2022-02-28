@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Entity\User;
-use App\Lib\DBQuery;
+use App\Lib\UserDBQuery;
 use mysqli;
 
 class UserService
@@ -28,7 +28,7 @@ class UserService
 
 	public static function getUserByLogin(mysqli $db, string $login): User
 	{
-		$query = DBQuery::getUserByLogin();
+		$query = UserDBQuery::getUserByLogin();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "s", $login);
@@ -45,7 +45,7 @@ class UserService
 
 	public static function getUserById(mysqli $db, int $id): User
 	{
-		$query = DBQuery::getUserById();
+		$query = UserDBQuery::getUserById();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "i", $id);
@@ -57,7 +57,7 @@ class UserService
 
 	public static function getUserByHash(mysqli $db, string $hash): User
 	{
-		$query = DBQuery::getUserByHash();
+		$query = UserDBQuery::getUserByHash();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "s", $hash);
@@ -74,7 +74,7 @@ class UserService
 
 	public static function setUserHash(mysqli $db, int $id, string $userHash): void
 	{
-		$query = DBQuery::setUserHash();
+		$query = UserDBQuery::setUserHash();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "si", $userHash, $id);
@@ -88,7 +88,7 @@ class UserService
 
 	public static function setPassword(mysqli $db, int $id, string $password): void
 	{
-		$query = DBQuery::setPassword();
+		$query = UserDBQuery::setPassword();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "si", $password, $id);
