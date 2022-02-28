@@ -67,7 +67,10 @@ function sort(type){
 
 function findByName(){
 
+	updateToBaseURL();
 	searchValue = $('#search').val();
+
+	$('.form_radio_btn input[type=radio]').prop('checked', false);
 
 	$.ajax({
 		url: "http://eshop/allExcursions/found",
