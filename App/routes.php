@@ -7,6 +7,7 @@ use App\Controller\TagController;
 use App\Controller\MessageController;
 use App\Lib\Router;
 
+/** Публичная страница */
 
 Router::add(
 	"GET",
@@ -21,23 +22,44 @@ Router::add(
 );
 
 Router::add(
-	"GET",
-	"/excursion/:id",
-	[ExcursionController::class, 'showExcursionById']
+	"POST",
+	"/sort",
+	[ExcursionController::class, 'showSortedExcursionsAction']
+);
+
+Router::add(
+	"POST",
+	"/sortByTag",
+	[ExcursionController::class, 'showSortedByTagsExcursionsAction']
 );
 
 Router::add(
 	"GET",
-	"/allExcursions/excursion/:id",
-	[ExcursionController::class, 'showExcursionById']
+	"/excursion/:excursionId",
+	[ExcursionController::class, 'showExcursionByIdAction']
 );
 
+Router::add(
+	"GET",
+	"/allExcursions/excursion/:excursionId",
+	[ExcursionController::class, 'showExcursionByIdAction']
+);
+
+Router::add(
+	"POST",
+	"/allExcursions/found",
+	[ExcursionController::class, 'showFoundBySearchExcursionsAction']
+);
 
 Router::add(
 	"POST",
 	"/createOrder",
 	[OrderController::class, 'createOrder']
 );
+
+
+
+/** Админская страница */
 
 Router::add(
 	"GET",
@@ -49,12 +71,6 @@ Router::add(
 	"GET",
 	"/logout",
 	[UserController::class, 'logOutUser']
-);
-
-Router::add(
-	"POST",
-	"/admin/excursions",
-	[UserController::class, 'Authorized']
 );
 
 Router::add(
@@ -125,18 +141,6 @@ Router::add(
 );
 
 Router::add(
-	"POST",
-	"/sort",
-	[ExcursionController::class, 'sortExcursions']
-);
-
-Router::add(
-	"POST",
-	"/sortByTag",
-	[ExcursionController::class, 'sortExcursionsByTags']
-);
-
-Router::add(
 	"GET",
 	"/admin/excursion/add",
 	[ExcursionController::class, 'addExcursion']
@@ -181,19 +185,19 @@ Router::add(
 Router::add(
 	"GET",
 	"/about",
-	[MessageController::class,'showAbout']
+	[MessageController::class, 'showStaffInformationAction']
 );
 
 Router::add(
 	"GET",
 	"/client",
-	[MessageController::class, 'showClient']
+	[MessageController::class, 'showCommonInformationAction']
 );
 
 Router::add(
 	"GET",
 	"/blog",
-	[MessageController::class, 'getBlog']
+	[MessageController::class, 'showBlogAction']
 );
 
 Router::add(
@@ -206,12 +210,6 @@ Router::add(
 	"POST",
 	"/admin/excursion/found",
 	[ExcursionController::class, 'showAdminExcursionListBySearch']
-);
-
-Router::add(
-	"POST",
-	"/allExcursions/found",
-	[ExcursionController::class, 'showHomeExcursionListBySearch']
 );
 
 Router::add(

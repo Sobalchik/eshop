@@ -1,6 +1,7 @@
 <?php
 /** @var array $excursions **/
 /** @var array $tagList **/
+/** @var string $content */
 use App\Lib\Render;
 ?>
 
@@ -46,7 +47,7 @@ use App\Lib\Render;
 
 
 	<div class="bloc-2-contener">
-		<div class="content" id ="content"> <?= Render:: renderContent("content-card",['excursions'=>$excursions])?></div>
+		<div class="content" id ="content"> <?= $content ?></div>
 		<div style="display: flex;justify-content: space-between;">
 		</div>
 	</div>

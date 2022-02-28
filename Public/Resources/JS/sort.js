@@ -50,7 +50,7 @@ function sort(type){
 	$.ajax({
 		url: "http://eshop/sort",
 		type: "POST",
-		data: {"sortType": type, "tagList":checked},
+		data: {"order": type, "tagList":checked},
 		success: function(data) {
 			$('#content').empty();
 			document.getElementById('content').innerHTML = data;
@@ -73,7 +73,6 @@ function sortByTag(){
 		type: "POST",
 		data: { "tagList":checked,"order": order },
 		success: function(data) {
-			console.log(data);
 			$('#content').empty();
 			document.getElementById('content').innerHTML = data;
 			paginate();

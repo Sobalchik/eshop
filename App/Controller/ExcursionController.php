@@ -13,9 +13,9 @@ use App\Service\TagService;
 class ExcursionController
 {
 	/**
-	 * Вывод лучших 8 экскурсий по рейтингу на экран
+	 * Вывод лучших 8 экскурсий по рейтингу на публичную страницу
 	 *
-	 * @return string возвращает строку с html кодом
+	 * @return string строка с html кодом
 	 */
 	public static function showTopExcursionsAction(): string
 	{
@@ -24,31 +24,112 @@ class ExcursionController
 	}
 
 	/**
-	 * Вывод всех экскурсий на экран
+	 * Вывод всех экскурсий на публичную страницу
 	 *
-	 * @return string возвращает строку с html кодом
+	 * @return string строка с html кодом
 	 */
 	public static function showAllExcursionsAction(): string
 	{
 		$tagList = TagController::getAllTagsAction();
 		$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+		$content = Render:: renderContent("content-card",['excursions'=>$excursions]);
 		return Render::render("content-all-excursions","layout", [
-			'excursions' => $excursions,
+			'content' => $content,
 			'tagList' => $tagList
 		]);
 	}
 
 	/**
-	 * Вывод подробной информации об экскурсии на экран.
+	 * Вывод подробной информации об экскурсии на публичную страницу
 	 *
-	 * @param $id
-	 * @return string
+	 * @param $excursionId
+	 * @return string строка с html кодом
 	 */
-	public static function showExcursionById($id): string
+	public static function showExcursionByIdAction($excursionId): string
 	{
-		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $id);
+		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $excursionId);
 		return Render::render("content-detailed-excursion", "layout", ['excursion' => $excursion]);
 	}
+
+	/**
+	 * Выводит отсортированные экскурсии по возрастанию/убыванию,
+	 * кол-во зависит от выбранных тегов.
+	 * В случае если теги не выбраны, сортирует все имеющиеся экскурсии.
+	 *
+	 * @return string строка с html кодом
+	 */
+	public static function showSortedExcursionsAction(): string
+	{
+		(int)$order = $_POST['order']; //  $_POST['order'] - тип сортировки; подробнее о типах сортировки в config.ini
+		if ($_POST['tagList'] == null)
+		{
+			$allExcursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $allExcursions, $order);
+		}
+		else
+		{
+			$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
+
+			if (sizeof($excursions) == 0) // в случае если экскурсий с таким набором тегов не существует
+			{
+				return MessageController::excursionNotFoundAction();
+			}
+
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $order);
+		}
+
+		return Render:: renderContent("content-card", ['excursions' => $excursions]);
+	}
+
+	/**
+	 * Выводит отсортированные по тегам экскурсии на публичную страницу.
+	 * В случае если включена сортировка по возрастанию/убыванию, так же сортирует
+	 * по ней.
+	 *
+	 * @return string строка с html кодом
+	 */
+
+	public static function showSortedByTagsExcursionsAction(): string
+	{
+		if ($_POST['tagList'] == null) // $_POST['tagList'] - массив с id выбранных тегов.
+		{
+			$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+			return Render:: renderContent("content-card", ['excursions' => $excursions]);
+		}
+
+		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
+
+		if (sizeof($excursions) == 0) // в случае если экскурсий с таким набором тегов не существует
+		{
+			return MessageController::excursionNotFoundAction();
+		}
+
+		if ($_POST['order'] != 0) // $_POST['order'] - тип сортировки; подробнее о типах сортировки в config.ini
+		{
+			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
+		}
+
+
+		return Render:: renderContent("content-card", ['excursions' => $excursions]);
+	}
+
+	/**
+	 * Выводит найденную по поиску экскурсию на публичную страницу.
+	 *
+	 * @return string строка с html кодом
+	 */
+	public static function showFoundBySearchExcursionsAction(): string
+	{
+		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(),
+			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
+		if (sizeof($excursions) == 0)
+		{
+			return MessageController::excursionNotFoundAction();
+		}
+		return Render:: renderContent("content-card", ['excursions' => $excursions]);
+	}
+
+
 
 	public static function showAdminExcursionById(): string
 	{
@@ -71,6 +152,7 @@ class ExcursionController
 			return '';
 		}
 	}
+
 
 	public static function showAdminExcursionList(): string
 	{
@@ -103,16 +185,6 @@ class ExcursionController
 		}
 	}
 
-	public static function showHomeExcursionListBySearch(): string
-	{
-		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(),
-			$_POST['search-excursions']);
-		if (sizeof($excursions) == 0)
-		{
-			return MessageController::showNotFoundPage();
-		}
-		return Render:: renderContent("content-card", ['excursions' => $excursions]);
-	}
 
 	public static function addExcursionDate(): string
 	{
@@ -151,52 +223,7 @@ class ExcursionController
 		return self::showAdminExcursionList();
 	}
 
-	public static function sortExcursions(): string
-	{
-		(int)$sortType = $_POST['sortType'];
-		if ($_POST['tagList'] == null)
-		{
-			$ex = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $ex, $sortType);
-		}
-		else
-		{
-			$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
-			if (sizeof($excursions) !== 0)
-			{
-				$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $sortType);
-			}
-			else
-			{
-				return MessageController::showNotFoundPage();
-			}
-		}
 
-		return Render:: renderContent("content-card", ['excursions' => $excursions]);
-	}
-
-	public static function sortExcursionsByTags(): string
-	{
-		if ($_POST['tagList'] == null)
-		{
-			$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-			return Render:: renderContent("content-card", ['excursions' => $excursions]);
-		}
-
-		$excursions = ExcursionService::getExcursionsByTag(Database::getDatabase(), $_POST['tagList']);
-
-		if (($_POST['order'] != 0)&&(sizeof($excursions) !== 0))
-		{
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
-		}
-
-		if (sizeof($excursions) == 0)
-		{
-			return MessageController::showNotFoundPage();
-		}
-
-		return Render:: renderContent("content-card", ['excursions' => $excursions]);
-	}
 
 	public static function addExcursion()
 	{
