@@ -72,10 +72,21 @@ class TagService
 
 	public static function deleteTag(mysqli $db, int $tagId): void
 	{
+		$query = DBQuery::deleteFromTagTypeTag();
+
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "i", $tagId);
+		$result = mysqli_stmt_execute($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
 		$query = DBQuery::deleteTag();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt, "ii", $typeTag, $typeTag);
+		mysqli_stmt_bind_param($stmt, "i", $tagId);
 		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
@@ -103,7 +114,7 @@ class TagService
 		$query = DBQuery::saveTag();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt, "ii", $tagName, $tagId);
+		mysqli_stmt_bind_param($stmt, "si", $tagName, $tagId);
 		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
@@ -117,7 +128,7 @@ class TagService
 		$query = DBQuery::saveTypeTag();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt, "ii", $typeTagName, $typeTagId);
+		mysqli_stmt_bind_param($stmt, "si", $typeTagName, $typeTagId);
 		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
@@ -161,7 +172,7 @@ class TagService
 		$query = DBQuery::addTypeTag();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt, "i", $typeTagName);
+		mysqli_stmt_bind_param($stmt, "s", $typeTagName);
 		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)

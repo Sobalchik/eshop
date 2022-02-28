@@ -569,14 +569,19 @@ class DBQuery
 			";
 	}
 
+	public static function deleteFromTagTypeTag() : string
+	{
+		return "
+			delete from up_tag_type_tag 
+			where up_tag_type_tag.TAG_ID = ?;
+		";
+	}
+
 	public static function deleteTag() : string
 	{
 		return "
-			DELETE FROM up_tag_type_tag 
-			WHERE TAG_ID = ?;
-			
-			DELETE FROM up_tag 
-			WHERE ID = ?;
+			delete from up_tag_type_tag 
+			where up_tag_type_tag.TAG_ID = ?;
 		";
 	}
 
