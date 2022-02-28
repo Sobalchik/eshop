@@ -13,7 +13,7 @@ use App\Lib\Render;
 <div class="bloc2">
 	<form class="bloc-2-contener-poisk" method="post">
 		<input id="search" class="form-control-poisk" type="search" placeholder="Search" aria-label="Search" name="search-excursions" value="">
-		<a href="javascript:void(0)" onclick="findByName()" class="btn-outline-posik" type="submit">Поиск</a>
+		<a id ="findExcursionsBySearch" href="javascript:void(0)" onclick="findByName()" class="btn-outline-posik" type="submit">Поиск</a>
 	</form>
 
 	</div>
@@ -26,21 +26,21 @@ use App\Lib\Render;
 		</div>
 		<?php endforeach?>
 
-		<button class="glow-button" onclick="sortByTag()"> Показать </button>
+		<button class="glow-button" onclick="sort()"> Показать </button>
 	</div>
-	<div class="bloc-2-contener-tegi-renting">
+	<div class="bloc-2-contener-tags-renting">
 		<div class="form_radio_btn">
-			<input id="radio-2" type="radio" onclick="sort(1)" name="radio" value="2">
+			<input id="radio-2" type="radio" onclick="updateOrderType(1)" name="radio" value="2">
 			<label for="radio-2">Сначала дешевые</label>
 		</div>
 
 		<div class="form_radio_btn">
-			<input id="radio-3" type="radio" onclick="sort(2)" name="radio" value="3">
+			<input id="radio-3" type="radio" onclick="updateOrderType(2)" name="radio" value="3">
 			<label for="radio-3">Сначала дорогие</label>
 		</div>
 
 		<div class="form_radio_btn">
-			<input id="radio-4" type="radio" onclick="sort(3)" name="radio" value="4" >
+			<input id="radio-4" type="radio" onclick="updateOrderType(3)" name="radio" value="4" >
 			<label for="radio-4">С высоким рейтингом</label>
 		</div>
 	</div>

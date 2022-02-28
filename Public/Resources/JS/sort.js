@@ -1,4 +1,4 @@
-function updateURL(type) {
+function updateOrderType(type) {
 	if (history.pushState) {
 		var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 		var newUrl = baseUrl + '?order='+type;
@@ -7,6 +7,7 @@ function updateURL(type) {
 	else {
 		console.warn('History API не поддерживается');
 	}
+	sort(type);
 }
 
 function updateToBaseURL() {
@@ -33,9 +34,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 
-
-
-/*сортировка по возрастанию/убыванию,
+/*сортировка,
  где type принимает численное значение,
  в качестве data возвращается строка*/
 function sort(type){
@@ -44,13 +43,19 @@ function sort(type){
 	$('input:checkbox:checked').each(function() {
 		checked.push($(this).val());
 	});
-
-	updateURL(type);
+	if(type!==undefined)
+	{
+		order = type;
+	}
+	else
+	{
+		order = getUrlParameter('order')
+	}
 
 	$.ajax({
 		url: "http://eshop/sort",
 		type: "POST",
-		data: {"order": type, "tagList":checked},
+		data: {"order": order, "tagList":checked},
 		success: function(data) {
 			$('#content').empty();
 			document.getElementById('content').innerHTML = data;
@@ -59,30 +64,9 @@ function sort(type){
 	});
 }
 
-function sortByTag(){
-
-	var checked = [];
-	$('input:checkbox:checked').each(function() {
-		checked.push($(this).val());
-	});
-
-	order = getUrlParameter('order')
-
-	$.ajax({
-		url: "http://eshop/sortByTag",
-		type: "POST",
-		data: { "tagList":checked,"order": order },
-		success: function(data) {
-			$('#content').empty();
-			document.getElementById('content').innerHTML = data;
-			paginate();
-		}
-	});
-}
 
 function findByName(){
 
-	updateToBaseURL()
 	searchValue = $('#search').val();
 
 	$.ajax({

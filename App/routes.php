@@ -12,7 +12,7 @@ use App\Lib\Router;
 Router::add(
 	"GET",
 	"/",
-	[ExcursionController::class, 'showTopExcursionsAction']
+	[ExcursionController::class, 'showTopExcursionsForPublicPageAction']
 );
 
 Router::add(
@@ -25,12 +25,6 @@ Router::add(
 	"POST",
 	"/sort",
 	[ExcursionController::class, 'showSortedExcursionsAction']
-);
-
-Router::add(
-	"POST",
-	"/sortByTag",
-	[ExcursionController::class, 'showSortedByTagsExcursionsAction']
 );
 
 Router::add(
