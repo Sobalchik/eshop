@@ -70,7 +70,7 @@ class ExcursionController
 		{
 			(int)$order = $_POST['order'];
 			$allExcursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $allExcursions, $order);
+			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $allExcursions, $order);
 			return Render:: renderContent("content-card", ['excursions' => $excursions]);
 		}
 
@@ -83,7 +83,7 @@ class ExcursionController
 
 		if ($_POST['order'] !== null) // в случае если присутствует какая-либо сортировка
 		{
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
+			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $excursions, $_POST['order']);
 		}
 
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
@@ -96,7 +96,7 @@ class ExcursionController
 	 */
 	public static function showFoundBySearchExcursionsAction(): string
 	{
-		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(),
+		$excursions = ExcursionService::getExcursionsForHomePageByName(Database::getDatabase(),
 			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
 		if (sizeof($excursions) == 0)
 		{
@@ -146,7 +146,7 @@ class ExcursionController
 	{
 		if (UserController::isAuthorized())
 		{
-			$excursions = ExcursionService::findExcursionsForAdminPageByName(Database::getDatabase(),
+			$excursions = ExcursionService::getExcursionsForHomePageByName(Database::getDatabase(),
 				$_POST['search-excursions']);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderLayout($content, "admin");
