@@ -7,7 +7,7 @@ use App\Entity\Excursion;
 use App\Lib\Helper;
 use App\Logger\Logger;
 use mysqli;
-use App\Lib\DBQuery;
+use App\Lib\ExcursionDBQuery;
 
 /**
  * Класс содержит методы получения/изменения информации в БД об экскурсиях
@@ -143,7 +143,7 @@ class ExcursionService
 	 */
 	public static function getTopExcursions(mysqli $db): array
 	{
-		$query = DBQuery::getTopExcursionsQuery();
+		$query = ExcursionDBQuery::getTopExcursionsQuery();
 
 		$result = mysqli_query($db, $query);
 
@@ -163,7 +163,7 @@ class ExcursionService
 	 */
 	public static function getExcursionsForHomePage(mysqli $db): array
 	{
-		$query = DBQuery::getExcursionsForHomePage();
+		$query = ExcursionDBQuery::getExcursionsForHomePage();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_execute($stmt);
@@ -186,7 +186,7 @@ class ExcursionService
 	 */
 	public static function getExcursionById(mysqli $db, int $id) : Excursion
 	{
-		$query = DBQuery::getExcursionByIdQuery();
+		$query = ExcursionDBQuery::getExcursionByIdQuery();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"ii", $id, $id);
@@ -209,7 +209,7 @@ class ExcursionService
 	 */
 	public static function getExcursionsForAdminHomePage(mysqli $db) : array
 	{
-		$query = DBQuery::getExcursionsForAdminPage();
+		$query = ExcursionDBQuery::getExcursionsForAdminPage();
 
 		$result = mysqli_query($db, $query);
 
@@ -230,7 +230,7 @@ class ExcursionService
 	 */
 	public static function getExcursionForAdminDetailedPage(mysqli $db, int $id) : Excursion
 	{
-		$query = DBQuery::getExcursionForAdminDetailedPage();
+		$query = ExcursionDBQuery::getExcursionForAdminDetailedPage();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"i", $id);
@@ -279,7 +279,7 @@ class ExcursionService
 	 */
 	public static function getExcursionsForAdminPageByName(mysqli $db, string $name) : array
 	{
-		$query = DBQuery::findExcursionByNameForAdminPage();
+		$query = ExcursionDBQuery::findExcursionByNameForAdminPage();
 
 		$name = mysqli_real_escape_string($db, $name);
 		$name = "%" . $name . "%";
@@ -301,7 +301,7 @@ class ExcursionService
 	 */
 	public static function getExcursionsForHomePageByName(mysqli $db, string $name) : array
 	{
-		$query = DBQuery::findExcursionByNameForHomePage();
+		$query = ExcursionDBQuery::findExcursionByNameForHomePage();
 
 		$name = mysqli_real_escape_string($db, $name);
 		$name = "%" . $name . "%";
@@ -339,13 +339,13 @@ class ExcursionService
 		switch ($sortType)
 		{
 		case $sortTypes['order_excursions_by_price_asc']:
-			$query = DBQuery::sortExcursionsByPriceAscQuery();
+			$query = ExcursionDBQuery::sortExcursionsByPriceAscQuery();
 			break;
 		case $sortTypes['order_excursions_by_price_desc']:
-			$query = DBQuery::sortExcursionsByPriceDescQuery();
+			$query = ExcursionDBQuery::sortExcursionsByPriceDescQuery();
 			break;
 		case $sortTypes['order_excursions_by_rating_desc']:
-			$query = DBQuery::sortExcursionsByRatingDescQuery();
+			$query = ExcursionDBQuery::sortExcursionsByRatingDescQuery();
 			break;
 		}
 
@@ -375,7 +375,7 @@ class ExcursionService
 		$tags = TagService::organizeTagIdList($db, $tagList);
 		$tagsCount = count($tags) / 2;
 
-		$query = DBQuery::getExcursionsByTagFullQuery($tagsCount);
+		$query = ExcursionDBQuery::getExcursionsByTagFullQuery($tagsCount);
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, str_repeat("si", $tagsCount), ...$tags);
@@ -402,7 +402,7 @@ class ExcursionService
 	 */
 	private static function getExcursionDatesOccupancyListById(mysqli $db, int $excursionId) : array
 	{
-		$query = DBQuery::getExcursionCompletionByDateById();
+		$query = ExcursionDBQuery::getExcursionCompletionByDateById();
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"i",$excursionId);
 		mysqli_stmt_execute($stmt);
@@ -435,7 +435,7 @@ class ExcursionService
 	 */
 	public static function addExcursion(mysqli $db, Excursion $excursion) : int
 	{
-		$query = DBQuery::addNewExcursion();
+		$query = ExcursionDBQuery::addNewExcursion();
 
 		$nameCity = $excursion->getNameCity();
 		$nameCountry =$excursion->getNameCountry();
@@ -486,7 +486,7 @@ class ExcursionService
 	{
 		foreach ($excursion->getTagList() as $tag)
 		{
-			$query = DBQuery::addProductBelongTags();
+			$query = ExcursionDBQuery::addProductBelongTags();
 
 			$stmt = mysqli_prepare($db, $query);
 			$id = $excursion->getId();
@@ -511,7 +511,7 @@ class ExcursionService
 	 */
 	public static function editExcursionById(mysqli $db, Excursion $excursion) : void
 	{
-		$query = DBQuery::updateExcursionById();
+		$query = ExcursionDBQuery::updateExcursionById();
 
 		$nameCity = $excursion->getNameCity();
 		$nameCountry =$excursion->getNameCountry();
@@ -560,7 +560,7 @@ class ExcursionService
 	 */
 	public static function deleteExcursionById(mysqli $db, int $id) : void
 	{
-		$query = DBQuery::deleteExcursionById();
+		$query = ExcursionDBQuery::deleteExcursionById();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"i",$id);
@@ -596,7 +596,7 @@ class ExcursionService
 	 */
 	private static function addNewDate(mysqli $db, string $date) : void
 	{
-		$query = DBQuery::addNewDate();
+		$query = ExcursionDBQuery::addNewDate();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"s",$date);
@@ -617,7 +617,7 @@ class ExcursionService
 	 */
 	private static function addNewDateRelation(mysqli $db, int $id) : void
 	{
-		$query = DBQuery::addNewDateRelations();
+		$query = ExcursionDBQuery::addNewDateRelations();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"i",$id);
@@ -637,7 +637,7 @@ class ExcursionService
 	 */
 	public static function deleteProductBelongTags(mysqli $db, Excursion $excursion): void
 	{
-		$query = DBQuery::deleteProductBelongTags();
+		$query = ExcursionDBQuery::deleteProductBelongTags();
 
 		$stmt = mysqli_prepare($db, $query);
 		$id = $excursion->getId();
@@ -659,7 +659,7 @@ class ExcursionService
 	 */
 	public static function deleteDateById(mysqli $db, int $dateId) : void
 	{
-		$query = DBQuery::deleteDateById();
+		$query = ExcursionDBQuery::deleteDateById();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"ii",$dateId, $dateId);
