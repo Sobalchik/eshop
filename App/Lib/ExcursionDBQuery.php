@@ -4,7 +4,7 @@ namespace App\Lib;
 
 class ExcursionDBQuery
 {
-	public static function getExcursionsForHomePage() : string
+	public static function getExcursionsForPublicPage() : string
 	{
 		return "
 			select distinct 
@@ -109,7 +109,7 @@ class ExcursionDBQuery
 	public static function getTopExcursionsQuery() : string
 	{
 		return
-			self::getExcursionsForHomePage() .
+			self::getExcursionsForPublicPage() .
 			"order by up_product.RATING
 			limit 8";
 	}
@@ -122,7 +122,7 @@ class ExcursionDBQuery
 	public static function sortExcursionsByPriceAscQuery() : string
 	{
 		return
-			self::getExcursionsForHomePage() .
+			self::getExcursionsForPublicPage() .
 			self::getExcursionsFromIdList() .
 			"order by up_product.PRICE;";
 	}
@@ -130,7 +130,7 @@ class ExcursionDBQuery
 	public static function sortExcursionsByPriceDescQuery() : string
 	{
 		return
-			self::getExcursionsForHomePage() .
+			self::getExcursionsForPublicPage() .
 			self::getExcursionsFromIdList() .
 			"order by up_product.PRICE DESC;";
 	}
@@ -138,7 +138,7 @@ class ExcursionDBQuery
 	public static function sortExcursionsByRatingDescQuery() : string
 	{
 		return
-			self::getExcursionsForHomePage() .
+			self::getExcursionsForPublicPage() .
 			self::getExcursionsFromIdList() .
 			"order by up_product.RATING DESC;";
 	}
@@ -172,10 +172,10 @@ class ExcursionDBQuery
 			or up_product.NAME_COUNTRY like (?)';
 	}
 
-	public static function findExcursionByNameForHomePage() : string
+	public static function findExcursionByNameForPublicPage() : string
 	{
 		return
-			self::getExcursionsForHomePage() .
+			self::getExcursionsForPublicPage() .
 			'where up_product.NAME_CITY like (?)
 			or up_product.NAME_COUNTRY like (?)';
 	}
@@ -279,7 +279,7 @@ class ExcursionDBQuery
 
 	public static function getExcursionsByTagFullQuery(int $count) : string
 	{
-		$query = self::getExcursionsForHomePage();
+		$query = self::getExcursionsForPublicPage();
 
 		$query .= "where ". self::getExcursionsByTagHelpQuery();
 

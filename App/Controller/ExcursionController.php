@@ -31,7 +31,7 @@ class ExcursionController
 	public static function showAllExcursionsAction(): string
 	{
 		$tagList = TagController::getAllTagsAction();
-		$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+		$excursions = ExcursionService::getExcursionsForPublicPage(Database::getDatabase());
 		$content = Render:: renderContent("content-card", ['excursions' => $excursions]);
 		return Render::render("content-all-excursions", "layout", [
 			'content' => $content,
@@ -62,15 +62,15 @@ class ExcursionController
 	{
 		if ($_POST['tagList'] === null && ($_POST['order'] === null)) // $_POST['tagList'] - массив с id выбранных тегов.
 		{
-			$excursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
+			$excursions = ExcursionService::getExcursionsForPublicPage(Database::getDatabase());
 			return Render:: renderContent("content-card", ['excursions' => $excursions]);
 		}
 
 		if (($_POST['tagList'] === null) && ($_POST['order'] !== null))
 		{
 			(int)$order = $_POST['order'];
-			$allExcursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $allExcursions, $order);
+			$allExcursions = ExcursionService::getExcursionsForPublicPage(Database::getDatabase());
+			$excursions = ExcursionService::getExcursionsForPublicPageSortedByType(Database::getDatabase(), $allExcursions, $order);
 			return Render:: renderContent("content-card", ['excursions' => $excursions]);
 		}
 
@@ -83,7 +83,7 @@ class ExcursionController
 
 		if ($_POST['order'] !== null) // в случае если присутствует какая-либо сортировка
 		{
-			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $excursions, $_POST['order']);
+			$excursions = ExcursionService::getExcursionsForPublicPageSortedByType(Database::getDatabase(), $excursions, $_POST['order']);
 		}
 
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
@@ -96,7 +96,7 @@ class ExcursionController
 	 */
 	public static function showFoundBySearchExcursionsAction(): string
 	{
-		$excursions = ExcursionService::getExcursionsForHomePageByName(Database::getDatabase(),
+		$excursions = ExcursionService::getExcursionsForPublicPageByName(Database::getDatabase(),
 			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
 		if (sizeof($excursions) == 0)
 		{
@@ -146,7 +146,7 @@ class ExcursionController
 	{
 		if (UserController::isAuthorized())
 		{
-			$excursions = ExcursionService::getExcursionsForHomePageByName(Database::getDatabase(),
+			$excursions = ExcursionService::getExcursionsForAdminPageByName(Database::getDatabase(),
 				$_POST['search-excursions']);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderLayout($content, "admin");

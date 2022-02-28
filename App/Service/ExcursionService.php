@@ -29,7 +29,7 @@ class ExcursionService
 	 * @param \mysqli_result $excursionsFromDB массив экскурсий из БД
 	 * @return array
 	 */
-	private static function parseExcursionsForHomePage(\mysqli_result $excursionsFromDB) : array
+	private static function parseExcursionsForPublicPage(\mysqli_result $excursionsFromDB) : array
 	{
 		$excursions = [];
 
@@ -152,7 +152,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		return self::parseExcursionsForHomePage($result);
+		return self::parseExcursionsForPublicPage($result);
 	}
 
 	/**
@@ -161,9 +161,9 @@ class ExcursionService
 	 * @param mysqli $db
 	 * @return array
 	 */
-	public static function getExcursionsForHomePage(mysqli $db): array
+	public static function getExcursionsForPublicPage(mysqli $db): array
 	{
-		$query = ExcursionDBQuery::getExcursionsForHomePage();
+		$query = ExcursionDBQuery::getExcursionsForPublicPage();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_execute($stmt);
@@ -174,7 +174,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		return self::parseExcursionsForHomePage($result);
+		return self::parseExcursionsForPublicPage($result);
 	}
 
 	/**
@@ -299,9 +299,9 @@ class ExcursionService
 	 * @param string $name поисковая строка
 	 * @return array
 	 */
-	public static function getExcursionsForHomePageByName(mysqli $db, string $name) : array
+	public static function getExcursionsForPublicPageByName(mysqli $db, string $name) : array
 	{
-		$query = ExcursionDBQuery::findExcursionByNameForHomePage();
+		$query = ExcursionDBQuery::findExcursionByNameForPublicPage();
 
 		$name = mysqli_real_escape_string($db, $name);
 		$name = "%" . $name . "%";
@@ -310,7 +310,7 @@ class ExcursionService
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
 
-		return self::parseExcursionsForHomePage($result);
+		return self::parseExcursionsForPublicPage($result);
 	}
 
 	/**
@@ -322,7 +322,7 @@ class ExcursionService
 	 * @param int $sortType соответсвует параметрам [order_types_excursions] в config.ini
 	 * @return array
 	 */
-	public static function getExcursionsForHomePageSortedByType(mysqli $db, array $excursions, int $sortType) : array
+	public static function getExcursionsForPublicPageSortedByType(mysqli $db, array $excursions, int $sortType) : array
 	{
 		$settings = Settings::getInstance();
 		$sortTypes = $settings->getSortTypes();
@@ -359,7 +359,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		return self::parseExcursionsForHomePage($result);
+		return self::parseExcursionsForPublicPage($result);
 	}
 
 	/**
@@ -387,7 +387,7 @@ class ExcursionService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		return self::parseExcursionsForHomePage($result);
+		return self::parseExcursionsForPublicPage($result);
 	}
 
 	/**
