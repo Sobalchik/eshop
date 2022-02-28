@@ -391,21 +391,4 @@ class ExcursionDBQuery
 			WHERE PRODUCT_ID = ?
 		";
 	}
-
-	public static function deleteFromTagTypeTag() : string
-	{
-		return "
-			delete from up_tag_type_tag 
-			where up_tag_type_tag.TAG_ID = ?;
-		";
-	}
-
-	public static function deleteTag() : string
-	{
-		return "
-			delete from up_tag_type_tag 
-			where up_tag_type_tag.TAG_ID = ?;
-		";
-	}
-
 }

@@ -4,14 +4,14 @@ namespace App\Service;
 
 use App\Entity\Tag;
 use App\Entity\TypeTag;
-use App\Lib\DBQuery;
+use App\Lib\TagDBQuery;
 use mysqli;
 
 class TagService
 {
 	public static function getTagsForAdminPage(mysqli $db, int $typeTag) : array
 	{
-		$query = DBQuery::getTagsForAdminPage();
+		$query = TagDBQuery::getTagsForAdminPage();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "i", $typeTag);
@@ -42,7 +42,7 @@ class TagService
 
 	public static function getTypeTagsForAdminPage(mysqli $db) : array
 	{
-		$query = DBQuery::getTypeTagsForAdminPage();
+		$query = TagDBQuery::getTypeTagsForAdminPage();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_execute($stmt);
@@ -72,7 +72,7 @@ class TagService
 
 	public static function deleteTag(mysqli $db, int $tagId): void
 	{
-		$query = DBQuery::deleteFromTagTypeTag();
+		$query = TagDBQuery::deleteFromTagTypeTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "i", $tagId);
@@ -83,7 +83,7 @@ class TagService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$query = DBQuery::deleteTag();
+		$query = TagDBQuery::deleteTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "i", $tagId);
@@ -97,7 +97,7 @@ class TagService
 
 	public static function deleteTypeTag(mysqli $db, int $typeTagId): void
 	{
-		$query = DBQuery::deleteTypeTag();
+		$query = TagDBQuery::deleteTypeTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "i", $typeTagId);
@@ -111,7 +111,7 @@ class TagService
 
 	public static function saveTag(mysqli $db, int $tagId, string $tagName): void
 	{
-		$query = DBQuery::saveTag();
+		$query = TagDBQuery::saveTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "si", $tagName, $tagId);
@@ -125,7 +125,7 @@ class TagService
 
 	public static function saveTypeTag(mysqli $db, int $typeTagId, string $typeTagName): void
 	{
-		$query = DBQuery::saveTypeTag();
+		$query = TagDBQuery::saveTypeTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "si", $typeTagName, $typeTagId);
@@ -139,7 +139,7 @@ class TagService
 
 	public static function addTag(mysqli $db, string $tagName): int
 	{
-		$query = DBQuery::addTag();
+		$query = TagDBQuery::addTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "s", $tagName);
@@ -155,7 +155,7 @@ class TagService
 
 	public static function setTypeTagBelongTag(mysqli $db, int $typeTagId, int $tagId): void
 	{
-		$query = DBQuery::setTypeBelongTag();
+		$query = TagDBQuery::setTypeBelongTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "ii", $tagId, $typeTagId);
@@ -169,7 +169,7 @@ class TagService
 
 	public static function addTypeTag(mysqli $db, string $typeTagName): int
 	{
-		$query = DBQuery::addTypeTag();
+		$query = TagDBQuery::addTypeTag();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt, "s", $typeTagName);
@@ -185,7 +185,7 @@ class TagService
 
 	public static function organizeTagIdList(mysqli $db, array $tagList) : array
 	{
-		$query = DBQuery::organizeTagIdList();
+		$query = TagDBQuery::organizeTagIdList();
 
 		$tagListString = implode(',', $tagList);
 		$stmt = mysqli_prepare($db, $query);
