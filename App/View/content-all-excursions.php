@@ -13,7 +13,7 @@ use App\Lib\Render;
 <div class="bloc2">
 	<form class="bloc-2-contener-poisk" method="post">
 		<input id="search" class="form-control-poisk" type="search" placeholder="Search" aria-label="Search" name="search-excursions" value="">
-		<a id ="findExcursionsBySearch" href="javascript:void(0)" onclick="findByName()" class="btn-outline-posik" type="submit">Поиск</a>
+		<a id="findExcursionsBySearch" href="javascript:void(0)"  class="btn-outline-posik">Поиск</a>
 	</form>
 
 	</div>

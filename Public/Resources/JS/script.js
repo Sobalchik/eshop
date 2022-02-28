@@ -103,7 +103,6 @@ function whenAvailable(name) {
 		}
 	}, interval);
 }
-
 function loadPage(url, isToggleHeader) {
 	let allowed =
 		{
@@ -112,7 +111,8 @@ function loadPage(url, isToggleHeader) {
 			],
 			'/allExcursions': [
 				{'js': "/Resources/JS/pagination.js", 'method': "initPaginations"},
-				{'js': "/Resources/JS/sort.js", 'method': "initSort"}
+				{'js': "/Resources/JS/sort.js", 'method': "initAllExcursionPage"},
+				{'js': "/Resources/JS/sort.js", 'method': "initCheckBox"}
 			],
 			'/excursion': [
 				{'js': "/Resources/JS/script.js", 'method': "initMap"}

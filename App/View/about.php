@@ -19,14 +19,14 @@
 				<a></a>
 			</div>
 			<div class="about-bloc-2-card-content">
-				<img src="/Resources/Images/19428773_1923205864588190_7968450797044236288_n 1.png">
+				<img src="/Resources/Images/cd4a21254405ef72 1 (1).png">
 				<p class="about-bloc-2-card-content-h2">Рафаэль Рекена</p>
 				<p class="about-bloc-2-card-content-h1">Менеджер по маркетингу</p>
 				<p class="about-bloc-2-card-content-p">Бразилец наслаждается рисом и фасолью с квашеной капустой в Германии. Увлечен маркетингом, природой и книгами по истории.</p>
 				<a></a>
 			</div>
 			<div class="about-bloc-2-card-content">
-				<img src="/Resources/Images/19428773_1923205864588190_7968450797044236288_n 1.png">
+				<img src="/Resources/Images/Screenshot_81 1.png">
 				<p class="about-bloc-2-card-content-h2">Рафаэль Рекена</p>
 				<p class="about-bloc-2-card-content-h1">Менеджер по маркетингу</p>
 				<p class="about-bloc-2-card-content-p">Бразилец наслаждается рисом и фасолью с квашеной капустой в Германии. Увлечен маркетингом, природой и книгами по истории.</p>
@@ -35,14 +35,14 @@
 		</div>
 		<div class="about-bloc-2-card">
 			<div class="about-bloc-2-card-content">
-				<img src="/Resources/Images/19428773_1923205864588190_7968450797044236288_n 1.png">
+				<img src="/Resources/Images/seIOESV5wzk 1.png">
 				<p class="about-bloc-2-card-content-h2">Рафаэль Рекена</p>
 				<p class="about-bloc-2-card-content-h1">Менеджер по маркетингу</p>
 				<p class="about-bloc-2-card-content-p">Бразилец наслаждается рисом и фасолью с квашеной капустой в Германии. Увлечен маркетингом, природой и книгами по истории.</p>
 				<a></a>
 			</div>
 			<div class="about-bloc-2-card-content">
-				<img src="/Resources/Images/19428773_1923205864588190_7968450797044236288_n 1.png">
+				<img src="/Resources/Images/KjCGX8T9-wA 1.png">
 				<p class="about-bloc-2-card-content-h2">Рафаэль Рекена</p>
 				<p class="about-bloc-2-card-content-h1">Менеджер по маркетингу</p>
 				<p class="about-bloc-2-card-content-p">Бразилец наслаждается рисом и фасолью с квашеной капустой в Германии. Увлечен маркетингом, природой и книгами по истории.</p>
