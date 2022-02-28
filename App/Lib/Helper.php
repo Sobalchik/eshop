@@ -76,17 +76,6 @@ class Helper
 		return $_SESSION['csrf_token'];
 	}
 
-	public static function getPagesCount(): int
-	{
-		$settings = Settings::getInstance();
-
-		$EXCURSIONS_ON_PAGE = $settings->getExcursionOnPage();
-
-		$excursionsCount = ExcursionService::getExcursionsCount(Database::getDatabase());
-
-		return ceil($excursionsCount[0] / $EXCURSIONS_ON_PAGE);
-	}
-
 	public static function generateUserHash(int $length = 6): string
 	{
 		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789";

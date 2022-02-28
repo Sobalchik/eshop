@@ -364,8 +364,10 @@ class DBQuery
 			values
 			(
 			    ?,
-				(select max(id)
-				from up_date)
+				(
+					select 
+						max(up_date.ID)
+					from up_date)
 			);
 		";
 	}

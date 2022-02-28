@@ -142,7 +142,7 @@ class TagService
 		$query = DBQuery::addTag();
 
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt, "i", $tagName);
+		mysqli_stmt_bind_param($stmt, "s", $tagName);
 		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
@@ -181,5 +181,30 @@ class TagService
 		}
 
 		return mysqli_insert_id($db);
+	}
+
+	public static function organizeTagIdList(mysqli $db, array $tagList) : array
+	{
+		$query = DBQuery::organizeTagIdList();
+
+		$tagListString = implode(',', $tagList);
+		$stmt = mysqli_prepare($db, $query);
+		mysqli_stmt_bind_param($stmt, "s", $tagListString);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+
+		if (!$result)
+		{
+			trigger_error(mysqli_error($db), E_USER_ERROR);
+		}
+
+		$tags = [];
+		while ($tag = mysqli_fetch_assoc($result))
+		{
+			$tags[] = $tag['tagList'];
+			$tags[] = $tag['tagType'];
+		}
+
+		return $tags;
 	}
 }

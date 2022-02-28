@@ -43,4 +43,15 @@ class Settings
 		return $this->excursionOnPage;
 	}
 
+	public function getSortTypes() : array
+	{
+		$ini = parse_ini_file('config.ini');
+
+		return [
+			'order_excursions_by_price_asc' => $ini['order_excursions_by_price_asc'],
+			'order_excursions_by_price_desc' => $ini['order_excursions_by_price_desc'],
+			'order_excursions_by_rating_desc' => $ini['order_excursions_by_rating_desc']
+		];
+	}
+
 }

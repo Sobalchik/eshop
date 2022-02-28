@@ -64,7 +64,7 @@ class ExcursionController
 		if ($_POST['tagList'] == null)
 		{
 			$allExcursions = ExcursionService::getExcursionsForHomePage(Database::getDatabase());
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $allExcursions, $order);
+			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $allExcursions, $order);
 		}
 		else
 		{
@@ -75,7 +75,7 @@ class ExcursionController
 				return MessageController::excursionNotFoundAction();
 			}
 
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $order);
+			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $excursions, $order);
 		}
 
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
@@ -106,7 +106,7 @@ class ExcursionController
 
 		if ($_POST['order'] != 0) // $_POST['order'] - тип сортировки; подробнее о типах сортировки в config.ini
 		{
-			$excursions = ExcursionService::sortExcursions(Database::getDatabase(), $excursions, $_POST['order']);
+			$excursions = ExcursionService::getExcursionsForHomePageSortedByType(Database::getDatabase(), $excursions, $_POST['order']);
 		}
 
 
@@ -120,7 +120,7 @@ class ExcursionController
 	 */
 	public static function showFoundBySearchExcursionsAction(): string
 	{
-		$excursions = ExcursionService::findExcursionsForHomePageByName(Database::getDatabase(),
+		$excursions = ExcursionService::getExcursionsForHomePageByName(Database::getDatabase(),
 			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
 		if (sizeof($excursions) == 0)
 		{
@@ -173,7 +173,7 @@ class ExcursionController
 	{
 		if (UserController::isAuthorized())
 		{
-			$excursions = ExcursionService::findExcursionsForAdminPageByName(Database::getDatabase(),
+			$excursions = ExcursionService::getExcursionsForAdminPageByName(Database::getDatabase(),
 				$_POST['search-excursions']);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderLayout($content,"admin");
@@ -287,15 +287,6 @@ class ExcursionController
 			header("Location: " . Helper::getUrl() . "/login");
 			return '';
 		}
-	}
-
-	public static function deactivateDate(): string
-	{
-		$log = new Logger;
-		$log->info('', ['id' => $_POST['id']]);
-		ExcursionService::deactivateDate(Database::getDatabase(), $_POST['id']);
-		header("Location: " . Helper::getUrl() . "/admin/excursions");
-		return self::showAdminExcursionList();
 	}
 
 	public static function deleteExcursionDate(): void
