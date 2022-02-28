@@ -491,9 +491,8 @@ class ExcursionService
 			$stmt = mysqli_prepare($db, $query);
 			$id = $excursion->getId();
 			mysqli_stmt_bind_param($stmt, "ii", $id, $tag);
-			mysqli_stmt_execute($stmt);
 
-			$result = mysqli_stmt_get_result($stmt);
+			$result = mysqli_stmt_execute($stmt);
 
 			if (!$result)
 			{

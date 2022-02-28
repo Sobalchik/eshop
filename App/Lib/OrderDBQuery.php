@@ -46,18 +46,6 @@ class OrderDBQuery
 		";
 	}
 
-	public static function sortOrdersByDateCreateDesc() : string
-	{
-		return self::getOrdersForAdminPage() .
-			"order by up_order.DATE_CREATE desc";
-	}
-
-	public static function sortOrdersByStatusCreatedProgressedCompleted() : string
-	{
-		return self::getOrdersForAdminPage() .
-			"order by up_order.STATUS_ID desc";
-	}
-
 	public static function editOrder() : string
 	{
 		return "
