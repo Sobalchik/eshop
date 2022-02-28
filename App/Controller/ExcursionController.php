@@ -186,7 +186,10 @@ class ExcursionController
 		$resultSelectTags = [];
 		foreach ($typeTags as $typeTag)
 		{
-			$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_' . $typeTag->getId()]);
+			if ($_POST['select_typeTag_' . $typeTag->getId()])
+			{
+				$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_' . $typeTag->getId()]);
+			}
 		}
 		$excursion->setTagList($resultSelectTags);
 		ExcursionService::editExcursionById(Database::getDatabase(), $excursion);
@@ -231,7 +234,7 @@ class ExcursionController
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['iRating']),
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['eRating']),
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['sRating']),
-				'null',
+				0,
 				mysqli_real_escape_string(Database::getDatabase(), $_POST['degrees']),
 				1,
 				'null',
