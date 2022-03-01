@@ -73,7 +73,11 @@ $helper=App\Lib\Helper::getInstance();
 						<p class="form-application-text">Выберите дату экскурсии</p>
 						<select name="dateTravel">
 							<?foreach ($excursion->getAllPossibleDatesTravel() as $dateTravel):?>
-							<option value="<?=$dateTravel?>"><?=$dateTravel?></option>
+							<option value="<?=$dateTravel?>">
+								<?=
+									$helper->conversionDateToNumber($dateTravel) . " " .
+									$helper->conversionDateToMonth($dateTravel)
+								?></option>
 							<?endforeach;?>
 						</select>
 						<p class="form-application-text">Укажите ваше имя</p>
