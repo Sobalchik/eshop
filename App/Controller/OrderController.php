@@ -41,7 +41,6 @@ class OrderController
 		else
 		{
 			header("Location: " . Helper::getUrl() . "/login");
-			return '';
 		}
 	}
 
