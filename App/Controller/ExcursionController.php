@@ -194,7 +194,7 @@ class ExcursionController
 		$excursion->setTagList($resultSelectTags);
 		ExcursionService::editExcursionById(Database::getDatabase(), $excursion);
 		ExcursionService::deleteProductBelongTags(Database::getDatabase(), $excursion);
-		ExcursionService::addProductBelongTags(Database::getDatabase(), $excursion);
+		ExcursionService::createProductBelongTags(Database::getDatabase(), $excursion);
 
 		return self::showAdminExcursionList();
 	}
@@ -252,9 +252,9 @@ class ExcursionController
 				$resultSelectTags = array_merge($resultSelectTags, $_POST['select_typeTag_' . $typeTag->getId()]);
 			}
 			$excursion->setTagList($resultSelectTags);
-			$excursionId = ExcursionService::addExcursion(Database::getDatabase(), $excursion);
+			$excursionId = ExcursionService::createExcursion(Database::getDatabase(), $excursion);
 			$excursion->setId($excursionId);
-			ExcursionService::addProductBelongTags(Database::getDatabase(), $excursion);
+			ExcursionService::createProductBelongTags(Database::getDatabase(), $excursion);
 			return self::showAdminExcursionList();
 		}
 		else

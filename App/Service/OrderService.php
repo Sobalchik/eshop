@@ -12,7 +12,7 @@ use mysqli;
  * Методы сервиса названы в соответствие с запросами к БД:
  *
  * SELECT - get,
- * INSERT - add,
+ * INSERT - create,
  * UPDATE - edit,
  * DELETE - delete
  */
@@ -20,6 +20,20 @@ use mysqli;
 class OrderService
 {
 
+	/**
+	 * Создание заказа. $orderData содержит поля:
+	 * - ['name'],
+	 * - ['email'],
+	 * - ['telephone'],
+	 * - ['date'],
+	 * - ['comment'],
+	 * - ['status_id'],
+	 * - ['dateTravel']
+	 *
+	 * @param mysqli $db
+	 * @param array $orderData
+	 * @return void
+	 */
 	public static function createOrder(mysqli $db, array $orderData): void
 	{
 		$createDateOrder = new \DateTime('now');
@@ -45,11 +59,17 @@ class OrderService
 		}
 	}
 
-	public static function parseOrdersForAdminPage(\mysqli_result $result) : array
+	/**
+	 * Формирует массив сущностей Order, содержащий информацию из БД
+	 *
+	 * @param \mysqli_result $dataFromDB
+	 * @return array
+	 */
+	public static function parseOrdersForAdminPage(\mysqli_result $dataFromDB) : array
 	{
 		$orders = [];
 
-		while($order = mysqli_fetch_assoc($result))
+		while($order = mysqli_fetch_assoc($dataFromDB))
 		{
 			$orders[] = new Order(
 				$order['id'],
@@ -71,7 +91,14 @@ class OrderService
 		return $orders;
 	}
 
-	public static function findOrdersByClientName(mysqli $db, string $clientName) : array
+	/**
+	 * Возвращает массив сущностей Order, содержащих в поле fio $clientName
+	 *
+	 * @param mysqli $db
+	 * @param string $clientName фрагмент для поиска
+	 * @return array
+	 */
+	public static function getOrdersByClientName(mysqli $db, string $clientName) : array
 	{
 		$query = OrderDBQuery::findOrderByClientName();
 
@@ -90,6 +117,12 @@ class OrderService
 		return self::parseOrdersForAdminPage($result);
 	}
 
+	/**
+	 * Возвращает массив сущностей Order для админской части
+	 *
+	 * @param mysqli $db
+	 * @return array
+	 */
 	public static function getOrdersForAdminPage(mysqli $db) : array
 	{
 		$query = OrderDBQuery::getOrdersForAdminPage();
@@ -104,6 +137,19 @@ class OrderService
 		return self::parseOrdersForAdminPage($result);
 	}
 
+	/**
+	 * Перезаписывает данные о заказе, имеющем $id, в БД.
+	 * ВНИМАНИЕ: все поля должны быть заполнены!
+	 *
+	 * @param mysqli $db
+	 * @param int $id
+	 * @param string $fio
+	 * @param string $email
+	 * @param string $phone
+	 * @param int $status
+	 * @param string $comment
+	 * @return void
+	 */
 	public static function editOrderById(mysqli $db,
 			int $id, string $fio, string $email, string $phone, int $status, string $comment) : void
 	{
@@ -119,11 +165,18 @@ class OrderService
 		}
 	}
 
-	public static function deleteOrderById(mysqli $db, int $id) : void
+	/**
+	 * Удаляет заказ из БД по его $id
+	 *
+	 * @param mysqli $db
+	 * @param int $orderId
+	 * @return void
+	 */
+	public static function deleteOrderById(mysqli $db, int $orderId) : void
 	{
 		$query = OrderDBQuery::deleteOrderById();
 		$stmt = mysqli_prepare($db, $query);
-		mysqli_stmt_bind_param($stmt,"i",$id);
+		mysqli_stmt_bind_param($stmt,"i",$orderId);
 		$result = mysqli_stmt_execute($stmt);
 
 		if (!$result)
@@ -132,6 +185,13 @@ class OrderService
 		}
 	}
 
+	/**
+	 * Получает массив всех имеющихся в БД статусов
+	 * заказов в формате: ['id', 'name']
+	 *
+	 * @param mysqli $db
+	 * @return array
+	 */
 	public static function getAllStatuses(mysqli $db) : array
 	{
 		$query = OrderDBQuery::getAllStatuses();

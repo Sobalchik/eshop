@@ -15,7 +15,7 @@ use App\Lib\ExcursionDBQuery;
  * Методы сервиса названы в соответствие с запросами к БД:
  *
  * SELECT - get,
- * INSERT - add,
+ * INSERT - add / create,
  * UPDATE - edit,
  * DELETE - delete
  */
@@ -433,7 +433,7 @@ class ExcursionService
 	 * @param Excursion $excursion
 	 * @return int
 	 */
-	public static function addExcursion(mysqli $db, Excursion $excursion) : int
+	public static function createExcursion(mysqli $db, Excursion $excursion) : int
 	{
 		$query = ExcursionDBQuery::addNewExcursion();
 
@@ -482,7 +482,7 @@ class ExcursionService
 	 * @param Excursion $excursion
 	 * @return void
 	 */
-	public static function addProductBelongTags(mysqli $db, Excursion $excursion): void
+	public static function createProductBelongTags(mysqli $db, Excursion $excursion): void
 	{
 		foreach ($excursion->getTagList() as $tag)
 		{
@@ -581,8 +581,8 @@ class ExcursionService
 	 */
 	public static function addDateToExcursionById(mysqli $db, int $excursionId, string $date) : void
 	{
-		self::addNewDate($db, $date);
-		self::addNewDateRelation($db, $excursionId);
+		self::createNewDate($db, $date);
+		self::createNewDateRelation($db, $excursionId);
 
 	}
 
@@ -593,7 +593,7 @@ class ExcursionService
 	 * @param string $date
 	 * @return void
 	 */
-	private static function addNewDate(mysqli $db, string $date) : void
+	private static function createNewDate(mysqli $db, string $date) : void
 	{
 		$query = ExcursionDBQuery::addNewDate();
 
@@ -614,7 +614,7 @@ class ExcursionService
 	 * @param int $id id экскурсии
 	 * @return void
 	 */
-	private static function addNewDateRelation(mysqli $db, int $id) : void
+	private static function createNewDateRelation(mysqli $db, int $id) : void
 	{
 		$query = ExcursionDBQuery::addNewDateRelations();
 

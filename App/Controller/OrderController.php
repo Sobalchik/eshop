@@ -76,7 +76,7 @@ class OrderController
 	{
 		$logger = new Logger();
 		$logger->info($_POST['id']);
-		$orders = OrderService::findOrdersByClientName(Database::getDatabase(), $_POST['clientName']);
+		$orders = OrderService::getOrdersByClientName(Database::getDatabase(), $_POST['clientName']);
 		$statuses = OrderService::getAllStatuses(Database::getDatabase());
 		return Render::renderContent("admin-orders", ["orders" => $orders, "statuses" => $statuses]);
 	}
