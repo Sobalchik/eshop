@@ -68,14 +68,14 @@ class UserController
 		$user = UserService::getUserByLogin(Database::getDatabase(), $validateLogin);
 		if (!isset($user))
 		{
-			return Render::render("login", "admin");
+			return Render::renderContent("login");
 		}
 		else
 		{
 			$isCorrectPassword = password_verify($validatePassword, $user->getPassword());
 			if (!$isCorrectPassword)
 			{
-				return Render::render("login","admin");
+				return Render::renderContent("login");
 			}
 			else
 			{

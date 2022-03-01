@@ -43,6 +43,8 @@ use App\Lib\Render;
 			<input id="radio-4" type="radio" onclick="updateOrderType(3)" name="radio" value="4" >
 			<label for="radio-4">С высоким рейтингом</label>
 		</div>
+
+		<button class="btn-delete-all-filters" onclick="resetOrderType()">Сброс</button>
 	</div>
 
 

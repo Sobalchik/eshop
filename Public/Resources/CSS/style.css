@@ -1566,7 +1566,7 @@ html {
 .form_radio_btn input[type=radio] {
 	display: none;
 }
-.form_radio_btn label {
+.form_radio_btn label,.btn-delete-all-filters {
 	text-decoration: none;
 	display: inline-block;
 	padding: 10px 15px;

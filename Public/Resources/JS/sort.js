@@ -1,4 +1,3 @@
-$(initAllExcursionPage);
 function initAllExcursionPage(){
 	$('#findExcursionsBySearch').bind( 'click', findByName);
 }
@@ -16,7 +15,7 @@ function updateOrderType(type) {
 	sort(type);
 }
 
-function updateToBaseURL() {
+function resetOrderType() {
 	if (history.pushState) {
 		var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 		history.pushState(null, null, baseUrl);
@@ -24,6 +23,8 @@ function updateToBaseURL() {
 	else {
 		console.warn('History API не поддерживается');
 	}
+	$('.form_radio_btn input[type=radio]').prop('checked', false);
+	sort()
 }
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -39,10 +40,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
 	}
 }
 
-
-/*сортировка,
- где type принимает численное значение,
- в качестве data возвращается строка*/
 function sort(type){
 
 	var checked = [];
@@ -73,10 +70,9 @@ function sort(type){
 
 function findByName(){
 
-	updateToBaseURL();
+	resetOrderType();
 	searchValue = $('#search').val();
 
-	$('.form_radio_btn input[type=radio]').prop('checked', false);
 
 	$.ajax({
 		url: "http://eshop/allExcursions/found",

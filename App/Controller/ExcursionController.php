@@ -28,7 +28,7 @@ class ExcursionController
 	 *
 	 * @return string строка с html кодом
 	 */
-	public static function showAllExcursionsAction(): string
+	public static function showAllExcursionsForPublicPageAction(): string
 	{
 		$tagList = TagController::getAllTagsAction();
 		$excursions = ExcursionService::getExcursionsForPublicPage(Database::getDatabase());
@@ -45,7 +45,7 @@ class ExcursionController
 	 * @param $excursionId
 	 * @return string строка с html кодом
 	 */
-	public static function showExcursionByIdAction($excursionId): string
+	public static function showExcursionByIdForPublicPageAction($excursionId): string
 	{
 		$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $excursionId);
 		return Render::render("content-detailed-excursion", "layout", ['excursion' => $excursion]);
@@ -58,7 +58,7 @@ class ExcursionController
 	 *
 	 * @return string строка с html кодом
 	 */
-	public static function showSortedExcursionsAction(): string
+	public static function showSortedExcursionsForPublicPageAction(): string
 	{
 		if ($_POST['tagList'] === null && ($_POST['order'] === null)) // $_POST['tagList'] - массив с id выбранных тегов.
 		{
@@ -94,7 +94,7 @@ class ExcursionController
 	 *
 	 * @return string строка с html кодом
 	 */
-	public static function showFoundBySearchExcursionsAction(): string
+	public static function showFoundBySearchExcursionsForPublicPageAction(): string
 	{
 		$excursions = ExcursionService::getExcursionsForPublicPageByName(Database::getDatabase(),
 			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
@@ -104,6 +104,8 @@ class ExcursionController
 		}
 		return Render:: renderContent("content-card", ['excursions' => $excursions]);
 	}
+
+
 
 	public static function showAdminExcursionById(): string
 	{

@@ -18,31 +18,31 @@ Router::add(
 Router::add(
 	"GET",
 	"/allExcursions/",
-	[ExcursionController::class, 'showAllExcursionsAction']
+	[ExcursionController::class, 'showAllExcursionsForPublicPageAction']
 );
 
 Router::add(
 	"POST",
 	"/sort",
-	[ExcursionController::class, 'showSortedExcursionsAction']
+	[ExcursionController::class, 'showSortedExcursionsForPublicPageAction']
 );
 
 Router::add(
 	"GET",
 	"/excursion/:excursionId",
-	[ExcursionController::class, 'showExcursionByIdAction']
+	[ExcursionController::class, 'showExcursionByIdForPublicPageAction']
 );
 
 Router::add(
 	"GET",
 	"/allExcursions/excursion/:excursionId",
-	[ExcursionController::class, 'showExcursionByIdAction']
+	[ExcursionController::class, 'showExcursionByIdForPublicPageAction']
 );
 
 Router::add(
 	"POST",
 	"/allExcursions/found",
-	[ExcursionController::class, 'showFoundBySearchExcursionsAction']
+	[ExcursionController::class, 'showFoundBySearchExcursionsForPublicPageAction']
 );
 
 Router::add(
@@ -215,7 +215,7 @@ Router::add(
 Router::add(
 	"GET",
 	"/allExcursions/?order=:order",
-	[ExcursionController::class, 'showAllExcursionsAction']
+	[ExcursionController::class, 'showAllExcursionsForPublicPageAction']
 );
 
 Router::add(
