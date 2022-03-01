@@ -96,8 +96,9 @@ class ExcursionController
 	 */
 	public static function showFoundBySearchExcursionsAction(): string
 	{
+		$searchString = filter_var($_POST['search-excursions'], FILTER_SANITIZE_STRING);
 		$excursions = ExcursionService::getExcursionsForPublicPageByName(Database::getDatabase(),
-			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
+			$searchString); // $_POST['search-excursions']) - массив из id найденных экскурсий
 		if (sizeof($excursions) == 0)
 		{
 			return MessageController::excursionNotFoundAction();
@@ -144,8 +145,9 @@ class ExcursionController
 	{
 		if (UserController::isAuthorized())
 		{
+			$searchString = filter_var($_POST['search-excursions'], FILTER_SANITIZE_STRING);
 			$excursions = ExcursionService::getExcursionsForAdminPageByName(Database::getDatabase(),
-				$_POST['search-excursions']);
+				$searchString);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderLayout($content, "admin");
 		}

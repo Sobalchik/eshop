@@ -39,7 +39,7 @@ class OrderService
 		$createDateOrder = new \DateTime('now');
 		$orderData['date'] = $createDateOrder->format("Y-m-d H:i:s");
 
-		$query = OrderDBQuery::insertOrderInDBQuery();
+		$query = OrderDBQuery::createOrder();
 
 		$stmt = mysqli_prepare($db, $query);
 		mysqli_stmt_bind_param($stmt,"sssssis",
