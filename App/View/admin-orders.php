@@ -64,7 +64,7 @@ $helper = App\Lib\Helper::getInstance();
 									<input class="inpit-me-order form-control" id="inlineFormInputName_comment_<?= $order->getId() ?>" name="comment" value="<?= $order->getComment() ?> ">
 
 									<p class="admin-orders-text">Дата заказа</p>
-									<input id="inlineFormInputName" class="inpit-me-order form-control<?=$order->getId() ?>" name="date" value="<?= $helper::conversionDate($order->getDateTravel()) ?> " disabled>
+									<input style="background-color: white;border: none;border-radius: 0.25rem;color: black;" id="inlineFormInputName" class="inpit-me-order form-control<?=$order->getId() ?>" name="date" value="<?= $helper::conversionDate($order->getDateTravel()) ?> " disabled>
 								</div>
 
 

@@ -12,6 +12,8 @@ $helper = App\Lib\Helper::getInstance();
 					<input style="display: none " type="text" class="input-me form-control" id="inlineFormInputName" name="id" value="<?= $excursion->getId() ?>">
 					<p>страна</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="country" value="<?= $excursion->getNameCountry();?>">
+					<p>Название города</p>
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="city" value="<?= $excursion->getNameCity();?>">
 					<p>температура</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="degrees" value="<?= $excursion->getDegrees();?>">
 					<p>цена</p>
@@ -24,23 +26,16 @@ $helper = App\Lib\Helper::getInstance();
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="eRating" value="<?= $excursion->getEntertainmentRating();?>">
 					<p>Обслуживание</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="<?= $excursion->getServiceRating();?>">
-					<p>Оценка</p>
-					<input type="text" disabled class="input-me form-control" id="inlineFormInputName" name="Rating" value="<?=$helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating());?>">
-				</div>
-			</div>
-			<div class="admin-excursions-detaild-bloc2">
-				<h1>Общие данные</h1>
-				<div>
-					<p>Название города</p>
-					<input type="text" class="input-me form-control" id="inlineFormInputName" name="city" value="<?= $excursion->getNameCity();?>">
+					<input style="display: none" type="text" disabled class="input-me form-control" id="inlineFormInputName" name="Rating" value="<?=$helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating());?>">
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc3">
 				<h1>Детальная страница</h1>
-				<div>
+				<div style="display: flex; align-items: center;justify-content: center;flex-direction: column;">
 					<p>Теги</p>
+					<div style="display: flex;  flex-wrap: wrap; align-items: center;justify-content: center;">
 					<?php foreach ($typeTags as $typeTag):?>
-						<p><select size="3" multiple  name="select_typeTag_<?=$typeTag->getId()?>[]">
+						<p><select style="width: 250px;height: 100px;margin: 5px;" size="3" class="input-me form-control" multiple  name="select_typeTag_<?=$typeTag->getId()?>[]">
 								<option disabled><?=$typeTag->getName()?></option>
 								<?php foreach ($typeTag->getTagsBelong() as $tagsBelong): ?>
 								<? if (in_array($tagsBelong->getName(),$excursion->getTagList())){?>
@@ -51,12 +46,13 @@ $helper = App\Lib\Helper::getInstance();
 								<?endforeach;?>
 							</select></p>
 					<?endforeach;?>
+					</div>
 					<p>Время</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="duration" value="<?= $excursion->getDuration();?>">
 					<p>Размер группы </p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="person" value="<?= $excursion->getCountPersons();?>">
 					<p>Описание экскурсии</p>
-					<textarea class="form-control" id="exampleFormControlTextarea1" name = 'description'><?= $excursion->getFullDescription();?></textarea>
+					<textarea style="width: 400px;height: 130px;" class="form-control" id="exampleFormControlTextarea1" name = 'description'><?= $excursion->getFullDescription();?></textarea>
 				</div>
 			</div>
 		</div>

@@ -9,7 +9,7 @@ $helper=App\Lib\Helper::getInstance();
 	<img class="img-bloc-card" src="/Resources/Images/прага%202.png">
 	<div class="bloc-card-center">
 		<div>
-			<img style="width: 450px;;height: 720px;" src="<?= $excursion->getImageList() ?>">
+			<img src="<?= $excursion->getImageList() ?>">
 		</div>
 		<div class="bloc-card-center-text-block">
 			<p class="detailed-page-text-1">Экскурсия</p>
@@ -71,9 +71,9 @@ $helper=App\Lib\Helper::getInstance();
 						<input id="status_id" class="form-application-input" style="display: none" type="hidden" name="status_id" value="1">
 						<input class="form-application-input" style="display: none" type="hidden" name="csrf_token" value="<?=$helper::generateFormCsrfToken()?>">
 						<p class="form-application-text">Выберите дату экскурсии</p>
-						<select name="dateTravel">
+						<select class="form-application-input" name="dateTravel">
 							<?foreach ($excursion->getAllPossibleDatesTravel() as $dateTravel):?>
-							<option id="dateTravel" value="<?=$dateTravel?>">
+							<option  id="dateTravel" value="<?=$dateTravel?>">
 								<?=
 									$helper->conversionDateToNumber($dateTravel) . " " .
 									$helper->conversionDateToMonth($dateTravel)
@@ -88,7 +88,7 @@ $helper=App\Lib\Helper::getInstance();
 						<input id="email" class="form-application-input" type="text" name="email" autocomplete="off" placeholder="     Email...">
 						<p class="form-application-text">Укажите ваш комментарий</p>
 						<input id="text" class="form-application-input" type="text" name="comment" autocomplete="off" required="required" placeholder="     Комментарий...">
-						<div style="text-align: center; padding-top: 40px">
+						<div style="text-align: center; padding-top: 20px">
 							<input onclick="order()" class="form-application-input-submit" type="submit" value="Отправить" id="pay-12">
 						</div>
 					</form>
@@ -112,3 +112,4 @@ $helper=App\Lib\Helper::getInstance();
 		</div>
 	</div>
 </div>
+

@@ -1,4 +1,5 @@
-$(initAllExcursionPage);
+
+
 function initAllExcursionPage(){
 	$('#findExcursionsBySearch').bind( 'click', findByName);
 }

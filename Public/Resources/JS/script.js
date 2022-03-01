@@ -11,6 +11,9 @@ let toggleHeader = function(){
 
 
 
+
+
+
 $(document).ready(function() {
 	if ($(window).scrollTop()>10)
 	{
@@ -112,10 +115,10 @@ function loadPage(url, isToggleHeader) {
 			'/allExcursions': [
 				{'js': "/Resources/JS/pagination.js", 'method': "initPaginations"},
 				{'js': "/Resources/JS/sort.js", 'method': "initAllExcursionPage"},
-				{'js': "/Resources/JS/sort.js", 'method': "initCheckBox"}
+				{'js': "/Resources/JS/sort.js", 'method': "initCheckBox"},
 			],
 			'/excursion': [
-				{'js': "/Resources/JS/script.js", 'method': "initMap"}
+				{'js': "/Resources/JS/script.js", 'method': "initMap"},
 			],
 			'/about': [
 
@@ -152,6 +155,9 @@ let handleLinkClick = function(elem, isToggleHeader) {
 	window.history.pushState({}, '', page)
 	window.scrollTo(0, 0);
 }
+
+
+
 
 $(document).ready(function (e) {
 	$('a').not('.mobile-menu-bloc2 li a').click(function () {
@@ -200,6 +206,9 @@ $(document).ready(function() {
 	});
 });
 
+
+
+
 function order()
 {
 	let name = $('#name').val();
@@ -220,6 +229,9 @@ function order()
 		}
 	});
 }
+
+
+
 
 
 
