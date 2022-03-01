@@ -122,8 +122,7 @@ class ExcursionController
 		}
 		else
 		{
-			header("Location: " . Helper::getUrl() . "/login");
-			return '';
+			return Render::render("login", "admin");
 		}
 	}
 
@@ -138,7 +137,6 @@ class ExcursionController
 		else
 		{
 			header("Location: " . Helper::getUrl() . "/login");
-			return '';
 		}
 	}
 
@@ -154,7 +152,6 @@ class ExcursionController
 		else
 		{
 			header("Location: " . Helper::getUrl() . "/login");
-			return '';
 		}
 	}
 
@@ -199,7 +196,7 @@ class ExcursionController
 		return self::showAdminExcursionList();
 	}
 
-	public static function addExcursion()
+	public static function addExcursion():string
 	{
 		if (UserController::isAuthorized())
 		{
@@ -215,11 +212,10 @@ class ExcursionController
 		else
 		{
 			header("Location: " . Helper::getUrl() . "/login");
-			return '';
 		}
 	}
 
-	public static function createExcursion()
+	public static function createExcursion():string
 	{
 		$excursionDate = new \DateTime('now');
 		if (UserController::isAuthorized())
@@ -260,7 +256,6 @@ class ExcursionController
 		else
 		{
 			header("Location: " . Helper::getUrl() . "/login");
-			return '';
 		}
 	}
 
@@ -273,7 +268,7 @@ class ExcursionController
 		return self::showAdminExcursionList();
 	}
 
-	public static function deleteExcursionDate(): void
+	public static function deleteExcursionDate(): string
 	{
 		if (!UserController::isAuthorized())
 		{
