@@ -7,8 +7,26 @@ use App\Entity\TypeTag;
 use App\Lib\TagDBQuery;
 use mysqli;
 
+/**
+ * Класс содержит методы получения/изменения информации в БД об экскурсиях
+ *
+ * Методы сервиса названы в соответствие с запросами к БД:
+ *
+ * SELECT - get,
+ * INSERT - create,
+ * UPDATE - edit,
+ * DELETE - delete
+ */
+
 class TagService
 {
+	/**
+	 * Получение массива сущностей Tag из БД, имеющих заданный тип $typeTag
+	 *
+	 * @param mysqli $db
+	 * @param int $typeTag
+	 * @return array
+	 */
 	public static function getTagsForAdminPage(mysqli $db, int $typeTag) : array
 	{
 		$query = TagDBQuery::getTagsForAdminPage();
@@ -40,6 +58,12 @@ class TagService
 		return $tags;
 	}
 
+	/**
+	 * Получение массива сущностей TypeTag из БД
+	 *
+	 * @param mysqli $db
+	 * @return array
+	 */
 	public static function getTypeTagsForAdminPage(mysqli $db) : array
 	{
 		$query = TagDBQuery::getTypeTagsForAdminPage();
@@ -70,6 +94,13 @@ class TagService
 		return $typeTags;
 	}
 
+	/**
+	 * Удаление тэга из БД по $tagId
+	 *
+	 * @param mysqli $db
+	 * @param int $tagId
+	 * @return void
+	 */
 	public static function deleteTag(mysqli $db, int $tagId): void
 	{
 		$query = TagDBQuery::deleteFromTagTypeTag();
@@ -95,6 +126,13 @@ class TagService
 		}
 	}
 
+	/**
+	 * Удаление типа тэга по $typeTagId
+	 *
+	 * @param mysqli $db
+	 * @param int $typeTagId
+	 * @return void
+	 */
 	public static function deleteTypeTag(mysqli $db, int $typeTagId): void
 	{
 		$query = TagDBQuery::deleteTypeTag();
@@ -109,7 +147,15 @@ class TagService
 		}
 	}
 
-	public static function saveTag(mysqli $db, int $tagId, string $tagName): void
+	/**
+	 * Редактирование названия тэга по $tagId
+	 *
+	 * @param mysqli $db
+	 * @param int $tagId
+	 * @param string $tagName
+	 * @return void
+	 */
+	public static function editTag(mysqli $db, int $tagId, string $tagName): void
 	{
 		$query = TagDBQuery::saveTag();
 
@@ -123,7 +169,15 @@ class TagService
 		}
 	}
 
-	public static function saveTypeTag(mysqli $db, int $typeTagId, string $typeTagName): void
+	/**
+	 * Редактирование названия типа тэга по $typeTagId
+	 *
+	 * @param mysqli $db
+	 * @param int $typeTagId
+	 * @param string $typeTagName
+	 * @return void
+	 */
+	public static function editTypeTag(mysqli $db, int $typeTagId, string $typeTagName): void
 	{
 		$query = TagDBQuery::saveTypeTag();
 
@@ -137,6 +191,13 @@ class TagService
 		}
 	}
 
+	/**
+	 * Добавление нового тэга в БД
+	 *
+	 * @param mysqli $db
+	 * @param string $tagName название нового тэга
+	 * @return int
+	 */
 	public static function addTag(mysqli $db, string $tagName): int
 	{
 		$query = TagDBQuery::addTag();
@@ -153,7 +214,15 @@ class TagService
 		return mysqli_insert_id($db);
 	}
 
-	public static function setTypeTagBelongTag(mysqli $db, int $typeTagId, int $tagId): void
+	/**
+	 * Создает связб между тэгом и его типом
+	 *
+	 * @param mysqli $db
+	 * @param int $typeTagId
+	 * @param int $tagId
+	 * @return void
+	 */
+	public static function addTypeTagBelongTag(mysqli $db, int $typeTagId, int $tagId): void
 	{
 		$query = TagDBQuery::setTypeBelongTag();
 
@@ -167,6 +236,13 @@ class TagService
 		}
 	}
 
+	/**
+	 * Создает новый тип тэга
+	 *
+	 * @param mysqli $db
+	 * @param string $typeTagName
+	 * @return int
+	 */
 	public static function addTypeTag(mysqli $db, string $typeTagName): int
 	{
 		$query = TagDBQuery::addTypeTag();
@@ -183,6 +259,15 @@ class TagService
 		return mysqli_insert_id($db);
 	}
 
+	/**
+	 * Расформировывает массив тэгов вида [$tag1, ...$tagN]
+	 * в массив тэгов и их типов вида
+	 * [$tagType1, [$tag11,..., $tagN1], ...,$tagTypeN, [$tag1N,...,$tagNN]]
+	 *
+	 * @param mysqli $db
+	 * @param array $tagList
+	 * @return array
+	 */
 	public static function organizeTagIdList(mysqli $db, array $tagList) : array
 	{
 		$query = TagDBQuery::organizeTagIdList();

@@ -75,7 +75,7 @@ class TagController
 		{
 			$tagId = $_POST['tagId'];
 			$tagName = $_POST['tagName'];
-			$saveTag = TagService::saveTag(Database::getDatabase(), $tagId, $tagName);
+			$saveTag = TagService::editTag(Database::getDatabase(), $tagId, $tagName);
 			return TagController::showAdminTagsPrepare();
 		}
 	}
@@ -90,7 +90,7 @@ class TagController
 		{
 			$typeTagId = $_POST['typeTagId'];
 			$typeTagName = $_POST['typeTagName'];
-			$saveTypeTag = TagService::saveTypeTag(Database::getDatabase(), $typeTagId, $typeTagName);
+			$saveTypeTag = TagService::editTypeTag(Database::getDatabase(), $typeTagId, $typeTagName);
 			return TagController::showAdminTagsPrepare();
 		}
 	}
@@ -106,7 +106,7 @@ class TagController
 			$typeTagId = $_POST['typeTagId'];
 			$tagName = $_POST['tagName'];
 			$tagId = TagService::addTag(Database::getDatabase(), $tagName);
-			$setTypeTagBelongTag = TagService::setTypeTagBelongTag(Database::getDatabase(), $typeTagId, $tagId);
+			$setTypeTagBelongTag = TagService::addTypeTagBelongTag(Database::getDatabase(), $typeTagId, $tagId);
 			return TagController::showAdminTagsPrepare();
 		}
 	}
