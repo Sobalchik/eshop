@@ -33,6 +33,11 @@ $helper = App\Lib\Helper::getInstance();
 				<div>
 					<p>Название города</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="city" value="<?= $excursion->getNameCity();?>">
+					<div class="form-row">
+						<label>Изображения:</label>
+						<div class="img-list" id="fileImageList"></div>
+						<input id="fileImage" type="file" name="file[]" multiple accept=".jpg,.jpeg,.png,.gif">
+					</div>
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc3">

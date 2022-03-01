@@ -5,6 +5,7 @@ use App\Controller\UserController;
 use App\Controller\OrderController;
 use App\Controller\TagController;
 use App\Controller\MessageController;
+use App\Controller\ImageController;
 use App\Lib\Router;
 
 /** Публичная страница */
@@ -230,4 +231,8 @@ Router::add(
 	[UserController::class, 'changeUserPasswordAction']
 );
 
-
+Router::add(
+	"POST",
+	"/admin/imageUpload",
+	[ImageController::class, 'imageUploadAction']
+);

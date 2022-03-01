@@ -200,5 +200,26 @@ $(document).ready(function() {
 	});
 });
 
+function order()
+{
+	let name = $('#name').val();
+	let tel = $('#tel').val();
+	let email = $('#email').val();
+	let text = $('#text').val();
+	let dateTravel = $('#dateTravel').val();
+	let status_id = $('#status_id').val();
+	$.ajax({
+		url: "/createOrder",
+		type: "POST",
+		data: {"name" : name, "telephone" : tel,
+				"email" : email, "comment": text,
+				"dateTravel" : dateTravel, "status_id" : status_id},
+		success: function(data) {
+			$('#bloc-dm-modal').empty();
+			document.getElementById('detailed-page-bloc-2-pop-up').innerHTML = data;
+		}
+	});
+}
+
 
 

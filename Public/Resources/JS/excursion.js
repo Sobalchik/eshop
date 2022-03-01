@@ -1,3 +1,34 @@
+$(initExcursionPage);
+
+function initExcursionPage(){
+	$('#fileImage').bind( 'change', fileImageUpload );//Событие на выбор файлов
+}
+
+function fileImageUpload()
+{
+	let oFiles = this.files;
+	let oFormData = new FormData();
+	for (index=0;index<oFiles.length;++index)
+	{
+		oFormData.append('file[]',oFiles[index]);
+	}
+	$.ajax({
+		url: "/admin/imageUpload",
+		type: "POST",
+		data: oFormData,
+		contentType: false,
+		processData: false,
+		success: function(data) {
+			$('#fileImageList').append(data);
+		}
+	});
+}
+
+function fileImageRemove()
+{
+
+}
+
 function dateDeleteAjax(dateId, dateName)
 {
 	$('#'+dateName).hide();

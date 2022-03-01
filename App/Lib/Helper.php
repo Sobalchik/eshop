@@ -149,4 +149,50 @@ class Helper
 	{
 		return round(($internetRating+$entertainmentRating+$serviceRating)/3, 1, PHP_ROUND_HALF_EVEN);
 	}
+
+	public static function createPreaviewImage(string $src, string $thumb): string
+	{
+		$info = getimagesize($src);
+		switch ($info[2]) {
+			case 1:
+				$im = imageCreateFromGif($src);
+				imageSaveAlpha($im, true);
+				break;
+			case 2:
+				$im = imageCreateFromJpeg($src);
+				break;
+			case 3:
+				$im = imageCreateFromPng($src);
+				imageSaveAlpha($im, true);
+				break;
+		}
+		$width  = $info[0];
+		$height = $info[1];
+		$h = 100;
+		$w = ($h > $height) ? $width : ceil($h / ($height / $width));
+		$tw = ceil($h / ($height / $width));
+		$th = ceil($w / ($width / $height));
+		$new_im = imageCreateTrueColor($w, $h);
+
+		if ($w >= $width && $h >= $height) {
+			$xy = array(ceil(($w - $width) / 2), ceil(($h - $height) / 2), $width, $height);
+		} elseif ($w >= $width) {
+			$xy = array(ceil(($w - $tw) / 2), 0, ceil($h / ($height / $width)), $h);
+		} elseif ($h >= $height) {
+			$xy = array(0, ceil(($h - $th) / 2), $w, ceil($w / ($width / $height)));
+		} elseif ($tw < $w) {
+			$xy = array(ceil(($w - $tw) / 2), ceil(($h - $h) / 2), $tw, $h);
+		} else {
+			$xy = array(0, ceil(($h - $th) / 2), $w, $th);
+		}
+		imageCopyResampled($new_im, $im, $xy[0], $xy[1], 0, 0, $xy[2], $xy[3], $width, $height);
+		switch ($info[2]) {
+			case 1: imageGif($new_im, $thumb); break;
+			case 2: imageJpeg($new_im, $thumb, 100); break;
+			case 3: imagePng($new_im, $thumb); break;
+		}
+		imagedestroy($im);
+		imagedestroy($new_im);
+		return $thumb;
+	}
 }
