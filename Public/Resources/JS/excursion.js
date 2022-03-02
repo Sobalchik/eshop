@@ -19,21 +19,8 @@ function fileImageUpload()
 		contentType: false,
 		processData: false,
 		success: function(data) {
+			$('#fileImageList').empty();
 			$('#fileImageList').append(data);
-		}
-	});
-}
-
-function fileImageDelete(divId)
-{
-	//imageId, pathOriginFile, pathPreviewFile
-	alert("test");
-	$.ajax({
-		url: "/admin/imageDelete",
-		type: "POST",
-		data: {"imageId": imageId, "pathOriginFile": pathOriginFile, "pathPreviewFile": pathPreviewFile},
-		success: function(data) {
-			$('#'+divId).remove();
 		}
 	});
 }

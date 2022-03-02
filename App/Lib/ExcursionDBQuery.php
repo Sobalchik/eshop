@@ -230,6 +230,14 @@ class ExcursionDBQuery
 				up_product.ACTIVE as 'active',
 				(
 					select
+						up_image.PATH
+					from up_product_image
+							 left join up_image on up_product_image.IMAGE_ID = up_image.ID
+					where up_product_image.PRODUCT_ID = up_product.ID
+					  and up_image.MAIN = '1'
+				) as 'imageList',
+				(
+					select
 						group_concat(up_tag.NAME)
 					from up_product_tag
 							 left join up_tag on up_product_tag.TAG_ID = up_tag.ID

@@ -253,6 +253,7 @@ class ExcursionController
 			$excursionId = ExcursionService::createExcursion(Database::getDatabase(), $excursion);
 			$excursion->setId($excursionId);
 			ExcursionService::createProductBelongTags(Database::getDatabase(), $excursion);
+			ImageController::setImageBindExcusionAction($_POST['imageFileOriginal'], $_POST['imageFilePreview'], $excursion->getId());
 			return self::showAdminExcursionList();
 		}
 		else

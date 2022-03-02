@@ -2,6 +2,7 @@
 /** @var \App\Entity\Excursion $excursion */
 /** @var array $typeTags */
 $helper = App\Lib\Helper::getInstance();
+var_dump($excursion->getImageList());
 ?>
 <div style="color: white" class="admin-excursions-detaild">
 	<form action="/admin/excursions/saved" method="post">
@@ -27,10 +28,16 @@ $helper = App\Lib\Helper::getInstance();
 					<p>Обслуживание</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="<?= $excursion->getServiceRating();?>">
 					<input style="display: none" type="text" disabled class="input-me form-control" id="inlineFormInputName" name="Rating" value="<?=$helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating());?>">
+				</div>
+				<div>
 					<div class="form-row">
 						<label>Изображения:</label>
-						<div class="img-list" id="fileImageList"></div>
-						<input id="fileImage" type="file" name="file[]" multiple accept=".jpg,.jpeg,.png,.gif">
+						<?if (!$excursion->getImageList()) {?>
+							<div class="img-list" id="fileImageList"></div>
+						<? } else {?>
+							<div class="img-list" id="fileImageList"></div>
+						<? } ?>
+						<input id="fileImage" type="file" name="file[]" accept=".jpg,.jpeg,.png,.gif">
 					</div>
 				</div>
 			</div>
