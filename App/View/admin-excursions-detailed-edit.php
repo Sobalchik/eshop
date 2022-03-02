@@ -35,7 +35,18 @@ var_dump($excursion->getImageList());
 						<?if (!$excursion->getImageList()) {?>
 							<div class="img-list" id="fileImageList"></div>
 						<? } else {?>
-							<div class="img-list" id="fileImageList"></div>
+							<div class="img-list" id="fileImageList">
+								<div class='img-item' id='imageFile'>
+									<?
+									$tmpFolder= "/Upload/Images/Temp/";
+									$info = pathinfo($_SERVER['DOCUMENT_ROOT'].$tmpFolder.$excursion->getImageList());
+									$thumb = $helper->createPreaviewImage($excursion->getImageList(),$tmpFolder.$info['filename']."-thumb.".$info['extension']);
+									?>
+									<img src="<?=$thumb?>">
+									<input name='imageFileOriginal' type='hidden' value='old'>
+									<input name='imageFilePreview' type='hidden' value='<?=$thumb?>'>
+								</div>
+							</div>
 						<? } ?>
 						<input id="fileImage" type="file" name="file[]" accept=".jpg,.jpeg,.png,.gif">
 					</div>

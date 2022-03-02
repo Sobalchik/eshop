@@ -12,14 +12,13 @@ class ImageController
 
 	public static function imageUploadAction(): string
 	{
-		$tmpFolderForPublic = "/Upload/Images/Temp/";
-		$tmpFolder = $_SERVER['DOCUMENT_ROOT'].$tmpFolderForPublic;
-		if (!is_dir($tmpFolder)) {
-			mkdir($tmpFolder, 0777, true);
+		$tmpFolder = "/Upload/Images/Temp/";
+		if (!is_dir($_SERVER['DOCUMENT_ROOT'].$tmpFolder)) {
+			mkdir($_SERVER['DOCUMENT_ROOT'].$tmpFolder, 0777, true);
 		}
 		else
 		{
-			foreach (glob($tmpFolder."*") as $file)
+			foreach (glob($_SERVER['DOCUMENT_ROOT'].$tmpFolder."*") as $file)
 			{
 				unlink($file);
 			}
@@ -27,16 +26,16 @@ class ImageController
 		$data = '';
 		for ($i=0;$i<count($_FILES['file']['tmp_name']);$i++)
 		{
-			move_uploaded_file($_FILES['file']['tmp_name'][$i], $tmpFolder.$_FILES['file']['name'][$i]);
-			$info = pathinfo($tmpFolder.$_FILES['file']['name'][$i]);
+			move_uploaded_file($_FILES['file']['tmp_name'][$i], $_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]);
+			$info = pathinfo($_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]);
 			$thumb = Helper::createPreaviewImage($tmpFolder.$_FILES['file']['name'][$i],$tmpFolder.$info['filename']."-thumb.".$info['extension']);
-			$data .= "<div class='img-item' id='imageFile_".$info['filename']."'><img src='".$tmpFolderForPublic.$info['filename']."-thumb.".$info['extension']."'>";
-			$data .= "<input name='imageFileOriginal' type='hidden' value='".$tmpFolder.$_FILES['file']['name'][$i]."'> <input name='imageFilePreview' type='hidden' value='".$tmpFolderForPublic.$info['filename']."-thumb.".$info['extension']."'></div>";
+			$data .= "<div class='img-item' id='imageFile_".$info['filename']."'><img src='".$tmpFolder.$info['filename']."-thumb.".$info['extension']."'>";
+			$data .= "<input name='imageFileOriginal' type='hidden' value='".$_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]."'> <input name='imageFilePreview' type='hidden' value='".$_SERVER['DOCUMENT_ROOT'].$tmpFolder.$info['filename']."-thumb.".$info['extension']."'></div>";
 		}
 		return $data;
 	}
 
-	public static function setImageBindExcusionAction(string $pathFileOriginal, string $pathFilePreview, int $excursionId): int
+	public static function setImageBindExcusionAction(string $pathFileOriginal, string $pathFilePreview, int $excursionId): void
 	{
 		$folderUpload = "/Upload/Images/Products/";
 		$info = pathinfo($pathFileOriginal);
@@ -45,18 +44,18 @@ class ImageController
 		{
 			$imageId = ImageService::addImage(Database::getDatabase(), $folderUpload.$excursionId.".".$info['extension'], 1);
 			ImageService::setImageBindExcusionById(Database::getDatabase(), $excursionId,$imageId);
-			rename($pathFileOriginal,$_SERVER['DOCUMENT_ROOT'].$folderUpload.$excursionId.$info['extension']);
+			rename($pathFileOriginal,$_SERVER['DOCUMENT_ROOT'].$folderUpload.$excursionId.".".$info['extension']);
 			unlink($_SERVER['DOCUMENT_ROOT'].$pathFilePreview);
 		}
 	}
 
-	public static function imageDeleteAction(): string
+	public static function imageDeleteAction(int $excursionId): void
 	{
-		if ($_POST['imageId']==0)
+		$imageList = ImageService::getImageBindExcusionById(Database::getDatabase(), $excursionId);
+		foreach ($imageList as $image)
 		{
-			unlink($_POST['pathOriginFile']);
-			unlink($_POST['pathPreviewFile']);
+			ImageService::deleteImageById(Database::getDatabase(), $image->getId());
+			unlink($_SERVER['DOCUMENT_ROOT'].$image->getPath());
 		}
-		return "true";
 	}
 }

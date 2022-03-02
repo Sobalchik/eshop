@@ -194,7 +194,15 @@ class ExcursionController
 		ExcursionService::editExcursionById(Database::getDatabase(), $excursion);
 		ExcursionService::deleteProductBelongTags(Database::getDatabase(), $excursion);
 		ExcursionService::createProductBelongTags(Database::getDatabase(), $excursion);
-
+		if ($_POST['imageFileOriginal']=='old')
+		{
+			unlink($_SERVER['DOCUMENT_ROOT'].$_POST['imageFilePreview']);
+		}
+		else
+		{
+			ImageController::imageDeleteAction($excursion->getId());
+			ImageController::setImageBindExcusionAction($_POST['imageFileOriginal'], $_POST['imageFilePreview'], $excursion->getId());
+		}
 		return self::showAdminExcursionList();
 	}
 

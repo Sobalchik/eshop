@@ -47,7 +47,7 @@ class ImageService
 
 	public static function deleteImageById(mysqli $db, int $imageId): void
 	{
-		$query = "DELETE up_product_image WHERE IMAGE_ID={$imageId}";
+		$query = "DELETE FROM up_product_image WHERE IMAGE_ID={$imageId}";
 
 		$result = mysqli_query($db, $query);
 
@@ -56,7 +56,7 @@ class ImageService
 			trigger_error(mysqli_error($db), E_USER_ERROR);
 		}
 
-		$query = "DELETE up_image WHERE ID={$imageId}";
+		$query = "DELETE FROM up_image WHERE ID={$imageId}";
 
 		$result = mysqli_query($db, $query);
 
