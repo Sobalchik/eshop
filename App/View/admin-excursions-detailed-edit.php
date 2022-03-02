@@ -27,6 +27,11 @@ $helper = App\Lib\Helper::getInstance();
 					<p>Обслуживание</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="<?= $excursion->getServiceRating();?>">
 					<input style="display: none" type="text" disabled class="input-me form-control" id="inlineFormInputName" name="Rating" value="<?=$helper::calculationRating($excursion->getInternetRating(),$excursion->getEntertainmentRating(),$excursion->getServiceRating());?>">
+					<div class="form-row">
+						<label>Изображения:</label>
+						<div class="img-list" id="fileImageList"></div>
+						<input id="fileImage" type="file" name="file[]" multiple accept=".jpg,.jpeg,.png,.gif">
+					</div>
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc3">

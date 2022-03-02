@@ -24,9 +24,18 @@ function fileImageUpload()
 	});
 }
 
-function fileImageRemove()
+function fileImageDelete(divId)
 {
-
+	//imageId, pathOriginFile, pathPreviewFile
+	alert("test");
+	$.ajax({
+		url: "/admin/imageDelete",
+		type: "POST",
+		data: {"imageId": imageId, "pathOriginFile": pathOriginFile, "pathPreviewFile": pathPreviewFile},
+		success: function(data) {
+			$('#'+divId).remove();
+		}
+	});
 }
 
 function dateDeleteAjax(dateId, dateName)
