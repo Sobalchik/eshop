@@ -24,6 +24,8 @@ function resetOrderType() {
 	else {
 		console.warn('History API не поддерживается');
 	}
+	$('.form_radio_btn input[type=radio]').prop('checked', false);
+	sort()
 }
 
 var getUrlParameter = function getUrlParameter(sParam) {
