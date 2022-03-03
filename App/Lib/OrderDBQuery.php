@@ -60,7 +60,7 @@ class OrderDBQuery
 		";
 	}
 
-	public static function insertOrderInDBQuery(): string
+	public static function createOrder(): string
 	{
 		return "
 			insert into up_order
@@ -84,9 +84,10 @@ class OrderDBQuery
 			?,
 			?,
 			(
-			select up_date.ID
-			from up_date
-			where up_date.DATE_TRAVEL = ?
+				select 
+				       up_date.ID
+				from up_date
+				where up_date.DATE_TRAVEL = ?
 			),
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP

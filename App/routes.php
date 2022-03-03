@@ -236,3 +236,9 @@ Router::add(
 	"/admin/imageUpload",
 	[ImageController::class, 'imageUploadAction']
 );
+
+Router::add(
+	"POST",
+	"/admin/imageDelete",
+	[ImageController::class, 'imageDeleteAction']
+);

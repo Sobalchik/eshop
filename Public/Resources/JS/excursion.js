@@ -19,14 +19,10 @@ function fileImageUpload()
 		contentType: false,
 		processData: false,
 		success: function(data) {
+			$('#fileImageList').empty();
 			$('#fileImageList').append(data);
 		}
 	});
-}
-
-function fileImageRemove()
-{
-
 }
 
 function dateDeleteAjax(dateId, dateName)

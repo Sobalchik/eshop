@@ -1,3 +1,4 @@
+$(initAllExcursionPage);
 function initAllExcursionPage(){
 	$('#findExcursionsBySearch').bind( 'click', findByName);
 }
@@ -23,8 +24,6 @@ function resetOrderType() {
 	else {
 		console.warn('History API не поддерживается');
 	}
-	$('.form_radio_btn input[type=radio]').prop('checked', false);
-	sort()
 }
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -40,6 +39,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
 	}
 }
 
+
+/*сортировка,
+ где type принимает численное значение,
+ в качестве data возвращается строка*/
 function sort(type){
 
 	var checked = [];
@@ -73,6 +76,7 @@ function findByName(){
 	resetOrderType();
 	searchValue = $('#search').val();
 
+	$('.form_radio_btn input[type=radio]').prop('checked', false);
 
 	$.ajax({
 		url: "http://eshop/allExcursions/found",

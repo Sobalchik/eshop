@@ -96,8 +96,9 @@ class ExcursionController
 	 */
 	public static function showFoundBySearchExcursionsForPublicPageAction(): string
 	{
+		$searchString = filter_var($_POST['search-excursions'], FILTER_SANITIZE_STRING);
 		$excursions = ExcursionService::getExcursionsForPublicPageByName(Database::getDatabase(),
-			$_POST['search-excursions']); // $_POST['search-excursions']) - массив из id найденных экскурсий
+			$searchString); // $_POST['search-excursions']) - массив из id найденных экскурсий
 		if (sizeof($excursions) == 0)
 		{
 			return MessageController::excursionNotFoundAction();
@@ -146,8 +147,9 @@ class ExcursionController
 	{
 		if (UserController::isAuthorized())
 		{
+			$searchString = filter_var($_POST['search-excursions'], FILTER_SANITIZE_STRING);
 			$excursions = ExcursionService::getExcursionsForAdminPageByName(Database::getDatabase(),
-				$_POST['search-excursions']);
+				$searchString);
 			$content = Render::renderContent("admin-excursions-list", ["excursions" => $excursions]);
 			return Render::renderLayout($content, "admin");
 		}
@@ -194,7 +196,15 @@ class ExcursionController
 		ExcursionService::editExcursionById(Database::getDatabase(), $excursion);
 		ExcursionService::deleteProductBelongTags(Database::getDatabase(), $excursion);
 		ExcursionService::createProductBelongTags(Database::getDatabase(), $excursion);
-
+		if ($_POST['imageFileOriginal']=='old')
+		{
+			unlink($_SERVER['DOCUMENT_ROOT'].$_POST['imageFilePreview']);
+		}
+		else
+		{
+			ImageController::imageDeleteAction($excursion->getId());
+			ImageController::setImageBindExcusionAction($_POST['imageFileOriginal'], $_POST['imageFilePreview'], $excursion->getId());
+		}
 		return self::showAdminExcursionList();
 	}
 
@@ -253,6 +263,7 @@ class ExcursionController
 			$excursionId = ExcursionService::createExcursion(Database::getDatabase(), $excursion);
 			$excursion->setId($excursionId);
 			ExcursionService::createProductBelongTags(Database::getDatabase(), $excursion);
+			ImageController::setImageBindExcusionAction($_POST['imageFileOriginal'], $_POST['imageFilePreview'], $excursion->getId());
 			return self::showAdminExcursionList();
 		}
 		else

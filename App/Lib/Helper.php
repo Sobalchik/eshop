@@ -152,17 +152,19 @@ class Helper
 
 	public static function createPreaviewImage(string $src, string $thumb): string
 	{
-		$info = getimagesize($src);
+		$srcNew = $_SERVER['DOCUMENT_ROOT'].$src;
+		$thumbNew = $_SERVER['DOCUMENT_ROOT'].$thumb;
+		$info = getimagesize($srcNew);
 		switch ($info[2]) {
 			case 1:
-				$im = imageCreateFromGif($src);
+				$im = imageCreateFromGif($srcNew);
 				imageSaveAlpha($im, true);
 				break;
 			case 2:
-				$im = imageCreateFromJpeg($src);
+				$im = imageCreateFromJpeg($srcNew);
 				break;
 			case 3:
-				$im = imageCreateFromPng($src);
+				$im = imageCreateFromPng($srcNew);
 				imageSaveAlpha($im, true);
 				break;
 		}
@@ -187,9 +189,9 @@ class Helper
 		}
 		imageCopyResampled($new_im, $im, $xy[0], $xy[1], 0, 0, $xy[2], $xy[3], $width, $height);
 		switch ($info[2]) {
-			case 1: imageGif($new_im, $thumb); break;
-			case 2: imageJpeg($new_im, $thumb, 100); break;
-			case 3: imagePng($new_im, $thumb); break;
+			case 1: imageGif($new_im, $thumbNew); break;
+			case 2: imageJpeg($new_im, $thumbNew, 100); break;
+			case 3: imagePng($new_im, $thumbNew); break;
 		}
 		imagedestroy($im);
 		imagedestroy($new_im);

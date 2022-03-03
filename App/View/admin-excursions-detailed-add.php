@@ -14,6 +14,8 @@
 					<input style="display: none " type="text" class="input-me form-control" id="inlineFormInputName" name="id" value="">
 					<p>Страна</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="country" value="">
+					<p>Название города</p>
+					<input type="text" class="input-me form-control" id="inlineFormInputName" name="city" value="">
 					<p>Температура</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="degrees" value="">
 					<p>Цена</p>
@@ -27,37 +29,34 @@
 					<p>Обслуживание</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="sRating" value="">
 				</div>
-			</div>
-			<div class="admin-excursions-detaild-bloc2">
-				<h1>Общие данные</h1>
 				<div>
-					<p>Название города</p>
-					<input type="text" class="input-me form-control" id="inlineFormInputName" name="city" value="">
 					<div class="form-row">
 						<label>Изображения:</label>
 						<div class="img-list" id="fileImageList"></div>
-						<input id="fileImage" type="file" name="file[]" multiple accept=".jpg,.jpeg,.png,.gif">
+						<input id="fileImage" type="file" name="file[]" accept=".jpg,.jpeg,.png,.gif">
 					</div>
 				</div>
 			</div>
 			<div class="admin-excursions-detaild-bloc3">
 				<h1>Детальная страница</h1>
-				<div>
+				<div style="display: flex; align-items: center;justify-content: center;flex-direction: column;">
 					<p>Теги</p>
+					<div style="display: flex;  flex-wrap: wrap; align-items: center;justify-content: center;">
 					<?php foreach ($typeTags as $typeTag):?>
-					<p><select size="3" multiple  name="select_typeTag_<?=$typeTag->getId()?>[]">
+					<p><select style="width: 250px;height: 100px;margin: 5px;" class="input-me form-control" size="3" multiple  name="select_typeTag_<?=$typeTag->getId()?>[]">
 						<option disabled><?=$typeTag->getName()?></option>
 						<?php foreach ($typeTag->getTagsBelong() as $tagsBelong): ?>
 							<option value="<?=$tagsBelong->getId()?>"><?=$tagsBelong->getName()?></option>
 						<?endforeach;?>
 					</select></p>
 					<?endforeach;?>
+					</div>
 					<p>Время</p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="duration" value="">
 					<p>Размер группы </p>
 					<input type="text" class="input-me form-control" id="inlineFormInputName" name="person" value="">
 					<p>Описание экскурсии</p>
-					<textarea class="form-control" id="exampleFormControlTextarea1" name = 'description'></textarea>
+					<textarea style="width: 400px;height: 130px;" class="form-control" id="exampleFormControlTextarea1" name = 'description'></textarea>
 				</div>
 			</div>
 		</div>
