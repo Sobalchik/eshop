@@ -19,8 +19,8 @@ function fileImageUpload()
 		contentType: false,
 		processData: false,
 		success: function(data) {
-			$('#fileImageList').empty();
-			$('#fileImageList').append(data);
+				$('#fileImageList').empty();
+				$('#fileImageList').append(data);
 		}
 	});
 }

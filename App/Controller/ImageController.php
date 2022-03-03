@@ -26,11 +26,19 @@ class ImageController
 		$data = '';
 		for ($i=0;$i<count($_FILES['file']['tmp_name']);$i++)
 		{
-			move_uploaded_file($_FILES['file']['tmp_name'][$i], $_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]);
-			$info = pathinfo($_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]);
-			$thumb = Helper::createPreaviewImage($tmpFolder.$_FILES['file']['name'][$i],$tmpFolder.$info['filename']."-thumb.".$info['extension']);
-			$data .= "<div class='img-item' id='imageFile_".$info['filename']."'><img src='".$tmpFolder.$info['filename']."-thumb.".$info['extension']."'>";
-			$data .= "<input name='imageFileOriginal' type='hidden' value='".$_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]."'> <input name='imageFilePreview' type='hidden' value='".$_SERVER['DOCUMENT_ROOT'].$tmpFolder.$info['filename']."-thumb.".$info['extension']."'></div>";
+			$validateFile = Helper::validateFileUpload($_FILES['file']['tmp_name'][$i], $_FILES['file']['name'][$i]);
+			if ($validateFile!=true)
+			{
+				return $data = "Неверный формат картинки";
+			}
+			else
+			{
+				move_uploaded_file($_FILES['file']['tmp_name'][$i], $_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]);
+				$info = pathinfo($_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]);
+				$thumb = Helper::createPreaviewImage($tmpFolder.$_FILES['file']['name'][$i],$tmpFolder.$info['filename']."-thumb.".$info['extension']);
+				$data .= "<div class='img-item' id='imageFile_".$info['filename']."'><img src='".$tmpFolder.$info['filename']."-thumb.".$info['extension']."'>";
+				$data .= "<input name='imageFileOriginal' type='hidden' value='".$_SERVER['DOCUMENT_ROOT'].$tmpFolder.$_FILES['file']['name'][$i]."'> <input name='imageFilePreview' type='hidden' value='".$_SERVER['DOCUMENT_ROOT'].$tmpFolder.$info['filename']."-thumb.".$info['extension']."'></div>";
+			}
 		}
 		return $data;
 	}

@@ -150,6 +150,21 @@ class Helper
 		return round(($internetRating+$entertainmentRating+$serviceRating)/3, 1, PHP_ROUND_HALF_EVEN);
 	}
 
+	public static function validateFileUpload($tmpName, $fileName): bool
+	{
+		$infoFile = pathinfo($fileName);
+		$mimeType = mime_content_type($tmpName);
+		if (($mimeType!="image/jpeg")||($mimeType!="image/jpg"))
+		{
+			if (($infoFile['extension']==="jpg")||($infoFile['extension']==="jpeg"))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static function createPreaviewImage(string $src, string $thumb): string
 	{
 		$srcNew = $_SERVER['DOCUMENT_ROOT'].$src;
