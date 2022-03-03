@@ -15,13 +15,19 @@ class OrderController
 {
 	public static function createOrder(): string
 	{
-		//session_start();
+		session_start();
 		$validateData = Helper::validateFields($_POST);
-		//if (isset($_SESSION['csrf_token']) && $_SESSION['csrf_token'] === $validateData['csrf_token'])
-		//{
-		OrderService::createOrder(Database::getDatabase(), $validateData);
-		//}
-
+		if (isset($_SESSION['csrf_token']) && $_SESSION['csrf_token'] === $validateData['csrf_token'])
+		{
+			OrderService::createOrder(Database::getDatabase(), $validateData);
+			$excursions = ExcursionService::getTopExcursions(Database::getDatabase());
+			return Render::render("content-top-excursions", "layout", ['excursions' => $excursions]);
+		}
+		else
+		{
+			$excursion = ExcursionService::getExcursionById(Database::getDatabase(), $validateData['product_id']);
+			return Render::render("content-more-excursion", "layout", ['excursion' => $excursion]);
+		}
 	}
 
 	public static function showAdminOrders(): string

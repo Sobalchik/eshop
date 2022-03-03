@@ -66,9 +66,9 @@ $helper=App\Lib\Helper::getInstance();
 					<button class="close-detailed-page" id="pil2">X</button>
 				</div>
 				<div class="detailed-page-bloc-pop-up-cont">
-					<form method="post">
+					<form action="/createOrder" method="post">
 						<input class="form-application-input" style="display: none" type="hidden" name="product_id" value="<?=$excursion->getId()?>">
-						<input id="status_id" class="form-application-input" style="display: none" type="hidden" name="status_id" value="1">
+						<input class="form-application-input" style="display: none" type="hidden" name="status_id" value="1">
 						<input class="form-application-input" style="display: none" type="hidden" name="csrf_token" value="<?=$helper::generateFormCsrfToken()?>">
 						<p class="form-application-text">Выберите дату экскурсии</p>
 						<select class="form-application-input" name="dateTravel">
@@ -81,15 +81,15 @@ $helper=App\Lib\Helper::getInstance();
 							<?endforeach;?>
 						</select>
 						<p class="form-application-text">Укажите ваше имя</p>
-						<input id="name" class="form-application-input" type="text" name="name" autocomplete="off" required="required" placeholder="     Имя...">
+						<input class="form-application-input" type="text" name="name" autocomplete="off" required="required" placeholder="     Имя...">
 						<p class="form-application-text">Укажите ваш телефон</p>
-						<input id="tel" class="form-application-input" type="tel" name="telephone" autocomplete="off"  pattern="\+7[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}" required placeholder="     +79118550378">
+						<input class="form-application-input" type="tel" name="telephone" autocomplete="off"  pattern="\+7[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}" required placeholder="     +79118550378">
 						<p class="form-application-text">Укажите ваш email</p>
-						<input id="email" class="form-application-input" type="text" name="email" autocomplete="off" placeholder="     Email...">
+						<input class="form-application-input" type="text" name="email" autocomplete="off" placeholder="     Email...">
 						<p class="form-application-text">Укажите ваш комментарий</p>
-						<input id="text" class="form-application-input" type="text" name="comment" autocomplete="off" required="required" placeholder="     Комментарий...">
-						<div style="text-align: center; padding-top: 20px">
-							<input onclick="order()" class="form-application-input-submit" type="submit" value="Отправить" id="pay-12">
+						<input class="form-application-input" type="text" name="comment" autocomplete="off" required="required" placeholder="     Комментарий...">
+						<div style="text-align: center; padding-top: 40px">
+							<input  class="form-application-input-submit" type="submit" value="Отправить" id="pay-12">
 						</div>
 					</form>
 				</div>
